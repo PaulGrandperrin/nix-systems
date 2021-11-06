@@ -88,6 +88,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     vim
+    neovim
     wget
     htop ncdu tmux
     topgrade
