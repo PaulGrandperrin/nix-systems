@@ -2,16 +2,25 @@
 
 {
 
-  #programs.neovim = { 
-  #  enable = true;
-  #  viAlias = true;
-  #  vimAlias = true;
-  #  defaultEditor = true;
-  #};
-  
-  programs.vim.defaultEditor = true;
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+    viAlias = true;
+    vimAlias = true;
+    configure = {
+      #customRC = builtins.readFile ./config/init.vim;
+      packages.nix = with pkgs.vimPlugins; {
+        start = [
+          vim-surround # Shortcuts for setting () {} etc.
+          vim-nix # nix highlight
+          neovim-fuzzy # fuzzy finder through vim
+          vim-lastplace # restore cursor position
+        ];
+        opt = [];
+      };
+    };
+  };
 
-  #environment.variables.EDITOR="vim";
   hardware.cpu.intel.updateMicrocode = true;
   services.fstrim.enable = true;
   boot.kernelParams = [ "panic=20" "boot.panic_on_fail" "oops=panic"];
@@ -87,8 +96,6 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    vim
-    neovim
     wget
     htop ncdu tmux
     topgrade
