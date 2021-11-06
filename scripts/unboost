@@ -5,8 +5,8 @@ ZONE=us-central1-a
 NAME=nixos-boost
 VM=freetier
 
-zpool remove nixos /dev/disk/by-id/google-$NAME-part1
-zpool remove nixos /dev/disk/by-id/google-$NAME-part3
+zpool remove nixos scsi-0Google_PersistentDisk_$NAME-part1
+zpool remove nixos scsi-0Google_PersistentDisk_$NAME-part3
 
 echo N > /sys/module/zswap/parameters/enabled
 swapoff /dev/disk/by-id/google-$NAME-part2
