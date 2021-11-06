@@ -1,0 +1,17 @@
+#!/usr/bin/env nix-shell
+#! nix-shell -i bash -p google-cloud-sdk
+
+set -xe
+
+ZONE=us-central1-a
+VM=freetier
+
+gcloud compute instances stop $VM --zone $ZONE
+gcloud compute instances set-machine-type $VM --machine-type e2-standard-2 --zone $ZONE
+gcloud compute instances start $VM --zone $ZONE
+
+gcloud compute ssh $VM --zone $ZONE
+
+gcloud compute instances stop $VM --zone $ZONE
+gcloud compute instances set-machine-type $VM --machine-type e2-micro --zone $ZONE
+gcloud compute instances start $VM --zone $ZONE
