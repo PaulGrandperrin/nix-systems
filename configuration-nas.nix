@@ -6,6 +6,7 @@
       #<nixpkgs/nixos/modules/profiles/hardened.nix>
       ./common.nix
       ./containers/louis.nix
+      ./bridged_net.nix
     ];
 
   networking.hostId="51079489";
@@ -14,16 +15,10 @@
   
   networking.hostName = "nixos-nas";
 
- 
-  networking.interfaces.enp3s0.useDHCP = true;
-  
-  networking.bridges.br0.interfaces = [];
-  networking.interfaces.br0.ipv4.addresses = [{ address = "10.0.0.1"; prefixLength = 24; }];
-  #boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
-
-  networking.nat.enable = true;
-  networking.nat.internalInterfaces = [ "br0" ];
-  networking.nat.externalInterface = "enp3s0";
+  services.bridged_net = {
+    enable = true;
+    mainInt = "enp3s0";
+  }; 
 
 }
 
