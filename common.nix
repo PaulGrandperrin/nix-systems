@@ -40,7 +40,6 @@
   #};
   
   services.zfs.trim.enable = true;
-  networking.hostId="51079489";
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -92,6 +91,7 @@
     wget
     htop ncdu tmux
     topgrade
+    git
   ];
 
   # List services that you want to enable:
@@ -105,11 +105,11 @@
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
-  services.resolved.enable = true;
+  #services.resolved.enable = true;
 
-  networking.useNetworkd = true;
-  networking.useDHCP = false;
+  #networking.useNetworkd = true;
+  #networking.useDHCP = false;
 
-  systemd.targets.machines.enable = true;
+  #systemd.targets.machines.enable = true;
 }
 

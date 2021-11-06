@@ -13,6 +13,13 @@
   
   networking.hostName = "nixos-nas";
 
+  services.resolved.enable = true;
+ 
+  networking.useNetworkd = true;
+  networking.useDHCP = false;
+ 
+  systemd.targets.machines.enable = true;
+
   networking.interfaces.enp3s0.useDHCP = true;
   
   networking.bridges.br0.interfaces = [];
