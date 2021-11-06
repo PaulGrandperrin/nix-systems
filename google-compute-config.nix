@@ -7,8 +7,6 @@ in
   imports = [
     #../profiles/headless.nix
     #../profiles/qemu-guest.nix
-    (modulesPath + "/profiles/headless.nix")
-    (modulesPath + "/profiles/qemu-guest.nix")
   ];
 
 

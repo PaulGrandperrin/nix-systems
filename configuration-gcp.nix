@@ -2,7 +2,6 @@
 {
   imports =
     [
-      (modulesPath + "/profiles/headless.nix")
       ./google-compute-config.nix 
       ./hardware-configuration.nix
       ./common.nix
