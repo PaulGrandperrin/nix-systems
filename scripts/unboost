@@ -1,0 +1,15 @@
+#!/bin/sh
+set -xe
+
+ZONE=us-central1-a
+NAME=nixos-boost
+VM=freetier
+
+zpool remove nixos /dev/disk/by-id/google-$NAME-part1
+zpool remove nixos /dev/disk/by-id/google-$NAME-part3
+
+swapoff /dev/disk/by-id/google-$NAME-part2
+
+gcloud compute instances detach-disk $VM --disk $NAME --zone $ZONE
+gcloud compute disks delete $NAME --zone $ZONE --quiet
+

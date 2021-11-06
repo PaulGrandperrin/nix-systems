@@ -1,0 +1,22 @@
+#!/bin/sh
+set -xe
+
+ZONE=us-central1-a
+NAME=nixos-boost
+VM=freetier
+
+gcloud compute disks create $NAME --size 10G --type pd-ssd --zone $ZONE
+gcloud compute instances attach-disk $VM --disk $NAME --device-name $NAME --zone $ZONE
+
+parted /dev/disk/by-id/google-$NAME -- mklabel gpt
+parted /dev/disk/by-id/google-$NAME -- mkpart primary 1MiB 1GiB
+parted /dev/disk/by-id/google-$NAME -- mkpart primary 1GiB 3GiB
+parted /dev/disk/by-id/google-$NAME -- mkpart primary 3GiB 100%
+
+sleep 1
+
+mkswap /dev/disk/by-id/google-$NAME-part2
+swapon /dev/disk/by-id/google-$NAME-part2
+
+zpool add nixos log /dev/disk/by-id/google-$NAME-part1
+zpool add nixos cache /dev/disk/by-id/google-$NAME-part3
