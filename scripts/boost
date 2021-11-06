@@ -16,7 +16,8 @@ parted /dev/disk/by-id/google-$NAME -- mkpart primary 3GiB 100%
 sleep 1
 
 mkswap /dev/disk/by-id/google-$NAME-part2
-swapon /dev/disk/by-id/google-$NAME-part2
+swapon --discard --priority 10 /dev/disk/by-id/google-$NAME-part2
+echo Y > /sys/module/zswap/parameters/enabled
 
 zpool add nixos log /dev/disk/by-id/google-$NAME-part1
 zpool add nixos cache /dev/disk/by-id/google-$NAME-part3

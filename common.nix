@@ -95,6 +95,14 @@
     git
   ];
 
+  zramSwap = {
+    enable = true;
+    algorithm = "lz4";
+    priority = 5;
+    memoryPercent = 200;
+  };
+  
+
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
