@@ -8,6 +8,9 @@
     ];
 
   networking.hostId = "1c734661"; # for ZFS
+  networking.hostName = "nixos-gcp";
+  networking.interfaces.eth0.useDHCP = true;
+  
 
   system.stateVersion = "21.05"; # Did you read the comment?
 }

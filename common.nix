@@ -99,6 +99,7 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
+  services.openssh.passwordAuthentication = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -106,11 +107,10 @@
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
-  #services.resolved.enable = true;
+  systemd.targets.machines.enable = true;
+  networking.useNetworkd = true;
+  services.resolved.enable = true;
+  networking.useDHCP = false;
 
-  #networking.useNetworkd = true;
-  #networking.useDHCP = false;
-
-  #systemd.targets.machines.enable = true;
 }
 
