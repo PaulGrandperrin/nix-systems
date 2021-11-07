@@ -107,6 +107,7 @@
     topgrade
     git
     bridge-utils
+    ripgrep
   ];
 
   zramSwap = {

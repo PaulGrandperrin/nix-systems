@@ -34,7 +34,7 @@
       #systemd.network.networks.eth0.name = "eth0";
       #security.acme.server = "https://acme-staging-v02.api.letsencrypt.org/directory";
       security.acme.acceptTerms = true;
-      security.acme.certs."louis.paulg.fr".email = "paul.grandperrin@gmail.com";
+      security.acme.certs."louis.grandperrin.fr".email = "paul.grandperrin@gmail.com";
     
     
       #mail
@@ -50,15 +50,15 @@
       };
     
       ## test wordpress
-      #services.httpd.adminAddr = "root@paulg.fr";
-      #services.wordpress."louis.paulg.fr" = {
+      #services.httpd.adminAddr = "paul.grandperrin@gmail.com";
+      #services.wordpress."louis.grandperrin.fr" = {
       #  themes = [responsiveTheme];
       #  virtualHost = {
       #    forceSSL = true;
       #    enableACME = true;
       #  }; 
       #};
-      #services.wordpress."louis.paulg.fr".package = pkgs.unstable.wordpress;
+      #services.wordpress."louis.grandperrin.fr".package = pkgs.unstable.wordpress;
     
       services.nginx = {
         enable = true;
@@ -89,7 +89,7 @@
           add_header Strict-Transport-Security $hsts_header;
     
           # Enable CSP for your services.
-          add_header Content-Security-Policy "default-src self https://louis.paulg.fr; script-src self https://louis.paulg.fr 'unsafe-inline' 'unsafe-eval'; style-src self https: 'unsafe-inline'; img-src data: https:; font-src data: https:;" always;
+          add_header Content-Security-Policy "default-src self https://louis.grandperrin.fr; script-src self https://louis.grandperrin.fr 'unsafe-inline' 'unsafe-eval'; style-src self https: 'unsafe-inline'; img-src data: https:; font-src data: https:;" always;
     
           # Minimize information leaked to other domains
           add_header 'Referrer-Policy' 'strict-origin-when-cross-origin' always;
@@ -120,7 +120,7 @@
         '';
     
         clientMaxBodySize = "100m";
-        virtualHosts."louis.paulg.fr" = {
+        virtualHosts."louis.grandperrin.fr" = {
           enableACME = true;
           forceSSL = true;
           listen = [
@@ -134,7 +134,7 @@
               "port" = 80;
             }
           ];
-          root = "/var/www/louis.paulg.fr";
+          root = "/var/www/louis.grandperrin.fr";
           locations."/" = {
             tryFiles = "$uri $uri/ /index.php?$args";
             index = "index.php";
