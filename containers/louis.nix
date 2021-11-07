@@ -1,10 +1,10 @@
 { config, pkgs, ... }:
 {
+  networking.firewall.trustedInterfaces =  [ "ve-louis" ];
   containers.louis = {
     autoStart = true;
-    extraFlags = [ "-U" "--no-new-privileges=true" ];
     privateNetwork = true;
-    hostBridge = "br0";
+    extraFlags = [ "-U" "--no-new-privileges=true" "--network-veth"];
     forwardPorts = [
       {
         containerPort = 80;
@@ -25,8 +25,8 @@
     #};
     config = { config, pkgs, ... }: {
       services.resolved.enable = true;
-      networking.useNetworkd = true;
       networking.useDHCP = false;
+      networking.useNetworkd = true;
       networking.useHostResolvConf = false; # must be explicitly disabled because in conflict with resolved
       networking.firewall.allowedTCPPorts = [ 80 443 ];
       systemd.network.networks.eth0.gateway = ["10.0.0.1"];

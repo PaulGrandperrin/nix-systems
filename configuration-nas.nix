@@ -6,6 +6,7 @@
       #<nixpkgs/nixos/modules/profiles/hardened.nix>
       ./common.nix
       ./nspawns/debian.nix
+      #./containers/louis.nix
       ./net.nix
     ];
 
@@ -15,7 +16,7 @@
   
   networking.hostName = "nixos-nas";
 
-  services.bridged_net = {
+  services.net = {
     enable = true;
     mainInt = "enp3s0";
   }; 
