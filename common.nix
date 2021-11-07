@@ -142,11 +142,13 @@
     networkConfig = {
       "Address" = "0.0.0.0/28";
       "LinkLocalAddressing" = "no"; # link-local addresses clash with GCP's
-      "DNS" = "8.8.8.8 8.8.4.4"; # don't use GCP's link-local DNS
       "DHCPServer" = "yes";
       "IPMasquerade" = "yes";
       "LLDP" = "yes";
       "EmitLLDP" = "customer-bridge";
+    };
+    dhcpServerConfig = {
+      "DNS" = "8.8.8.8 8.8.4.4"; # don't use GCP's link-local DNS
     };
   };
 }
