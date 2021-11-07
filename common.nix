@@ -134,5 +134,20 @@
   services.resolved.enable = true;
   networking.useDHCP = false;
 
+  systemd.network.networks."10-container-ve" = { # same as original except 2 lines related to link-local address clashs
+    matchConfig = {
+      "Name" = "ve-*";
+      "Driver" = "veth";
+    };
+    networkConfig = {
+      "Address" = "0.0.0.0/28";
+      "LinkLocalAddressing" = "no"; # link-local addresses clash with GCP's
+      "DNS" = "8.8.8.8 8.8.4.4"; # don't use GCP's link-local DNS
+      "DHCPServer" = "yes";
+      "IPMasquerade" = "yes";
+      "LLDP" = "yes";
+      "EmitLLDP" = "customer-bridge";
+    };
+  };
 }
 
