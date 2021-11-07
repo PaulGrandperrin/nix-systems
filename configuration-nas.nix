@@ -5,8 +5,8 @@
       ./hardware-configuration.nix
       #<nixpkgs/nixos/modules/profiles/hardened.nix>
       ./common.nix
-      ./containers/louis.nix
-      ./bridged_net.nix
+      ./nspawns/debian.nix
+      ./net.nix
     ];
 
   networking.hostId="51079489";

@@ -106,6 +106,7 @@
     htop ncdu tmux
     topgrade
     git
+    bridge-utils
   ];
 
   zramSwap = {
