@@ -19,5 +19,5 @@ mkswap /dev/disk/by-id/google-$NAME-part2
 swapon --discard --priority 10 /dev/disk/by-id/google-$NAME-part2
 echo Y > /sys/module/zswap/parameters/enabled
 
-zpool add nixos log /dev/disk/by-id/google-$NAME-part1
-zpool add nixos cache /dev/disk/by-id/google-$NAME-part3
+zpool add nixos log /dev/disk/by-id/scsi-0Google_PersistentDisk_$NAME-part1
+zpool add nixos cache /dev/disk/by-id/scsi-0Google_PersistentDisk_$NAME-part3
