@@ -89,7 +89,7 @@
           add_header Strict-Transport-Security $hsts_header;
     
           # Enable CSP for your services.
-          add_header Content-Security-Policy "default-src self https://louis.grandperrin.fr; script-src self https://louis.grandperrin.fr 'unsafe-inline' 'unsafe-eval'; style-src self https: 'unsafe-inline'; img-src data: https:; font-src data: https:;" always;
+          add_header Content-Security-Policy "default-src 'none'; connect-src 'self'; font-src 'self' data: https://*.wp.com https://fonts.gstatic.com; form-action 'self'; frame-src 'self' https://louis.grandperrin.fr https://*.wp.com https://wp-themes.com https://www.youtube.com; img-src 'self' data: https://*.wp.com https://*.w.org https://secure.gravatar.com; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://*.wp.com; style-src 'self' 'unsafe-inline' https://code.jquery.com https://fonts.googleapis.com https://*.wp.com;" always;
     
           # Minimize information leaked to other domains
           add_header 'Referrer-Policy' 'strict-origin-when-cross-origin' always;
