@@ -35,6 +35,7 @@
       #security.acme.server = "https://acme-staging-v02.api.letsencrypt.org/directory";
       security.acme.acceptTerms = true;
       security.acme.certs."louis.grandperrin.fr".email = "paul.grandperrin@gmail.com";
+      security.acme.certs."paulg.fr".email = "paul.grandperrin@gmail.com";
     
     
       #mail
@@ -120,20 +121,18 @@
         '';
     
         clientMaxBodySize = "100m";
+        virtualHosts."paulg.fr" = {
+          enableACME = true;
+          forceSSL = true;
+          default = true;
+          root = "/var/www/paulg.fr";
+          locations."/" = {
+            index = "index.html";
+          };
+         };
         virtualHosts."louis.grandperrin.fr" = {
           enableACME = true;
           forceSSL = true;
-          listen = [
-            {
-              "addr" = "0.0.0.0";
-              "port" = 443;
-              "ssl" = true;
-            }
-            {
-              "addr" = "0.0.0.0";
-              "port" = 80;
-            }
-          ];
           root = "/var/www/louis.grandperrin.fr";
           locations."/" = {
             tryFiles = "$uri $uri/ /index.php?$args";
