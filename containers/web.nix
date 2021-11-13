@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 {
-  networking.firewall.trustedInterfaces =  [ "ve-louis" ];
-  containers.louis = {
+  networking.firewall.trustedInterfaces =  [ "ve-web" ];
+  containers.web = {
     autoStart = true;
     privateNetwork = true;
     extraFlags = [ "-U" "--no-new-privileges=true" "--network-veth"];

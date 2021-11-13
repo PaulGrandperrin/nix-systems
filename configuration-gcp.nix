@@ -5,7 +5,7 @@
       ./google-compute-config.nix 
       ./hardware-configuration.nix
       ./common.nix
-      ./containers/louis.nix
+      ./containers/web.nix
     ];
 
   networking.hostId = "1c734661"; # for ZFS
