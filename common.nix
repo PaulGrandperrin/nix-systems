@@ -25,6 +25,7 @@
   # TODO: noexec mounts, tmpfs...
   environment.defaultPackages = lib.mkForce [];
   security.sudo.execWheelOnly = true;
+  nix.allowedUsers = [ "@wheel" ];
 
 
   hardware.cpu.intel.updateMicrocode = true;
