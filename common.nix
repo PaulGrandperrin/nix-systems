@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
 
@@ -20,6 +20,12 @@
       };
     };
   };
+
+  # Hardening
+  # TODO: noexec mounts, tmpfs...
+  environment.defaultPackages = lib.mkForce [];
+  security.sudo.execWheelOnly = true;
+
 
   hardware.cpu.intel.updateMicrocode = true;
   services.fstrim.enable = true;
@@ -97,6 +103,8 @@
     createHome = true;
     home = "/home/paulg";
   };
+  # automatically allows my Github's keys
+  users.users.paulg.openssh.authorizedKeys.keyFiles = [ ((builtins.fetchurl "https://github.com/PaulGrandperrin.keys")) ];
 
 
   # List packages installed in system profile. To search, run:
@@ -121,8 +129,10 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-  services.openssh.passwordAuthentication = true;
+  services.openssh = {
+    enable = true;
+    passwordAuthentication = true;
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
