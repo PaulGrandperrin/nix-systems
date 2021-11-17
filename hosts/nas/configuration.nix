@@ -2,7 +2,7 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      ../../hardware-configuration.nix
+      ./hardware-configuration.nix
       #<nixpkgs/nixos/modules/profiles/hardened.nix>
       ../../common.nix
       ../../nspawns/debian.nix

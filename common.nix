@@ -27,12 +27,21 @@
   security.sudo.execWheelOnly = true;
   nix.allowedUsers = [ "@wheel" ];
 
+  # Flakes
+  nix = {
+    package = pkgs.nixFlakes;
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+   };
 
   hardware.cpu.intel.updateMicrocode = true;
   services.fstrim.enable = true;
   boot.kernelParams = [ "panic=20" "boot.panic_on_fail" "oops=panic"];
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  #boot.kernelPackages = pkgs.linuxPackages_latest; # brakes ZFS sometimes
+  
   ## way too long to build
   #boot.kernelPatches = [{
   #  name = "custom";
@@ -105,7 +114,15 @@
     home = "/home/paulg";
   };
   # automatically allows my Github's keys
-  users.users.paulg.openssh.authorizedKeys.keyFiles = [ ((builtins.fetchurl "https://github.com/PaulGrandperrin.keys")) ];
+  #users.users.paulg.openssh.authorizedKeys.keyFiles = [ ((builtins.fetchurl "https://github.com/PaulGrandperrin.keys")) ];
+  users.users.paulg.openssh.authorizedKeys.keys = [ 
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP+tckVW3zh58Cr246EuceDY/HdgoJrmSnYTNEv0Y3HW"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJVW/7zXgQwIAk46daSBfP5ti7zpADrs1p//f5IyRHJH"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMdJ9evK0Ay1KFOBG+EZC7xPOb8udcltjg8rTFpHimz5"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOjsf+KqGyIAhHxL54740gfH+qQxQl7K1liLsvaGvlHK"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICSJQGYQs+KJX+V/X3KxhyQgahE0g+ITF2jr1wUY1s/3"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIChG+jbZaRNcbsQTyu6Dd9SaiaCSyR586FY5N1mHSRvE"
+  ];
 
 
   # List packages installed in system profile. To search, run:
@@ -117,6 +134,18 @@
     git
     bridge-utils
     ripgrep
+
+    gnumake
+    clang_12
+    emscripten
+    (rust-bin.selectLatestNightlyWith (toolchain: toolchain.default.override {
+      #extensions = [ "rust-src" ];
+      targets = [ "wasm32-unknown-emscripten" "wasm32-unknown-unknown"];
+    }))
+    #(input.nixpkgs.rust-bin.stable.latest.default.override {
+    #  #extensions = ["rust-src"];
+    #  #targets = ["wasm32-unknown-emscripten"];
+    #})
   ];
 
   zramSwap = {
