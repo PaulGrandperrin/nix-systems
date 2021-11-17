@@ -3,7 +3,7 @@
   imports =
     [
       ../../google-compute-config.nix 
-      ../../hardware-configuration.nix
+      ./hardware-configuration.nix
       ../../common.nix
       ../../containers/web.nix
     ];
