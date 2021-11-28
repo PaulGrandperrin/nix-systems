@@ -55,8 +55,10 @@
   #}];
 
   system.autoUpgrade.enable = true;
-  system.autoUpgrade.flake = "git@github.com:PaulGrandperrin/nixos-conf.git";
-  system.autoUpgrade.flags = [ "--update-input" "nixpkgs" "--commit-lock-file" ];
+  #system.autoUpgrade.flake = "git+ssh://git@github.com/PaulGrandperrin/nixos-conf?ref=main";
+  system.autoUpgrade.flake = "git+file:///etc/nixos/";
+  #system.autoUpgrade.flags = [ "--update-input" "nixpkgs" "--commit-lock-file" ];
+  system.autoUpgrade.flags = [ "--update-input" "nixpkgs" "--update-input" "flake-utils" "--update-input" "rust-overlay" "--no-write-lock-file" ];
   system.autoUpgrade.allowReboot = true;
 
   #nixpkgs.config = {
