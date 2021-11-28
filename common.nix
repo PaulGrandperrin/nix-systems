@@ -55,6 +55,8 @@
   #}];
 
   system.autoUpgrade.enable = true;
+  system.autoUpgrade.flake = "git@github.com:PaulGrandperrin/nixos-conf.git";
+  system.autoUpgrade.flags = [ "--update-input" "nixpkgs" "--commit-lock-file" ];
   system.autoUpgrade.allowReboot = true;
 
   #nixpkgs.config = {
