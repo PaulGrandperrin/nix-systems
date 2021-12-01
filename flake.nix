@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.05"; # defined by default in the registry, overrides it
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.11"; # defined by default in the registry, overrides it
 
     flake-utils = {
       url = "github:numtide/flake-utils";
