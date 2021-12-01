@@ -40,6 +40,17 @@
           })
         ];
       };
+
+      nixos-xps = inputs.nixpkgs.lib.nixosSystem { # not defined in the lib... but in Nixpkgs/flake.nix !
+        # inherit specialArgs; # many people write that, no idea why
+        system = "x86_64-linux"; # maybe related to legacyPackages?
+        modules = [ 
+          ./hosts/xps/configuration.nix
+          ({ pkgs, ... }: { # pkgs is in fact inputs.nixpkgs I guess, somehow, but no idea how the magic is done
+              nixpkgs.overlays = [ inputs.rust-overlay.overlay ];
+          })
+        ];
+      };
     };
   };
 }
