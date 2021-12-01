@@ -11,6 +11,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
+
+    home-manager = {
+      url = "github:nix-community/home-manager/release-21.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   #specialArgs = { inherit inputs; }; # many people write that, no idea why
@@ -49,6 +54,12 @@
           ({ pkgs, ... }: { # pkgs is in fact inputs.nixpkgs I guess, somehow, but no idea how the magic is done
               nixpkgs.overlays = [ inputs.rust-overlay.overlay ];
           })
+          inputs.home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.paulg = import ./users/paulg/home.nix;
+          }
         ];
       };
     };
