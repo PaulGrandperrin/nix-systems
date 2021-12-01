@@ -41,8 +41,7 @@
 
 
   #boot.kernelPackages = pkgs.linuxPackages_latest; # brakes ZFS sometimes
-  # for nixos-unstable
-  #boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackges;
+  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
   
   ## way too long to build
   #boot.kernelPatches = [{
