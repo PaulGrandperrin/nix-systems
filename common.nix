@@ -133,24 +133,6 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    wget
-    htop ncdu tmux
-    topgrade
-    git
-    bridge-utils
-    ripgrep
-
-    gnumake
-    clang_12
-    emscripten
-    (rust-bin.selectLatestNightlyWith (toolchain: toolchain.default.override {
-      #extensions = [ "rust-src" ];
-      targets = [ "wasm32-unknown-emscripten" "wasm32-unknown-unknown"];
-    }))
-    #(input.nixpkgs.rust-bin.stable.latest.default.override {
-    #  #extensions = ["rust-src"];
-    #  #targets = ["wasm32-unknown-emscripten"];
-    #})
   ];
 
   zramSwap = {

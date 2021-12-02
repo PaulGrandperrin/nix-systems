@@ -35,6 +35,13 @@
           ({ pkgs, ... }: { # pkgs is in fact inputs.nixpkgs I guess, somehow, but no idea how the magic is done
               nixpkgs.overlays = [ inputs.rust-overlay.overlay ];
           })
+          inputs.home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.root  = { imports = [./users/home.nix ./users/root/home.nix];};
+            home-manager.users.paulg = { imports = [./users/home.nix ./users/paulg/home.nix];};
+          }
         ];
       };
 
@@ -46,6 +53,13 @@
           ({ pkgs, ... }: { # pkgs is in fact inputs.nixpkgs I guess, somehow, but no idea how the magic is done
               nixpkgs.overlays = [ inputs.rust-overlay.overlay ];
           })
+          inputs.home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.root  = { imports = [./users/home.nix ./users/root/home.nix];};
+            home-manager.users.paulg = { imports = [./users/home.nix ./users/paulg/home.nix];};
+          }
         ];
       };
 
@@ -61,7 +75,8 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.paulg = import ./users/paulg/home.nix;
+            home-manager.users.root  = { imports = [./users/home.nix ./users/root/home.nix];};
+            home-manager.users.paulg = { imports = [./users/home.nix ./users/paulg/home.nix ./users/paulg/home-gui.nix];};
           }
         ];
       };
