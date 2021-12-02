@@ -93,12 +93,17 @@
   # services.xserver.layout = "us";
   # services.xserver.xkbOptions = "eurosign:e";
 
-  users.defaultUserShell = pkgs.fish; # managed by home-manager
+  environment.shells = [
+    # those are managed by home-manager
+    "/etc/profiles/per-user/root/bin/fish"
+    "/etc/profiles/per-user/paulg/bin/fish"
+  ];
 
   users.mutableUsers = false;
 
   users.users.root = {
     passwordFile = "/etc/nixos/secrets/password-root";
+    shell = "/etc/profiles/per-user/root/bin/fish"; # managed by home-manager
   };
 
   users.users.paulg = {
@@ -110,6 +115,7 @@
     useDefaultShell = true;
     createHome = true;
     home = "/home/paulg";
+    shell = "/etc/profiles/per-user/paulg/bin/fish"; # managed by home-manager
   };
   # automatically allows my Github's keys
   #users.users.paulg.openssh.authorizedKeys.keyFiles = [ ((builtins.fetchurl "https://github.com/PaulGrandperrin.keys")) ];
