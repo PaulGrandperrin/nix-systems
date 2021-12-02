@@ -20,10 +20,27 @@
     ];
   };
 
-  programs.git = {
-    enable = true;
-    userName = "Paul Grandperrin";
-    userEmail = "paul.grandperrin@gmail.com";
+  programs = {
+    git = {
+      enable = true;
+      userName = "Paul Grandperrin";
+      userEmail = "paul.grandperrin@gmail.com";
+    };
+    fish = {
+      enable = true;
+      plugins = [{
+        name = "bobthefish";
+        src = pkgs.fetchFromGitHub {
+          owner = "oh-my-fish";
+          repo = "theme-bobthefish";
+          rev = "626bd39b002535d69e56adba5b58a1060cfb6d7b";
+          #sha256 = lib.fakeSha256;
+          sha256 = "zUngqEZgHLmlyvoiVO3MwJTSFsYD7t3XiP6yMzmMkBs=";
+        };
+      }];
+    };
   };
+
+
 }
 

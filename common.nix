@@ -93,14 +93,7 @@
   # services.xserver.layout = "us";
   # services.xserver.xkbOptions = "eurosign:e";
 
-  programs.fish = {
-    enable = true;
-    shellAbbrs = {
-    
-    };
-  };
-
-  users.defaultUserShell = pkgs.fish;
+  users.defaultUserShell = pkgs.fish; # managed by home-manager
 
   users.mutableUsers = false;
 
