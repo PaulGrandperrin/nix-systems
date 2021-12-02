@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   home = {
+    stateVersion = "21.11";
     packages = with pkgs; [
-      firefox
       terminator
     ];
     sessionVariables = {
@@ -10,7 +10,20 @@
   };
 
   systemd.user.sessionVariables = {
-    MOZ_ENABLE_WAYLAND = "1";
+  };
+
+  programs = {
+    firefox = {
+      enable = true;
+      package = pkgs.firefox-wayland.override {
+        # See nixpkgs' firefox/wrapper.nix to check which options you can use
+        cfg = {
+          # Gnome shell native connector
+          enableGnomeExtensions = true;
+        };
+      };
+
+    };
   };
 
 }
