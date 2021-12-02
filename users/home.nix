@@ -8,7 +8,6 @@
       tmux
       topgrade
       wget
-      git
       ripgrep
       #(rust-bin.selectLatestNightlyWith (toolchain: toolchain.default.override {
       #  #extensions = [ "rust-src" ];
@@ -19,6 +18,12 @@
       #  #targets = ["wasm32-unknown-emscripten"];
       #})
     ];
+  };
+
+  programs.git = {
+    enable = true;
+    userName = "Paul Grandperrin";
+    userEmail = "paul.grandperrin@gmail.com";
   };
 }
 
