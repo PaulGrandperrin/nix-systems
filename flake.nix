@@ -1,4 +1,7 @@
 {
+
+  description = "Paul Grandperrin NixOS confs";
+
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.11"; # defined by default in the registry, overrides it
 
