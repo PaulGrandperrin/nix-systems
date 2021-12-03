@@ -22,16 +22,53 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
+  # HACK fixes autologin https://github.com/NixOS/nixpkgs/issues/103746
+  systemd.services."getty@tty1".enable = false;
+  systemd.services."autovt@tty1".enable = false;
 
-  # Enable the GNOME Desktop Environment.
-  #services.xserver.displayManager.sddm.enable = true;
-  #services.xserver.desktopManager.plasma5.enable = true;
-  services.xserver.displayManager.gdm.enable = true;
+  services.xserver.displayManager = {
+    gdm = {
+      enable = true;
+      wayland = true;
+      #debug = true;
+      #nvidiaWayland = true; 
+    };
+    #lightdm = {
+    #  enable = true;
+    #};
+    autoLogin = { # boot is already protected by ZFS encryption
+      enable = true;
+      user = "paulg";
+    };
+    defaultSession = "gnome"; # means gnome-wayland
+  };
   services.xserver.desktopManager.gnome.enable = true;
   services.gnome.chrome-gnome-shell.enable = true; # BUG: not working...
+  services.gnome.experimental-features.realtime-scheduling = true; # breaks some environment vars
+  #services.xserver.videoDrivers = [ "nvidia" ];
+  #hardware.nvidia = {
+  #  #powerManagement.enable = true;
+  #  #modesetting.enable = true;
+  #  #nvidiaPersistenced.enable = false;
+  #  prime = {
+  #    offload.enable = true;
+  #    intelBusId = "PCI:0:2:0";
+  #    nvidiaBusId = "PCI:1:0:0";
+  #  };
+  #};
 
    environment.systemPackages = with pkgs; [
+     # nvidia-offload
+     (pkgs.writeShellScriptBin "nvidia-offload" ''
+      export __NV_PRIME_RENDER_OFFLOAD=1
+      export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
+      export __GLX_VENDOR_LIBRARY_NAME=nvidia
+      export __VK_LAYER_NV_optimus=NVIDIA_only
+      exec -a "$0" "$@"
+    '')
    ];
+
+  
 
 }
 

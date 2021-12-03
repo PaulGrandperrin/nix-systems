@@ -75,6 +75,8 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  nixpkgs.config.allowUnfree = true;
+
   # Set your time zone.
   time.timeZone = "Europe/Paris";
 
@@ -114,7 +116,7 @@
     isNormalUser = true;
     description = "Paul Grandperrin";
     passwordFile = "/etc/nixos/secrets/password-paulg";
-    extraGroups = [ "wheel" ];
+    extraGroups = [ "wheel" "video" ]; # audio?
     uid = 1000;
     useDefaultShell = true;
     createHome = true;
