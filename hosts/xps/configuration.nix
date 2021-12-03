@@ -42,11 +42,17 @@
     };
     defaultSession = "gnome"; # means gnome-wayland
   };
+
+  #environment.sessionVariables = {
+  #  "XDG_SESSION_TYPE" = "wayland";
+  #};
+
   services.xserver.desktopManager.gnome.enable = true;
   services.gnome.chrome-gnome-shell.enable = true; # BUG: not working...
   services.gnome.experimental-features.realtime-scheduling = true; # breaks some environment vars
-  #services.xserver.videoDrivers = [ "nvidia" ];
-  #hardware.nvidia = {
+
+  #services.xserver.videoDrivers = [ "nvidia" ]; # alone, breaks everything
+  #hardware.nvidia = { # alone, doesn't prevent wayland
   #  #powerManagement.enable = true;
   #  #modesetting.enable = true;
   #  #nvidiaPersistenced.enable = false;
