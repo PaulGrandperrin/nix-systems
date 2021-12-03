@@ -3,6 +3,8 @@
     stateVersion = "21.11";
     packages = with pkgs; [
       terminator
+      glxinfo
+      vulkan-tools
     ];
     sessionVariables = {
     };
