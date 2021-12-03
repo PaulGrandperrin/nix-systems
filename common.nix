@@ -93,6 +93,10 @@
   # services.xserver.layout = "us";
   # services.xserver.xkbOptions = "eurosign:e";
 
+  boot.kernel.sysctl = {
+    "kernel.sysrq" = 1;
+  };
+
   environment.shells = [
     # those are managed by home-manager
     "/etc/profiles/per-user/root/bin/fish"
