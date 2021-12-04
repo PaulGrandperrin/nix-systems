@@ -2,6 +2,7 @@
   home = {
     stateVersion = "21.11";
     packages = with pkgs; [
+      gnome.gnome-tweaks
       terminator
       glxinfo
       vulkan-tools

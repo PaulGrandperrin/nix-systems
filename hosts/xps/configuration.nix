@@ -6,6 +6,7 @@
       #<nixpkgs/nixos/modules/profiles/hardened.nix>
       ../../common.nix
       ../../net.nix
+      ../laptop.nix
     ];
 
   networking.hostId="7ee1da4a";
