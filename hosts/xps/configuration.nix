@@ -22,46 +22,51 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # HACK fixes autologin https://github.com/NixOS/nixpkgs/issues/103746
+  # HACK fixes autologin when on wayland https://github.com/NixOS/nixpkgs/issues/103746
   systemd.services."getty@tty1".enable = false;
   systemd.services."autovt@tty1".enable = false;
 
   services.xserver.displayManager = {
-    gdm = {
+    gdm = { # impossible to make it work with prime.sync, use lightdm for that
       enable = true;
       wayland = true;
       #debug = true;
-      #nvidiaWayland = true; 
+      nvidiaWayland = true; # remove the udev rules which disables wayland when the nvidia driver is loaded
     };
-    #lightdm = {
+    #lightdm = { # does not work with gnome-shell's lock screen but works with prime.sync
     #  enable = true;
     #};
-    autoLogin = { # boot is already protected by ZFS encryption
+    autoLogin = { # when using wayland, needs the tty disabling hack
       enable = true;
       user = "paulg";
     };
-    defaultSession = "gnome"; # means gnome-wayland
+    #defaultSession = "gnome"; # gnome (gnome-wayland) or gnome-xorg
   };
 
-  #environment.sessionVariables = {
-  #  "XDG_SESSION_TYPE" = "wayland";
-  #};
+
+  environment.sessionVariables = {
+    #"XDG_SESSION_TYPE" = "wayland"; # absolutly force wayland
+  };
 
   services.xserver.desktopManager.gnome.enable = true;
   services.gnome.chrome-gnome-shell.enable = true; # BUG: not working...
   services.gnome.experimental-features.realtime-scheduling = true; # breaks some environment vars
 
-  #services.xserver.videoDrivers = [ "nvidia" ]; # alone, breaks everything
-  #hardware.nvidia = { # alone, doesn't prevent wayland
-  #  #powerManagement.enable = true;
-  #  #modesetting.enable = true;
-  #  #nvidiaPersistenced.enable = false;
-  #  prime = {
-  #    offload.enable = true;
-  #    intelBusId = "PCI:0:2:0";
-  #    nvidiaBusId = "PCI:1:0:0";
-  #  };
-  #};
+  services.xserver.videoDrivers = ["nvidia" ]; # TODO try alone, without hardware.nvidia
+  hardware.nvidia = { # TODO try alone
+    powerManagement = {
+      enable = true;
+      finegrained = true;
+    };
+    modesetting.enable = true; # prime.offload already does it and prime.sync needs it
+    nvidiaPersistenced = true; # ensures /sys/class/drm/card0 is nvidia card, and so /dev/nvidia0 is created
+    prime = {
+      offload.enable = true; # enables nvidia-drm.modeset just like modesetting.enable
+      #sync.enable = true; #  needs modesetting.enable
+      intelBusId = "PCI:0:2:0";
+      nvidiaBusId = "PCI:1:0:0";
+    };
+  };
 
    environment.systemPackages = with pkgs; [
      # nvidia-offload
