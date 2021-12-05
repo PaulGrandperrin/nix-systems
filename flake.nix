@@ -77,7 +77,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.root  = { imports = [./users/home.nix ./users/root/home.nix];};
-            home-manager.users.paulg = { imports = [./users/home.nix ./users/paulg/home.nix ./users/paulg/home-gui.nix];};
+            home-manager.users.paulg = { imports = [./users/home.nix ./users/paulg/home.nix ./users/paulg/home-desktop.nix];};
           }
         ];
       };
