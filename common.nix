@@ -2,24 +2,6 @@
 
 {
 
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-    viAlias = true;
-    vimAlias = true;
-    configure = {
-      #customRC = builtins.readFile ./config/init.vim;
-      packages.nix = with pkgs.vimPlugins; {
-        start = [
-          vim-surround # Shortcuts for setting () {} etc.
-          vim-nix # nix highlight
-          neovim-fuzzy # fuzzy finder through vim
-          vim-lastplace # restore cursor position
-        ];
-        opt = [];
-      };
-    };
-  };
 
   # Hardening
   # TODO: noexec mounts, tmpfs...

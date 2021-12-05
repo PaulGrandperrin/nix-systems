@@ -1,11 +1,10 @@
 {pkgs, ...}: {
   home = {
-    stateVersion = "21.11";
     packages = with pkgs; [
       gnome.gnome-tweaks
-      terminator
       glxinfo
       vulkan-tools
+      vlc
     ];
     sessionVariables = {
     };
@@ -16,6 +15,16 @@
   };
 
   programs = {
+    terminator = {
+      enable = true;
+      config = {};
+    };
+    chromium = {
+      enable = true;
+      extensions = [
+        { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; } # ublock origin
+      ];
+    };
     firefox = {
       enable = true;
       package = pkgs.firefox-wayland.override {

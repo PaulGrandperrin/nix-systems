@@ -1,12 +1,14 @@
 {pkgs, ...}: {
   home = {
+    stateVersion = "21.11";
+    enableNixpkgsReleaseCheck = true;
+    sessionVariables = {
+      EDITOR = "vim";
+    };
     packages = with pkgs; [
       # home-manager
       tree
-      htop
       ncdu
-      tmux
-      topgrade
       wget
       ripgrep
       pstree
@@ -26,10 +28,44 @@
   };
 
   programs = {
+    #foot kitty alacritty
+    emacs.enable = true;
+    exa.enable = true;
+    direnv.enable = true;
+    bat.enable = true;
+    htop.enable = true;
+    fzf.enable = true;
+    gh.enable = true;
+    bottom.enable = true;
+    broot.enable = true;
+    tmux.enable = true;
+    topgrade.enable = true;
+    gpg.enable = true;
+    jq.enable = true;
+    lazygit.enable = true;
+    lsd.enable = true;
+    #mcfly = {
+    #  enable = true;
+    #  enableFuzzySearch = true;
+    #};
+    neovim = {
+      enable = true;
+      viAlias = true;
+      vimAlias = true;
+      vimdiffAlias = true;
+      plugins =  with pkgs.vimPlugins;  [
+        vim-surround # Shortcuts for setting () {} etc.
+        vim-nix # nix highlight
+        neovim-fuzzy # fuzzy finder through vim
+        vim-lastplace # restore cursor position
+      ];
+    };
     git = {
       enable = true;
       userName = "Paul Grandperrin";
       userEmail = "paul.grandperrin@gmail.com";
+      delta.enable = true;
+      #signing?
     };
     fish = {
       enable = true;
