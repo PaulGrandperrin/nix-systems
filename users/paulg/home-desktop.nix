@@ -5,11 +5,16 @@
       gnome.gnome-tweaks
       glxinfo
       vulkan-tools
+      libva-utils # vainfo
+      vdpauinfo
+      ffmpeg
+      mpv
       vlc
       waydroid
       kate
+      gimp
     ];
-    sessionVariables = {
+    sessionVariables = { # only works for interactive shells
     };
 
   };
@@ -68,12 +73,26 @@
           "browser.search.region" = "US";
           #"identity.fxaccounts.account.device.name" = "${networking.hostName}";
           "fission.autostart" = true;
+
           "apz.overscroll.enabled" = true;
-          "gfx.webrender.compositor.force-enabled" = true;
+
           "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
           "browser.newtabpage.activity-stream.showSponsored" = false;
           "browser.urlbar.suggest.quicksuggest.sponsored" = false;
           "network.IDN_show_punycode" = true;
+
+          "gfx.webrender.all" = true;
+          "gfx.webrender.compositor" = true;
+          "gfx.webrender.compositor.force-enabled" = true;
+
+          "media.hardware-video-decoding.enabled" = true;
+          "media.hardware-video-decoding.force-enabled" = true;
+          #"media.ffmpeg.vaapi.enabled" = true;
+          #"media.ffvpx.enabled" = false;
+          #"media.navigator.mediadatadecoder_vpx_enabled" = true;
+          #"media.rdd-vpx.enabled" = false;
+          #"media.rdd-ffvpx.enabled" = false;
+          #"media.rdd-process.enabled" = false;
         };
       };
 
