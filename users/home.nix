@@ -4,8 +4,8 @@
   # targets.darwin.defaults # TODO?
   home = {
     stateVersion = "21.11";
-    enableNixpkgsReleaseCheck = true;
-    sessionVariables = {
+    enableNixpkgsReleaseCheck = true; # check for release version mismatch between Home Manager and Nixpkgs
+    sessionVariables = { # only works for interactive shells, pam works for all kind of sessions
       EDITOR = "vim";
     };
     packages = with pkgs; [
@@ -114,7 +114,7 @@
     };
     fish = {
       enable = true;
-      plugins = [{
+      plugins = [{ # TODO add fish-done
         name = "bobthefish";
         src = pkgs.fetchFromGitHub {
           owner = "oh-my-fish";
