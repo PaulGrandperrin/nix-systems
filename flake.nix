@@ -25,6 +25,15 @@
   #specialArgs = { inherit inputs; }; # many people write that, no idea why
 
   outputs = inputs: {
+    homeConfigurations = {
+      paulg = inputs.home-manager.lib.homeManagerConfiguration {
+        system = "x86_64-linux";
+        homeDirectory = "/home/paulg";
+        username = "paulg";
+        configuration.imports = [ ./users/home.nix ./users/paulg/home.nix ./users/paulg/home-desktop.nix];
+      };
+    };
+
     # Used with `nixos-rebuild --flake .#<hostname>`
     # nixosConfigurations."<hostname>".config.system.build.toplevel must be a derivation
     nixosConfigurations = { 
