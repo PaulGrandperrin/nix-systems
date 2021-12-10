@@ -26,6 +26,11 @@
       url = "github:nix-community/home-manager/release-21.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixgl = {
+      url = "github:guibou/nixGL";
+      flake = false;
+    };
   };
 
   #specialArgs = { inherit inputs; }; # many people write that, no idea why
@@ -37,7 +42,30 @@
         stateVersion = "21.11";
         homeDirectory = "/home/paulg";
         username = "paulg";
-        configuration.imports = [ ./users/home.nix ./users/paulg/home.nix ./users/paulg/home-desktop.nix];
+        configuration = { config, pkgs, lib, ... }: {
+          imports = [ ./users/home.nix ./users/paulg/home.nix ./users/paulg/home-desktop.nix];
+          home.packages = let
+            nixGLNvidiaScript = pkgs.writeShellScriptBin "nixGLNvidia" ''
+              $(NIX_PATH=nixpkgs=${inputs.nixpkgs} nix-build ${inputs.nixgl} -A auto.nixGLNvidia --no-out-link)/bin/* "$@"
+            '';
+            nixGLIntelScript = pkgs.writeShellScriptBin "nixGLIntel" ''
+              $(NIX_PATH=nixpkgs=${inputs.nixpkgs} nix-build ${inputs.nixgl} -A nixGLIntel --no-out-link)/bin/* "$@"
+            '';
+            nixVulkanIntelScript =
+              pkgs.writeShellScriptBin "nixVulkanIntel" ''
+                $(NIX_PATH=nixpkgs=${inputs.nixpkgs} nix-build ${inputs.nixgl} -A nixVulkanIntel --no-out-link)/bin/* "$@"
+              '';
+            nixVulkanNvidiaScript =
+              pkgs.writeShellScriptBin "nixVulkanNvidia" ''
+                $(NIX_PATH=nixpkgs=${inputs.nixpkgs} nix-build ${inputs.nixgl} -A auto.nixVulkanNvidia --no-out-link)/bin/* "$@"
+              '';
+          in with pkgs; [
+            nixGLNvidiaScript
+            nixGLIntelScript
+            nixVulkanIntelScript
+            nixVulkanNvidiaScript
+          ];
+        };  
       };
     };
 
