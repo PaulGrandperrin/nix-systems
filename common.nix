@@ -9,6 +9,9 @@
   security.sudo.execWheelOnly = true;
   nix.allowedUsers = [ "@wheel" ];
 
+  hardware.enableAllFirmware = true;
+  services.fwupd.enable = true;
+
   # Flakes
   nix = {
     package = pkgs.nixFlakes;
