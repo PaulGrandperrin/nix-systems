@@ -47,6 +47,11 @@
     jack.enable = true;
     media-session.enable = true;
   };
+
+
+
+  networking.wireless.iwd.enable = true;
+  networking.networkmanager.wifi.backend = "iwd";
 }
 
 
