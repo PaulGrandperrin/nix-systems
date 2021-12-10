@@ -28,6 +28,7 @@
     homeConfigurations = {
       paulg = inputs.home-manager.lib.homeManagerConfiguration {
         system = "x86_64-linux";
+        stateVersion = "21.11";
         homeDirectory = "/home/paulg";
         username = "paulg";
         configuration.imports = [ ./users/home.nix ./users/paulg/home.nix ./users/paulg/home-desktop.nix];
