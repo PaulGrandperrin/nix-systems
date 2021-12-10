@@ -11,7 +11,6 @@
       mpv
       vlc
       waydroid
-      kate
       gimp
     ];
     sessionVariables = { # only works for interactive shells

@@ -21,7 +21,7 @@
     };
   };
 
-   environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs; [
      # nvidia-offload
      (pkgs.writeShellScriptBin "nvidia-offload" ''
       export __NV_PRIME_RENDER_OFFLOAD=1
@@ -30,7 +30,9 @@
       export __VK_LAYER_NV_optimus=NVIDIA_only
       exec -a "$0" "$@"
     '')
-   ];
+
+    gst_all_1.gst-vaapi # nix shell nixos#gst_all_1.gstreamer.dev gst-inspect-1.0 vaapi
+  ];
 
   environment.sessionVariables = { # works for all kinds of sessions whereas environment.variables (/etc/profile) only works for interactive shells
     LIBVA_DRIVER_NAME = "iHD";
@@ -44,9 +46,6 @@
     vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; }; # allows the use of old "i965 VA driver"
   };
 
-  environment.systemPackages = with pkgs; [
-    gst_all_1.gst-vaapi # nix shell nixos#gst_all_1.gstreamer.dev gst-inspect-1.0 vaapi
-  ];
 
   boot.extraModprobeConfig = '' # not included in stage1: https://github.com/NixOS/nixpkgs/pull/145013
     options i915 enable_guc=2 # necessary for AVC/HEVC/VP9 low power encoding bitrate control: https://github.com/intel/media-driver#known-issues-and-limitations, check with sudo cat /sys/module/i915/parameters/enable_guc
@@ -54,7 +53,7 @@
 
   hardware.opengl = {
     enable = true;
-    extraPackages = [
+    extraPackages = with pkgs; [
       intel-media-driver
       vaapiIntel
       vaapiVdpau
