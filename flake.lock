@@ -18,7 +18,7 @@
     "home-manager": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgs"
+          "nixos"
         ]
       },
       "locked": {
@@ -52,7 +52,7 @@
         "type": "github"
       }
     },
-    "nixpkgs": {
+    "nixos": {
       "locked": {
         "lastModified": 1639161226,
         "narHash": "sha256-75Y08ynJDTq6HHGIF+8IADBJSVip0UyWQH7jqSFnRR8=",
@@ -73,7 +73,7 @@
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "nixgl": "nixgl",
-        "nixpkgs": "nixpkgs",
+        "nixos": "nixos",
         "rust-overlay": "rust-overlay"
       }
     },
@@ -83,7 +83,7 @@
           "flake-utils"
         ],
         "nixpkgs": [
-          "nixpkgs"
+          "nixos"
         ]
       },
       "locked": {
