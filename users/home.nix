@@ -1,5 +1,6 @@
 {pkgs, ...}: {
   nixpkgs.config.allowUnfree = true;
+  home.file.".config/nixpkgs/config.nix".text = "{ allowUnfree = true; }"; # necessary to use unfree packages in `nix run/shell`, also needs `--impure`
   # systemd.user.systemctlPath = "/usr/bin/systemctl"; # TODO ?
   # targets.darwin.defaults # TODO?
   home = {
