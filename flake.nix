@@ -33,10 +33,9 @@
     };
   };
 
-  #specialArgs = { inherit inputs; }; # many people write that, no idea why
 
   outputs = inputs: {
-    homeConfigurations = {
+    homeConfigurations = { # TODO figure out how to pass inputs to modules
       paulg = inputs.home-manager.lib.homeManagerConfiguration {
         system = "x86_64-linux";
         stateVersion = "21.11";
@@ -58,7 +57,7 @@
     # nixosConfigurations."<hostname>".config.system.build.toplevel must be a derivation
     nixosConfigurations = { 
       nixos-nas = inputs.nixpkgs.lib.nixosSystem { # not defined in the lib... but in Nixpkgs/flake.nix !
-        # inherit specialArgs; # many people write that, no idea why
+        specialArgs = { inherit inputs; }; #  passes inputs to modules
         system = "x86_64-linux"; # maybe related to legacyPackages?
         modules = [ 
           ./hosts/nas/configuration.nix
@@ -76,7 +75,7 @@
       };
 
       nixos-gcp = inputs.nixpkgs.lib.nixosSystem { # not defined in the lib... but in Nixpkgs/flake.nix !
-        # inherit specialArgs; # many people write that, no idea why
+        specialArgs = { inherit inputs; }; #  passes inputs to modules
         system = "x86_64-linux"; # maybe related to legacyPackages?
         modules = [ 
           ./hosts/gcp/configuration.nix
@@ -94,7 +93,7 @@
       };
 
       nixos-xps = inputs.nixpkgs.lib.nixosSystem { # not defined in the lib... but in Nixpkgs/flake.nix !
-        # inherit specialArgs; # many people write that, no idea why
+        specialArgs = { inherit inputs; }; #  passes inputs to modules
         system = "x86_64-linux"; # maybe related to legacyPackages?
         modules = [ 
           ./hosts/xps/configuration.nix

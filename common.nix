@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 {
 
@@ -37,6 +37,8 @@
   #    FORTIFY_SOURCE y
   #  '';
   #}];
+
+  nix.registry.nixos.flake = inputs.nixpkgs;
 
   system.autoUpgrade.enable = true;
   #system.autoUpgrade.flake = "git+ssh://git@github.com/PaulGrandperrin/nixos-conf?ref=main";
