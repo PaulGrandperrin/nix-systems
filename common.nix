@@ -38,7 +38,12 @@
   #  '';
   #}];
 
-  nix.registry.nixos.flake = inputs.nixos;
+  nix.registry = {
+    nixos.flake = inputs.nixos;
+    flake-utils.flake = inputs.flake-utils;
+    rust-overlay.flake = inputs.rust-overlay;
+    home-manager.flake = inputs.home-manager;
+  };
 
   system.autoUpgrade.enable = true;
   #system.autoUpgrade.flake = "git+ssh://git@github.com/PaulGrandperrin/nixos-conf?ref=main";

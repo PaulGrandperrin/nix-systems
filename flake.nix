@@ -35,6 +35,7 @@
 
 
   outputs = inputs: {
+
     homeConfigurations = { # TODO figure out how to pass inputs to modules
       paulg = inputs.home-manager.lib.homeManagerConfiguration {
         system = "x86_64-linux";
