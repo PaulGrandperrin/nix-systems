@@ -3,14 +3,14 @@
   description = "Paul Grandperrin NixOS confs";
 
   inputs = {
-    #nixpkgs.url = "github:NixOS/nixpkgs/af174ee5cf8bc81df4bedc980b5c7f6965507070"; # defined by default in the registry, overrides it
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.11"; # defined by default in the registry, overrides it
     #nixpkgs.url = "/root/nixpkgs/"; # defined by default in the registry, overrides it
-    nixpkgs = {
-      type = "github";
-      owner = "NixOS";
-      repo = "nixpkgs";
-      rev = "573095944e7c1d58d30fc679c81af63668b54056";
-    };
+    #nixpkgs = {
+    #  type = "github";
+    #  owner = "NixOS";
+    #  repo = "nixpkgs";
+    #  rev = "573095944e7c1d58d30fc679c81af63668b54056";
+    #};
 
     flake-utils = {
       url = "github:numtide/flake-utils";
