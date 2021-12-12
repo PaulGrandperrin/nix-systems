@@ -38,6 +38,7 @@
   #  '';
   #}];
 
+  # sync registry with our flakes. better for consistency, space, and `nix run/shell` execution time (thanks to caching)
   nix.registry = {
     nixos.flake = inputs.nixos;
     flake-utils.flake = inputs.flake-utils;
