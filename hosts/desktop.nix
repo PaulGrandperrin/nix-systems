@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
-    
+    solaar
   ];
 
   # Enable the X11 windowing system.
