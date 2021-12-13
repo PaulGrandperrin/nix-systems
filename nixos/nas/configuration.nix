@@ -5,8 +5,8 @@
       ./hardware-configuration.nix
       #<nixpkgs/nixos/modules/profiles/hardened.nix>
       ../../common.nix
-      ../../nspawns/debian.nix
-      ../../containers/web.nix
+      ../nspawns/debian.nix
+      ../containers/web.nix
       ../../net.nix
     ];
 
