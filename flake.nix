@@ -75,7 +75,7 @@
         specialArgs = { inherit inputs; }; #  passes inputs to modules
         system = "x86_64-linux"; # maybe related to legacyPackages?
         modules = [ 
-          ./nixos/nas/configuration.nix
+          ./nixos/hosts/nas/configuration.nix
           ({ pkgs, ... }: { # pkgs is in fact inputs.nixos I guess, somehow, but no idea how the magic is done
               nixpkgs.overlays = [ inputs.rust-overlay.overlay ];
           })
@@ -93,7 +93,7 @@
         specialArgs = { inherit inputs; }; #  passes inputs to modules
         system = "x86_64-linux"; # maybe related to legacyPackages?
         modules = [ 
-          ./nixos/gcp/configuration.nix
+          ./nixos/hosts/gcp/configuration.nix
           ({ pkgs, ... }: { # pkgs is in fact inputs.nixos I guess, somehow, but no idea how the magic is done
               nixpkgs.overlays = [ inputs.rust-overlay.overlay ];
           })
@@ -111,7 +111,7 @@
         specialArgs = { inherit inputs; }; #  passes inputs to modules
         system = "x86_64-linux"; # maybe related to legacyPackages?
         modules = [ 
-          ./nixos/xps/configuration.nix
+          ./nixos/hosts/xps/configuration.nix
           ({ pkgs, ... }: { # pkgs is in fact inputs.nixos I guess, somehow, but no idea how the magic is done
               nixpkgs.overlays = [ inputs.rust-overlay.overlay ];
           })

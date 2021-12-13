@@ -2,10 +2,10 @@
 {
   imports =
     [
-      ../google-compute-config.nix 
+      ../../google-compute-config.nix 
       ./hardware-configuration.nix
-      ../common.nix
-      ../containers/web.nix
+      ../../common.nix
+      ../../containers/web.nix
     ];
 
   networking.hostId = "1c734661"; # for ZFS
