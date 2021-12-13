@@ -63,13 +63,12 @@
       system = "x86_64-darwin";
       inputs = { inherit inputs; };
       modules = [
-        inputs.home-manager.darwinModules.home-manager
 	({pkgs, ...}:{
-
           # nix-darwin
 
           nix.package = pkgs.nix_2_4;
           nix.extraOptions = "experimental-features = nix-command flakes";
+
           services.nix-daemon.enable = true;
           environment.systemPackages = [];
           system.stateVersion = 4;
@@ -79,6 +78,9 @@
           };
 
           environment.shells = [pkgs.fish];
+        })
+        inputs.home-manager.darwinModules.home-manager
+	({pkgs, ...}:{
 
           # home-manager
 
