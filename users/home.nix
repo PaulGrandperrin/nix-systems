@@ -17,7 +17,7 @@
       pstree
       file
       #nvd # nix store diff-closures
-      strace
+#      strace
       killall # psmisc, toybox?
       hostname
       #nix_2_4

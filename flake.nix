@@ -12,6 +12,11 @@
     #  rev = "573095944e7c1d58d30fc679c81af63668b54056";
     #};
 
+    darwin = {
+      url = "github:lnl7/nix-darwin/master";
+      inputs.nixpkgs.follows = "nixos";
+    };
+
     flake-utils = {
       url = "github:numtide/flake-utils";
     };
@@ -52,6 +57,39 @@
           ];
         };  
       };
+    };
+
+    darwinConfigurations."MacBookPaul" = inputs.darwin.lib.darwinSystem {
+      system = "x86_64-darwin";
+      inputs = { inherit inputs; };
+      modules = [
+        inputs.home-manager.darwinModules.home-manager
+	({pkgs, ...}:{
+
+          # nix-darwin
+
+          nix.package = pkgs.nix_2_4;
+          nix.extraOptions = "experimental-features = nix-command flakes";
+          services.nix-daemon.enable = true;
+          environment.systemPackages = [];
+          system.stateVersion = 4;
+
+          programs = {
+            fish.enable = true;
+          };
+
+          environment.shells = [pkgs.fish];
+
+          # home-manager
+
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.users.root  = { imports = [./users/home.nix];};
+          home-manager.users.paulg = { imports = [./users/home.nix ./users/paulg/home.nix];};
+        })
+
+
+      ];
     };
 
     # Used with `nixos-rebuild --flake .#<hostname>`

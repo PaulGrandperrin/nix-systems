@@ -1,5 +1,26 @@
 {
   "nodes": {
+    "darwin": {
+      "inputs": {
+        "nixpkgs": [
+          "nixos"
+        ]
+      },
+      "locked": {
+        "lastModified": 1634994402,
+        "narHash": "sha256-xmlCVVOYGpZoxgOqsDOVF0B0ASrnbNGVAEzID9qh2xo=",
+        "owner": "lnl7",
+        "repo": "nix-darwin",
+        "rev": "44da835ac40dab5fd231298b59d83487382d2fab",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lnl7",
+        "ref": "master",
+        "repo": "nix-darwin",
+        "type": "github"
+      }
+    },
     "flake-utils": {
       "locked": {
         "lastModified": 1638122382,
@@ -70,6 +91,7 @@
     },
     "root": {
       "inputs": {
+        "darwin": "darwin",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "nixgl": "nixgl",
@@ -87,11 +109,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1639275608,
-        "narHash": "sha256-A8EVklAOgBklAaDQ6re5GdSUv0GBECSQt9DE2fvrRZ8=",
+        "lastModified": 1639361860,
+        "narHash": "sha256-ZNCVMICfWysEbH8JLx5nlNS3cwM2TnSmWS92ZwAPEDA=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "5e677c6fed9077cb9e2d037e2679676895b6e953",
+        "rev": "213b2b46adfd42a4f15ed3f10aac61f4db1c1d0e",
         "type": "github"
       },
       "original": {
