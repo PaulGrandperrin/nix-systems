@@ -4,8 +4,8 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       #<nixpkgs/nixos/modules/profiles/hardened.nix>
-      ../../common.nix
-      ../../net.nix
+      ../common.nix
+      ../net.nix
       ../laptop.nix
       ../desktop.nix
       ../desktop-nvidia-prime.nix

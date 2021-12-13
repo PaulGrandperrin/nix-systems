@@ -2,9 +2,9 @@
 {
   imports =
     [
-      ../../google-compute-config.nix 
+      ../google-compute-config.nix 
       ./hardware-configuration.nix
-      ../../common.nix
+      ../common.nix
       ../containers/web.nix
     ];
 

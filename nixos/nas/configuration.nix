@@ -4,10 +4,10 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       #<nixpkgs/nixos/modules/profiles/hardened.nix>
-      ../../common.nix
+      ../common.nix
       ../nspawns/debian.nix
       ../containers/web.nix
-      ../../net.nix
+      ../net.nix
     ];
 
   networking.hostId="51079489";
