@@ -5,12 +5,6 @@
   inputs = {
     nixos.url = "github:NixOS/nixpkgs/nixos-21.11"; # defined by default in the registry, overrides it
     #nixos.url = "/root/nixpkgs/"; # defined by default in the registry, overrides it
-    #nixos = {
-    #  type = "github";
-    #  owner = "NixOS";
-    #  repo = "nixpkgs";
-    #  rev = "573095944e7c1d58d30fc679c81af63668b54056";
-    #};
 
     darwin = {
       url = "github:lnl7/nix-darwin/master";
@@ -48,7 +42,7 @@
         homeDirectory = "/home/paulg";
         username = "paulg";
         configuration = { config, pkgs, lib, ... }: {
-          imports = [ ./users/home.nix ./users/paulg/home.nix ./users/paulg/home-desktop.nix];
+          imports = [ ./home-manager/home.nix ./home-manager/paulg/home.nix ./home-manager/paulg/home-desktop.nix];
           home.packages = [
             (pkgs.writeShellScriptBin "nixGLNvidia" ''$(NIX_PATH=nixpkgs=${inputs.nixos} nix-build ${inputs.nixgl} -A auto.nixGLNvidia --no-out-link)/bin/* "$@"'')
             (pkgs.writeShellScriptBin "nixGLIntel" ''$(NIX_PATH=nixpkgs=${inputs.nixos} nix-build ${inputs.nixgl} -A nixGLIntel --no-out-link)/bin/* "$@"'')
@@ -63,13 +57,13 @@
       system = "x86_64-darwin";
       inputs = { inherit inputs; };
       modules = [
-        ./hosts/MacBookPaul/home.nix
+        ./darwin/MacBookPaul/home.nix
         inputs.home-manager.darwinModules.home-manager
 	{
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.users.root  = { imports = [./users/home.nix];};
-          home-manager.users.paulg = { imports = [./users/home.nix ./users/paulg/home.nix];};
+          home-manager.users.root  = { imports = [./home-manager/home.nix];};
+          home-manager.users.paulg = { imports = [./home-manager/home.nix ./home-manager/paulg/home.nix];};
         }
       ];
     };
@@ -81,7 +75,7 @@
         specialArgs = { inherit inputs; }; #  passes inputs to modules
         system = "x86_64-linux"; # maybe related to legacyPackages?
         modules = [ 
-          ./hosts/nas/configuration.nix
+          ./nixos/nas/configuration.nix
           ({ pkgs, ... }: { # pkgs is in fact inputs.nixos I guess, somehow, but no idea how the magic is done
               nixpkgs.overlays = [ inputs.rust-overlay.overlay ];
           })
@@ -89,8 +83,8 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.root  = { imports = [./users/home.nix ./users/root/home.nix];};
-            home-manager.users.paulg = { imports = [./users/home.nix ./users/paulg/home.nix];};
+            home-manager.users.root  = { imports = [./home-manager/home.nix ./home-manager/root/home.nix];};
+            home-manager.users.paulg = { imports = [./home-manager/home.nix ./home-manager/paulg/home.nix];};
           }
         ];
       };
@@ -99,7 +93,7 @@
         specialArgs = { inherit inputs; }; #  passes inputs to modules
         system = "x86_64-linux"; # maybe related to legacyPackages?
         modules = [ 
-          ./hosts/gcp/configuration.nix
+          ./nixos/gcp/configuration.nix
           ({ pkgs, ... }: { # pkgs is in fact inputs.nixos I guess, somehow, but no idea how the magic is done
               nixpkgs.overlays = [ inputs.rust-overlay.overlay ];
           })
@@ -107,8 +101,8 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.root  = { imports = [./users/home.nix ./users/root/home.nix];};
-            home-manager.users.paulg = { imports = [./users/home.nix ./users/paulg/home.nix];};
+            home-manager.users.root  = { imports = [./home-manager/home.nix ./home-manager/root/home.nix];};
+            home-manager.users.paulg = { imports = [./home-manager/home.nix ./home-manager/paulg/home.nix];};
           }
         ];
       };
@@ -117,7 +111,7 @@
         specialArgs = { inherit inputs; }; #  passes inputs to modules
         system = "x86_64-linux"; # maybe related to legacyPackages?
         modules = [ 
-          ./hosts/xps/configuration.nix
+          ./nixos/xps/configuration.nix
           ({ pkgs, ... }: { # pkgs is in fact inputs.nixos I guess, somehow, but no idea how the magic is done
               nixpkgs.overlays = [ inputs.rust-overlay.overlay ];
           })
@@ -125,8 +119,8 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.root  = { imports = [./users/home.nix ./users/root/home.nix];};
-            home-manager.users.paulg = { imports = [./users/home.nix ./users/paulg/home.nix ./users/paulg/home-desktop.nix];};
+            home-manager.users.root  = { imports = [./home-manager/home.nix ./home-manager/root/home.nix];};
+            home-manager.users.paulg = { imports = [./home-manager/home.nix ./home-manager/paulg/home.nix ./home-manager/paulg/home-desktop.nix];};
           }
         ];
       };
