@@ -117,6 +117,9 @@
     };
     fish = {
       enable = true;
+      shellAbbrs = {
+        ssh-keygen = "ssh-keygen -t ed25519";
+      };
       plugins = [{ # TODO add fish-done
         name = "bobthefish";
         src = pkgs.fetchFromGitHub {
