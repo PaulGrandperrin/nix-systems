@@ -66,14 +66,14 @@
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = {installDesktopApp = false;};
             home-manager.users.root  = { imports = [./home-manager/cmdline.nix];};
-            home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-user.nix];};
+            home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-user.nix ./home-manager/desktop.nix];};
           }
         ];
       };
 
       "MacMiniPaul" = inputs.darwin.lib.darwinSystem {
         system = "x86_64-darwin";
-        #specialArgs = { inherit inputs ; isLinux = false; };
+        specialArgs = { inherit inputs; };
         modules = [
           ./nix-darwin/common.nix
           ./nix-darwin/hosts/MacMiniPaul.nix
