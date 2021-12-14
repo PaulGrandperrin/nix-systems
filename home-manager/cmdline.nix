@@ -26,6 +26,7 @@
       ruby pry
       mycli
       tldr
+      hyperfine
       #(rust-bin.selectLatestNightlyWith (toolchain: toolchain.default.override {
       #  #extensions = [ "rust-src" ];
       #  targets = [ "wasm32-unknown-emscripten" "wasm32-unknown-unknown"];
@@ -40,7 +41,14 @@
   programs = {
     home-manager.enable = true;
     emacs.enable = true;
-    exa.enable = true;
+    exa = {
+      enable = true;
+      enableAliases = false;
+    };
+    lsd = {
+      enable = true;
+      enableAliases = true;
+    };
     direnv.enable = true;
     bat.enable = true;
     htop.enable = true;
@@ -76,7 +84,6 @@
     gpg.enable = true;
     jq.enable = true;
     lazygit.enable = true;
-    lsd.enable = true;
     skim.enable = true;
     rbw = {
       enable = true;
@@ -113,8 +120,16 @@
       enable = true;
       userName = "Paul Grandperrin";
       userEmail = "paul.grandperrin@gmail.com";
-      delta.enable = true;
+      delta = {
+        enable = true;
+        options = {
+          navigate = true;
+          line-numbers = true;
+          syntax-theme = "Dracula";
+        };
+      };
       extraConfig = {
+        init.defaultBranch = "main";
         pull.ff = "only";
       };
       #signing?

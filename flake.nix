@@ -42,7 +42,7 @@
         homeDirectory = "/home/paulg";
         username = "paulg";
         configuration = { config, pkgs, lib, ... }: {
-          imports = [ ./home-manager/home.nix ./home-manager/paulg/home.nix ./home-manager/paulg/home-desktop.nix];
+          imports = [ ./home-manager/cmdline.nix ./home-manager/cmdline-user.nix ./home-manager/desktop.nix];
           home.packages = [
             (pkgs.writeShellScriptBin "nixGLNvidia" ''$(NIX_PATH=nixpkgs=${inputs.nixos} nix-build ${inputs.nixgl} -A auto.nixGLNvidia --no-out-link)/bin/* "$@"'')
             (pkgs.writeShellScriptBin "nixGLIntel" ''$(NIX_PATH=nixpkgs=${inputs.nixos} nix-build ${inputs.nixgl} -A nixGLIntel --no-out-link)/bin/* "$@"'')
@@ -64,15 +64,16 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.root  = { imports = [./home-manager/home.nix];};
-            home-manager.users.paulg = { imports = [./home-manager/home.nix ./home-manager/paulg/home.nix];};
+            home-manager.extraSpecialArgs = {installDesktopApp = false;};
+            home-manager.users.root  = { imports = [./home-manager/cmdline.nix];};
+            home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-user.nix];};
           }
         ];
       };
 
       "MacMiniPaul" = inputs.darwin.lib.darwinSystem {
         system = "x86_64-darwin";
-        inputs = { inherit inputs; };
+        #specialArgs = { inherit inputs ; isLinux = false; };
         modules = [
           ./nix-darwin/common.nix
           ./nix-darwin/hosts/MacMiniPaul.nix
@@ -80,8 +81,9 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.root  = { imports = [./home-manager/home.nix];};
-            home-manager.users.paulg = { imports = [./home-manager/home.nix ./home-manager/paulg/home.nix];};
+            home-manager.extraSpecialArgs = {installDesktopApp = false;};
+            home-manager.users.root  = { imports = [./home-manager/cmdline.nix];};
+            home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-user.nix ./home-manager/desktop.nix];};
           }
         ];
       };
@@ -102,8 +104,8 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.root  = { imports = [./home-manager/home.nix ./home-manager/root/home.nix];};
-            home-manager.users.paulg = { imports = [./home-manager/home.nix ./home-manager/paulg/home.nix];};
+            home-manager.users.root  = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-root-linux.nix];};
+            home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-user.nix];};
           }
         ];
       };
@@ -120,8 +122,8 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.root  = { imports = [./home-manager/home.nix ./home-manager/root/home.nix];};
-            home-manager.users.paulg = { imports = [./home-manager/home.nix ./home-manager/paulg/home.nix];};
+            home-manager.users.root  = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-root-linux.nix];};
+            home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-user.nix];};
           }
         ];
       };
@@ -138,8 +140,8 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.root  = { imports = [./home-manager/home.nix ./home-manager/root/home.nix];};
-            home-manager.users.paulg = { imports = [./home-manager/home.nix ./home-manager/paulg/home.nix ./home-manager/paulg/home-desktop.nix];};
+            home-manager.users.root  = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-root-linux.nix];};
+            home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-user.nix ./home-manager/desktop.nix ./home-manager/desktop-linux.nix];};
           }
         ];
       };
