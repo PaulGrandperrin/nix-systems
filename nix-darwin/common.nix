@@ -11,4 +11,9 @@
   };
 
   environment.shells = [pkgs.fish];
+
+  fonts = {
+    enableFontDir = true;
+    fonts = [ pkgs.nerdfonts ];
+  };
 }
