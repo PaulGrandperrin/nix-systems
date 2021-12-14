@@ -53,19 +53,36 @@
       };
     };
 
-    darwinConfigurations."MacBookPaul" = inputs.darwin.lib.darwinSystem {
-      system = "x86_64-darwin";
-      inputs = { inherit inputs; };
-      modules = [
-        ./darwin/MacBookPaul/home.nix
-        inputs.home-manager.darwinModules.home-manager
-	{
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.root  = { imports = [./home-manager/home.nix];};
-          home-manager.users.paulg = { imports = [./home-manager/home.nix ./home-manager/paulg/home.nix];};
-        }
-      ];
+    darwinConfigurations = {
+      "MacBookPaul" = inputs.darwin.lib.darwinSystem {
+        system = "x86_64-darwin";
+        inputs = { inherit inputs; };
+        modules = [
+          ./nix-darwin/MacBookPaul/home.nix
+          inputs.home-manager.darwinModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.root  = { imports = [./home-manager/home.nix];};
+            home-manager.users.paulg = { imports = [./home-manager/home.nix ./home-manager/paulg/home.nix];};
+          }
+        ];
+      };
+
+      "MacMiniPaul" = inputs.darwin.lib.darwinSystem {
+        system = "x86_64-darwin";
+        inputs = { inherit inputs; };
+        modules = [
+          ./nix-darwin/MacBookPaul/home.nix
+          inputs.home-manager.darwinModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.root  = { imports = [./home-manager/home.nix];};
+            home-manager.users.paulg = { imports = [./home-manager/home.nix ./home-manager/paulg/home.nix];};
+          }
+        ];
+      };
     };
 
     # Used with `nixos-rebuild --flake .#<hostname>`
