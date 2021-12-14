@@ -58,7 +58,8 @@
         system = "x86_64-darwin";
         inputs = { inherit inputs; };
         modules = [
-          ./nix-darwin/MacBookPaul/home.nix
+          ./nix-darwin/common.nix
+          ./nix-darwin/hosts/MacBookPaul.nix
           inputs.home-manager.darwinModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
@@ -73,7 +74,8 @@
         system = "x86_64-darwin";
         inputs = { inherit inputs; };
         modules = [
-          ./nix-darwin/MacBookPaul/home.nix
+          ./nix-darwin/common.nix
+          ./nix-darwin/hosts/MacMiniPaul.nix
           inputs.home-manager.darwinModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
