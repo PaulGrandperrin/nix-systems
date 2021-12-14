@@ -110,6 +110,9 @@
       userName = "Paul Grandperrin";
       userEmail = "paul.grandperrin@gmail.com";
       delta.enable = true;
+      extraConfig = {
+        pull.ff = "only";
+      };
       #signing?
     };
     fish = {
