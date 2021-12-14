@@ -41,6 +41,7 @@
         stateVersion = "21.11";
         homeDirectory = "/home/paulg";
         username = "paulg";
+        specialArgs = {installDesktopApp = false;};
         configuration = { config, pkgs, lib, ... }: {
           imports = [ ./home-manager/cmdline.nix ./home-manager/cmdline-user.nix ./home-manager/desktop.nix];
           home.packages = [
