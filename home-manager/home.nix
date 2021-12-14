@@ -22,6 +22,10 @@
       hostname
       #nix_2_4
       nix-du graphviz-nox
+      jq yq
+      ruby pry
+      mycli
+      tldr
       #(rust-bin.selectLatestNightlyWith (toolchain: toolchain.default.override {
       #  #extensions = [ "rust-src" ];
       #  targets = [ "wasm32-unknown-emscripten" "wasm32-unknown-unknown"];
