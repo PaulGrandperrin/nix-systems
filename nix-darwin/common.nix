@@ -4,6 +4,7 @@
 
   services.nix-daemon.enable = true;
   environment.systemPackages = [];
+
   system.stateVersion = 4;
 
   programs = {
@@ -11,6 +12,19 @@
   };
 
   environment.shells = [pkgs.fish];
+
+  homebrew = {
+    enable = true;
+    #cleanup = "zap";
+    global = {
+      brewfile = true;
+      noLock = true;
+    };
+    taps = ["homebrew/bundle" "homebrew/cask" "homebrew/core"];
+    brews = [];
+    casks = ["iterm2" "firefox"];
+    masApps = {};
+  };
 
   fonts = {
     enableFontDir = true;
