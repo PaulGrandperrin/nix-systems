@@ -138,6 +138,7 @@
       enable = true;
       shellAbbrs = {
         ssh-keygen = "ssh-keygen -t ed25519";
+        darwin-switch = "darwin-rebuild switch --flake ~paulg/git/nixos-conf/";
       };
       plugins = [{ # TODO add fish-done
         name = "bobthefish";
