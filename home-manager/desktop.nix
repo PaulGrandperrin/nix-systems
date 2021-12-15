@@ -23,6 +23,7 @@
         settings = { # user.js
           "services.sync.username" = "paulgrandperrin@gmail.com";
           "browser.search.region" = "US";
+          "browser.aboutConfig.showWarning" = false;
           #"identity.fxaccounts.account.device.name" = "${networking.hostName}";
           "fission.autostart" = true;
 
@@ -30,6 +31,8 @@
 
           "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
           "browser.newtabpage.activity-stream.showSponsored" = false;
+          "browser.newtabpage.activity-stream.feeds.section.topstories" = false;
+          "extensions.pocket.enabled" = false;
           "browser.urlbar.suggest.quicksuggest.sponsored" = false;
           "network.IDN_show_punycode" = true;
 
