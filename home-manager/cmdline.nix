@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{pkgs, config, ...}: {
   home.file.".config/nixpkgs/config.nix".text = "{ allowUnfree = true; }"; # "nixpkgs.config.allowUnfree = true;" is not enough to work with `nix run/shell`, also needs `--impure`
   # systemd.user.systemctlPath = "/usr/bin/systemctl"; # TODO ?
   # targets.darwin.defaults # TODO?
@@ -136,6 +136,9 @@
     };
     fish = {
       enable = true;
+      loginShellInit = ''
+        fish_add_path --move --prepend /etc/profiles/per-user/${config.home.username}/bin # https://github.com/LnL7/nix-darwin/issues/122
+      '';
       shellAbbrs = {
         ssh-keygen = "ssh-keygen -t ed25519";
         darwin-switch = "darwin-rebuild switch --flake ~paulg/git/nixos-conf/";

@@ -1,6 +1,0 @@
-tap "homebrew/bundle"
-tap "homebrew/cask"
-tap "homebrew/core"
-#brew "topgrade"
-cask "iterm2"
-cask "firefox"
