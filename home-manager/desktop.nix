@@ -16,7 +16,7 @@
           # Gnome shell native connector
           enableGnomeExtensions = true;
         };
-      } else pkgs.emptyDirectory;
+      } else ( pkgs.emptyDirectory // { override = _: pkgs.emptyDirectory;} );
 
       profiles."paulgrandperrin@gmail.com" = {
         id = 0;
