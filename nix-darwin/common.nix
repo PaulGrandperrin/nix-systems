@@ -15,14 +15,30 @@
 
   homebrew = {
     enable = true;
-    #cleanup = "zap";
+    cleanup = "zap";
     global = {
       brewfile = true;
       noLock = true;
     };
     taps = ["homebrew/bundle" "homebrew/cask" "homebrew/core"];
     brews = [];
-    casks = ["iterm2" "firefox"];
+    casks = [
+      "iterm2"
+      "firefox"
+      "messenger"
+      "discord"
+      "google-drive"
+      "messenger"
+      "protonvpn"
+      "signal"
+      "telegram"
+      "tor-browser"
+      "transmission"
+      "twitch"
+      "visual-studio-code"
+      "vlc"
+      "whatsapp"
+    ];
     masApps = {};
   };
 
