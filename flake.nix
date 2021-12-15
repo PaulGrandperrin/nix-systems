@@ -3,7 +3,9 @@
   description = "Paul Grandperrin NixOS confs";
 
   inputs = {
-    nixos.url = "github:NixOS/nixpkgs/nixos-21.11"; # defined by default in the registry, overrides it
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.11"; # defined by default in the registry, overrides it
+
+    nixos.url = "github:NixOS/nixpkgs/nixos-21.11";
     #nixos.url = "/root/nixpkgs/"; # defined by default in the registry, overrides it
 
     darwin = {
