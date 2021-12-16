@@ -12,6 +12,8 @@
       vlc
       waydroid
       gimp
+      easyeffects
+      (nerdfonts.override { fonts = [ "FiraCode" ]; })
     ];
     sessionVariables = { # only works for interactive shells
     };
@@ -52,4 +54,5 @@
     };
   };
 
+  fonts.fontconfig.enable = true;
 }

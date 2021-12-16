@@ -149,6 +149,19 @@
     passwordAuthentication = true;
   };
 
+  fonts = {
+    fontDir.enable = true;
+    enableDefaultFonts = true;
+    fonts = with pkgs; [
+      (nerdfonts.override { fonts = [ "FiraCode" ]; })
+    ];
+
+    fontconfig = {
+      enable = true;
+      defaultFonts.monospace = [ "FiraCode Nerd Font Mono" ];
+    };
+  };
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
