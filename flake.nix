@@ -101,10 +101,8 @@
         specialArgs = { inherit inputs; }; #  passes inputs to modules
         system = "x86_64-linux"; # maybe related to legacyPackages?
         modules = [ 
+          { nixpkgs.overlays = [ inputs.nur.overlay inputs.rust-overlay.overlay ]; }
           ./nixos/hosts/nas/configuration.nix
-          ({ pkgs, ... }: { # pkgs is in fact inputs.nixos I guess, somehow, but no idea how the magic is done
-              nixpkgs.overlays = [ inputs.rust-overlay.overlay ];
-          })
           inputs.home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
@@ -119,10 +117,8 @@
         specialArgs = { inherit inputs; }; #  passes inputs to modules
         system = "x86_64-linux"; # maybe related to legacyPackages?
         modules = [ 
+          { nixpkgs.overlays = [ inputs.nur.overlay inputs.rust-overlay.overlay ]; }
           ./nixos/hosts/gcp/configuration.nix
-          ({ pkgs, ... }: { # pkgs is in fact inputs.nixos I guess, somehow, but no idea how the magic is done
-              nixpkgs.overlays = [ inputs.rust-overlay.overlay ];
-          })
           inputs.home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
@@ -137,10 +133,8 @@
         specialArgs = { inherit inputs; }; #  passes inputs to modules
         system = "x86_64-linux"; # maybe related to legacyPackages?
         modules = [ 
+          { nixpkgs.overlays = [ inputs.nur.overlay inputs.rust-overlay.overlay ]; }
           ./nixos/hosts/xps/configuration.nix
-          ({ pkgs, ... }: { # pkgs is in fact inputs.nixos I guess, somehow, but no idea how the magic is done
-              nixpkgs.overlays = [ inputs.rust-overlay.overlay ];
-          })
           inputs.home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
