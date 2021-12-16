@@ -1,4 +1,4 @@
-{pkgs, installDesktopApp ? true, ...}: {
+{pkgs, inputs, installDesktopApp ? true, ...}: {
 
   programs = {
     chromium = {
@@ -17,6 +17,10 @@
           enableGnomeExtensions = true;
         };
       } else ( pkgs.emptyDirectory // { override = _: pkgs.emptyDirectory;} );
+
+      extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+        bitwarden
+      ];
 
       profiles."paulgrandperrin@gmail.com" = {
         id = 0;

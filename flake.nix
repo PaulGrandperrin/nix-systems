@@ -8,6 +8,8 @@
     nixos.url = "github:NixOS/nixpkgs/nixos-21.11";
     #nixos.url = "/root/nixpkgs/"; # defined by default in the registry, overrides it
 
+    nur.url = "github:nix-community/NUR";
+
     darwin = {
       url = "github:lnl7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixos";
@@ -59,15 +61,15 @@
     darwinConfigurations = {
       "MacBookPaul" = inputs.darwin.lib.darwinSystem {
         system = "x86_64-darwin";
-        inputs = { inherit inputs; };
         modules = [
+          { nixpkgs.overlays = [ inputs.nur.overlay ]; }
           ./nix-darwin/common.nix
           ./nix-darwin/hosts/MacBookPaul.nix
           inputs.home-manager.darwinModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {installDesktopApp = false;};
+            home-manager.extraSpecialArgs = {inherit inputs; installDesktopApp = false;};
             home-manager.users.root  = { imports = [./home-manager/cmdline.nix];};
             home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-user.nix ./home-manager/desktop.nix];};
           }
@@ -76,15 +78,15 @@
 
       "MacMiniPaul" = inputs.darwin.lib.darwinSystem {
         system = "x86_64-darwin";
-        specialArgs = { inherit inputs; };
         modules = [
+          { nixpkgs.overlays = [ inputs.nur.overlay ]; }
           ./nix-darwin/common.nix
           ./nix-darwin/hosts/MacMiniPaul.nix
           inputs.home-manager.darwinModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {installDesktopApp = false;};
+            home-manager.extraSpecialArgs = {inherit inputs; installDesktopApp = false;};
             home-manager.users.root  = { imports = [./home-manager/cmdline.nix];};
             home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-user.nix ./home-manager/desktop.nix];};
           }
