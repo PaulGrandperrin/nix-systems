@@ -27,6 +27,7 @@
       mycli
       tldr
       hyperfine
+      ranger
       #(rust-bin.selectLatestNightlyWith (toolchain: toolchain.default.override {
       #  #extensions = [ "rust-src" ];
       #  targets = [ "wasm32-unknown-emscripten" "wasm32-unknown-unknown"];
