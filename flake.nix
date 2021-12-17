@@ -64,7 +64,10 @@
       "MacBookPaul" = inputs.darwin.lib.darwinSystem {
         system = "x86_64-darwin";
         modules = [
-          { nixpkgs.overlays = [ inputs.nur.overlay ]; }
+          { 
+            nixpkgs.overlays = [ inputs.nur.overlay ];
+            nixpkgs.config.allowUnfree = true;
+          }
           ./nix-darwin/common.nix
           ./nix-darwin/hosts/MacBookPaul.nix
           inputs.home-manager.darwinModules.home-manager
@@ -81,7 +84,10 @@
       "MacMiniPaul" = inputs.darwin.lib.darwinSystem {
         system = "x86_64-darwin";
         modules = [
-          { nixpkgs.overlays = [ inputs.nur.overlay ]; }
+          { 
+            nixpkgs.overlays = [ inputs.nur.overlay ];
+            nixpkgs.config.allowUnfree = true;
+          }
           ./nix-darwin/common.nix
           ./nix-darwin/hosts/MacMiniPaul.nix
           inputs.home-manager.darwinModules.home-manager
