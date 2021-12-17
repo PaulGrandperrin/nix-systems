@@ -20,6 +20,33 @@
 
       extensions = with pkgs.nur.repos.rycee.firefox-addons; [
         bitwarden
+        buster-captcha-solver
+        bypass-paywalls-clean
+        clearurls
+        darkreader
+        gesturefy
+        i-dont-care-about-cookies
+        languagetool
+        netflix-1080p
+        no-pdf-download
+        octolinker
+        old-reddit-redirect
+        reddit-comment-collapser
+        reddit-enhancement-suite
+        refined-github
+        rust-search-extension
+        save-page-we
+        sponsorblock
+        stylus
+        terms-of-service-didnt-read
+        translate-web-pages
+        tree-style-tab
+        ublock-origin
+        unpaywall
+        videospeed
+        wayback-machine
+        xbrowsersync
+        zoom-page-we
       ];
 
       profiles."paulgrandperrin@gmail.com" = {
