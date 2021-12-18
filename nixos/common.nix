@@ -6,8 +6,21 @@
   # Hardening
   # TODO: noexec mounts, tmpfs...
   environment.defaultPackages = lib.mkForce [];
-  security.sudo.execWheelOnly = true;
   nix.allowedUsers = [ "@wheel" ];
+
+  security = {
+    sudo = {
+      enable = false;
+      execWheelOnly = true;
+    };
+    doas = {
+      enable = true;
+      extraRules = [{
+        groups = ["wheel"];
+        persist = true;
+      }];
+    };
+  };
 
   hardware.enableAllFirmware = true;
   services.fwupd.enable = true;
