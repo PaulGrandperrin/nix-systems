@@ -39,6 +39,20 @@
 
   outputs = inputs: {
 
+    devShell.x86_64-linux = let pkgs = inputs.nixos.legacyPackages.x86_64-linux; in 
+      pkgs.mkShell {
+        buildInputs = with pkgs; [
+          cowsay
+          fish
+        ];
+
+        shellHook = ''
+          cowsay "Welcome"
+          exec fish
+        '';
+      }
+    ;
+
     homeConfigurations = { # TODO figure out how to pass inputs to modules
       paulg = inputs.home-manager.lib.homeManagerConfiguration {
         system = "x86_64-linux";
