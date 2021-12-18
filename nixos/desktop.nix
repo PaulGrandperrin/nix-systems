@@ -48,6 +48,19 @@
     media-session.enable = true;
   };
 
+  fonts = {
+    fontDir.enable = true;
+    enableDefaultFonts = true;
+    fonts = with pkgs; [
+      (nerdfonts.override { fonts = [ "FiraCode" ]; })
+    ];
+
+    fontconfig = {
+      enable = true;
+      defaultFonts.monospace = [ "FiraCode Nerd Font Mono" ];
+    };
+  };
+
 
 
   networking.wireless.iwd.enable = true;
