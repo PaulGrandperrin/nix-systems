@@ -43,7 +43,10 @@
     home-manager.enable = true;
     direnv = {
       enable = true;
-      nix-direnv.enable = true;
+      nix-direnv = {
+        enable = true;
+        enableFlakes = true; # needed on 21.11 but not later
+      };
     };
     emacs.enable = true;
     exa = {
