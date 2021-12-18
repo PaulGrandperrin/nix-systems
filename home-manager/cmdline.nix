@@ -41,6 +41,10 @@
 
   programs = {
     home-manager.enable = true;
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+    };
     emacs.enable = true;
     exa = {
       enable = true;
@@ -50,7 +54,6 @@
       enable = true;
       enableAliases = true;
     };
-    direnv.enable = true;
     bat.enable = true;
     htop.enable = true;
     fzf = {

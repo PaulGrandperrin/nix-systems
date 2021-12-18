@@ -48,7 +48,6 @@
 
         shellHook = ''
           cowsay "Welcome"
-          exec fish
         '';
       }
     ;

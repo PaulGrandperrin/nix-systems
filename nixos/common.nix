@@ -66,15 +66,6 @@
   system.autoUpgrade.flags = [ "--update-input" "nixos" "--update-input" "flake-utils" "--update-input" "rust-overlay" "--no-write-lock-file" ];
   system.autoUpgrade.allowReboot = true;
 
-  #nixpkgs.config = {
-  #  #allowUnfree = true;
-  #  packageOverrides = pkgs: {
-  #    unstable = import <nixos-unstable> {
-  #      config = config.nixpkgs.config;
-  #    };
-  #  };
-  #};
-  
   services.zfs.trim.enable = true;
 
   # Use the systemd-boot EFI boot loader.
