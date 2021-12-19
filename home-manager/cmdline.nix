@@ -28,6 +28,7 @@
       tldr
       hyperfine
       ranger
+      cachix
       #(rust-bin.selectLatestNightlyWith (toolchain: toolchain.default.override {
       #  #extensions = [ "rust-src" ];
       #  targets = [ "wasm32-unknown-emscripten" "wasm32-unknown-unknown"];
@@ -36,6 +37,14 @@
       #  #extensions = ["rust-src"];
       #  #targets = ["wasm32-unknown-emscripten"];
       #})
+      (fenix.complete.withComponents [
+        "cargo"
+        "clippy"
+        "rust-src"
+        "rustc"
+        "rustfmt"
+      ])
+      rust-analyzer-nightly
     ];
   };
 
@@ -148,7 +157,6 @@
       '';
       shellAbbrs = {
         ssh-keygen = "ssh-keygen -t ed25519";
-        darwin-switch = "darwin-rebuild switch --flake ~paulg/git/nixos-conf/";
       };
       plugins = [{ # TODO add fish-done
         name = "bobthefish";

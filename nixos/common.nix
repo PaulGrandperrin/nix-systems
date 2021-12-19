@@ -51,8 +51,18 @@
   #  '';
   #}];
 
+  nix = {
+    binaryCaches = [
+      "https://nix-community.cachix.org"
+    ];
+    binaryCachePublicKeys = [
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+    ];
+  };
+
   # sync registry with our flakes. better for consistency, space, and `nix run/shell` execution time (thanks to caching)
   nix.registry = {
+    nixpkgs.flake = inputs.nixpkgs;
     nixos.flake = inputs.nixos;
     flake-utils.flake = inputs.flake-utils;
     fenix.flake = inputs.fenix;

@@ -66,7 +66,7 @@
         extraSpecialArgs = {installDesktopApp = false;};
         configuration = { config, pkgs, lib, ... }: {
           imports = [ ./home-manager/cmdline.nix ./home-manager/cmdline-user.nix ./home-manager/desktop.nix];
-          nixpkgs.overlays = [ inputs.nur.overlay ];
+          nixpkgs.overlays = [ inputs.nur.overlay inputs.fenix.overlay];
           nixpkgs.config.allowUnfree = true;
           home.packages = [
             (pkgs.writeShellScriptBin "nixGLNvidia" ''$(NIX_PATH=nixpkgs=${inputs.nixos} nix-build ${inputs.nixgl} -A auto.nixGLNvidia --no-out-link)/bin/* "$@"'')
@@ -83,7 +83,7 @@
         system = "x86_64-darwin";
         modules = [
           { 
-            nixpkgs.overlays = [ inputs.nur.overlay ];
+            nixpkgs.overlays = [ inputs.nur.overlay inputs.fenix.overlay ];
             nixpkgs.config.allowUnfree = true;
           }
           ./nix-darwin/common.nix
@@ -103,7 +103,7 @@
         system = "x86_64-darwin";
         modules = [
           { 
-            nixpkgs.overlays = [ inputs.nur.overlay ];
+            nixpkgs.overlays = [ inputs.nur.overlay inputs.fenix.overlay ];
             nixpkgs.config.allowUnfree = true;
           }
           ./nix-darwin/common.nix
@@ -127,7 +127,7 @@
         specialArgs = { inherit inputs; }; #  passes inputs to modules
         system = "x86_64-linux"; # maybe related to legacyPackages?
         modules = [ 
-          { nixpkgs.overlays = [ inputs.nur.overlay ]; }
+          { nixpkgs.overlays = [ inputs.nur.overlay inputs.fenix.overlay ]; }
           ./nixos/hosts/nas/configuration.nix
           inputs.home-manager.nixosModules.home-manager
           {
@@ -143,7 +143,7 @@
         specialArgs = { inherit inputs; }; #  passes inputs to modules
         system = "x86_64-linux"; # maybe related to legacyPackages?
         modules = [ 
-          { nixpkgs.overlays = [ inputs.nur.overlay ]; }
+          { nixpkgs.overlays = [ inputs.nur.overlay inputs.fenix.overlay ]; }
           ./nixos/hosts/gcp/configuration.nix
           inputs.home-manager.nixosModules.home-manager
           {
@@ -159,7 +159,7 @@
         specialArgs = { inherit inputs; }; #  passes inputs to modules
         system = "x86_64-linux"; # maybe related to legacyPackages?
         modules = [ 
-          { nixpkgs.overlays = [ inputs.nur.overlay ]; }
+          { nixpkgs.overlays = [ inputs.nur.overlay inputs.fenix.overlay ]; }
           ./nixos/hosts/xps/configuration.nix
           inputs.home-manager.nixosModules.home-manager
           {
