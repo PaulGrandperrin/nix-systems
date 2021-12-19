@@ -19,10 +19,15 @@
       url = "github:numtide/flake-utils";
     };
 
-    rust-overlay = {
-      url = "github:oxalica/rust-overlay";
+    #rust-overlay = {
+    #  url = "github:oxalica/rust-overlay";
+    #  inputs.nixpkgs.follows = "nixos";
+    #  inputs.flake-utils.follows = "flake-utils";
+    #};
+
+    fenix = {
+      url = "github:nix-community/fenix";
       inputs.nixpkgs.follows = "nixos";
-      inputs.flake-utils.follows = "flake-utils";
     };
 
     home-manager = {
@@ -122,7 +127,7 @@
         specialArgs = { inherit inputs; }; #  passes inputs to modules
         system = "x86_64-linux"; # maybe related to legacyPackages?
         modules = [ 
-          { nixpkgs.overlays = [ inputs.nur.overlay inputs.rust-overlay.overlay ]; }
+          { nixpkgs.overlays = [ inputs.nur.overlay ]; }
           ./nixos/hosts/nas/configuration.nix
           inputs.home-manager.nixosModules.home-manager
           {
@@ -138,7 +143,7 @@
         specialArgs = { inherit inputs; }; #  passes inputs to modules
         system = "x86_64-linux"; # maybe related to legacyPackages?
         modules = [ 
-          { nixpkgs.overlays = [ inputs.nur.overlay inputs.rust-overlay.overlay ]; }
+          { nixpkgs.overlays = [ inputs.nur.overlay ]; }
           ./nixos/hosts/gcp/configuration.nix
           inputs.home-manager.nixosModules.home-manager
           {
@@ -154,7 +159,7 @@
         specialArgs = { inherit inputs; }; #  passes inputs to modules
         system = "x86_64-linux"; # maybe related to legacyPackages?
         modules = [ 
-          { nixpkgs.overlays = [ inputs.nur.overlay inputs.rust-overlay.overlay ]; }
+          { nixpkgs.overlays = [ inputs.nur.overlay ]; }
           ./nixos/hosts/xps/configuration.nix
           inputs.home-manager.nixosModules.home-manager
           {
