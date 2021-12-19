@@ -1,5 +1,23 @@
 { config, pkgs, ... }:
 {
+
+  #nixpkgs.overlays = [
+  #  (self: super: {
+  #    gnome = super.gnome.overrideScope' (gself: gsuper: {
+  #      mutter = gsuper.mutter.overrideAttrs (old: rec {
+  #        version = "41.99";
+  #        src = super.fetchFromGitHub {
+  #          owner = "GNOME";
+  #          repo = "mutter";
+  #          rev = "75d8fedcf5cac169af1a8912819672c94083831b";
+  #          sha256 = "9nw0kJxlsTGPKl30FoYnnlVTTO1BXLS9hHQj8+40Qkg=";
+  #          #sha256 = super.lib.fakeSha256;
+  #        };
+  #      });
+  #    });
+  #  })
+  #];
+
   environment.systemPackages = with pkgs; [
     solaar
   ];
