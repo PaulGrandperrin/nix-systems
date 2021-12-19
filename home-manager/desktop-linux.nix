@@ -13,6 +13,7 @@
       waydroid
       gimp
       easyeffects
+      signal-desktop
       (nerdfonts.override { fonts = [ "FiraCode" ]; })
     ];
     sessionVariables = { # only works for interactive shells
