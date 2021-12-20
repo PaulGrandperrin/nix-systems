@@ -6,7 +6,8 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.11"; # defined by default in the registry, overrides it
 
     nixos.url = "github:NixOS/nixpkgs/nixos-21.11";
-    #nixos.url = "/root/nixpkgs/"; # defined by default in the registry, overrides it
+
+    nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     nur.url = "github:nix-community/NUR";
 
@@ -19,15 +20,10 @@
       url = "github:numtide/flake-utils";
     };
 
-    #rust-overlay = {
-    #  url = "github:oxalica/rust-overlay";
-    #  inputs.nixpkgs.follows = "nixos";
-    #  inputs.flake-utils.follows = "flake-utils";
-    #};
-
-    fenix = {
-      url = "github:nix-community/fenix";
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixos";
+      inputs.flake-utils.follows = "flake-utils";
     };
 
     home-manager = {
@@ -63,10 +59,10 @@
         stateVersion = "21.11";
         homeDirectory = "/home/paulg";
         username = "paulg";
-        extraSpecialArgs = {installDesktopApp = false;};
+        extraSpecialArgs = {inherit inputs; installDesktopApp = false;};
         configuration = { config, pkgs, lib, ... }: {
           imports = [ ./home-manager/cmdline.nix ./home-manager/cmdline-user.nix ./home-manager/desktop.nix];
-          nixpkgs.overlays = [ inputs.nur.overlay inputs.fenix.overlay];
+          nixpkgs.overlays = [ inputs.nur.overlay inputs.rust-overlay.overlay ];
           nixpkgs.config.allowUnfree = true;
           home.packages = [
             (pkgs.writeShellScriptBin "nixGLNvidia" ''$(NIX_PATH=nixpkgs=${inputs.nixos} nix-build ${inputs.nixgl} -A auto.nixGLNvidia --no-out-link)/bin/* "$@"'')
@@ -83,7 +79,7 @@
         system = "x86_64-darwin";
         modules = [
           { 
-            nixpkgs.overlays = [ inputs.nur.overlay inputs.fenix.overlay ];
+            nixpkgs.overlays = [ inputs.nur.overlay inputs.rust-overlay.overlay ];
             nixpkgs.config.allowUnfree = true;
           }
           ./nix-darwin/common.nix
@@ -103,7 +99,7 @@
         system = "x86_64-darwin";
         modules = [
           { 
-            nixpkgs.overlays = [ inputs.nur.overlay inputs.fenix.overlay ];
+            nixpkgs.overlays = [ inputs.nur.overlay inputs.rust-overlay.overlay ];
             nixpkgs.config.allowUnfree = true;
           }
           ./nix-darwin/common.nix
@@ -127,12 +123,13 @@
         specialArgs = { inherit inputs; }; #  passes inputs to modules
         system = "x86_64-linux"; # maybe related to legacyPackages?
         modules = [ 
-          { nixpkgs.overlays = [ inputs.nur.overlay inputs.fenix.overlay ]; }
+          { nixpkgs.overlays = [ inputs.nur.overlay inputs.rust-overlay.overlay ]; }
           ./nixos/hosts/nas/configuration.nix
           inputs.home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = {inherit inputs; installDesktopApp = false;};
             home-manager.users.root  = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-root-linux.nix];};
             home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-user.nix];};
           }
@@ -143,12 +140,13 @@
         specialArgs = { inherit inputs; }; #  passes inputs to modules
         system = "x86_64-linux"; # maybe related to legacyPackages?
         modules = [ 
-          { nixpkgs.overlays = [ inputs.nur.overlay inputs.fenix.overlay ]; }
+          { nixpkgs.overlays = [ inputs.nur.overlay inputs.rust-overlay.overlay ]; }
           ./nixos/hosts/gcp/configuration.nix
           inputs.home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = {inherit inputs; installDesktopApp = false;};
             home-manager.users.root  = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-root-linux.nix];};
             home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-user.nix];};
           }
@@ -159,15 +157,15 @@
         specialArgs = { inherit inputs; }; #  passes inputs to modules
         system = "x86_64-linux"; # maybe related to legacyPackages?
         modules = [ 
-          { nixpkgs.overlays = [ inputs.nur.overlay inputs.fenix.overlay ]; }
+          { nixpkgs.overlays = [ inputs.nur.overlay inputs.rust-overlay.overlay ]; }
           ./nixos/hosts/xps/configuration.nix
           inputs.home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {installDesktopApp = true;};
+            home-manager.extraSpecialArgs = {inherit inputs; installDesktopApp = true;};
             home-manager.users.root  = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-root-linux.nix];};
-            home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-user.nix ./home-manager/desktop.nix ./home-manager/desktop-linux.nix];};
+            home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-user.nix ./home-manager/desktop.nix ./home-manager/desktop-linux.nix ./home-manager/rust-nightly.nix];};
           }
         ];
       };

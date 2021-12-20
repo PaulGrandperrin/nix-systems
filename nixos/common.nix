@@ -64,8 +64,10 @@
   nix.registry = {
     nixpkgs.flake = inputs.nixpkgs;
     nixos.flake = inputs.nixos;
+    nixos-unstable.flake = inputs.nixos-unstable;
+    nur.flake = inputs.nur;
     flake-utils.flake = inputs.flake-utils;
-    fenix.flake = inputs.fenix;
+    rust-overlay.flake = inputs.rust-overlay;
     home-manager.flake = inputs.home-manager;
   };
 
