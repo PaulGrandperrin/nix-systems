@@ -118,10 +118,12 @@
 
     # Used with `nixos-rebuild --flake .#<hostname>`
     # nixosConfigurations."<hostname>".config.system.build.toplevel must be a derivation
-    nixosConfigurations = { 
+    nixosConfigurations = let
+        system = "x86_64-linux";
+    in { 
       nixos-nas = inputs.nixos.lib.nixosSystem { # not defined in the lib... but in Nixpkgs/flake.nix !
+        inherit system;
         specialArgs = { inherit inputs; }; #  passes inputs to modules
-        system = "x86_64-linux"; # maybe related to legacyPackages?
         modules = [ 
           { nixpkgs.overlays = [ inputs.nur.overlay inputs.rust-overlay.overlay ]; }
           ./nixos/hosts/nas/configuration.nix
@@ -129,7 +131,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit inputs; installDesktopApp = false;};
+            home-manager.extraSpecialArgs = {inherit system inputs; installDesktopApp = false;};
             home-manager.users.root  = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-root-linux.nix];};
             home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-user.nix];};
           }
@@ -137,8 +139,8 @@
       };
 
       nixos-gcp = inputs.nixos.lib.nixosSystem { # not defined in the lib... but in Nixpkgs/flake.nix !
+        inherit system;
         specialArgs = { inherit inputs; }; #  passes inputs to modules
-        system = "x86_64-linux"; # maybe related to legacyPackages?
         modules = [ 
           { nixpkgs.overlays = [ inputs.nur.overlay inputs.rust-overlay.overlay ]; }
           ./nixos/hosts/gcp/configuration.nix
@@ -146,7 +148,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit inputs; installDesktopApp = false;};
+            home-manager.extraSpecialArgs = {inherit system inputs; installDesktopApp = false;};
             home-manager.users.root  = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-root-linux.nix];};
             home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-user.nix];};
           }
@@ -154,8 +156,8 @@
       };
 
       nixos-xps = inputs.nixos.lib.nixosSystem { # not defined in the lib... but in Nixpkgs/flake.nix !
+        inherit system;
         specialArgs = { inherit inputs; }; #  passes inputs to modules
-        system = "x86_64-linux"; # maybe related to legacyPackages?
         modules = [ 
           { nixpkgs.overlays = [ inputs.nur.overlay inputs.rust-overlay.overlay ]; }
           ./nixos/hosts/xps/configuration.nix
@@ -163,7 +165,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit inputs; installDesktopApp = true;};
+            home-manager.extraSpecialArgs = {inherit system inputs; installDesktopApp = true;};
             home-manager.users.root  = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-root-linux.nix];};
             home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-user.nix ./home-manager/desktop.nix ./home-manager/desktop-linux.nix ./home-manager/rust-nightly.nix];};
           }
