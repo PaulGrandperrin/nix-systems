@@ -46,9 +46,11 @@
     kitty.enable = true; 
     alacritty.enable = true;
     mangohud.enable = true;
-    vscode = {
+    vscode = with pkgs; { # better than plain package which can't install extensions from internet
       enable = true;
-      extensions = [];
+      package = vscode-fhs; # vscodium version can't use synchronization. FHS version works better with internet's extensions
+      extensions = with vscode-extensions; [
+      ];
     };
     terminator = {
       enable = true;
