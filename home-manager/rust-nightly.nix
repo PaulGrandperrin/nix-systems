@@ -1,4 +1,4 @@
-{pkgs, inputs, ...}: let 
+{pkgs, system, inputs, ...}: let 
 
   my-rust = pkgs.rust-bin.selectLatestNightlyWith (toolchain: toolchain.default.override {
     extensions = [
@@ -15,7 +15,7 @@ in {
   programs = {
     vscode = {
       extensions = [
-        (inputs.nixos-unstable.legacyPackages.x86_64-linux.vscode-extensions.matklad.rust-analyzer.override {
+        (inputs.nixos-unstable.legacyPackages.${system}.vscode-extensions.matklad.rust-analyzer.override {
           rust-analyzer = my-rust;
         })
       ];
