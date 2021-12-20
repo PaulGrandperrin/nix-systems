@@ -14,6 +14,7 @@
       gimp
       easyeffects
       signal-desktop
+      discord
       (nerdfonts.override { fonts = [ "FiraCode" ]; })
     ];
     sessionVariables = { # only works for interactive shells
