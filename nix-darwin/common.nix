@@ -15,7 +15,7 @@
 
   homebrew = {
     enable = true;
-    cleanup = "zap";
+    #cleanup = "zap";
     global = {
       brewfile = true;
       noLock = true;
