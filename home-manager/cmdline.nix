@@ -29,22 +29,6 @@
       hyperfine
       ranger
       cachix
-      #(rust-bin.selectLatestNightlyWith (toolchain: toolchain.default.override {
-      #  #extensions = [ "rust-src" ];
-      #  targets = [ "wasm32-unknown-emscripten" "wasm32-unknown-unknown"];
-      #}))
-      #(input.nixpkgs.rust-bin.stable.latest.default.override {
-      #  #extensions = ["rust-src"];
-      #  #targets = ["wasm32-unknown-emscripten"];
-      #})
-      (fenix.complete.withComponents [
-        "cargo"
-        "clippy"
-        "rust-src"
-        "rustc"
-        "rustfmt"
-      ])
-      rust-analyzer-nightly
     ];
   };
 
