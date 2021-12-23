@@ -4,12 +4,18 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.11"; # defined by default in the registry, overrides it
-
     nixos.url = "github:NixOS/nixpkgs/nixos-21.11";
+
 
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     nur.url = "github:nix-community/NUR";
+
+    nix-on-droid = {
+      url = "github:t184256/nix-on-droid";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.home-manager.follows = "home-manager";
+    };
 
     darwin = {
       url = "github:lnl7/nix-darwin/master";
@@ -52,6 +58,16 @@
         '';
       }
     ;
+
+    nixOnDroidConfigurations = {
+      pixel6pro = inputs.nix-on-droid.lib.nixOnDroidConfiguration {
+        system = "aarch64-linux";
+        config = {
+          home-manager.config = import ./home-manager/cmdline.nix;
+	};
+        extraModules = [];
+      };
+    };
 
     homeConfigurations = { # TODO figure out how to pass inputs to modules
       paulg = inputs.home-manager.lib.homeManagerConfiguration {
