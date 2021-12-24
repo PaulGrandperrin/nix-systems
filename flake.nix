@@ -13,6 +13,7 @@
 
     nix-on-droid = {
       url = "github:t184256/nix-on-droid";
+      inputs.nixpkgs.follows = "nixos";
       inputs.flake-utils.follows = "flake-utils";
       inputs.home-manager.follows = "home-manager";
     };
