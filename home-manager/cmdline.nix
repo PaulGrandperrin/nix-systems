@@ -107,6 +107,11 @@
     #};
     neovim = {
       enable = true;
+      ## "backport" neovim from unstable
+      #package = with pkgs; inputs.nixos-unstable.legacyPackages.${system}.neovim-unwrapped.override { 
+      #  inherit lib stdenv fetchFromGitHub cmake gettext msgpack libtermkey libiconv libuv ncurses pkg-config unibilium gperf libvterm-neovim tree-sitter;
+      #  lua = luajit;
+      #};
       viAlias = true;
       vimAlias = true;
       vimdiffAlias = true;
