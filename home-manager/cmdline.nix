@@ -29,6 +29,7 @@
       hyperfine
       ranger
       cachix
+      manix
     ];
   };
 
