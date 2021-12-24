@@ -10,13 +10,7 @@
     };
     firefox = {
       enable = true;
-      package = if installDesktopApp then pkgs.firefox-wayland.override {
-        # See nixpkgs' firefox/wrapper.nix to check which options you can use
-        cfg = {
-          # Gnome shell native connector
-          enableGnomeExtensions = true;
-        };
-      } else ( pkgs.emptyDirectory // { override = _: pkgs.emptyDirectory;} );
+      package = if installDesktopApp then pkgs.firefox-wayland else ( pkgs.emptyDirectory // { override = _: pkgs.emptyDirectory;} );
 
       extensions = with pkgs.nur.repos.rycee.firefox-addons; [
         bitwarden
