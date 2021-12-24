@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, system, inputs, ... }:
 {
 
   #nixpkgs.overlays = [
@@ -20,6 +20,22 @@
 
   environment.systemPackages = with pkgs; [
     solaar
+    gnomeExtensions.sound-output-device-chooser
+    #gnomeExtensions.bluetooth-battery # incompatible with 41
+    gnomeExtensions.bluetooth-quick-connect
+    gnomeExtensions.gsconnect
+    gnomeExtensions.blur-my-shell
+    gnomeExtensions.pixel-saver
+    gnomeExtensions.floating-dock
+    gnomeExtensions.emoji-selector
+    gnomeExtensions.clipboard-indicator
+    gnomeExtensions.drop-down-terminal
+    gnomeExtensions.ddterm
+    gnomeExtensions.coverflow-alt-tab
+    gnomeExtensions.dash-to-dock
+    gnomeExtensions.dash-to-panel
+    inputs.nixos-unstable.legacyPackages.${system}.gnomeExtensions.desktop-cube
+    #wintile?
   ];
 
   # Enable the X11 windowing system.
@@ -51,7 +67,6 @@
   };
 
   services.xserver.desktopManager.gnome.enable = true;
-  services.gnome.chrome-gnome-shell.enable = true; # BUG: not working...
   services.gnome.experimental-features.realtime-scheduling = true; # breaks some environment vars
 
 
