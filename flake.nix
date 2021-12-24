@@ -70,13 +70,15 @@
       };
     };
 
-    homeConfigurations = { # TODO figure out how to pass inputs to modules
+    homeConfigurations = let
+      system = "x86_64-linux";
+    in {
       paulg = inputs.home-manager.lib.homeManagerConfiguration {
-        system = "x86_64-linux";
+        inherit system;
         stateVersion = "21.11";
         homeDirectory = "/home/paulg";
         username = "paulg";
-        extraSpecialArgs = {inherit inputs; installDesktopApp = false;};
+        extraSpecialArgs = {inherit system inputs; installDesktopApp = false;};
         configuration = { config, pkgs, lib, ... }: {
           imports = [ ./home-manager/cmdline.nix ./home-manager/cmdline-user.nix ./home-manager/desktop.nix];
           nixpkgs.overlays = [ inputs.nur.overlay inputs.rust-overlay.overlay ];
@@ -91,9 +93,12 @@
       };
     };
 
-    darwinConfigurations = {
+    darwinConfigurations = let
+      system = "x86_64-darwin";
+    in {
       "MacBookPaul" = inputs.darwin.lib.darwinSystem {
-        system = "x86_64-darwin";
+        inherit system;
+        specialArgs = { inherit system inputs; }; #  passes inputs to modules
         modules = [
           { 
             nixpkgs.overlays = [ inputs.nur.overlay inputs.rust-overlay.overlay ];
@@ -105,7 +110,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit inputs; installDesktopApp = false;};
+            home-manager.extraSpecialArgs = {inherit system inputs; installDesktopApp = false;};
             home-manager.users.root  = { imports = [./home-manager/cmdline.nix];};
             home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-user.nix ./home-manager/desktop.nix ./home-manager/rust-stable.nix];};
           }
@@ -113,7 +118,8 @@
       };
 
       "MacMiniPaul" = inputs.darwin.lib.darwinSystem {
-        system = "x86_64-darwin";
+        inherit system;
+        specialArgs = { inherit system inputs; }; #  passes inputs to modules
         modules = [
           { 
             nixpkgs.overlays = [ inputs.nur.overlay inputs.rust-overlay.overlay ];
@@ -125,7 +131,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit inputs; installDesktopApp = false;};
+            home-manager.extraSpecialArgs = {inherit system inputs; installDesktopApp = false;};
             home-manager.users.root  = { imports = [./home-manager/cmdline.nix];};
             home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-user.nix ./home-manager/desktop.nix];};
           }
@@ -140,7 +146,7 @@
     in { 
       nixos-nas = inputs.nixos.lib.nixosSystem { # not defined in the lib... but in Nixpkgs/flake.nix !
         inherit system;
-        specialArgs = { inherit inputs; }; #  passes inputs to modules
+        specialArgs = { inherit system inputs; }; #  passes inputs to modules
         modules = [ 
           { nixpkgs.overlays = [ inputs.nur.overlay inputs.rust-overlay.overlay ]; }
           ./nixos/hosts/nas/configuration.nix
@@ -157,7 +163,7 @@
 
       nixos-gcp = inputs.nixos.lib.nixosSystem { # not defined in the lib... but in Nixpkgs/flake.nix !
         inherit system;
-        specialArgs = { inherit inputs; }; #  passes inputs to modules
+        specialArgs = { inherit system inputs; }; #  passes inputs to modules
         modules = [ 
           { nixpkgs.overlays = [ inputs.nur.overlay inputs.rust-overlay.overlay ]; }
           ./nixos/hosts/gcp/configuration.nix
@@ -174,7 +180,7 @@
 
       nixos-xps = inputs.nixos.lib.nixosSystem { # not defined in the lib... but in Nixpkgs/flake.nix !
         inherit system;
-        specialArgs = { inherit inputs; }; #  passes inputs to modules
+        specialArgs = { inherit system inputs; }; #  passes inputs to modules
         modules = [ 
           { nixpkgs.overlays = [ inputs.nur.overlay inputs.rust-overlay.overlay ]; }
           ./nixos/hosts/xps/configuration.nix
