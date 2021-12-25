@@ -68,6 +68,7 @@
 
   services.xserver.desktopManager.gnome.enable = true;
   services.gnome.experimental-features.realtime-scheduling = true; # breaks some environment vars
+  services.gvfs.enable = true;
 
 
   hardware.pulseaudio.enable = false;
