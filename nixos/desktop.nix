@@ -70,6 +70,10 @@
   services.gnome.experimental-features.realtime-scheduling = true; # breaks some environment vars
   services.gvfs.enable = true;
 
+  # android
+  programs.adb.enable = true;
+  users.users.paulg.extraGroups = ["adbusers"];
+
 
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
