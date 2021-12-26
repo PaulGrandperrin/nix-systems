@@ -30,6 +30,7 @@
       ranger
       cachix
       manix
+      neofetch
     ];
   };
 
