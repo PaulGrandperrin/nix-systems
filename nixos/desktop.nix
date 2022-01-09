@@ -74,6 +74,7 @@
   programs.adb.enable = true;
   users.users.paulg.extraGroups = ["adbusers"];
 
+  programs.steam.enable = true;
 
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
