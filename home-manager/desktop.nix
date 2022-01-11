@@ -10,7 +10,17 @@
     };
     firefox = {
       enable = true;
-      package = if installDesktopApp then pkgs.firefox-wayland else ( pkgs.emptyDirectory // { override = _: pkgs.emptyDirectory;} );
+      package = if installDesktopApp then
+        ( pkgs.emptyDirectory // { override = _: (pkgs.symlinkJoin {
+          name = "firefox-bin-wayland";
+          paths = [ pkgs.firefox-bin ];
+          buildInputs = [ pkgs.makeWrapper ];
+          postBuild = ''
+            wrapProgram $out/bin/firefox \
+              --set-default "MOZ_ENABLE_WAYLAND" "1"
+          '';
+        });} )
+      else ( pkgs.emptyDirectory // { override = _: pkgs.emptyDirectory;} );
 
       extensions = with pkgs.nur.repos.rycee.firefox-addons; [
         bitwarden
