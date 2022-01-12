@@ -38,9 +38,9 @@
           '';
         });
       in
-        if installDesktopApp then
-        ( pkgs.emptyDirectory // { override = _: firefox-bin-wayland ;} )
-      else ( pkgs.emptyDirectory // { override = _: pkgs.emptyDirectory;} );
+      pkgs.emptyDirectory // { override = _: # ugly trick to make things work in HM
+        if installDesktopApp then firefox-bin-wayland else pkgs.emptyDirectory; # trick to allow using HM config without installing nix version of Firefox
+      };
 
       extensions = with pkgs.nur.repos.rycee.firefox-addons; [
         bitwarden
