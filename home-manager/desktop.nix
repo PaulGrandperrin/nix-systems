@@ -11,19 +11,35 @@
     firefox = {
       enable = true;
       package = let 
-        firefox-bin-unwrapped = pkgs.callPackage (inputs.nixpkgs-master.outPath + "/pkgs/applications/networking/browsers/firefox-bin") { inherit (pkgs.gnome) adwaita-icon-theme; channel = "release"; generated = import ( inputs.nixpkgs-master.outPath + "/pkgs/applications/networking/browsers/firefox-bin/release_sources.nix");};
-        ff = pkgs.wrapFirefox firefox-bin-unwrapped { applicationName = "firefox"; pname = "firefox-bin"; desktopName = "Firefox"; };
-      in
-        if installDesktopApp then
-        ( pkgs.emptyDirectory // { override = _: (pkgs.symlinkJoin {
+
+        # build firefox-bin version from nixpkgs-master but with current dependencies
+        masterPath = inputs.nixpkgs-master.outPath;
+        firefox-bin-unwrapped = pkgs.callPackage (
+          masterPath + "/pkgs/applications/networking/browsers/firefox-bin"
+        ) {
+          inherit (pkgs.gnome) adwaita-icon-theme;
+          channel = "release";
+          generated = import ( masterPath + "/pkgs/applications/networking/browsers/firefox-bin/release_sources.nix");
+        };
+        firefox-bin = pkgs.wrapFirefox firefox-bin-unwrapped {
+          applicationName = "firefox";
+          pname = "firefox-bin";
+          desktopName = "Firefox";
+        };
+
+        # wrap it to run with Wayland
+        firefox-bin-wayland = (pkgs.symlinkJoin {
           name = "firefox-bin-wayland";
-          paths = [ ff ];
+          paths = [ firefox-bin ];
           buildInputs = [ pkgs.makeWrapper ];
           postBuild = ''
             wrapProgram $out/bin/firefox \
               --set-default "MOZ_ENABLE_WAYLAND" "1"
           '';
-        });} )
+        });
+      in
+        if installDesktopApp then
+        ( pkgs.emptyDirectory // { override = _: firefox-bin-wayland ;} )
       else ( pkgs.emptyDirectory // { override = _: pkgs.emptyDirectory;} );
 
       extensions = with pkgs.nur.repos.rycee.firefox-addons; [
