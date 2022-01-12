@@ -14,14 +14,14 @@
 
         # build firefox-bin version from nixpkgs-master but with current dependencies
         masterPath = inputs.nixpkgs-master.outPath;
-        firefox-bin-unwrapped = pkgs.callPackage (
+        firefox-bin-unwrapped = pkgs.callPackage ( # taken from pkgs/top-level/all-packages.nix
           masterPath + "/pkgs/applications/networking/browsers/firefox-bin"
         ) {
           inherit (pkgs.gnome) adwaita-icon-theme;
           channel = "release";
           generated = import ( masterPath + "/pkgs/applications/networking/browsers/firefox-bin/release_sources.nix");
         };
-        firefox-bin = pkgs.wrapFirefox firefox-bin-unwrapped {
+        firefox-bin = pkgs.wrapFirefox firefox-bin-unwrapped { # taken from pkgs/top-level/all-packages.nix
           applicationName = "firefox";
           pname = "firefox-bin";
           desktopName = "Firefox";
