@@ -8,6 +8,7 @@
 
 
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-master.url = "github:NixOS/nixpkgs/master";
 
     nur.url = "github:nix-community/NUR";
 

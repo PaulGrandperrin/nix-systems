@@ -1,4 +1,4 @@
-{pkgs, inputs, installDesktopApp ? true, ...}: {
+{pkgs, inputs, system, installDesktopApp ? true, ...}: {
 
   programs = {
     chromium = {
@@ -10,10 +10,14 @@
     };
     firefox = {
       enable = true;
-      package = if installDesktopApp then
+      package = let 
+        firefox-bin-unwrapped = pkgs.callPackage (inputs.nixpkgs-master.outPath + "/pkgs/applications/networking/browsers/firefox-bin") { inherit (pkgs.gnome) adwaita-icon-theme; channel = "release"; generated = import ( inputs.nixpkgs-master.outPath + "/pkgs/applications/networking/browsers/firefox-bin/release_sources.nix");};
+        ff = pkgs.wrapFirefox firefox-bin-unwrapped { applicationName = "firefox"; pname = "firefox-bin"; desktopName = "Firefox"; };
+      in
+        if installDesktopApp then
         ( pkgs.emptyDirectory // { override = _: (pkgs.symlinkJoin {
           name = "firefox-bin-wayland";
-          paths = [ pkgs.firefox-bin ];
+          paths = [ ff ];
           buildInputs = [ pkgs.makeWrapper ];
           postBuild = ''
             wrapProgram $out/bin/firefox \
