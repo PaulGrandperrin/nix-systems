@@ -31,7 +31,10 @@
       cachix
       manix
       neofetch
-    ];
+    ]
+    ++ (if system == "x86_64-linux" then [ # linux only
+      dstat sysstat
+    ] else []);
   };
 
   programs = {
