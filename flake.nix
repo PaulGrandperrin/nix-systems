@@ -6,6 +6,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.11"; # defined by default in the registry, overrides it
     nixos.url = "github:NixOS/nixpkgs/nixos-21.11";
 
+    nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-21.11-darwin";
 
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
@@ -96,6 +97,9 @@
 
     darwinConfigurations = let
       system = "x86_64-darwin";
+      inputs-darwin = inputs // {nixpkgs = inputs.nixpkgs-darwin;}; # HACK: I don't know a better way to make HM use nixpkgs-darwin...
+    in let 
+      inputs = inputs-darwin; # HACK: is there a better way to avoid infinite recurtion?
     in {
       "MacBookPaul" = inputs.darwin.lib.darwinSystem {
         inherit system;
