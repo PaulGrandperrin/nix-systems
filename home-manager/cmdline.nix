@@ -1,4 +1,4 @@
-{pkgs, config, ...}: {
+{pkgs, config, inputs, ...}: {
   home.file.".config/nixpkgs/config.nix".text = "{ allowUnfree = true; }"; # "nixpkgs.config.allowUnfree = true;" is not enough to work with `nix run/shell`, also needs `--impure`
   # systemd.user.systemctlPath = "/usr/bin/systemctl"; # TODO ?
   # targets.darwin.defaults # TODO?
@@ -112,10 +112,7 @@
     neovim = {
       enable = true;
       ## "backport" neovim from unstable
-      #package = with pkgs; inputs.nixos-unstable.legacyPackages.${system}.neovim-unwrapped.override { 
-      #  inherit lib stdenv fetchFromGitHub cmake gettext msgpack libtermkey libiconv libuv ncurses pkg-config unibilium gperf libvterm-neovim tree-sitter;
-      #  lua = luajit;
-      #};
+      #package = pkgs.callPackage (inputs.nixos-unstable.outPath + "/pkgs/applications/editors/neovim") { lua = pkgs.luajit; };
       viAlias = true;
       vimAlias = true;
       vimdiffAlias = true;
