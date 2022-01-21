@@ -16,6 +16,7 @@
       signal-desktop
       discord
       (nerdfonts.override { fonts = [ "FiraCode" ]; })
+      deluge
     ];
     sessionVariables = { # only works for interactive shells
     };
