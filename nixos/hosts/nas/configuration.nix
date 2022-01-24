@@ -6,7 +6,7 @@
       #<nixpkgs/nixos/modules/profiles/hardened.nix>
       ../../common.nix
       ../../nspawns/debian.nix
-      ../../containers/web.nix
+      #../../containers/web.nix
       ../../net.nix
     ];
 
