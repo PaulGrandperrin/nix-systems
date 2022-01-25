@@ -17,6 +17,8 @@
       discord
       (nerdfonts.override { fonts = [ "FiraCode" ]; })
       deluge
+      rawtherapee
+      libreoffice
     ];
     sessionVariables = { # only works for interactive shells
     };
