@@ -158,6 +158,7 @@
           ./nixos/common.nix
           ./nixos/nspawns/debian.nix
           ./nixos/net.nix
+          ./nixos/auto-upgrade.nix
           {
             networking.hostId="51079489";
             system.stateVersion = "21.05"; # Did you read the comment?
@@ -187,6 +188,7 @@
           ./nixos/google-compute-config.nix
           ./nixos/common.nix
           ./nixos/container/web.nix
+          ./nixos/auto-upgrade.nix
           ({pkgs, ...}:{
             networking.hostId = "1c734661"; # for ZFS
             networking.hostName = "nixos-gcp";
