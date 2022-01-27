@@ -187,7 +187,7 @@
           ./nixos/hosts/gcp/hardware-configuration.nix
           ./nixos/google-compute-config.nix
           ./nixos/common.nix
-          ./nixos/container/web.nix
+          ./nixos/containers/web.nix
           ./nixos/auto-upgrade.nix
           ({pkgs, ...}:{
             networking.hostId = "1c734661"; # for ZFS
