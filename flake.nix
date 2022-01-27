@@ -154,7 +154,19 @@
         specialArgs = { inherit system inputs; }; #  passes inputs to modules
         modules = [ 
           { nixpkgs.overlays = [ inputs.nur.overlay inputs.rust-overlay.overlay ]; }
-          ./nixos/hosts/nas/configuration.nix
+          ./nixos/hosts/nas/hardware-configuration.nix
+          ./nixos/common.nix
+          ./nixos/nspawns/debian.nix
+          ./nixos/net.nix
+          {
+            networking.hostId="51079489";
+            system.stateVersion = "21.05"; # Did you read the comment?
+            networking.hostName = "nixos-nas";
+            services.net = {
+              enable = true;
+              mainInt = "enp3s0";
+            }; 
+          }
           inputs.home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
@@ -171,7 +183,21 @@
         specialArgs = { inherit system inputs; }; #  passes inputs to modules
         modules = [ 
           { nixpkgs.overlays = [ inputs.nur.overlay inputs.rust-overlay.overlay ]; }
-          ./nixos/hosts/gcp/configuration.nix
+          ./nixos/hosts/gcp/hardware-configuration.nix
+          ./nixos/google-compute-config.nix
+          ./nixos/common.nix
+          ./nixos/container/web.nix
+          ({pkgs, ...}:{
+            networking.hostId = "1c734661"; # for ZFS
+            networking.hostName = "nixos-gcp";
+            networking.interfaces.eth0.useDHCP = true;
+            
+            system.stateVersion = "21.05"; # Did you read the comment?
+          
+            environment.systemPackages = with pkgs; [
+              google-cloud-sdk-gce
+            ];
+          })
           inputs.home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
@@ -188,7 +214,21 @@
         specialArgs = { inherit system inputs; }; #  passes inputs to modules
         modules = [ 
           { nixpkgs.overlays = [ inputs.nur.overlay inputs.rust-overlay.overlay ]; }
-          ./nixos/hosts/xps/configuration.nix
+          ./nixos/hosts/xps/hardware-configuration.nix
+          ./nixos/common.nix
+          ./nixos/net.nix
+          ./nixos/laptop.nix
+          ./nixos/desktop.nix
+          ./nixos/desktop-nvidia-prime.nix
+          {
+            networking.hostId="7ee1da4a";
+            system.stateVersion = "21.11"; # Did you read the comment?
+            networking.hostName = "nixos-xps";
+            services.net = {
+              enable = true;
+              mainInt = "wlp2s0";
+            }; 
+          }
           inputs.home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
