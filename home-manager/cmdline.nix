@@ -9,7 +9,7 @@
       EDITOR = "vim";
     };
     packages = with pkgs; [
-      # home-manager
+      fd
       tree
       ncdu
       wget

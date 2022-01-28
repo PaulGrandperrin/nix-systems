@@ -52,7 +52,22 @@
     vscode = with pkgs; { # better than plain package which can't install extensions from internet
       enable = true;
       package = vscode-fhs; # vscodium version can't use synchronization. FHS version works better with internet's extensions
+      userSettings = {
+        "editor.bracketPairColorization.enabled" = true;
+        "editor.guides.bracketPairs" = "active";
+        "editor.fontFamily" =  "'FiraCode Nerd Font Mono', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'";
+        "terminal.integrated.fontFamily" = "'FiraCode Nerd Font Mono'";
+      };
       extensions = with vscode-extensions; [
+        matklad.rust-analyzer
+        tamasfe.even-better-toml
+        serayuzgur.crates
+        vadimcn.vscode-lldb
+        #jscearcy.rust-doc-viewer
+        usernamehw.errorlens
+        eamodio.gitlens
+        #swellaby.vscode-rust-test-adapter
+        #sidp.strict-whitespace
       ];
     };
     terminator = {
