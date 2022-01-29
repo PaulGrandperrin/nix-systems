@@ -11,8 +11,6 @@
 in {
   home.packages = with pkgs; [
     my-rust
-    clang_13
-    lldb_13
   ];
   programs = {
     vscode = {

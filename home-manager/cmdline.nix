@@ -31,6 +31,26 @@
       cachix
       manix
       neofetch
+
+      #dev
+      gnumake
+      gcc11
+      (pkgs.lib.setPrio 20 clang_13)
+
+      # utility to fetch and launch missing but unambiguous commands
+      (pkgs.writeShellApplication {
+        name = "fr";
+        text = ''
+          result=$(${sqlite}/bin/sqlite3 "/nix/var/nix/profiles/per-user/root/channels/nixos/programs.sqlite" "select package from Programs where system = 'x86_64-linux' and name = '$1'")
+          if [ -z "$result" ]; then
+            >&2 printf "Failed: no package provides '%s'\n" "$1"
+          elif [ "$(echo "$result"|wc -l)" -gt 1 ]; then
+            >&2 printf "Failed: multiple packages provide '%s': \n%s\n" "$1" "$result"
+          else
+            exec nix shell "nixos#$result" -c "$@"
+          fi
+        '';
+      })
     ]
     ++ (if system == "x86_64-linux" then [ # linux only
       dstat sysstat
