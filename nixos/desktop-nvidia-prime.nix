@@ -39,7 +39,7 @@
       exec -a "$0" "$@"
     '')
 
-    gst_all_1.gst-vaapi # nix shell nixos#gst_all_1.gstreamer.dev gst-inspect-1.0 vaapi
+    gst_all_1.gst-vaapi # nix shell nixos#gst_all_1.gstreamer.dev gst-inspect-1.0 vaapi FIXME not present in GST_PLUGIN_SYSTEM_PATH_1_0
   ];
 
   environment.sessionVariables = { # works for all kinds of sessions whereas environment.variables (/etc/profile) only works for interactive shells
