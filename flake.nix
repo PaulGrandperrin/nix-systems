@@ -241,6 +241,38 @@
           }
         ];
       };
+
+
+      MacBookPaul = inputs.nixos.lib.nixosSystem { # not defined in the lib... but in Nixpkgs/flake.nix !
+        inherit system;
+        specialArgs = { inherit system inputs; }; #  passes inputs to modules
+        modules = [ 
+          { nixpkgs.overlays = [ inputs.nur.overlay inputs.rust-overlay.overlay ]; }
+          ./nixos/hosts/MacBookPaul/hardware-configuration.nix
+          ./nixos/common.nix
+          ./nixos/net.nix
+          ./nixos/laptop.nix
+          ./nixos/desktop.nix
+          {
+            networking.hostId="f2b2467d";
+            system.stateVersion = "21.11"; # Did you read the comment?
+            networking.hostName = "MacBookPaul";
+            services.net = {
+              enable = true;
+              mainInt = "wlp3s0";
+            }; 
+          }
+          inputs.home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = {inherit system inputs; installDesktopApp = true;};
+            home-manager.users.root  = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-root.nix];};
+            home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-user.nix ./home-manager/desktop.nix ./home-manager/desktop-linux.nix ./home-manager/rust-nightly.nix];};
+          }
+        ];
+      };
+
     };
   };
 }
