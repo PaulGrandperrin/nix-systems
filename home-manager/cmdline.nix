@@ -31,6 +31,8 @@
       cachix
       manix
       neofetch
+      unzip
+      pv
 
       #dev
       gnumake
