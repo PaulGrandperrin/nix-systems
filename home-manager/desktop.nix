@@ -83,6 +83,7 @@
           "fission.autostart" = true;
 
           "apz.overscroll.enabled" = true;
+          "apz.gtk.kinetic_scroll.enabled" = false;
 
           "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
           "browser.newtabpage.activity-stream.showSponsored" = false;
