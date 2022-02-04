@@ -5,6 +5,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.11"; # defined by default in the registry, overrides it
     nixos.url = "github:NixOS/nixpkgs/nixos-21.11";
+    nixos-small.url = "github:NixOS/nixpkgs/nixos-21.11-small";
 
     nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-21.11-darwin";
 
@@ -149,7 +150,7 @@
     nixosConfigurations = let
         system = "x86_64-linux";
     in { 
-      nixos-nas = inputs.nixos.lib.nixosSystem { # not defined in the lib... but in Nixpkgs/flake.nix !
+      nixos-nas = inputs.nixos-small.lib.nixosSystem { # not defined in the lib... but in Nixpkgs/flake.nix !
         inherit system;
         specialArgs = { inherit system inputs; }; #  passes inputs to modules
         modules = [ 
@@ -179,7 +180,7 @@
         ];
       };
 
-      nixos-gcp = inputs.nixos.lib.nixosSystem { # not defined in the lib... but in Nixpkgs/flake.nix !
+      nixos-gcp = inputs.nixos-small.lib.nixosSystem { # not defined in the lib... but in Nixpkgs/flake.nix !
         inherit system;
         specialArgs = { inherit system inputs; }; #  passes inputs to modules
         modules = [ 
