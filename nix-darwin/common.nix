@@ -5,7 +5,11 @@
   ];
 
   nix.package = pkgs.nix_2_4;
-  nix.extraOptions = "experimental-features = nix-command flakes";
+
+  nix.extraOptions = ''
+    experimental-features = nix-command flakes
+    auto-optimise-store = true
+  '';
 
   nix.gc = {
     automatic = true;
@@ -15,10 +19,6 @@
       Minute = 0;
     };
   };
-
-  nix.extraOptions = ''
-    auto-optimise-store = true
-  '';
 
   services.nix-daemon.enable = true;
   environment.systemPackages = [];
