@@ -73,6 +73,15 @@
         "code.desktop"
         "signal-desktop.desktop"
       ];
+      enabled-extensions = [
+        "drive-menu@gnome-shell-extensions.gcampax.github.com"
+        "apps-menu@gnome-shell-extensions.gcampax.github.com"
+        "bluetooth-quick-connect@bjarosze.gmail.com"
+        "clipboard-indicator@tudmotu.com"
+        "places-menu@gnome-shell-extensions.gcampax.github.com"
+        "sound-output-device-chooser@kgshank.net"
+        "workspace-indicator@gnome-shell-extensions.gcampax.github.com"
+      ];
     };
   };
 
