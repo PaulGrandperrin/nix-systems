@@ -16,6 +16,10 @@
     };
   };
 
+  nix.extraOptions = ''
+    auto-optimise-store = true
+  '';
+
   services.nix-daemon.enable = true;
   environment.systemPackages = [];
 

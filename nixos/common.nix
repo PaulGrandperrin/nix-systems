@@ -16,6 +16,12 @@
     options = "--delete-older-than 2d";
   };
 
+  nix.autoOptimiseStore = true;
+  nix.optimise = {
+    automatic = true;
+    dates = ["06:00:00"];
+  };
+
   security = {
     sudo = {
       enable = false;
