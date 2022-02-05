@@ -7,6 +7,15 @@
   nix.package = pkgs.nix_2_4;
   nix.extraOptions = "experimental-features = nix-command flakes";
 
+  nix.gc = {
+    automatic = true;
+    options = "--delete-older-than 2d";
+    interval = {
+      Hour = 5;
+      Minute = 0;
+    };
+  };
+
   services.nix-daemon.enable = true;
   environment.systemPackages = [];
 

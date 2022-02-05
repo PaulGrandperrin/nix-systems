@@ -9,6 +9,13 @@
   environment.defaultPackages = lib.mkForce [];
   nix.allowedUsers = [ "@wheel" ];
 
+  nix.gc = {
+    automatic = true;
+    persistent = true;
+    dates = "05:00:00";
+    options = "--delete-older-than 2d";
+  };
+
   security = {
     sudo = {
       enable = false;
