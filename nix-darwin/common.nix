@@ -1,4 +1,9 @@
 {pkgs, ...}: {
+
+  imports = [
+    ./nix-registry.nix
+  ];
+
   nix.package = pkgs.nix_2_4;
   nix.extraOptions = "experimental-features = nix-command flakes";
 

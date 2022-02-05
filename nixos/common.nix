@@ -1,7 +1,8 @@
 { config, pkgs, lib, inputs, ... }:
-
 {
-
+  imports = [
+    ./nix-registry.nix
+  ];
 
   # Hardening
   # TODO: noexec mounts, tmpfs...
@@ -58,17 +59,6 @@
     binaryCachePublicKeys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];
-  };
-
-  # sync registry with our flakes. better for consistency, space, and `nix run/shell` execution time (thanks to caching)
-  nix.registry = {
-    nixpkgs.flake = inputs.nixpkgs;
-    nixos.flake = inputs.nixos;
-    nixos-unstable.flake = inputs.nixos-unstable;
-    nur.flake = inputs.nur;
-    flake-utils.flake = inputs.flake-utils;
-    rust-overlay.flake = inputs.rust-overlay;
-    home-manager.flake = inputs.home-manager;
   };
 
   services.zfs.trim.enable = true;

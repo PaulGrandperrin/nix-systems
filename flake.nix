@@ -23,7 +23,7 @@
 
     darwin = {
       url = "github:lnl7/nix-darwin/master";
-      inputs.nixpkgs.follows = "nixos";
+      inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
 
     flake-utils = {
@@ -111,7 +111,6 @@
             nixpkgs.config.allowUnfree = true;
           }
           ./nix-darwin/common.nix
-          ./nix-darwin/hosts/MacBookPaul.nix
           inputs.home-manager.darwinModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
@@ -132,7 +131,6 @@
             nixpkgs.config.allowUnfree = true;
           }
           ./nix-darwin/common.nix
-          ./nix-darwin/hosts/MacMiniPaul.nix
           inputs.home-manager.darwinModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
