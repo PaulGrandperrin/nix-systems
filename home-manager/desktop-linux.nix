@@ -19,6 +19,7 @@
       deluge
       rawtherapee
       libreoffice
+      gnome.dconf-editor
     ];
     sessionVariables = { # only works for interactive shells
     };
@@ -26,6 +27,54 @@
   };
 
   # nixgl or hardware.opengl.setLdLibraryPath = true;
+
+  dconf.settings = {
+    "org/gnome/calculator" = {
+      button-mode = "programming";
+    };
+    "org/gnome/desktop/notifications" = {
+      show-in-lock-screen = false;
+    };
+    "org/gnome/desktop/interface" = {
+      show-battery-percentage = true;
+    };
+    "org/gnome/mutter/experimental-features" = {
+      rt-scheduler = true;
+    };
+    "org/gnome/desktop/privacy" = {
+      remember-recent-files = true;
+      recent-files-max-age = 7;
+      remove-old-trash-files = true;
+      remove-old-temp-files = true;
+      old-files-age = 30;
+    };
+    "org/gnome/desktop/peripherals/mouse" = {
+      natural-scroll = true;
+    };
+    "org/gnome/desktop/peripherals/touchpad" = {
+      natural-scroll = true;
+    };
+    "org/gnome/desktop/input-sources" = {
+      xkb-options = 
+        ["terminate:ctrl_alt_bksp" "compose:ralt" "lv3:switch"];
+    };
+    "org/gnome/desktop/media-handling" = {
+      autorun-never = true;
+    };
+    "org/gnome/desktop/peripherals/keyboard" = {
+      delay = 500;
+      repeat-interval = 30;
+    };
+    "org/gnome/shell" = {
+      favorite-apps = [
+        "firefox.desktop"
+        "terminator.desktop"
+        "org.gnome.Nautilus.desktop"
+        "code.desktop"
+        "signal-desktop.desktop"
+      ];
+    };
+  };
 
 
   systemd.user.sessionVariables = {

@@ -20,6 +20,13 @@
     };
   };
 
+  system.defaults.NSGlobalDomain = {
+    InitialKeyRepeat = 500;
+    KeyRepeat = 30;
+    NSDocumentSaveNewDocumentsToCloud = false;
+  };
+
+
   services.nix-daemon.enable = true;
   environment.systemPackages = [];
 
