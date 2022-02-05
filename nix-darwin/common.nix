@@ -21,8 +21,8 @@
   };
 
   system.defaults.NSGlobalDomain = {
-    InitialKeyRepeat = 500;
-    KeyRepeat = 30;
+    InitialKeyRepeat = 33; # unit is 15ms, so 500ms
+    KeyRepeat = 2; # unit is 15ms, so 30ms
     NSDocumentSaveNewDocumentsToCloud = false;
   };
 
