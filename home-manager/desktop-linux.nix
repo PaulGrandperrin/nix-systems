@@ -74,7 +74,6 @@
         "signal-desktop.desktop"
       ];
       enabled-extensions = [
-        "drive-menu@gnome-shell-extensions.gcampax.github.com"
         "apps-menu@gnome-shell-extensions.gcampax.github.com"
         "bluetooth-quick-connect@bjarosze.gmail.com"
         "clipboard-indicator@tudmotu.com"
