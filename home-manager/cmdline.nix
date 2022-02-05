@@ -36,6 +36,7 @@
       duf
       tshark
       youtube-dl
+      ffmpeg
 
       #dev
       gnumake
