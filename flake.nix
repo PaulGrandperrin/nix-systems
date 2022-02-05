@@ -3,13 +3,10 @@
   description = "Paul Grandperrin NixOS confs";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.11"; # defined by default in the registry, overrides it
     nixos.url = "github:NixOS/nixpkgs/nixos-21.11";
     nixos-small.url = "github:NixOS/nixpkgs/nixos-21.11-small";
-
-    nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-21.11-darwin";
-
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-21.11-darwin";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
 
     nur.url = "github:nix-community/NUR";
@@ -109,6 +106,7 @@
           { 
             nixpkgs.overlays = [ inputs.nur.overlay inputs.rust-overlay.overlay ];
             nixpkgs.config.allowUnfree = true;
+            nix.registry.nix.flake = inputs.nixpkgs-darwin; # to easily try out packages: nix shell nix#htop
           }
           ./nix-darwin/common.nix
           inputs.home-manager.darwinModules.home-manager
@@ -129,6 +127,7 @@
           { 
             nixpkgs.overlays = [ inputs.nur.overlay inputs.rust-overlay.overlay ];
             nixpkgs.config.allowUnfree = true;
+            nix.registry.nix.flake = inputs.nixpkgs-darwin; # to easily try out packages: nix shell nix#htop
           }
           ./nix-darwin/common.nix
           inputs.home-manager.darwinModules.home-manager
@@ -166,6 +165,7 @@
               enable = true;
               mainInt = "enp3s0";
             }; 
+            nix.registry.nix.flake = inputs.nixos-small; # to easily try out packages: nix shell nix#htop
           }
           inputs.home-manager.nixosModules.home-manager
           {
@@ -198,6 +198,7 @@
             environment.systemPackages = with pkgs; [
               google-cloud-sdk-gce
             ];
+            nix.registry.nix.flake = inputs.nixos-small; # to easily try out packages: nix shell nix#htop
           })
           inputs.home-manager.nixosModules.home-manager
           {
@@ -228,7 +229,8 @@
             services.net = {
               enable = true;
               mainInt = "wlp2s0";
-            }; 
+            };
+            nix.registry.nix.flake = inputs.nixos; # to easily try out packages: nix shell nix#htop
           }
           inputs.home-manager.nixosModules.home-manager
           {
@@ -259,7 +261,8 @@
             services.net = {
               enable = true;
               mainInt = "wlp3s0";
-            }; 
+            };
+            nix.registry.nix.flake = inputs.nixos; # to easily try out packages: nix shell nix#htop
           }
           inputs.home-manager.nixosModules.home-manager
           {
