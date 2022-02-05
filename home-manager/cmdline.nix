@@ -33,6 +33,9 @@
       neofetch
       unzip
       pv
+      duf
+      tshark
+      youtube-dl
 
       #dev
       gnumake
