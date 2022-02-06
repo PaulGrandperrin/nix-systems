@@ -171,6 +171,12 @@
       enable = true;
       interactiveShellInit = ''
         ${pkgs.any-nix-shell}/bin/any-nix-shell fish --info-right | source # use fish in nix run and nix-shell
+        source ${
+          pkgs.fetchurl {
+            url = "https://raw.githubusercontent.com/gnachman/iTerm2/c52136b7c0bae545436be8d1441449f19e21faa1/Resources/shell_integration/iterm2_shell_integration.fish";
+            sha256 = "sha256-l7KdmiJlbGy/ozC+l5rrmEebA8kZgV7quYG5I/MHDOI=";
+          }
+        }
       '';
       loginShellInit = ''
         fish_add_path --move --prepend /etc/profiles/per-user/$USER/bin $HOME/.nix-profile/bin /run/current-system/sw/bin /nix/var/nix/profiles/default/bin # https://github.com/LnL7/nix-darwin/issues/122
