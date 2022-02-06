@@ -106,7 +106,7 @@
 
   programs.fish = {
     enable = true;
-    useBabelfish = true;
+    useBabelfish = false;
   };
 
   users.mutableUsers = false;
