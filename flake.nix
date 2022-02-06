@@ -115,7 +115,7 @@
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = {inherit system inputs; installDesktopApp = false;};
             home-manager.users.root  = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-root.nix];};
-            home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-user.nix ./home-manager/desktop.nix ./home-manager/rust-stable.nix];};
+            home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-user.nix ./home-manager/desktop.nix ./home-manager/desktop-macos.nix ./home-manager/rust-stable.nix];};
           }
         ];
       };
@@ -136,7 +136,7 @@
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = {inherit system inputs; installDesktopApp = false;};
             home-manager.users.root  = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-root.nix];};
-            home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-user.nix ./home-manager/desktop.nix];};
+            home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-user.nix ./home-manager/desktop.nix ./home-manager/desktop-macos.nix];};
           }
         ];
       };
