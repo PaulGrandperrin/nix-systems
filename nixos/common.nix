@@ -21,6 +21,8 @@
     automatic = true;
     dates = ["06:00:00"];
   };
+  
+  #nix.trustedUsers = ["@wheel"];
 
   security = {
     sudo = {
