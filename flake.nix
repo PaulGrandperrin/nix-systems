@@ -187,7 +187,7 @@
           ./nixos/google-compute-config.nix
           ./nixos/common.nix
           ./nixos/containers/web.nix
-          ./nixos/auto-upgrade.nix
+          # ./nixos/auto-upgrade.nix # 1G of memory is not enough to evaluate the system's derivation, even with zram...
           ({pkgs, ...}:{
             networking.hostId = "1c734661"; # for ZFS
             networking.hostName = "nixos-gcp";
