@@ -106,6 +106,8 @@
     "kernel.sysrq" = 1;
   };
 
+  programs.sysdig.enable = true;
+
   programs.fish = {
     enable = true;
     useBabelfish = false;
