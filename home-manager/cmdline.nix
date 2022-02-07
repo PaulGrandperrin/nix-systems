@@ -183,6 +183,7 @@
       '';
       shellAbbrs = {
         ssh-keygen = "ssh-keygen -t ed25519";
+        nixos-rebuild-gcp = "nixos-rebuild --flake git+file:///etc/nixos#nixos-gcp --use-substitutes --target-host root@paulg.fr";
       };
       plugins = [{ # TODO add fish-done
         name = "bobthefish";
