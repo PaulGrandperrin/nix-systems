@@ -59,7 +59,9 @@
       })
     ]
     ++ (if system == "x86_64-linux" then [ # linux only
-      dstat sysstat
+      dstat
+      sysstat
+      strace
     ] else []);
   };
 
