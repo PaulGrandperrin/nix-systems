@@ -193,6 +193,11 @@
             networking.hostName = "nixos-gcp";
             networking.interfaces.eth0.useDHCP = true;
             
+            # useful to build and deploy closures from nixos-xps which a lot beefier than nixos-gcp
+            users.users.root.openssh.authorizedKeys.keys = [ 
+              "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHOIxgOXuz4/8JB++umc4fEvFwIlM3eeVadTsvCZCQN2" # root@nixos-xps
+            ];
+            
             system.stateVersion = "21.05"; # Did you read the comment?
           
             environment.systemPackages = with pkgs; [
