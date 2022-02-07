@@ -56,7 +56,7 @@
     };
     "org/gnome/desktop/input-sources" = {
       xkb-options = 
-        ["terminate:ctrl_alt_bksp" "compose:ralt" "lv3:switch"];
+        ["terminate:ctrl_alt_bksp" "compose:ralt" "lv3:switch" "eurosign:e"];
     };
     "org/gnome/desktop/media-handling" = {
       autorun-never = true;
