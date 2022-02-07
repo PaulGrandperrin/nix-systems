@@ -62,6 +62,7 @@
       dstat
       sysstat
       strace
+      bmon
     ] else []);
   };
 
