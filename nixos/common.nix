@@ -87,11 +87,11 @@
   # Set your time zone.
   time.timeZone = "Europe/Paris";
   i18n = {
-    defaultLocale = "en_US.UTF-8";
+    defaultLocale = "en_US.utf8";
     extraLocaleSettings = {
-      LC_TIME = "en_DK.UTF8"; # means ISO-8601
-      LC_MEASUREMENT = "en_DK.UTF8"; # means metric
-      LC_MONETARY = "fr_FR.UTF8"; # means Euro
+      LC_TIME = "en_DK.utf8"; # means ISO-8601
+      LC_MEASUREMENT = "en_DK.utf8"; # means metric
+      LC_MONETARY = "fr_FR.utf8"; # means Euro
     };
   };
 
