@@ -54,7 +54,7 @@
   boot.kernelParams = [ "panic=20" "boot.panic_on_fail" "oops=panic"];
 
 
-  #boot.kernelPackages = pkgs.linuxPackages_latest; # brakes ZFS sometimes
+  #boot.kernelPackages = pkgs.linuxPackages_latest; # breakes ZFS sometimes
   boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
   
   ## way too long to build
@@ -86,21 +86,14 @@
 
   # Set your time zone.
   time.timeZone = "Europe/Paris";
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Select internationalisation properties.
-  # i18n.defaultLocale = "en_US.UTF-8";
-  # console = {
-  #   font = "Lat2-Terminus16";
-  #   keyMap = "us";
-  # };
-
-  # Configure keymap in X11
-  # services.xserver.layout = "us";
-  # services.xserver.xkbOptions = "eurosign:e";
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+    extraLocaleSettings = {
+      LC_TIME = "en_DK.UTF8"; # means ISO-8601
+      LC_MEASUREMENT = "en_DK.UTF8"; # means metric
+      LC_MONETARY = "fr_FR.UTF8"; # means Euro
+    };
+  };
 
   boot.kernel.sysctl = {
     "kernel.sysrq" = 1;
