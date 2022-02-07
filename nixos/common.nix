@@ -140,6 +140,20 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBBKbOypMYzisA9fwYtZVWWtcvsOqA294EEBIYN/9YCr" # MacBookPaul NixOS
   ];
 
+  #nix.buildMachines = [{
+  #  hostName = "builder";
+  #  systems = ["x86_64-linux" "x86_64-darwin"];
+  #  maxJobs = 1;
+  #  speedFactor = 2;
+  #  supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
+  #  mandatoryFeatures = [ ];
+  #}];
+  #nix.distributedBuilds = true;
+  ## optional, useful when the builder has a faster internet connection than yours
+  ##nix.extraOptions = ''
+  ##  builders-use-substitutes = true
+  ##'';
+
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
