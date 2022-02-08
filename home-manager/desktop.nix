@@ -6,6 +6,8 @@
       package = if installDesktopApp then pkgs.chromium else pkgs.emptyDirectory;
       extensions = [
         { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; } # ublock origin
+        { id = "fihnjjcciajhdojfnbdddfaoknhalnja"; } # I don't care about cookies
+        { id = "nngceckbapebfimnlniiiahkandclblb"; } # Bitwarden
       ];
     };
     firefox = {
