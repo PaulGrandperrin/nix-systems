@@ -226,6 +226,7 @@
           ./nixos/net.nix
           ./nixos/laptop.nix
           ./nixos/desktop.nix
+          ./nixos/desktop-i915.nix
           ./nixos/desktop-nvidia-prime.nix
           {
             networking.hostId="7ee1da4a";
