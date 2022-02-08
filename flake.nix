@@ -196,6 +196,7 @@
             # useful to build and deploy closures from nixos-xps which a lot beefier than nixos-gcp
             users.users.root.openssh.authorizedKeys.keys = [ 
               "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHOIxgOXuz4/8JB++umc4fEvFwIlM3eeVadTsvCZCQN2" # root@nixos-xps
+              "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMK/GnaGGlU7pl4po31XP6K5VpodTu67J+D1/3d74R57" # root@MacBookPaul NixOS
             ];
             
             system.stateVersion = "21.05"; # Did you read the comment?
