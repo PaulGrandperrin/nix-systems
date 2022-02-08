@@ -57,6 +57,13 @@
   #boot.kernelPackages = pkgs.linuxPackages_latest; # breakes ZFS sometimes
   boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
 
+  services.zfs.zed.settings = {
+    ZED_EMAIL_ADDR = [ "root" ];
+    ZED_EMAIL_PROG = "${pkgs.mailutils}/bin/mail";
+    ZED_NOTIFY_VERBOSE = 1;
+  };
+
+
   services.opensmtpd = {
     enable = true;
     setSendmail = true;
