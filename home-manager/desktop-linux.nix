@@ -37,6 +37,7 @@
     };
     "org/gnome/desktop/interface" = {
       show-battery-percentage = true;
+      clock-show-weekday = true;
     };
     "org/gnome/mutter/experimental-features" = {
       rt-scheduler = true;
@@ -81,6 +82,9 @@
         "sound-output-device-chooser@kgshank.net"
         "workspace-indicator@gnome-shell-extensions.gcampax.github.com"
       ];
+    };
+    "org/gnome/desktop/calendar" = {
+      show-weekdate = true;
     };
   };
 
