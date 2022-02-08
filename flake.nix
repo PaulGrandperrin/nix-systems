@@ -260,8 +260,38 @@
           ./nixos/net.nix
           ./nixos/laptop.nix
           ./nixos/desktop.nix
-          {
+          ./nixos/desktop-i915.nix
+          ({pkgs, lib, ...}:{
             networking.hostId="f2b2467d";
+            hardware.facetimehd.enable = true;
+            services.mbpfan.enable = true;
+
+            powerManagement = {
+              # brcmfmac being loaded during hibernation would not let a successful resume
+              # https://bugzilla.kernel.org/show_bug.cgi?id=101681#c116.
+              # Also brcmfmac could randomly crash on resume from sleep.
+              # And also, brcmfac prevents suspending
+              powerDownCommands = lib.mkBefore ''
+                ${pkgs.kmod}/bin/rmmod brcmfmac
+                #echo disabled > /sys/bus/pci/devices/0000:03:00.0/power/wakeup # ARPT in /proc/acpi/wakeup, wifi adapter always wakes up the machine, already disabled by rmmod
+                echo disabled > /sys/bus/acpi/devices/PNP0C0D:00/power/wakeup # LID0 in /proc/acpi/wakeup, wakes up the machine when the lid is in open position
+                echo disabled > /sys/bus/pci/devices/0000:00:14.0/power/wakeup # XHC1 in /proc/acpi/wakeup, USB controller, sometimes wakes up the machine
+              '';
+              powerUpCommands = lib.mkBefore "${pkgs.kmod}/bin/modprobe brcmfmac";
+            };
+
+            # USB subsystem wakes up MBP right after suspend unless we disable it.
+            #services.udev.extraRules = ''
+            #  ### fix suspend on MacBookPro12,1 
+            #  # found using:
+            #  # cat /proc/acpi/wakeup
+            #  # echo $device > /proc/acpi/wakeup # to bruteforce which devices woke up the laptop
+            #  # fd $sysfs_node /sys
+            #  # udevadm info -a -p $path
+            #  #SUBSYSTEM=="pci", KERNEL=="0000:03:00.0", DRIVER=="brcmfmac", ATTR{power/wakeup}="disabled"
+            #  #SUBSYSTEM=="acpi", KERNEL=="PNP0C0D:00", DRIVER=="button", ATTR{power/wakeup}="disabled" # LID0 in /proc/acpi/wakeup
+            #  SUBSYSTEM=="acpi", KERNEL=="PNP0C0D:00", ATTR{power/wakeup}="disabled" # LID0 in /proc/acpi/wakeup
+            #'';
             system.stateVersion = "21.11"; # Did you read the comment?
             networking.hostName = "MacBookPaul";
             services.net = {
@@ -269,7 +299,7 @@
               mainInt = "wlp3s0";
             };
             nix.registry.nix.flake = inputs.nixos; # to easily try out packages: nix shell nix#htop
-          }
+          })
           inputs.home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
