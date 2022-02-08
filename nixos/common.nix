@@ -178,6 +178,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     busybox-sandbox-shell
+    mailutils
   ];
 
   zramSwap = {
