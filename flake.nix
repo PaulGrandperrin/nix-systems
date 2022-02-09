@@ -105,7 +105,7 @@
           { 
             nixpkgs.overlays = [ inputs.nur.overlay inputs.rust-overlay.overlay ];
             nixpkgs.config.allowUnfree = true;
-            nix.registry.nix.flake = inputs.nixpkgs-darwin; # to easily try out packages: nix shell nix#htop
+            nix.registry.n.flake = inputs.nixpkgs-darwin; # to easily try out packages: nix shell nix#htop
           }
           ./nix-darwin/common.nix
           inputs.home-manager.darwinModules.home-manager
@@ -126,7 +126,7 @@
           { 
             nixpkgs.overlays = [ inputs.nur.overlay inputs.rust-overlay.overlay ];
             nixpkgs.config.allowUnfree = true;
-            nix.registry.nix.flake = inputs.nixpkgs-darwin; # to easily try out packages: nix shell nix#htop
+            nix.registry.n.flake = inputs.nixpkgs-darwin; # to easily try out packages: nix shell nix#htop
           }
           ./nix-darwin/common.nix
           inputs.home-manager.darwinModules.home-manager
@@ -164,7 +164,7 @@
               enable = true;
               mainInt = "enp3s0";
             }; 
-            nix.registry.nix.flake = inputs.nixos-small; # to easily try out packages: nix shell nix#htop
+            nix.registry.n.flake = inputs.nixos-small; # to easily try out packages: nix shell nix#htop
           }
           inputs.home-manager.nixosModules.home-manager
           {
@@ -203,7 +203,7 @@
             environment.systemPackages = with pkgs; [
               google-cloud-sdk-gce
             ];
-            nix.registry.nix.flake = inputs.nixos-small; # to easily try out packages: nix shell nix#htop
+            nix.registry.n.flake = inputs.nixos-small; # to easily try out packages: nix shell nix#htop
           })
           inputs.home-manager.nixosModules.home-manager
           {
@@ -236,7 +236,7 @@
               enable = true;
               mainInt = "wlp2s0";
             };
-            nix.registry.nix.flake = inputs.nixos; # to easily try out packages: nix shell nix#htop
+            nix.registry.n.flake = inputs.nixos; # to easily try out packages: nix shell nix#htop
           }
           inputs.home-manager.nixosModules.home-manager
           {
@@ -307,7 +307,7 @@
               enable = true;
               mainInt = "wlp3s0";
             };
-            nix.registry.nix.flake = inputs.nixos; # to easily try out packages: nix shell nix#htop
+            nix.registry.n.flake = inputs.nixos; # to easily try out packages: nix shell nix#htop
           })
           inputs.home-manager.nixosModules.home-manager
           {
