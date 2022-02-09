@@ -163,22 +163,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-master": {
-      "locked": {
-        "lastModified": 1644355194,
-        "narHash": "sha256-B+jf0GU5xkGcTBMeus4EMAhGD9jnXJXMJ9IU45ixWBE=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "bdfe187ba675c680deb89d8d7f1a0f583626f08d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "master",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nur": {
       "locked": {
         "lastModified": 1644347272,
@@ -205,7 +189,6 @@
         "nixos-small": "nixos-small",
         "nixos-unstable": "nixos-unstable",
         "nixpkgs-darwin": "nixpkgs-darwin",
-        "nixpkgs-master": "nixpkgs-master",
         "nur": "nur",
         "rust-overlay": "rust-overlay"
       }

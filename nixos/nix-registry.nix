@@ -6,7 +6,6 @@
     nixos-small.flake = inputs.nixos-small;
     nixos-unstable.flake = inputs.nixos-unstable;
     nixpkgs-darwin.flake = inputs.nixpkgs-darwin;
-    nixpkgs-master.flake = inputs.nixpkgs-master;
     nur.flake = inputs.nur;
     flake-utils.flake = inputs.flake-utils;
     rust-overlay.flake = inputs.rust-overlay;
