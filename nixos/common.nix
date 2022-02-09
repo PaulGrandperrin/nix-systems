@@ -34,6 +34,7 @@
       extraRules = [{
         groups = ["wheel"];
         persist = true;
+        setEnv = ["LOCALE_ARCHIVE=/run/current-system/sw/lib/locale/locale-archive"]; # shells don't load the correct locale-archive because doas ignores pam_env: https://github.com/Duncaen/OpenDoas/issues/2
       }];
     };
   };
