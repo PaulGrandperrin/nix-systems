@@ -53,7 +53,7 @@
           elif [ "$(echo "$result"|wc -l)" -gt 1 ]; then
             >&2 printf "Failed: multiple packages provide '%s': \n%s\n" "$1" "$result"
           else
-            exec nix shell "nix#$result" -c "$@"
+            exec nix shell "n#$result" -c "$@"
           fi
         '';
       })
