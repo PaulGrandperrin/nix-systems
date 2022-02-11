@@ -70,7 +70,6 @@
         ublock-origin
         unpaywall
         videospeed
-        wayback-machine
         xbrowsersync
         zoom-page-we
       ];
