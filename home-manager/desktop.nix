@@ -107,7 +107,11 @@
           #"media.rdd-process.enabled" = false;
 
           "network.trr.mode" = 2;
-          "network.trr.uri" = "https://mozilla.cloudflare-dns.com/dns-query";
+          "network.trr.uri" = "https://dns11.quad9.net/dns-query";
+          #"network.trr.uri" = "https://dns.quad9.net/dns-query";
+          #"network.trr.uri" = "https://dns10.quad9.net/dns-query";
+          #"network.trr.uri" = "https://mozilla.cloudflare-dns.com/dns-query";
+          #"network.trr.uri" = "https://dns.google/dns-query ";
         };
       };
 
