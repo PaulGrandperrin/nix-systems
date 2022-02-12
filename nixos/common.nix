@@ -233,8 +233,17 @@
 
   systemd.targets.machines.enable = true;
   networking.useNetworkd = true;
-  services.resolved.enable = true;
   networking.useDHCP = false;
+
+  networking.nameservers = ["1.1.1.1#cloudflare-dns.com" "1.0.0.1#cloudflare-dns.com"];
+  services.resolved = {
+    enable = true;
+    dnssec = "true";
+    extraConfig = ''
+      FallbackDNS= # explicitly disables fallback DNS
+      DNSOverTLS=true
+    '';
+  };
 
   systemd.network.networks."10-container-ve" = { # same as original except 2 lines related to link-local address clashs
     matchConfig = {

@@ -105,6 +105,9 @@
           #"media.rdd-vpx.enabled" = false;
           #"media.rdd-ffvpx.enabled" = false;
           #"media.rdd-process.enabled" = false;
+
+          "network.trr.mode" = 2;
+          "network.trr.uri" = "https://mozilla.cloudflare-dns.com/dns-query";
         };
       };
 
