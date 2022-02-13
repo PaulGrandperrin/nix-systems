@@ -81,13 +81,47 @@
 
   #boot.kernelPackages = pkgs.linuxPackages_latest; # breakes ZFS sometimes
   boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
+  # boot.forceImportRoot = false; 
 
-  nixpkgs.overlays = [ (final: prev: { zfs = prev.zfs.override { enableMail = true; };}) ]; # enabling mails in ZFS enables mails in smartmontools and zed
-  services.zfs.zed.settings = {
-    ZED_EMAIL_ADDR = [ "root" ];
-    ZED_NOTIFY_VERBOSE = 1;
+  # enabling mails in ZFS enables mails in smartmontools and zed
+  nixpkgs.overlays = [(final: prev: { 
+    zfs = (prev.zfs.override { 
+      enableMail = true;
+    }).overrideAttrs (oldAttrs: {
+      patches = oldAttrs.patches ++
+        [ (pkgs.fetchpatch {
+            name = "notify-on-unavail-events.patch";
+            url = "https://github.com/openzfs/zfs/commit/f74604f2f0d76ee55b59f7ed332409fb128ec7e5.patch";
+            sha256 = "1v25ydkxxx704j0gdxzrxvw07gfhi7865grcm8b0zgz9kq0w8i8i";
+          })
+        ];
+    });
+  })]; 
+
+  services.zfs = {
+    zed.settings = {
+      ZED_EMAIL_ADDR = [ "root" ];
+      ZED_NOTIFY_VERBOSE = true;
+    };
+
+    trim = {
+      enable = true;
+      interval = "daily";
+    };
+    autoScrub = {
+      enable = true;
+      interval = "Wed *-*-1..7 12:00:00"; # first Wednesday of the month at noon
+    };
+    autoSnapshot = {
+      enable = true;
+      flags = "-p -u";
+      frequent = 2;
+      hourly = 2;
+      daily = 2;
+      weekly = 0;
+      monthly = 0;
+    };
   };
-
 
   services.opensmtpd = {
     enable = true;
@@ -121,8 +155,6 @@
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];
   };
-
-  services.zfs.trim.enable = true;
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
