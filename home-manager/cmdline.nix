@@ -17,10 +17,8 @@
       pstree
       file
       #nvd # nix store diff-closures
-#      strace
       killall # psmisc, toybox?
       hostname
-      #nix_2_4
       nix-du graphviz-nox
       jq yq
       ruby pry
@@ -37,6 +35,9 @@
       tshark
       youtube-dl
       ffmpeg
+
+      unstable.nix
+      unstable.nixos-rebuild
 
       #dev
       gnumake
