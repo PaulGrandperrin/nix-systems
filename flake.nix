@@ -48,6 +48,7 @@
     stable-pkgs = inputs.nixos.legacyPackages.x86_64-linux;
     unstable-pkgs = inputs.nixos-unstable.legacyPackages.x86_64-linux;
     unstable-overlay = final: prev: { unstable = unstable-pkgs; };
+    overlays = [ inputs.nur.overlay inputs.rust-overlay.overlay unstable-overlay];
   in {
 
     devShell.x86_64-linux = stable-pkgs.mkShell {
@@ -83,7 +84,7 @@
         extraSpecialArgs = {inherit system inputs; installDesktopApp = false;};
         configuration = { config, pkgs, lib, ... }: {
           imports = [ ./home-manager/cmdline.nix ./home-manager/cmdline-user.nix ./home-manager/desktop.nix];
-          nixpkgs.overlays = [ inputs.nur.overlay inputs.rust-overlay.overlay unstable-overlay];
+          nixpkgs = {inherit overlays;};
           nixpkgs.config.allowUnfree = true;
           home.packages = [
             (pkgs.writeShellScriptBin "nixGLNvidia" ''$(NIX_PATH=nixpkgs=${inputs.nixos} nix-build ${inputs.nixgl} -A auto.nixGLNvidia --no-out-link)/bin/* "$@"'')
@@ -106,7 +107,7 @@
         specialArgs = { inherit system inputs; }; #  passes inputs to modules
         modules = [
           { 
-            nixpkgs.overlays = [ inputs.nur.overlay inputs.rust-overlay.overlay unstable-overlay];
+            nixpkgs = {inherit overlays;};
             nixpkgs.config.allowUnfree = true;
             nix.registry.n.flake = inputs.nixpkgs-darwin; # to easily try out packages: nix shell nix#htop
           }
@@ -127,7 +128,7 @@
         specialArgs = { inherit system inputs; }; #  passes inputs to modules
         modules = [
           { 
-            nixpkgs.overlays = [ inputs.nur.overlay inputs.rust-overlay.overlay unstable-overlay];
+            nixpkgs = {inherit overlays;};
             nixpkgs.config.allowUnfree = true;
             nix.registry.n.flake = inputs.nixpkgs-darwin; # to easily try out packages: nix shell nix#htop
           }
@@ -153,7 +154,7 @@
         inherit system;
         specialArgs = { inherit system inputs; }; #  passes inputs to modules
         modules = [ 
-          { nixpkgs.overlays = [ inputs.nur.overlay inputs.rust-overlay.overlay unstable-overlay]; }
+          { nixpkgs = {inherit overlays; }; }
           ./nixos/hosts/nas/hardware-configuration.nix
           ./nixos/common.nix
           ./nixos/nspawns/debian.nix
@@ -184,7 +185,7 @@
         inherit system;
         specialArgs = { inherit system inputs; }; #  passes inputs to modules
         modules = [ 
-          { nixpkgs.overlays = [ inputs.nur.overlay inputs.rust-overlay.overlay unstable-overlay]; }
+          { nixpkgs = {inherit overlays; }; }
           ./nixos/hosts/gcp/hardware-configuration.nix
           ./nixos/google-compute-config.nix
           ./nixos/common.nix
@@ -223,7 +224,7 @@
         inherit system;
         specialArgs = { inherit system inputs; }; #  passes inputs to modules
         modules = [ 
-          { nixpkgs.overlays = [ inputs.nur.overlay inputs.rust-overlay.overlay unstable-overlay]; }
+          { nixpkgs = {inherit overlays; }; }
           ./nixos/hosts/xps/hardware-configuration.nix
           ./nixos/common.nix
           ./nixos/net.nix
@@ -257,7 +258,7 @@
         inherit system;
         specialArgs = { inherit system inputs; }; #  passes inputs to modules
         modules = [ 
-          { nixpkgs.overlays = [ inputs.nur.overlay inputs.rust-overlay.overlay unstable-overlay]; }
+          { nixpkgs = {inherit overlays; }; }
           ./nixos/hosts/MacBookPaul/hardware-configuration.nix
           ./nixos/common.nix
           ./nixos/net.nix
