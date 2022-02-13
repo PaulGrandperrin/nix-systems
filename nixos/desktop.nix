@@ -104,6 +104,28 @@
 
   networking.wireless.iwd.enable = true;
   networking.networkmanager.wifi.backend = "iwd";
+
+  # printing
+  services.printing = {
+    enable = true;
+    drivers = with pkgs; [
+      gutenprint
+      gutenprintBin
+      hplip
+      samsungUnifiedLinuxDriver
+      splix
+      brlaser
+      brgenml1lpr
+      brgenml1cupswrapper
+      cnijfilter2
+    ];
+  };
+  services.avahi = { # needed to use printers shared on the network
+    enable = true;
+    nssmdns = true;
+  };
+
+  
 }
 
 
