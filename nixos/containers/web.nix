@@ -1,5 +1,8 @@
-{ config, pkgs, ... }:
-{
+{ config, pkgs, ... }: {
+  imports = [
+    ../mail.nix
+  ];
+
   networking.firewall.trustedInterfaces =  [ "ve-web" ];
   containers.web = {
     autoStart = true;
@@ -36,19 +39,6 @@
       security.acme.acceptTerms = true;
       security.acme.certs."louis.grandperrin.fr".email = "paul.grandperrin@gmail.com";
       security.acme.certs."paulg.fr".email = "paul.grandperrin@gmail.com";
-    
-    
-      #mail
-      services.opensmtpd = {
-        enable = true;
-        setSendmail = true;
-        serverConfiguration = ''
-          listen on localhost
-          table secrets file://etc/nixos/secrets/smtpd
-          action "relay" relay host smtp+tls://gmailcreds@smtp.gmail.com:587 auth <secrets> mail-from "paul.grandperrin@gmail.com"
-          match for any action "relay"
-        '';
-      };
     
       ## test wordpress
       #services.httpd.adminAddr = "paul.grandperrin@gmail.com";
