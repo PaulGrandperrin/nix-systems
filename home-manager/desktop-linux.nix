@@ -94,6 +94,18 @@
     "org/gnome/settings-daemon/plugins/power" = {
       idle-dim = false; # false isn't taken into account...
       idle-brightness = 100; # 100 means that it stay at whatever is was before
+      sleep-inactive-ac-type = "nothing";
+      sleep-inactive-battery-type = "suspend";
+      sleep-inactive-battery-timeout = 180; # time to sleep on battery 
+      power-saver-profile-on-low-battery = true;
+      power-button-action = "suspend";
+    };
+    "org/gnome/desktop/session" = {
+      idle-delay = 120; # time to blank screen
+    };
+    "org/gnome/desktop/screensaver" = {
+      lock-enabled = true;
+      lock-delay = 0;
     };
   };
 
