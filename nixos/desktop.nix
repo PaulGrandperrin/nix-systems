@@ -34,6 +34,7 @@
     gnomeExtensions.coverflow-alt-tab
     gnomeExtensions.dash-to-dock
     gnomeExtensions.dash-to-panel
+    gnomeExtensions.appindicator
     inputs.nixos-unstable.legacyPackages.${system}.gnomeExtensions.desktop-cube
     #wintile?
   ];
