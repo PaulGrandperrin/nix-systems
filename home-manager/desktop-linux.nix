@@ -92,7 +92,8 @@
       show-weekdate = true;
     };
     "org/gnome/settings-daemon/plugins/power" = {
-      idle-dim = false;
+      idle-dim = false; # false isn't taken into account...
+      idle-brightness = 100; # 100 means that it stay at whatever is was before
     };
   };
 
