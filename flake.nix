@@ -7,6 +7,7 @@
     nixos-small.url = "github:NixOS/nixpkgs/nixos-21.11-small";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-21.11-darwin";
+    nixpkgs-darwin-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     nur.url = "github:nix-community/NUR";
 
@@ -101,6 +102,11 @@
       inputs-darwin = inputs // {nixpkgs = inputs.nixpkgs-darwin;}; # HACK: I don't know a better way to make HM use nixpkgs-darwin...
     in let 
       inputs = inputs-darwin; # HACK: is there a better way to avoid infinite recurtion?
+      # redefine those with darwin specific flakes
+      stable-pkgs = inputs.nixpkgs-darwin.legacyPackages.x86_64-darwin;
+      unstable-pkgs = inputs.nixpkgs-darwin-unstable.legacyPackages.x86_64-darwin;
+      unstable-overlay = final: prev: { unstable = unstable-pkgs; };
+      overlays = [ inputs.nur.overlay inputs.rust-overlay.overlay unstable-overlay];
     in {
       "MacBookPaul" = inputs.darwin.lib.darwinSystem {
         inherit system;
