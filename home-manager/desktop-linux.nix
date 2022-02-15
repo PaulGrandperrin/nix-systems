@@ -86,6 +86,7 @@
         "places-menu@gnome-shell-extensions.gcampax.github.com"
         "sound-output-device-chooser@kgshank.net"
         "workspace-indicator@gnome-shell-extensions.gcampax.github.com"
+        "appindicatorsupport@rgcjonas.gmail.com"
       ];
     };
     "org/gnome/desktop/calendar" = {
