@@ -91,6 +91,9 @@
     "org/gnome/desktop/calendar" = {
       show-weekdate = true;
     };
+    "org/gnome/settings-daemon/plugins/power" = {
+      idle-dim = false;
+    };
   };
 
 
