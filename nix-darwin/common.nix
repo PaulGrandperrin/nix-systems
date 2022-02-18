@@ -63,6 +63,8 @@
       "visual-studio-code"
       "vlc"
       "whatsapp"
+      "android-platform-tools"
+      "android-file-transfer"
     ];
     masApps = {};
   };
