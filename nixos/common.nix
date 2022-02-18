@@ -262,9 +262,19 @@
     enable = true;
     dnssec = "true";
     extraConfig = ''
-      FallbackDNS= # explicitly disables fallback DNS
+      FallbackDNS=
       DNSOverTLS=true
     '';
+  };
+
+  systemd.network.networks."10-proton" = {
+    matchConfig = {
+      "Name" = "proton*";
+      "Driver" = "tun";
+    };
+    networkConfig = {
+      "DNSDefaultRoute" = "no";
+    };
   };
 
   systemd.network.networks."10-container-ve" = { # same as original except 2 lines related to link-local address clashs
