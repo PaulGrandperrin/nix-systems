@@ -275,6 +275,7 @@
             networking.hostId="f2b2467d";
             hardware.facetimehd.enable = true;
             services.mbpfan.enable = true;
+            services.resolved.dnssec= lib.mkForce "false"; # broken in Brazil, even "allow-downgrade" doesn't work, TODO: remove
 
             powerManagement = {
               powerDownCommands = lib.mkBefore ''
