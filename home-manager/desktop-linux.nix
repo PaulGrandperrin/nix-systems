@@ -108,6 +108,15 @@
       lock-enabled = true;
       lock-delay = 0;
     };
+    "org/gnome/system/location" = {
+      enabled = true;
+    };
+    "org/gnome/shell/weather" = {
+      automatic-location = true;
+    };
+    "org/gnome/desktop/datetime" = {
+      automatic-timezone = true;
+    };
   };
 
 
