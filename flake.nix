@@ -277,7 +277,6 @@
             services.mbpfan.enable = true;
 
             services.resolved.dnssec= lib.mkForce "false"; # broken in Brazil, even "allow-downgrade" doesn't work, TODO: remove
-            time.timeZone = lib.mkForce "Brazil/East"; # TODO remove
 
             powerManagement = {
               powerDownCommands = lib.mkBefore ''

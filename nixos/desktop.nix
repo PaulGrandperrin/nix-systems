@@ -1,4 +1,4 @@
-{ config, pkgs, system, inputs, ... }:
+{ config, pkgs, lib, system, inputs, ... }:
 {
 
   #nixpkgs.overlays = [
@@ -17,6 +17,8 @@
   #    });
   #  })
   #];
+
+  time.timeZone = lib.mkForce null; # allow TZ to be set by desktop user
 
   environment.systemPackages = with pkgs; [
     solaar
