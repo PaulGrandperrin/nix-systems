@@ -261,7 +261,7 @@
   #networking.nameservers = ["8.8.8.8#dns.google" "8.8.4.4#dns.google" "2001:4860:4860::8888#dns.google" "2001:4860:4860::8844#dns.google"];
   services.resolved = {
     enable = true;
-    dnssec = "true";
+    dnssec = "false"; # https://github.com/systemd/systemd/issues/10579
     extraConfig = ''
       FallbackDNS=
       DNSOverTLS=true

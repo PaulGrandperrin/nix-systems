@@ -277,8 +277,6 @@
             hardware.facetimehd.enable = true;
             services.mbpfan.enable = true;
 
-            services.resolved.dnssec= lib.mkForce "false"; # broken in Brazil, even "allow-downgrade" doesn't work, TODO: remove
-
             powerManagement = {
               powerDownCommands = lib.mkBefore ''
                 # brcmfmac being loaded during hibernation would not let a successful resume
