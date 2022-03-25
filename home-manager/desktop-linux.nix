@@ -23,9 +23,9 @@
       helvum
 
       # I want protonvpn from unstable but I don't want to pull its dependencies from unstable
-      (callPackage (inputs.nixos-unstable.outPath + "/pkgs/applications/networking/protonvpn-gui") {
-        python3Packages = ( python3Packages // {protonvpn-nm-lib = python3Packages.callPackage (inputs.nixos-unstable.outPath + "/pkgs/development/python-modules/protonvpn-nm-lib") {};});
-      })
+      #(callPackage (inputs.nixos-unstable.outPath + "/pkgs/applications/networking/protonvpn-gui") {
+      #  python3Packages = ( python3Packages // {protonvpn-nm-lib = python3Packages.callPackage (inputs.nixos-unstable.outPath + "/pkgs/development/python-modules/protonvpn-nm-lib") {};});
+      #})
     ];
     sessionVariables = { # only works for interactive shells
     };
