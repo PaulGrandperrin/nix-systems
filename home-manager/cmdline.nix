@@ -73,7 +73,7 @@
       enable = true;
       nix-direnv = {
         enable = true;
-      } // (if is_unstable then {} else { enableFlakes = true; });
+      } // pkgs.lib.optionalAttrs (!is_unstable) { enableFlakes = true; };
     };
     emacs.enable = true;
     exa = {
