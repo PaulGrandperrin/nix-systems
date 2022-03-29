@@ -33,9 +33,20 @@
       inputs.flake-utils.follows = "flake-utils";
     };
 
+    rust-overlay-unstable = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixos-unstable";
+      inputs.flake-utils.follows = "flake-utils";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager/release-21.11";
       inputs.nixpkgs.follows = "nixos";
+    };
+
+    home-manager-unstable = {
+      url = "github:nix-community/home-manager/master";
+      inputs.nixpkgs.follows = "nixos-unstable";
     };
 
     nixgl = {
@@ -50,6 +61,7 @@
     unstable-pkgs = inputs.nixos-unstable.legacyPackages.x86_64-linux;
     unstable-overlay = final: prev: { unstable = unstable-pkgs; };
     overlays = [ inputs.nur.overlay inputs.rust-overlay.overlay unstable-overlay];
+    overlays-unstable = [ inputs.nur.overlay inputs.rust-overlay-unstable.overlay unstable-overlay];
   in {
 
     devShell.x86_64-linux = stable-pkgs.mkShell {
@@ -261,11 +273,11 @@
       };
 
 
-      MacBookPaul = inputs.nixos.lib.nixosSystem { # not defined in the lib... but in Nixpkgs/flake.nix !
+      MacBookPaul = inputs.nixos-unstable.lib.nixosSystem { # not defined in the lib... but in Nixpkgs/flake.nix !
         inherit system;
         specialArgs = { inherit system inputs; }; #  passes inputs to modules
         modules = [ 
-          { nixpkgs = {inherit overlays; }; }
+          { nixpkgs = { overlays = overlays-unstable; }; }
           ./nixos/hosts/MacBookPaul/hardware-configuration.nix
           ./nixos/common.nix
           ./nixos/net.nix
@@ -318,13 +330,13 @@
               enable = true;
               mainInt = "wlp3s0";
             };
-            nix.registry.n.flake = inputs.nixos; # to easily try out packages: nix shell nix#htop
+            nix.registry.n.flake = inputs.nixos-unstable; # to easily try out packages: nix shell nix#htop
           })
-          inputs.home-manager.nixosModules.home-manager
+          inputs.home-manager-unstable.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit system inputs; installDesktopApp = true;};
+            home-manager.extraSpecialArgs = {inherit system inputs; installDesktopApp = true; is_unstable = true;};
             home-manager.users.root  = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-root.nix];};
             home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-user.nix ./home-manager/desktop.nix ./home-manager/desktop-linux.nix ./home-manager/rust-stable.nix];};
           }

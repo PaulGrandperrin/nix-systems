@@ -1,4 +1,4 @@
-{pkgs, config, inputs, ...}: {
+{pkgs, config, inputs, is_unstable ? false, ...}: {
   home.file.".config/nixpkgs/config.nix".text = "{ allowUnfree = true; }"; # "nixpkgs.config.allowUnfree = true;" is not enough to work with `nix run/shell`, also needs `--impure`
   # systemd.user.systemctlPath = "/usr/bin/systemctl"; # TODO ?
   # targets.darwin.defaults # TODO?
@@ -32,7 +32,7 @@
       unzip
       pv
       duf
-      tshark
+      wireshark-cli
       youtube-dl
       ffmpeg
 
@@ -73,8 +73,7 @@
       enable = true;
       nix-direnv = {
         enable = true;
-        enableFlakes = true; # needed on 21.11 but not later
-      };
+      } // (if is_unstable then {} else { enableFlakes = true; });
     };
     emacs.enable = true;
     exa = {

@@ -152,7 +152,7 @@
         "terminal.integrated.fontFamily" = "'FiraCode Nerd Font Mono'";
       };
       extensions = with vscode-extensions; [
-        matklad.rust-analyzer
+        #matklad.rust-analyzer # already defined in rust module
         tamasfe.even-better-toml
         serayuzgur.crates
         vadimcn.vscode-lldb

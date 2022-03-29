@@ -70,7 +70,6 @@
   };
 
   services.xserver.desktopManager.gnome.enable = true;
-  services.gnome.experimental-features.realtime-scheduling = true; # breaks some environment vars
   services.gvfs.enable = true;
 
   # android
@@ -87,7 +86,6 @@
     alsa.support32Bit = true;
     pulse.enable = true;
     jack.enable = true;
-    media-session.enable = true;
   };
 
   fonts = {
@@ -115,7 +113,7 @@
       gutenprint
       gutenprintBin
       hplip
-      samsungUnifiedLinuxDriver
+      samsung-unified-linux-driver
       splix
       brlaser
       brgenml1lpr
