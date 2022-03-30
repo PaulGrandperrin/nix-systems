@@ -1,4 +1,4 @@
-{pkgs, config, inputs, is_unstable ? false, ...}: {
+args @ {pkgs, config, inputs, ...}: {
   home.file.".config/nixpkgs/config.nix".text = "{ allowUnfree = true; }"; # "nixpkgs.config.allowUnfree = true;" is not enough to work with `nix run/shell`, also needs `--impure`
   # systemd.user.systemctlPath = "/usr/bin/systemctl"; # TODO ?
   # targets.darwin.defaults # TODO?
@@ -73,7 +73,7 @@
       enable = true;
       nix-direnv = {
         enable = true;
-      } // pkgs.lib.optionalAttrs (!is_unstable) { enableFlakes = true; };
+      } // pkgs.lib.optionalAttrs (!args ? is_unstable) { enableFlakes = true; };
     };
     emacs.enable = true;
     exa = {
