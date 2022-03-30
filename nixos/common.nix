@@ -81,7 +81,7 @@
 
 
   #boot.kernelPackages = pkgs.linuxPackages_latest; # breakes ZFS sometimes
-  #boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
+  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
   # boot.forceImportRoot = false; 
 
   # enabling mails in ZFS enables mails in smartmontools and zed
