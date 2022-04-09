@@ -20,7 +20,7 @@ args @ {pkgs, config, inputs, ...}: {
       killall # psmisc, toybox?
       hostname
       nix-du graphviz-nox
-      jq yq
+      jq #yq
       ruby pry
       mycli
       tldr
