@@ -14,7 +14,7 @@
   };
 
   hardware.nvidia = { # TODO try alone
-    package = config.boot.kernelPackages.nvidiaPackages.beta;
+    #package = config.boot.kernelPackages.nvidiaPackages.beta;
     powerManagement = {
       enable = true;
       finegrained = true;
