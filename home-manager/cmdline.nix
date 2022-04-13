@@ -35,6 +35,10 @@ args @ {pkgs, config, inputs, ...}: {
       wireshark-cli
       youtube-dl
       ffmpeg
+      zenith
+      gdu
+      pgcli
+      btop
 
       unstable.nix
       unstable.nixos-rebuild
