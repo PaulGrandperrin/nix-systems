@@ -38,7 +38,15 @@ args @ {pkgs, config, inputs, ...}: {
       zenith
       gdu
       pgcli
-      btop
+      sd
+      difftastic
+      httpie curlie xh
+      entr
+      tig
+      choose
+      tmate
+      du-dust
+      unstable.fq # not yet available in 21.11
       smartmontools
 
       unstable.nix
@@ -69,6 +77,7 @@ args @ {pkgs, config, inputs, ...}: {
       sysstat
       strace
       bmon
+      btop
     ] else []);
   };
 
