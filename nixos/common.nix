@@ -116,6 +116,11 @@
     };
   };
 
+  services.smartd = {
+    enable = true;
+    notifications.mail.enable = true;
+  };
+
   ## way too long to build
   #boot.kernelPatches = [{
   #  name = "custom";

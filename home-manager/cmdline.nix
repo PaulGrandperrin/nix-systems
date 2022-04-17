@@ -39,6 +39,7 @@ args @ {pkgs, config, inputs, ...}: {
       gdu
       pgcli
       btop
+      smartmontools
 
       unstable.nix
       unstable.nixos-rebuild
