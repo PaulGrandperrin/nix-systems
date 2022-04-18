@@ -209,7 +209,7 @@
           ./nixos/common.nix
           ./nixos/containers/web.nix
           # ./nixos/auto-upgrade.nix # 1G of memory is not enough to evaluate the system's derivation, even with zram...
-          ({pkgs, ...}:{
+          ({pkgs, lib, ...}:{
             networking.hostId = "1c734661"; # for ZFS
             networking.hostName = "nixos-gcp";
             networking.interfaces.eth0.useDHCP = true;
@@ -221,6 +221,8 @@
               "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF5s0Fe3Y2kX5bxhipkD/OGePPRew40fElqzgacdavuY" # root@nixos-nas
             ];
             
+            services.smartd.enable = lib.mkForce false;
+
             system.stateVersion = "21.05"; # Did you read the comment?
           
             environment.systemPackages = with pkgs; [
