@@ -33,12 +33,6 @@
       inputs.flake-utils.follows = "flake-utils";
     };
 
-    rust-overlay-unstable = {
-      url = "github:oxalica/rust-overlay";
-      inputs.nixpkgs.follows = "nixos-unstable";
-      inputs.flake-utils.follows = "flake-utils";
-    };
-
     home-manager = {
       url = "github:nix-community/home-manager/release-21.11";
       inputs.nixpkgs.follows = "nixos";
@@ -61,7 +55,6 @@
     unstable-pkgs = inputs.nixos-unstable.legacyPackages.x86_64-linux;
     unstable-overlay = final: prev: { unstable = unstable-pkgs; };
     overlays = [ inputs.nur.overlay inputs.rust-overlay.overlay unstable-overlay];
-    overlays-unstable = [ inputs.nur.overlay inputs.rust-overlay-unstable.overlay unstable-overlay];
   in {
 
     devShell.x86_64-linux = stable-pkgs.mkShell {
@@ -279,7 +272,7 @@
         inherit system;
         specialArgs = { inherit system inputs; }; #  passes inputs to modules
         modules = [ 
-          { nixpkgs = { overlays = overlays-unstable; }; }
+          { nixpkgs = { inherit overlays; }; }
           ./nixos/hosts/MacBookPaul/hardware-configuration.nix
           ./nixos/common.nix
           ./nixos/net.nix
