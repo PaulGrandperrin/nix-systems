@@ -181,6 +181,7 @@ args @ {pkgs, config, inputs, ...}: {
       extraConfig = {
         init.defaultBranch = "main";
         pull.ff = "only";
+        merge.conflictstyle = "diff3";
       };
       #signing?
     };
