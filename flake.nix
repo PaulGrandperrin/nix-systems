@@ -6,6 +6,7 @@
     nixos.url = "github:NixOS/nixpkgs/nixos-21.11";
     nixos-small.url = "github:NixOS/nixpkgs/nixos-21.11-small";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixos-unstable-small.url = "github:NixOS/nixpkgs/nixos-unstable-small";
     nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-21.11-darwin";
     nixpkgs-darwin-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
@@ -161,7 +162,7 @@
     nixosConfigurations = let
         system = "x86_64-linux";
     in { 
-      nixos-nas = inputs.nixos-small.lib.nixosSystem { # not defined in the lib... but in Nixpkgs/flake.nix !
+      nixos-nas = inputs.nixos-unstable-small.lib.nixosSystem { # not defined in the lib... but in Nixpkgs/flake.nix !
         inherit system;
         specialArgs = { inherit system inputs; }; #  passes inputs to modules
         modules = [ 
@@ -179,13 +180,13 @@
               enable = true;
               mainInt = "enp3s0";
             }; 
-            nix.registry.n.flake = inputs.nixos-small; # to easily try out packages: nix shell nix#htop
+            nix.registry.n.flake = inputs.nixos-unstable-small; # to easily try out packages: nix shell nix#htop
           }
-          inputs.home-manager.nixosModules.home-manager
+          inputs.home-manager-unstable.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit system inputs; installDesktopApp = false;};
+            home-manager.extraSpecialArgs = {inherit system inputs; installDesktopApp = false; is_unstable = true;};
             home-manager.users.root  = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-root.nix];};
             home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-user.nix];};
           }
