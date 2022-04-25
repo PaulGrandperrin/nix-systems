@@ -246,7 +246,7 @@
           ./nixos/laptop.nix
           ./nixos/desktop.nix
           ./nixos/desktop-i915.nix
-          ./nixos/desktop-nvidia-prime.nix
+          ./nixos/nvidia.nix
           {
             networking.hostId="7ee1da4a";
             system.stateVersion = "21.11"; # Did you read the comment?
