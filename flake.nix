@@ -65,7 +65,7 @@
     stable-pkgs = inputs.nixos.legacyPackages.x86_64-linux;
     unstable-pkgs = inputs.nixos-unstable.legacyPackages.x86_64-linux;
     unstable-overlay = final: prev: { unstable = unstable-pkgs; };
-    overlays = [ inputs.nur.overlay inputs.rust-overlay.overlay unstable-overlay];
+    overlays = [ inputs.nur.overlay inputs.rust-overlay.overlay unstable-overlay inputs.nix-alien.overlay];
   in {
 
     devShell.x86_64-linux = stable-pkgs.mkShell {
@@ -200,6 +200,7 @@
             home-manager.users.root  = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-root.nix];};
             home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-user.nix];};
           }
+          inputs.nix-ld.nixosModules.nix-ld
         ];
       };
 
@@ -242,6 +243,7 @@
             home-manager.users.root  = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-root.nix];};
             home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-user.nix];};
           }
+          inputs.nix-ld.nixosModules.nix-ld
         ];
       };
 
@@ -249,7 +251,7 @@
         inherit system;
         specialArgs = { inherit system inputs; }; #  passes inputs to modules
         modules = [ 
-          { nixpkgs = {overlays = overlays ++ [inputs.nix-alien.overlay]; }; }
+          { nixpkgs = { inherit overlays; }; }
           ./nixos/hosts/xps/hardware-configuration.nix
           ./nixos/common.nix
           ./nixos/net.nix
@@ -257,7 +259,7 @@
           ./nixos/desktop.nix
           ./nixos/desktop-i915.nix
           ./nixos/nvidia.nix
-          ({pkgs, ...}:{
+          {
             networking.hostId="7ee1da4a";
             system.stateVersion = "21.11"; # Did you read the comment?
             networking.hostName = "nixos-xps";
@@ -266,13 +268,7 @@
               mainInt = "wlp2s0";
             };
             nix.registry.n.flake = inputs.nixos; # to easily try out packages: nix shell nix#htop
-            
-            environment.systemPackages = with pkgs; [
-              nix-alien
-              nix-index
-              nix-index-update
-            ];
-          })
+          }
           inputs.home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
@@ -301,6 +297,8 @@
             networking.hostId="f2b2467d";
             hardware.facetimehd.enable = true;
             services.mbpfan.enable = true;
+
+            programs.nix-ld.enable = true;
 
             powerManagement = {
               powerDownCommands = lib.mkBefore ''

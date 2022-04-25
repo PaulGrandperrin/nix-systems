@@ -78,6 +78,10 @@ args @ {pkgs, config, inputs, ...}: {
       strace
       bmon
       btop
+
+      nix-alien
+      nix-index
+      nix-index-update
     ] else []);
   };
 
