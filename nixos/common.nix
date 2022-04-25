@@ -179,7 +179,7 @@
     isNormalUser = true;
     description = "Paul Grandperrin";
     passwordFile = "/etc/nixos/secrets/password-paulg";
-    extraGroups = [ "wheel" "video" ]; # audio?
+    extraGroups = [ "wheel" "video" "netdev" ]; # audio?
     uid = 1000;
     useDefaultShell = true;
     createHome = true;
