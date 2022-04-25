@@ -240,7 +240,18 @@
     #permitRootLogin = "yes";
   };
 
-  virtualisation.podman.enable = true;
+  virtualisation = {
+    podman.enable = true;
+    docker = {
+      enable = true;
+      #storageDriver = "overlay2";
+      autoPrune = {
+        enable = true;
+        dates = "04:30:00";
+        flags = ["--all" "--filter" "until=7d"];
+      };
+    };
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
