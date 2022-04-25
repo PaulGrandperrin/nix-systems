@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 {
   services.xserver = {
-    videoDrivers = ["nvidia" ]; # TODO try alone, without hardware.nvidia
+    videoDrivers = ["nvidia" ];
 
     displayManager.gdm.nvidiaWayland = true; # remove the udev rules which disables wayland when the nvidia driver is loaded
 
@@ -13,7 +13,7 @@
     '';
   };
 
-  hardware.nvidia = { # TODO try alone
+  hardware.nvidia = {
     #package = config.boot.kernelPackages.nvidiaPackages.beta;
     powerManagement = {
       enable = true;
@@ -28,6 +28,8 @@
       nvidiaBusId = "PCI:1:0:0";
     };
   };
+
+  virtualisation.docker.enableNvidia = true;
 
   environment.systemPackages = with pkgs; [
      # nvidia-offload
