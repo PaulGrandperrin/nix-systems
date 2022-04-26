@@ -29,7 +29,7 @@ args @ {pkgs, config, inputs, ...}: {
       cachix
       manix
       neofetch
-      unzipNLS p7zip
+      unzip p7zip
       pv
       duf
       wireshark-cli
