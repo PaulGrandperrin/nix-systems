@@ -68,6 +68,8 @@
     overlays = [ inputs.nur.overlay inputs.rust-overlay.overlay unstable-overlay inputs.nix-alien.overlay];
   in {
 
+    packages.x86_64-linux.vcv-rack = inputs.nixos.legacyPackages.x86_64-linux.callPackage ./pkgs/vcv-rack {};
+
     devShell.x86_64-linux = stable-pkgs.mkShell {
         buildInputs = with stable-pkgs; [
           cowsay
