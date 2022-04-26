@@ -86,7 +86,10 @@
       pixel6pro = inputs.nix-on-droid.lib.nixOnDroidConfiguration {
         system = "aarch64-linux";
         config = {
-          home-manager.config = import ./home-manager/cmdline.nix;
+          home-manager.config = {
+            imports = [./home-manager/cmdline.nix ];
+            nixpkgs.overlays = [(final: prev: { unstable = inputs.nixos-unstable.legacyPackages.aarch64-linux; })];
+          };
 	};
         extraModules = [];
       };

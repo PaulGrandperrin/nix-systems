@@ -35,7 +35,6 @@ args @ {pkgs, config, inputs, ...}: {
       wireshark-cli
       youtube-dl
       ffmpeg
-      zenith
       gdu
       pgcli
       sd
@@ -78,6 +77,7 @@ args @ {pkgs, config, inputs, ...}: {
       strace
       bmon
       btop
+      zenith
 
       nix-alien
       nix-index
