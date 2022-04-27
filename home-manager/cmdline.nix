@@ -147,7 +147,7 @@ args @ {pkgs, config, inputs, ...}: {
       };
     };
     zoxide.enable = true;
-    powerline-go.enable = true;
+    #powerline-go.enable = true;
     man = {
       enable = true; # by default
       generateCaches = true;
@@ -212,9 +212,9 @@ args @ {pkgs, config, inputs, ...}: {
         src = pkgs.fetchFromGitHub {
           owner = "oh-my-fish";
           repo = "theme-bobthefish";
-          rev = "626bd39b002535d69e56adba5b58a1060cfb6d7b";
-          #sha256 = lib.fakeSha256;
-          sha256 = "zUngqEZgHLmlyvoiVO3MwJTSFsYD7t3XiP6yMzmMkBs=";
+          rev = "14a6f2b317661e959e13a23870cf89274f867f12";
+          #sha256 = pkgs.lib.fakeSha256;
+          sha256 = "sha256-kl6XR6IFk5J5Bw7/0/wER4+TnQfC18GKxYbt9C+YHJ0=";
         };
       }];
     };
