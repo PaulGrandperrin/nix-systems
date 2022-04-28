@@ -184,7 +184,7 @@
           { nixpkgs = {inherit overlays; }; }
           ./nixos/hosts/nas/hardware-configuration.nix
           ./nixos/common.nix
-          ./nixos/nspawns/debian.nix
+          ./nixos/nspawns/ubuntu.nix
           ./nixos/net.nix
           ./nixos/auto-upgrade.nix
           {
