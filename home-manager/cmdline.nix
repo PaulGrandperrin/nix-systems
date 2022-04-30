@@ -32,6 +32,8 @@ args @ {pkgs, config, inputs, system, lib, ...}: {
       EDITOR = "vim";
     };
     packages = with pkgs; [
+      gnugrep
+      findutils
       fd
       tree
       ncdu
