@@ -72,7 +72,6 @@
 
   services.xserver.desktopManager.gnome.enable = true;
   environment.gnome.excludePackages = [
-    pkgs.orca
   ];
   services.gnome.games.enable = true;
   services.gvfs.enable = true;
