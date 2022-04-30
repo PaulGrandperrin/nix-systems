@@ -48,7 +48,6 @@ args @ {pkgs, config, inputs, system, ...}: {
       unstable.fq # not yet available in 21.11
       smartmontools
 
-      unstable.nix
 
       #dev
       gnumake
@@ -81,6 +80,8 @@ args @ {pkgs, config, inputs, system, ...}: {
       nix-alien
       nix-index
       nix-index-update
+
+      unstable.nix
       unstable.nixos-rebuild
     ] else []);
   };
