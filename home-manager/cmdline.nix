@@ -48,7 +48,7 @@ args @ {pkgs, config, inputs, system, ...}: {
       unstable.fq # not yet available in 21.11
       smartmontools
 
-      unstable.nix
+      (lib.mkForce unstable.nix) # mkForce is necessary on nix-on-droid
 
       #dev
       gnumake
