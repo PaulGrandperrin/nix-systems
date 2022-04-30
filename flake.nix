@@ -84,11 +84,9 @@
     #  }
     #;
 
-    nixOnDroidConfigurations = let
-      system = "aarch64-linux";
-    in {
+    nixOnDroidConfigurations = {
       pixel6pro = inputs.nix-on-droid.lib.nixOnDroidConfiguration rec {
-        inherit system;
+        system = "aarch64-linux";
         config = {
           home-manager.config = {
             imports = [./home-manager/cmdline.nix ];
