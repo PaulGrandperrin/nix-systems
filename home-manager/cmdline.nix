@@ -1,7 +1,7 @@
 args @ {pkgs, config, inputs, system, ...}: {
   home.file.".config/nixpkgs/config.nix".text = "{ allowUnfree = true; }"; # "nixpkgs.config.allowUnfree = true;" is not enough to work with `nix run/shell`, also needs `--impure`
+  home.file.".config/nix/nix.conf".text = "experimental-features = nix-command flakes";
   # systemd.user.systemctlPath = "/usr/bin/systemctl"; # TODO ?
-  # targets.darwin.defaults # TODO?
   home = {
     stateVersion = "21.11";
     enableNixpkgsReleaseCheck = true; # check for release version mismatch between Home Manager and Nixpkgs

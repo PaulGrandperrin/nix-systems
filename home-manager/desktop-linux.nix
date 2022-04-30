@@ -22,7 +22,7 @@
       gnome.dconf-editor
       helvum
 
-      (callPackage ../pkgs/vcv-rack {})
+      #(callPackage ../pkgs/vcv-rack {})
 
       # I want protonvpn from unstable but I don't want to pull its dependencies from unstable
       #(callPackage (inputs.nixos-unstable.outPath + "/pkgs/applications/networking/protonvpn-gui") {
