@@ -91,9 +91,14 @@
           user.shell = "${pkgs.fish}/bin/fish";
           home-manager = {
             extraSpecialArgs = {inherit system inputs; installDesktopApp = false;};
-            config = {
+            config = {pkgs, lib, config, ...}: {
               imports = [./home-manager/cmdline.nix ];
               nixpkgs.overlays = getOverlays system;
+              home.activation = {
+                copyFont = lib.hm.dag.entryAfter ["writeBoundary"] ''
+                  $DRY_RUN_CMD install $VERBOSE_ARG -D "${pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; }}/share/fonts/truetype/NerdFonts/Fira Code Regular Nerd Font Complete Mono.ttf" ${config.home.homeDirectory}/.termux/font.ttf
+                '';
+              };
             };
           };
 	};
