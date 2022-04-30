@@ -53,7 +53,7 @@ args @ {pkgs, config, inputs, system, ...}: {
       #dev
       gnumake
       gcc11
-      (pkgs.lib.setPrio 20 clang_13)
+      (lib.setPrio 20 clang_13)
 
       # utility to fetch and launch missing but unambiguous commands
       (pkgs.writeShellApplication {
