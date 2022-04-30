@@ -89,6 +89,7 @@
         system = "aarch64-linux";
         config = {pkgs, ...}: {
           user.shell = "${pkgs.fish}/bin/fish";
+          nix.package = pkgs.nixFlakes;
           home-manager = {
             extraSpecialArgs = {inherit system inputs; installDesktopApp = false;};
             config = {pkgs, lib, config, ...}: {
