@@ -100,6 +100,9 @@
                   $DRY_RUN_CMD install $VERBOSE_ARG -D "${pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; }}/share/fonts/truetype/NerdFonts/Fira Code Regular Nerd Font Complete Mono.ttf" ${config.home.homeDirectory}/.termux/font.ttf
                 '';
               };
+              home.packages = [
+                (pkgs.writeShellScriptBin "start_sshd" ''${pkgs.openssh}/bin/sshd -f ${config.home.homeDirectory}/sshd/sshd_config'')
+              ];
             };
           };
 	};
