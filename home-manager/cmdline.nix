@@ -1,4 +1,4 @@
-args @ {pkgs, config, inputs, ...}: {
+args @ {pkgs, config, inputs, system, ...}: {
   home.file.".config/nixpkgs/config.nix".text = "{ allowUnfree = true; }"; # "nixpkgs.config.allowUnfree = true;" is not enough to work with `nix run/shell`, also needs `--impure`
   # systemd.user.systemctlPath = "/usr/bin/systemctl"; # TODO ?
   # targets.darwin.defaults # TODO?
@@ -49,7 +49,6 @@ args @ {pkgs, config, inputs, ...}: {
       smartmontools
 
       unstable.nix
-      unstable.nixos-rebuild
 
       #dev
       gnumake
@@ -60,7 +59,7 @@ args @ {pkgs, config, inputs, ...}: {
       (pkgs.writeShellApplication {
         name = "fr";
         text = ''
-          result=$(${sqlite}/bin/sqlite3 "/nix/var/nix/profiles/per-user/root/channels/nixos/programs.sqlite" "select package from Programs where system = 'x86_64-linux' and name = '$1'")
+          result=$(${sqlite}/bin/sqlite3 "/nix/var/nix/profiles/per-user/root/channels/nixos/programs.sqlite" "select package from Programs where system = '${system}' and name = '$1'")
           if [ -z "$result" ]; then
             >&2 printf "Failed: no package provides '%s'\n" "$1"
           elif [ "$(echo "$result"|wc -l)" -gt 1 ]; then
@@ -82,6 +81,7 @@ args @ {pkgs, config, inputs, ...}: {
       nix-alien
       nix-index
       nix-index-update
+      unstable.nixos-rebuild
     ] else []);
   };
 
@@ -132,7 +132,7 @@ args @ {pkgs, config, inputs, ...}: {
     #    }
       ];
     };
-    topgrade.enable = true;
+    #topgrade.enable = true; # FIXME currently broken on darwin
     gpg.enable = true;
     jq.enable = true;
     lazygit.enable = true;

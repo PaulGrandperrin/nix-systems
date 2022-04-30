@@ -62,25 +62,27 @@
 
 
   outputs = inputs: let 
-    stable-pkgs = inputs.nixos.legacyPackages.x86_64-linux;
-    unstable-pkgs = inputs.nixos-unstable.legacyPackages.x86_64-linux;
-    unstable-overlay = final: prev: { unstable = unstable-pkgs; };
-    overlays = [ inputs.nur.overlay inputs.rust-overlay.overlay unstable-overlay inputs.nix-alien.overlay];
+    getOverlays = system: let
+      stable-pkgs = inputs.nixos.legacyPackages.${system};
+      unstable-pkgs = inputs.nixos-unstable.legacyPackages.${system};
+      unstable-overlay = final: prev: { unstable = unstable-pkgs; };
+    in
+      [ inputs.nur.overlay inputs.rust-overlay.overlay unstable-overlay inputs.nix-alien.overlay];
   in {
 
     packages.x86_64-linux.vcv-rack = inputs.nixos.legacyPackages.x86_64-linux.callPackage ./pkgs/vcv-rack {};
 
-    devShell.x86_64-linux = stable-pkgs.mkShell {
-        buildInputs = with stable-pkgs; [
-          cowsay
-          fish
-        ];
+    #devShell.x86_64-linux = stable-pkgs.mkShell {
+    #    buildInputs = with stable-pkgs; [
+    #      cowsay
+    #      fish
+    #    ];
 
-        shellHook = ''
-          cowsay "Welcome"
-        '';
-      }
-    ;
+    #    shellHook = ''
+    #      cowsay "Welcome"
+    #    '';
+    #  }
+    #;
 
     nixOnDroidConfigurations = {
       pixel6pro = inputs.nix-on-droid.lib.nixOnDroidConfiguration {
@@ -95,18 +97,16 @@
       };
     };
 
-    homeConfigurations = let
-      system = "x86_64-linux";
-    in {
-      paulg = inputs.home-manager.lib.homeManagerConfiguration {
-        inherit system;
+    homeConfigurations = {
+      paulg-x86_64-linux = inputs.home-manager.lib.homeManagerConfiguration rec {
+        system = "x86_64-linux";
         stateVersion = "21.11";
         homeDirectory = "/home/paulg";
         username = "paulg";
         extraSpecialArgs = {inherit system inputs; installDesktopApp = false;};
         configuration = { config, pkgs, lib, ... }: {
           imports = [ ./home-manager/cmdline.nix ./home-manager/cmdline-user.nix ./home-manager/desktop.nix];
-          nixpkgs = {inherit overlays;};
+          nixpkgs.overlays = getOverlays system;
           nixpkgs.config.allowUnfree = true;
           home.packages = [
             (pkgs.writeShellScriptBin "nixGLNvidia" ''$(NIX_PATH=nixpkgs=${inputs.nixos} nix-build ${inputs.nixgl} -A auto.nixGLNvidia --no-out-link)/bin/* "$@"'')
@@ -114,6 +114,18 @@
             (pkgs.writeShellScriptBin "nixVulkanIntel" ''$(NIX_PATH=nixpkgs=${inputs.nixos} nix-build ${inputs.nixgl} -A nixVulkanIntel --no-out-link)/bin/* "$@"'')
             (pkgs.writeShellScriptBin "nixVulkanNvidia" ''$(NIX_PATH=nixpkgs=${inputs.nixos} nix-build ${inputs.nixgl} -A auto.nixVulkanNvidia --no-out-link)/bin/* "$@"'')
           ];
+        };
+      };
+      paulg-aarch64-darwin = inputs.home-manager.lib.homeManagerConfiguration rec {
+        system = "aarch64-darwin";
+        stateVersion = "21.11";
+        homeDirectory = "/Users/paulg";
+        username = "paulg";
+        extraSpecialArgs = {inherit system inputs; installDesktopApp = false;};
+        configuration = { config, pkgs, lib, ... }: {
+          imports = [ ./home-manager/cmdline.nix ./home-manager/cmdline-user.nix ./home-manager/desktop.nix ./home-manager/desktop-macos.nix];
+          nixpkgs.overlays = getOverlays system;
+          nixpkgs.config.allowUnfree = true;
         };  
       };
     };
@@ -123,18 +135,13 @@
       inputs-darwin = inputs // {nixpkgs = inputs.nixpkgs-darwin;}; # HACK: I don't know a better way to make HM use nixpkgs-darwin...
     in let 
       inputs = inputs-darwin; # HACK: is there a better way to avoid infinite recurtion?
-      # redefine those with darwin specific flakes
-      stable-pkgs = inputs.nixpkgs-darwin.legacyPackages.x86_64-darwin;
-      unstable-pkgs = inputs.nixpkgs-darwin-unstable.legacyPackages.x86_64-darwin;
-      unstable-overlay = final: prev: { unstable = unstable-pkgs; };
-      overlays = [ inputs.nur.overlay inputs.rust-overlay.overlay unstable-overlay];
     in {
       "MacBookPaul" = inputs.darwin.lib.darwinSystem {
         inherit system;
         specialArgs = { inherit system inputs; }; #  passes inputs to modules
         modules = [
           { 
-            nixpkgs = {inherit overlays;};
+            nixpkgs = {overlays = getOverlays system;};
             nixpkgs.config.allowUnfree = true;
             nix.registry.n.flake = inputs.nixpkgs-darwin; # to easily try out packages: nix shell nix#htop
           }
@@ -155,7 +162,7 @@
         specialArgs = { inherit system inputs; }; #  passes inputs to modules
         modules = [
           { 
-            nixpkgs = {inherit overlays;};
+            nixpkgs = {overlays = getOverlays system;};
             nixpkgs.config.allowUnfree = true;
             nix.registry.n.flake = inputs.nixpkgs-darwin; # to easily try out packages: nix shell nix#htop
           }
@@ -181,7 +188,7 @@
         inherit system;
         specialArgs = { inherit system inputs; }; #  passes inputs to modules
         modules = [ 
-          { nixpkgs = {inherit overlays; }; }
+          { nixpkgs = {overlays = getOverlays system; }; }
           ./nixos/hosts/nas/hardware-configuration.nix
           ./nixos/common.nix
           ./nixos/nspawns/ubuntu.nix
@@ -213,7 +220,7 @@
         inherit system;
         specialArgs = { inherit system inputs; }; #  passes inputs to modules
         modules = [ 
-          { nixpkgs = {inherit overlays; }; }
+          { nixpkgs = {overlays = getOverlays system; }; }
           ./nixos/hosts/gcp/hardware-configuration.nix
           ./nixos/google-compute-config.nix
           ./nixos/common.nix
@@ -256,7 +263,7 @@
         inherit system;
         specialArgs = { inherit system inputs; }; #  passes inputs to modules
         modules = [ 
-          { nixpkgs = { inherit overlays; }; }
+          { nixpkgs = {overlays = getOverlays system; }; }
           ./nixos/hosts/xps/hardware-configuration.nix
           ./nixos/common.nix
           ./nixos/net.nix
@@ -291,7 +298,7 @@
         inherit system;
         specialArgs = { inherit system inputs; }; #  passes inputs to modules
         modules = [ 
-          { nixpkgs = { inherit overlays; }; }
+          { nixpkgs = {overlays = getOverlays system; }; }
           ./nixos/hosts/MacBookPaul/hardware-configuration.nix
           ./nixos/common.nix
           ./nixos/net.nix
