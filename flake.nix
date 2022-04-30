@@ -87,7 +87,8 @@
     nixOnDroidConfigurations = {
       pixel6pro = inputs.nix-on-droid.lib.nixOnDroidConfiguration rec {
         system = "aarch64-linux";
-        config = {
+        config = {pkgs, ...}: {
+          user.shell = "${pkgs.fish}/bin/fish";
           home-manager = {
             extraSpecialArgs = {inherit system inputs; installDesktopApp = false;};
             config = {
