@@ -94,6 +94,7 @@
           };
 	};
         extraModules = [];
+        extraSpecialArgs = {inherit system inputs; installDesktopApp = false;};
       };
     };
 
