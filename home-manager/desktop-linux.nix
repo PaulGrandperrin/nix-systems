@@ -21,6 +21,7 @@
       libreoffice
       gnome.dconf-editor
       helvum
+      unstable.gnome-console
 
       #(callPackage ../pkgs/vcv-rack {})
 
