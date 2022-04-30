@@ -21,6 +21,7 @@
   time.timeZone = lib.mkForce null; # allow TZ to be set by desktop user
 
   environment.systemPackages = with pkgs; [
+    stockfish
     solaar
     gnomeExtensions.sound-output-device-chooser
     #gnomeExtensions.bluetooth-battery # incompatible with 41
@@ -70,6 +71,10 @@
   };
 
   services.xserver.desktopManager.gnome.enable = true;
+  environment.gnome.excludePackages = [
+    pkgs.orca
+  ];
+  services.gnome.games.enable = true;
   services.gvfs.enable = true;
 
   # android
