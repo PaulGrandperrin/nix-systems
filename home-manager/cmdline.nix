@@ -35,6 +35,9 @@ args @ {pkgs, config, inputs, system, lib, ...}: {
       gnugrep
       findutils
       which
+      gzip
+      openssh
+
       fd
       tree
       ncdu
