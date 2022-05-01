@@ -34,6 +34,7 @@ args @ {pkgs, config, inputs, system, lib, ...}: {
     packages = with pkgs; [
       gnugrep
       findutils
+      which
       fd
       tree
       ncdu
