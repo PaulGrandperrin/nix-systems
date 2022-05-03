@@ -1,4 +1,4 @@
-{pkgs, inputs, ...}: {
+{pkgs, config, lib, inputs, ...}: {
 
   imports = [
     ./nix-registry.nix
@@ -6,11 +6,21 @@
 
   users.users.paulg = {
     home = "/Users/paulg";
+    shell = "${pkgs.fish}/bin/fish";
   };
   users.users.root = {
     home = "/var/root";
+    shell = "${pkgs.fish}/bin/fish";
   };
-  # dscl . create /Users/paulg UserShell /run/current-system/sw/bin/fish
+
+  # nix-darwin doesn't change the shells so we do it here
+  system.activationScripts.postActivation.text = ''
+    echo "setting up users' shells..." >&2
+
+    ${lib.concatMapStringsSep "\n" (user: ''
+      dscl . create /Users/${user.name} UserShell "${user.shell}"
+    '') (lib.attrValues config.users.users)}
+  '';
 
   nix.package = pkgs.nix_2_4;
 
