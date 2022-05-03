@@ -97,7 +97,7 @@
               nixpkgs.overlays = getOverlays system;
               home.activation = {
                 copyFont = lib.hm.dag.entryAfter ["writeBoundary"] ''
-                  $DRY_RUN_CMD install $VERBOSE_ARG -D "${pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; }}/share/fonts/truetype/NerdFonts/Fira Code Regular Nerd Font Complete Mono.ttf" ${config.home.homeDirectory}/.termux/font.ttf
+                  $DRY_RUN_CMD ${pkgs.rsync}/bin/rsync $VERBOSE_ARG --checksum --mkpath "${pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; }}/share/fonts/truetype/NerdFonts/Fira Code Regular Nerd Font Complete Mono.ttf" ${config.home.homeDirectory}/.termux/font.ttf
                 '';
               };
               home.packages = [
