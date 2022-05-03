@@ -37,6 +37,7 @@ args @ {pkgs, config, inputs, system, lib, ...}: {
       which
       gzip
       openssh
+      rsync
 
       fd
       tree
