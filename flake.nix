@@ -93,7 +93,7 @@
           home-manager = {
             extraSpecialArgs = {inherit system inputs; installDesktopApp = false;};
             config = {pkgs, lib, config, ...}: {
-              imports = [./home-manager/cmdline.nix ];
+              imports = [./home-manager/cmdline.nix ./home-manager/cmdline-user.nix];
               nixpkgs.overlays = getOverlays system;
               home.activation = {
                 copyFont = let 
