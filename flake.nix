@@ -62,7 +62,7 @@
 
 
   outputs = inputs: let 
-    getOverlays = system: let
+    getOverlays = system: let # FIXME not sure those are the good channels for darwin
       stable-pkgs = inputs.nixos.legacyPackages.${system};
       unstable-pkgs = inputs.nixos-unstable.legacyPackages.${system};
       unstable-overlay = final: prev: { unstable = unstable-pkgs; };
