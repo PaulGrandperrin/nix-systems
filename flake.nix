@@ -160,8 +160,6 @@
             nixpkgs = {overlays = getOverlays system;};
             nixpkgs.config.allowUnfree = true;
             nix.registry.n.flake = inputs.nixpkgs-darwin; # to easily try out packages: nix shell nix#htop
-            users.users.paulg.home = "/Users/paulg/";
-            users.users.root.home = "/root/";
           }
           ./nix-darwin/common.nix
           inputs.home-manager.darwinModules.home-manager

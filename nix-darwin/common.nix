@@ -4,6 +4,14 @@
     ./nix-registry.nix
   ];
 
+  users.users.paulg = {
+    home = "/Users/paulg";
+  };
+  users.users.root = {
+    home = "/var/root";
+  };
+  # dscl . create /Users/paulg UserShell /run/current-system/sw/bin/fish
+
   nix.package = pkgs.nix_2_4;
 
   nix.extraOptions = ''

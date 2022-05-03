@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{pkgs, lib, config,...}: {
   # install ssh authorized keys, sshd complains if that's a symlink to the /nix/store
   home.activation = let
     ssh-authorized-keys = pkgs.writeText "ssh-authorized-keys" ''
