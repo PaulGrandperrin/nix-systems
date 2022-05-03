@@ -210,7 +210,7 @@ args @ {pkgs, config, inputs, system, lib, ...}: {
         }
       '';
       loginShellInit = ''
-        fish_add_path --move --prepend --path $HOME/.nix-profile/bin /run/wrappers/bin /etc/profiles/per-user/$USER/bin /nix/var/nix/profiles/default/bin /run/current-system/sw/bin # https://github.com/LnL7/nix-darwin/issues/122
+        fish_add_path --move --prepend --path $HOME/.nix-profile/bin /run/wrappers/bin /etc/profiles/per-user/$USER/bin /run/current-system/sw/bin /nix/var/nix/profiles/default/bin # https://github.com/LnL7/nix-darwin/issues/122
       '';
       shellAbbrs = {
         ssh-keygen = "ssh-keygen -t ed25519";
