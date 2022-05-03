@@ -96,8 +96,11 @@
               imports = [./home-manager/cmdline.nix ];
               nixpkgs.overlays = getOverlays system;
               home.activation = {
-                copyFont = lib.hm.dag.entryAfter ["writeBoundary"] ''
-                  $DRY_RUN_CMD ${pkgs.rsync}/bin/rsync $VERBOSE_ARG --checksum --mkpath "${pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; }}/share/fonts/truetype/NerdFonts/Fira Code Regular Nerd Font Complete Mono.ttf" ${config.home.homeDirectory}/.termux/font.ttf
+                copyFont = let 
+                    font_src = "${pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; }}/share/fonts/truetype/NerdFonts/Fira Code Regular Nerd Font Complete Mono.ttf";
+                    font_dst = "${config.home.homeDirectory}/.termux/font.ttf";
+                  in lib.hm.dag.entryAfter ["writeBoundary"] ''
+                    test $(sha1sum ${font_src}|cut -d' ' -f1) != $(sha1sum "${font_dst}" |cut -d' ' -f1) && $DRY_RUN_CMD install $VERBOSE_ARG -D "${font_src}" "${font_dst}"
                 '';
               };
               home.packages = [
