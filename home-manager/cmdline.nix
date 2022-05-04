@@ -141,7 +141,7 @@ args @ {pkgs, config, inputs, system, lib, ...}: {
     #    }
       ];
     };
-    #topgrade.enable = true; # FIXME currently broken on darwin
+    topgrade.enable = true;
     gpg.enable = true;
     jq.enable = true;
     lazygit.enable = true;
