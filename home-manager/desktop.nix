@@ -15,7 +15,7 @@
       package = let 
 
         # build firefox-bin version from nixos-unstable but with current dependencies
-        path = inputs.nixos-unstable.outPath;
+        path = inputs.nixos-unstable-small.outPath;
         firefox-bin-unwrapped = pkgs.callPackage ( # taken from pkgs/top-level/all-packages.nix
           path + "/pkgs/applications/networking/browsers/firefox-bin"
         ) {
@@ -95,7 +95,7 @@
 
           "gfx.webrender.all" = true;
           "gfx.webrender.compositor" = true;
-          "gfx.webrender.compositor.force-enabled" = true;
+          "gfx.webrender.compositor.force-enabled" = false; # NOTE render bugs
 
           "media.hardware-video-decoding.enabled" = true;
           "media.hardware-video-decoding.force-enabled" = true;
