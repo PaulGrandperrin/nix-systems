@@ -39,6 +39,7 @@
     gnomeExtensions.dash-to-panel
     gnomeExtensions.appindicator
     inputs.nixos-unstable.legacyPackages.${system}.gnomeExtensions.desktop-cube
+    inputs.nixos-unstable.legacyPackages.${system}.gnomeExtensions.pop-shell
     #wintile?
   ];
 
