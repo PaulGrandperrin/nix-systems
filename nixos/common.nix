@@ -233,7 +233,7 @@
       autoPrune = {
         enable = true;
         dates = "04:30:00";
-        flags = ["--all" "--filter" "until=7d"];
+        flags = ["--all" "--filter" "until=${builtins.toString (7*24)}h"];
       };
     };
   };
