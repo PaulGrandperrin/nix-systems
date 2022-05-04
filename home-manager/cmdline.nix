@@ -157,6 +157,9 @@ args @ {pkgs, config, inputs, system, lib, ...}: {
     };
     zoxide.enable = true;
     #powerline-go.enable = true;
+    #starship = {
+    #  enable = true;
+    #};
     man = {
       enable = true; # by default
       generateCaches = true;
@@ -216,16 +219,38 @@ args @ {pkgs, config, inputs, system, lib, ...}: {
         ssh-keygen = "ssh-keygen -t ed25519";
         nixos-rebuild-gcp = "nixos-rebuild --flake git+file:///etc/nixos#nixos-gcp --use-substitutes --target-host root@paulg.fr";
       };
-      plugins = [{ # TODO add fish-done
-        name = "bobthefish";
-        src = pkgs.fetchFromGitHub {
-          owner = "oh-my-fish";
-          repo = "theme-bobthefish";
-          rev = "14a6f2b317661e959e13a23870cf89274f867f12";
-          #sha256 = pkgs.lib.fakeSha256;
-          sha256 = "sha256-kl6XR6IFk5J5Bw7/0/wER4+TnQfC18GKxYbt9C+YHJ0=";
-        };
-      }];
+      plugins = [ # TODO add fish-done
+        {
+           name = "bobthefish";
+           src = pkgs.fetchFromGitHub {
+             owner = "oh-my-fish";
+             repo = "theme-bobthefish";
+             rev = "14a6f2b317661e959e13a23870cf89274f867f12";
+             #sha256 = pkgs.lib.fakeSha256;
+             sha256 = "sha256-kl6XR6IFk5J5Bw7/0/wER4+TnQfC18GKxYbt9C+YHJ0=";
+           };
+        }
+        #{ 
+        #  name = "tide";
+        #  src = pkgs.fetchFromGitHub {
+        #    owner = "IlanCosman";
+        #    repo = "tide";
+        #    rev = "v5.2.2";
+        #    #sha256 = pkgs.lib.fakeSha256;
+        #    sha256 = "sha256-yj6Oh7gxjrzc4N8WdCGRDImdOLHqI+cFIg1VF3nx33g=";
+        #  };
+        #}
+        #{ 
+        #  name = "fish-async-prompt";
+        #  src = pkgs.fetchFromGitHub {
+        #    owner = "acomagu";
+        #    repo = "fish-async-prompt";
+        #    rev = "v1.2.0";
+        #    #sha256 = pkgs.lib.fakeSha256;
+        #    sha256 = "sha256-B7Ze0a5Zp+5JVsQUOv97mKHh5wiv3ejsDhJMrK7YOx4=";
+        #  };
+        #}
+      ];
     };
   };
 
