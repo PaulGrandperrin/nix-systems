@@ -84,6 +84,7 @@ args @ {pkgs, config, inputs, system, lib, ...}: {
       bmon
       btop
       zenith
+      intel-gpu-tools
 
       nix-alien
       nix-index
