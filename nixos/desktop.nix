@@ -40,6 +40,7 @@
     gnomeExtensions.appindicator
     inputs.nixos-unstable.legacyPackages.${system}.gnomeExtensions.desktop-cube
     inputs.nixos-unstable.legacyPackages.${system}.gnomeExtensions.pop-shell
+    inputs.nixos-unstable.legacyPackages.${system}.gnomeExtensions.system76-scheduler
     #wintile?
   ];
 
