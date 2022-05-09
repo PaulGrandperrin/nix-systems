@@ -114,12 +114,12 @@
     };
 
     homeConfigurations = {
-      paulg-x86_64-linux = inputs.home-manager.lib.homeManagerConfiguration rec {
+      paulg-x86_64-linux = inputs.home-manager-unstable.lib.homeManagerConfiguration rec {
         system = "x86_64-linux";
         stateVersion = "21.11";
         homeDirectory = "/home/paulg";
         username = "paulg";
-        extraSpecialArgs = {inherit system inputs; mainFlake = inputs.nixos-21.11; installDesktopApp = false;};
+        extraSpecialArgs = {inherit system inputs; mainFlake = inputs.home-manager-unstable.inputs.nixpkgs; installDesktopApp = false; is_unstable = true;};
         configuration = { config, pkgs, lib, ... }: {
           imports = [ ./home-manager/cmdline.nix ./home-manager/cmdline-user.nix ./home-manager/desktop.nix];
           nixpkgs.overlays = getOverlays system;
@@ -132,12 +132,12 @@
           ];
         };
       };
-      paulg-aarch64-darwin = inputs.home-manager.lib.homeManagerConfiguration rec {
+      paulg-aarch64-darwin = inputs.home-manager-unstable.lib.homeManagerConfiguration rec {
         system = "aarch64-darwin";
         stateVersion = "21.11";
         homeDirectory = "/Users/paulg";
         username = "paulg";
-        extraSpecialArgs = {inherit system inputs; mainFlake = inputs.nixos-21.11; installDesktopApp = false;};
+        extraSpecialArgs = {inherit system inputs; mainFlake = inputs.home-manager-unstable.inputs.nixpkgs; installDesktopApp = false; is_unstable = true;};
         configuration = { config, pkgs, lib, ... }: {
           imports = [ ./home-manager/cmdline.nix ./home-manager/cmdline-user.nix ./home-manager/desktop.nix ./home-manager/desktop-macos.nix];
           nixpkgs.overlays = getOverlays system;
