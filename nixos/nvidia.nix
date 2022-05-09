@@ -3,8 +3,6 @@
   services.xserver = {
     videoDrivers = ["nvidia" ];
 
-    displayManager.gdm.nvidiaWayland = true; # remove the udev rules which disables wayland when the nvidia driver is loaded
-
     # Fix screen tearing by forcing full composition pipeline
     screenSection = ''
       Option         "metamodes" "nvidia-auto-select +0+0 {ForceFullCompositionPipeline=On}"

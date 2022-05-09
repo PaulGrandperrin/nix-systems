@@ -38,6 +38,7 @@
     gnomeExtensions.dash-to-dock
     gnomeExtensions.dash-to-panel
     gnomeExtensions.appindicator
+    gnomeExtensions.bluetooth-battery
     inputs.nixos-unstable.legacyPackages.${system}.gnomeExtensions.desktop-cube
     inputs.nixos-unstable.legacyPackages.${system}.gnomeExtensions.pop-shell
     inputs.nixos-unstable.legacyPackages.${system}.gnomeExtensions.system76-scheduler
@@ -48,8 +49,8 @@
   services.xserver.enable = true;
 
   # HACK fixes autologin when on wayland https://github.com/NixOS/nixpkgs/issues/103746
-  systemd.services."getty@tty1".enable = false;
-  systemd.services."autovt@tty1".enable = false;
+  #systemd.services."getty@tty1".enable = false;
+  #systemd.services."autovt@tty1".enable = false;
 
   services.xserver.displayManager = {
     gdm = { # impossible to make it work with prime.sync, use lightdm for that
@@ -60,10 +61,10 @@
     #lightdm = { # does not work with gnome-shell's lock screen but works with prime.sync
     #  enable = true;
     #};
-    autoLogin = { # when using wayland, needs the tty disabling hack
-      enable = true;
-      user = "paulg";
-    };
+    #autoLogin = { # when using wayland, needs the tty disabling hack
+    #  enable = true;
+    #  user = "paulg";
+    #};
     #defaultSession = "gnome"; # gnome (gnome-wayland) or gnome-xorg
   };
 
@@ -93,6 +94,11 @@
     pulse.enable = true;
     jack.enable = true;
   };
+
+  systemd.user.services.pipewire-pulse.path = [ pkgs.pulseaudio ]; # HACK waiting for #165125
+
+  hardware.bluetooth.package = pkgs.bluez5-experimental;
+
 
   fonts = {
     fontDir.enable = true;
