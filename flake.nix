@@ -91,7 +91,7 @@
           user.shell = "${pkgs.fish}/bin/fish";
           nix.package = pkgs.nixFlakes;
           home-manager = {
-            extraSpecialArgs = {inherit system inputs; mainFlake = inputs.nix-on-droid.inputs.nixpkgs; installDesktopApp = false;};
+            extraSpecialArgs = {inherit system inputs; mainFlake = inputs.nix-on-droid.inputs.nixpkgs; installDesktopApp = false; is_unstable = true;};
             config = {pkgs, lib, config, ...}: {
               imports = [./home-manager/cmdline.nix ./home-manager/cmdline-user.nix];
               nixpkgs.overlays = getOverlays system;
