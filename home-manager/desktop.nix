@@ -1,4 +1,4 @@
-{pkgs, inputs, system, installDesktopApp ? true, ...}: {
+{pkgs, inputs, system, installDesktopApp, ...}: { 
 
   programs = {
     chromium = {

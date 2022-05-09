@@ -1,7 +1,6 @@
 {pkgs, config, lib, inputs, ...}: {
 
   imports = [
-    ./nix-registry.nix
   ];
 
   users.users.paulg = {

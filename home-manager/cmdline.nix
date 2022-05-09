@@ -1,4 +1,4 @@
-args @ {pkgs, config, inputs, system, lib, ...}: {
+args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
   xdg.enable = true; # export XDG vars to ensure the correct directories are used
 
   nixpkgs.config.allowUnfree = true; # only works inside HM
@@ -6,6 +6,18 @@ args @ {pkgs, config, inputs, system, lib, ...}: {
 
   nix.package = pkgs.nixUnstable;
   nix.settings."experimental-features" = "nix-command flakes";
+
+  nix.registry = {
+    nixos.flake = inputs.nixos;
+    nixos-small.flake = inputs.nixos-small;
+    nixos-unstable.flake = inputs.nixos-unstable;
+    nixpkgs-darwin.flake = inputs.nixpkgs-darwin;
+    nur.flake = inputs.nur;
+    flake-utils.flake = inputs.flake-utils;
+    rust-overlay.flake = inputs.rust-overlay;
+    home-manager.flake = inputs.home-manager;
+    n.flake = mainFlake;
+  };
 
   # systemd.user.systemctlPath = "/usr/bin/systemctl"; # TODO ?
   home = {

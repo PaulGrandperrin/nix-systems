@@ -91,7 +91,7 @@
           user.shell = "${pkgs.fish}/bin/fish";
           nix.package = pkgs.nixFlakes;
           home-manager = {
-            extraSpecialArgs = {inherit system inputs; installDesktopApp = false;};
+            extraSpecialArgs = {inherit system inputs; mainFlake = inputs.nixos-21.11; installDesktopApp = false;};
             config = {pkgs, lib, config, ...}: {
               imports = [./home-manager/cmdline.nix ./home-manager/cmdline-user.nix];
               nixpkgs.overlays = getOverlays system;
@@ -119,7 +119,7 @@
         stateVersion = "21.11";
         homeDirectory = "/home/paulg";
         username = "paulg";
-        extraSpecialArgs = {inherit system inputs; installDesktopApp = false;};
+        extraSpecialArgs = {inherit system inputs; mainFlake = inputs.nixos-21.11; installDesktopApp = false;};
         configuration = { config, pkgs, lib, ... }: {
           imports = [ ./home-manager/cmdline.nix ./home-manager/cmdline-user.nix ./home-manager/desktop.nix];
           nixpkgs.overlays = getOverlays system;
@@ -137,7 +137,7 @@
         stateVersion = "21.11";
         homeDirectory = "/Users/paulg";
         username = "paulg";
-        extraSpecialArgs = {inherit system inputs; installDesktopApp = false;};
+        extraSpecialArgs = {inherit system inputs; mainFlake = inputs.nixos-21.11; installDesktopApp = false;};
         configuration = { config, pkgs, lib, ... }: {
           imports = [ ./home-manager/cmdline.nix ./home-manager/cmdline-user.nix ./home-manager/desktop.nix ./home-manager/desktop-macos.nix];
           nixpkgs.overlays = getOverlays system;
@@ -159,14 +159,13 @@
           { 
             nixpkgs = {overlays = getOverlays system;};
             nixpkgs.config.allowUnfree = true;
-            nix.registry.n.flake = inputs.nixpkgs-darwin; # to easily try out packages: nix shell nix#htop
           }
           ./nix-darwin/common.nix
           inputs.home-manager.darwinModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit system inputs; installDesktopApp = false;};
+            home-manager.extraSpecialArgs = {inherit system inputs; mainFlake = inputs.nixpkgs-darwin; installDesktopApp = false;};
             home-manager.users.root  = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-root.nix];};
             home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-user.nix ./home-manager/desktop.nix ./home-manager/desktop-macos.nix ./home-manager/rust-stable.nix];};
           }
@@ -180,14 +179,13 @@
           { 
             nixpkgs = {overlays = getOverlays system;};
             nixpkgs.config.allowUnfree = true;
-            nix.registry.n.flake = inputs.nixpkgs-darwin; # to easily try out packages: nix shell nix#htop
           }
           ./nix-darwin/common.nix
           inputs.home-manager.darwinModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit system inputs; installDesktopApp = false;};
+            home-manager.extraSpecialArgs = {inherit system inputs; mainFlake = inputs.nixpkgs-darwin; installDesktopApp = false;};
             home-manager.users.root  = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-root.nix];};
             home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-user.nix ./home-manager/desktop.nix ./home-manager/desktop-macos.nix];};
           }
@@ -218,13 +216,12 @@
               enable = true;
               mainInt = "enp3s0";
             }; 
-            nix.registry.n.flake = inputs.nixos-unstable-small; # to easily try out packages: nix shell nix#htop
           }
           inputs.home-manager-unstable.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit system inputs; installDesktopApp = false; is_unstable = true;};
+            home-manager.extraSpecialArgs = {inherit system inputs;  mainFlake = inputs.nixos-unstable-small; installDesktopApp = false; is_unstable = true;};
             home-manager.users.root  = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-root.nix];};
             home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-user.nix];};
           }
@@ -261,13 +258,12 @@
             environment.systemPackages = with pkgs; [
               google-cloud-sdk-gce
             ];
-            nix.registry.n.flake = inputs.nixos-small; # to easily try out packages: nix shell nix#htop
           })
           inputs.home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit system inputs; installDesktopApp = false;};
+            home-manager.extraSpecialArgs = {inherit system inputs; mainFlake = inputs.nixos-small; installDesktopApp = false;};
             home-manager.users.root  = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-root.nix];};
             home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-user.nix];};
           }
@@ -299,13 +295,12 @@
               timeout = 10;
               extraArgs = ["-i" "wlan0"]; # FIXME why --any isn't working? 
             };
-            nix.registry.n.flake = inputs.nixos-unstable; # to easily try out packages: nix shell nix#htop
           }
           inputs.home-manager-unstable.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit system inputs; installDesktopApp = true; is_unstable = true;};
+            home-manager.extraSpecialArgs = {inherit system inputs; mainFlake = inputs.nixos-unstable; installDesktopApp = true; is_unstable = true;};
             home-manager.users.root  = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-root.nix];};
             home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-user.nix ./home-manager/desktop.nix ./home-manager/desktop-linux.nix ./home-manager/rust-nightly.nix];};
           }
@@ -373,13 +368,12 @@
               enable = true;
               mainInt = "wlp3s0";
             };
-            nix.registry.n.flake = inputs.nixos-unstable; # to easily try out packages: nix shell nix#htop
           })
           inputs.home-manager-unstable.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit system inputs; installDesktopApp = true; is_unstable = true;};
+            home-manager.extraSpecialArgs = {inherit system inputs;  mainFlake = inputs.nixos-unstable; installDesktopApp = true; is_unstable = true;};
             home-manager.users.root  = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-root.nix];};
             home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-user.nix ./home-manager/desktop.nix ./home-manager/desktop-linux.nix ./home-manager/rust-stable.nix];};
           }
