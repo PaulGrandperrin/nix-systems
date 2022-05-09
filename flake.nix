@@ -13,10 +13,10 @@
     nur.url = "github:nix-community/NUR";
 
     nix-on-droid = {
-      url = "github:t184256/nix-on-droid";
-      inputs.nixpkgs.follows = "nixos";
+      url = "github:t184256/nix-on-droid/testing";
+      inputs.nixpkgs.follows = "nixos-unstable";
       inputs.flake-utils.follows = "flake-utils";
-      inputs.home-manager.follows = "home-manager";
+      inputs.home-manager.follows = "home-manager-unstable";
     };
 
     darwin = {
@@ -91,7 +91,7 @@
           user.shell = "${pkgs.fish}/bin/fish";
           nix.package = pkgs.nixFlakes;
           home-manager = {
-            extraSpecialArgs = {inherit system inputs; mainFlake = inputs.nixos-21.11; installDesktopApp = false;};
+            extraSpecialArgs = {inherit system inputs; mainFlake = inputs.nix-on-droid.inputs.nixpkgs; installDesktopApp = false;};
             config = {pkgs, lib, config, ...}: {
               imports = [./home-manager/cmdline.nix ./home-manager/cmdline-user.nix];
               nixpkgs.overlays = getOverlays system;
