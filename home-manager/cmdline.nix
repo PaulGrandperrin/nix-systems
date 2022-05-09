@@ -1,6 +1,11 @@
 args @ {pkgs, config, inputs, system, lib, ...}: {
-  home.file.".config/nixpkgs/config.nix".text = "{ allowUnfree = true; }"; # "nixpkgs.config.allowUnfree = true;" is not enough to work with `nix run/shell`, also needs `--impure`
-  home.file.".config/nix/nix.conf".text = "experimental-features = nix-command flakes";
+  xdg.enable = true; # export XDG vars to ensure the correct directories are used
+
+  nixpkgs.config.allowUnfree = true; # only works inside HM
+  xdg.configFile."nixpkgs/config.nix".text = "{ allowUnfree = true; }"; # works for `nix run/shell`, also needs `--impure`
+
+  nix.package = pkgs.nixUnstable;
+  nix.settings."experimental-features" = "nix-command flakes";
 
   # systemd.user.systemctlPath = "/usr/bin/systemctl"; # TODO ?
   home = {
@@ -9,6 +14,7 @@ args @ {pkgs, config, inputs, system, lib, ...}: {
     sessionVariables = { # only works for interactive shells, pam works for all kind of sessions
       EDITOR = "vim";
     };
+
     packages = with pkgs; [
       gnugrep
       findutils
