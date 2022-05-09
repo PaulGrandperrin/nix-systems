@@ -24,7 +24,6 @@
     stockfish
     solaar
     gnomeExtensions.sound-output-device-chooser
-    #gnomeExtensions.bluetooth-battery # incompatible with 41
     gnomeExtensions.bluetooth-quick-connect
     gnomeExtensions.gsconnect
     gnomeExtensions.blur-my-shell
@@ -39,9 +38,9 @@
     gnomeExtensions.dash-to-panel
     gnomeExtensions.appindicator
     gnomeExtensions.bluetooth-battery
-    inputs.nixos-unstable.legacyPackages.${system}.gnomeExtensions.desktop-cube
-    inputs.nixos-unstable.legacyPackages.${system}.gnomeExtensions.pop-shell
-    inputs.nixos-unstable.legacyPackages.${system}.gnomeExtensions.system76-scheduler
+    gnomeExtensions.desktop-cube
+    gnomeExtensions.pop-shell
+    gnomeExtensions.system76-scheduler
     #wintile?
   ];
 
