@@ -1,9 +1,9 @@
 {
   "nodes": {
-    "darwin": {
+    "darwin-unstable": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgs-darwin"
+          "nixpkgs-darwin-unstable"
         ]
       },
       "locked": {
@@ -317,7 +317,7 @@
     },
     "root": {
       "inputs": {
-        "darwin": "darwin",
+        "darwin-unstable": "darwin-unstable",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "home-manager-unstable": "home-manager-unstable",

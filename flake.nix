@@ -19,9 +19,9 @@
       inputs.home-manager.follows = "home-manager-unstable";
     };
 
-    darwin = {
+    darwin-unstable = {
       url = "github:lnl7/nix-darwin/master";
-      inputs.nixpkgs.follows = "nixpkgs-darwin";
+      inputs.nixpkgs.follows = "nixpkgs-darwin-unstable";
     };
 
     flake-utils = {
@@ -148,9 +148,9 @@
 
     darwinConfigurations = let
       system = "x86_64-darwin";
-      inputs-darwin = inputs // {nixpkgs = inputs.nixpkgs-darwin;}; # HACK: I don't know a better way to make HM use nixpkgs-darwin...
+      inputs-tmp = inputs // {nixpkgs = inputs.nixpkgs-darwin-unstable; darwin = inputs.darwin-unstable;}; # HACK: I don't know a better way to make HM use nixpkgs-darwin...
     in let 
-      inputs = inputs-darwin; # HACK: is there a better way to avoid infinite recurtion?
+      inputs = inputs-tmp; # HACK: is there a better way to avoid infinite recurtion?
     in {
       "MacBookPaul" = inputs.darwin.lib.darwinSystem {
         inherit system;
@@ -161,11 +161,11 @@
             nixpkgs.config.allowUnfree = true;
           }
           ./nix-darwin/common.nix
-          inputs.home-manager.darwinModules.home-manager
+          inputs.home-manager-unstable.darwinModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit system inputs; mainFlake = inputs.nixpkgs-darwin; installDesktopApp = false;};
+            home-manager.extraSpecialArgs = {inherit system inputs; mainFlake = inputs.nixpkgs; installDesktopApp = false; is_unstable = true;};
             home-manager.users.root  = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-root.nix];};
             home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-user.nix ./home-manager/desktop.nix ./home-manager/desktop-macos.nix ./home-manager/rust-stable.nix];};
           }
@@ -181,11 +181,11 @@
             nixpkgs.config.allowUnfree = true;
           }
           ./nix-darwin/common.nix
-          inputs.home-manager.darwinModules.home-manager
+          inputs.home-manager-unstable.darwinModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit system inputs; mainFlake = inputs.nixpkgs-darwin; installDesktopApp = false;};
+            home-manager.extraSpecialArgs = {inherit system inputs; mainFlake = inputs.nixpkgs; installDesktopApp = false; is_unstable = true;};
             home-manager.users.root  = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-root.nix];};
             home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-user.nix ./home-manager/desktop.nix ./home-manager/desktop-macos.nix];};
           }

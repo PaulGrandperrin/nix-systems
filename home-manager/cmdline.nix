@@ -64,7 +64,6 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
       gdu
       pgcli
       sd
-      difftastic
       httpie curlie xh
       entr
       tig
@@ -95,7 +94,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
         '';
       })
     ]
-    ++ (if system == "x86_64-linux" then [ # linux only
+    ++ lib.optionals pkgs.stdenv.isLinux [
       dstat
       sysstat
       strace
@@ -103,6 +102,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
       btop
       zenith
       intel-gpu-tools
+      difftastic # FIXME broken on darwin
 
       nix-alien
       nix-index
@@ -110,7 +110,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
 
       unstable.nix
       unstable.nixos-rebuild
-    ] else []);
+    ];
   };
 
   programs = {
@@ -160,7 +160,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
     #    }
       ];
     };
-    topgrade.enable = true;
+    topgrade.enable = !pkgs.stdenv.isDarwin; # FIXME broken on darwin
     gpg.enable = true;
     jq.enable = true;
     lazygit.enable = true;
