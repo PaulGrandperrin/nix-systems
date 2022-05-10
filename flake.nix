@@ -229,7 +229,7 @@
         ];
       };
 
-      nixos-gcp = inputs.nixos-small.lib.nixosSystem { # not defined in the lib... but in Nixpkgs/flake.nix !
+      nixos-gcp = inputs.nixos-unstable-small.lib.nixosSystem { # not defined in the lib... but in Nixpkgs/flake.nix !
         inherit system;
         specialArgs = { inherit system inputs; }; #  passes inputs to modules
         modules = [ 
@@ -259,11 +259,11 @@
               google-cloud-sdk-gce
             ];
           })
-          inputs.home-manager.nixosModules.home-manager
+          inputs.home-manager-unstable.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit system inputs; mainFlake = inputs.nixos-small; installDesktopApp = false;};
+            home-manager.extraSpecialArgs = {inherit system inputs; mainFlake = inputs.nixos-unstable-small; installDesktopApp = false; is_unstable = true;};
             home-manager.users.root  = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-root.nix];};
             home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-user.nix];};
           }
