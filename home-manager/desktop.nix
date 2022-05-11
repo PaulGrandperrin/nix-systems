@@ -1,9 +1,9 @@
-{pkgs, inputs, system, installDesktopApp, ...}: { 
+{pkgs, inputs, system, lib, config, is_nixos, ...}: lib.mkIf (config.home.username != "root") { 
 
   programs = {
     chromium = {
       enable = true;
-      package = if installDesktopApp then pkgs.chromium else pkgs.emptyDirectory;
+      package = if is_nixos then pkgs.chromium else pkgs.emptyDirectory;
       extensions = [
         { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; } # ublock origin
         { id = "fihnjjcciajhdojfnbdddfaoknhalnja"; } # I don't care about cookies
@@ -41,7 +41,7 @@
         });
       in
       pkgs.emptyDirectory // { override = _: # ugly trick to make things work in HM
-        if installDesktopApp then firefox-bin-wayland else pkgs.emptyDirectory; # trick to allow using HM config without installing nix version of Firefox
+        if is_nixos then firefox-bin-wayland else pkgs.emptyDirectory; # trick to allow using HM config without installing nix version of Firefox
       };
 
       extensions = with pkgs.nur.repos.rycee.firefox-addons; [

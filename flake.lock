@@ -53,9 +53,7 @@
     },
     "home-manager": {
       "inputs": {
-        "nixpkgs": [
-          "nixos"
-        ]
+        "nixpkgs": []
       },
       "locked": {
         "lastModified": 1651519540,
@@ -74,9 +72,7 @@
     },
     "home-manager-unstable": {
       "inputs": {
-        "nixpkgs": [
-          "nixos-unstable"
-        ]
+        "nixpkgs": []
       },
       "locked": {
         "lastModified": 1652214259,
@@ -97,7 +93,7 @@
       "inputs": {
         "flake-utils": "flake-utils_2",
         "nixpkgs": [
-          "nixos"
+          "nixos-unstable"
         ],
         "poetry2nix": "poetry2nix"
       },
@@ -117,9 +113,7 @@
     },
     "nix-ld": {
       "inputs": {
-        "nixpkgs": [
-          "nixos"
-        ],
+        "nixpkgs": [],
         "utils": "utils"
       },
       "locked": {
@@ -340,9 +334,7 @@
         "flake-utils": [
           "flake-utils"
         ],
-        "nixpkgs": [
-          "nixos"
-        ]
+        "nixpkgs": []
       },
       "locked": {
         "lastModified": 1652236937,

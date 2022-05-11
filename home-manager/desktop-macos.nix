@@ -1,4 +1,4 @@
-{pkgs, isLinux, ...}: {
+{pkgs, ...}: {
 
   targets.darwin.defaults = {
     NSGlobalDomain = {

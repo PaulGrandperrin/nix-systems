@@ -94,24 +94,53 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
         '';
       })
     ]
-    ++ lib.optionals pkgs.stdenv.isLinux [
-      dstat
-      sysstat
-      strace
-      bmon
-      btop
-      zenith
-      intel-gpu-tools
-      difftastic # FIXME broken on darwin
+    ++ lib.optionals pkgs.stdenv.isLinux (
+      [
+        dstat
+        sysstat
+        strace
+        bmon
+        btop
+        zenith
+        intel-gpu-tools
+        difftastic # FIXME broken on darwin
 
-      nix-alien
-      nix-index
-      nix-index-update
+        nix-alien
+        nix-index
+        nix-index-update
 
-      unstable.nix
-      unstable.nixos-rebuild
-    ];
+        unstable.nix
+        unstable.nixos-rebuild
+      ] ++ lib.optionals (config.home.username == "root") [ # if root and linux
+        parted
+        iftop
+      ]
+    );
   };
+
+  # install ssh authorized keys, sshd complains if that's a symlink to the /nix/store
+  # only for non-root users
+  home.activation = lib.mkIf (config.home.username != "root") (let
+    ssh-authorized-keys = pkgs.writeText "ssh-authorized-keys" ''
+    ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP+tckVW3zh58Cr246EuceDY/HdgoJrmSnYTNEv0Y3HW
+    ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJVW/7zXgQwIAk46daSBfP5ti7zpADrs1p//f5IyRHJH
+    ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMdJ9evK0Ay1KFOBG+EZC7xPOb8udcltjg8rTFpHimz5
+    ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOjsf+KqGyIAhHxL54740gfH+qQxQl7K1liLsvaGvlHK
+    ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIChG+jbZaRNcbsQTyu6Dd9SaiaCSyR586FY5N1mHSRvE
+    ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM3KlABFus1z3jTDvylO6e6gSnn7nIqJKZOZJ9di5OW4
+    ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHOIxgOXuz4/8JB++umc4fEvFwIlM3eeVadTsvCZCQN2
+    ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBBKbOypMYzisA9fwYtZVWWtcvsOqA294EEBIYN/9YCr
+    ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMK/GnaGGlU7pl4po31XP6K5VpodTu67J+D1/3d74R57
+    ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF5s0Fe3Y2kX5bxhipkD/OGePPRew40fElqzgacdavuY
+    ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICSJQGYQs+KJX+V/X3KxhyQgahE0g+ITF2jr1wUY1s/3
+  '';
+  in {
+    copySshAuthorizedKeys = lib.hm.dag.entryAfter ["writeBoundary"] ''
+     $DRY_RUN_CMD install $VERBOSE_ARG -m700 -d ${config.home.homeDirectory}/.ssh
+     $DRY_RUN_CMD install $VERBOSE_ARG -m600 ${ssh-authorized-keys} ${config.home.homeDirectory}/.ssh/authorized_keys
+   '';
+  });
+
 
   programs = {
     home-manager.enable = true;
@@ -119,7 +148,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
       enable = true;
       nix-direnv = {
         enable = true;
-      } // pkgs.lib.optionalAttrs (!args ? is_unstable) { enableFlakes = true; };
+      };
     };
     emacs.enable = true;
     exa = {

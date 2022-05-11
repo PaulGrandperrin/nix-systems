@@ -14,14 +14,14 @@
 
     nix-on-droid = {
       url = "github:t184256/nix-on-droid/testing";
-      inputs.nixpkgs.follows = "nixos-unstable";
+      inputs.nixpkgs.follows = "nixos-unstable"; # TODO try to remove
       inputs.flake-utils.follows = "flake-utils";
-      inputs.home-manager.follows = "home-manager-unstable";
+      inputs.home-manager.follows = "home-manager-unstable"; # TODO try to remove
     };
 
     darwin-unstable = {
       url = "github:lnl7/nix-darwin/master";
-      inputs.nixpkgs.follows = "nixpkgs-darwin-unstable";
+      inputs.nixpkgs.follows = "nixpkgs-darwin-unstable"; # TODO try to remove
     };
 
     flake-utils = {
@@ -30,28 +30,29 @@
 
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
-      inputs.nixpkgs.follows = "nixos";
+      inputs.nixpkgs.follows = ""; # not used because we use the overlay
       inputs.flake-utils.follows = "flake-utils";
     };
 
     home-manager = {
       url = "github:nix-community/home-manager/release-21.11";
-      inputs.nixpkgs.follows = "nixos";
+      inputs.nixpkgs.follows = ""; # doesn't matter because we use home-manager.useGlobalPkgs = true
+
     };
 
     home-manager-unstable = {
       url = "github:nix-community/home-manager/master";
-      inputs.nixpkgs.follows = "nixos-unstable";
+      inputs.nixpkgs.follows = ""; # doesn't matter because we use home-manager.useGlobalPkgs = true
     };
 
     nix-ld = {
       url = "github:Mic92/nix-ld";
-      inputs.nixpkgs.follows = "nixos";
+      inputs.nixpkgs.follows = ""; # doesn't matter because we use the nixosModule
     };
 
     nix-alien = {
       url = "github:thiagokokada/nix-alien";
-      inputs.nixpkgs.follows = "nixos";
+      inputs.nixpkgs.follows = "nixos-unstable"; # TODO the overlay is using it, but I would like it to not use it
     };
 
     nixgl = {
@@ -93,7 +94,7 @@
           home-manager = {
             extraSpecialArgs = {inherit system inputs; mainFlake = inputs.nix-on-droid.inputs.nixpkgs; installDesktopApp = false; is_unstable = true;};
             config = {pkgs, lib, config, ...}: {
-              imports = [./home-manager/cmdline.nix ./home-manager/cmdline-user.nix];
+              imports = [./home-manager/cmdline.nix];
               nixpkgs.overlays = getOverlays system;
               home.activation = {
                 copyFont = let 
@@ -116,12 +117,11 @@
     homeConfigurations = {
       paulg-x86_64-linux = inputs.home-manager-unstable.lib.homeManagerConfiguration rec {
         system = "x86_64-linux";
-        stateVersion = "21.11";
         homeDirectory = "/home/paulg";
         username = "paulg";
         extraSpecialArgs = {inherit system inputs; mainFlake = inputs.home-manager-unstable.inputs.nixpkgs; installDesktopApp = false; is_unstable = true;};
         configuration = { config, pkgs, lib, ... }: {
-          imports = [ ./home-manager/cmdline.nix ./home-manager/cmdline-user.nix ./home-manager/desktop.nix];
+          imports = [ ./home-manager/cmdline.nix ./home-manager/desktop.nix];
           nixpkgs.overlays = getOverlays system;
           nixpkgs.config.allowUnfree = true;
           home.packages = [
@@ -134,12 +134,11 @@
       };
       paulg-aarch64-darwin = inputs.home-manager-unstable.lib.homeManagerConfiguration rec {
         system = "aarch64-darwin";
-        stateVersion = "21.11";
         homeDirectory = "/Users/paulg";
         username = "paulg";
         extraSpecialArgs = {inherit system inputs; mainFlake = inputs.home-manager-unstable.inputs.nixpkgs; installDesktopApp = false; is_unstable = true;};
         configuration = { config, pkgs, lib, ... }: {
-          imports = [ ./home-manager/cmdline.nix ./home-manager/cmdline-user.nix ./home-manager/desktop.nix ./home-manager/desktop-macos.nix];
+          imports = [ ./home-manager/cmdline.nix ./home-manager/desktop.nix ./home-manager/desktop-macos.nix];
           nixpkgs.overlays = getOverlays system;
           nixpkgs.config.allowUnfree = true;
         };  
@@ -166,8 +165,8 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = {inherit system inputs; mainFlake = inputs.nixpkgs; installDesktopApp = false; is_unstable = true;};
-            home-manager.users.root  = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-root.nix];};
-            home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-user.nix ./home-manager/desktop.nix ./home-manager/desktop-macos.nix ./home-manager/rust-stable.nix];};
+            home-manager.users.root  = { imports = [./home-manager/cmdline.nix];};
+            home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/desktop.nix ./home-manager/desktop-macos.nix ./home-manager/rust-stable.nix];};
           }
         ];
       };
@@ -186,8 +185,8 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = {inherit system inputs; mainFlake = inputs.nixpkgs; installDesktopApp = false; is_unstable = true;};
-            home-manager.users.root  = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-root.nix];};
-            home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-user.nix ./home-manager/desktop.nix ./home-manager/desktop-macos.nix];};
+            home-manager.users.root  = { imports = [./home-manager/cmdline.nix];};
+            home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/desktop.nix ./home-manager/desktop-macos.nix];};
           }
         ];
       };
@@ -196,189 +195,161 @@
     # Used with `nixos-rebuild --flake .#<hostname>`
     # nixosConfigurations."<hostname>".config.system.build.toplevel must be a derivation
     nixosConfigurations = let
-        system = "x86_64-linux";
+      mkNixosConf = arch: channel: nixos-modules: hm-modules: inputs.${channel}.lib.nixosSystem rec {
+        system = "${arch}-linux";
+        specialArgs = { inherit system inputs channel; }; #  passes inputs to modules
+        modules = [ 
+          { nixpkgs = {overlays = getOverlays system; }; }
+          inputs.home-manager-unstable.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true; # means that pkgs are taken from the nixosSystem and not from home-manager.inputs.nixpkgs
+            home-manager.useUserPackages = true; # means that pkgs are installed at /etc/profiles instead of $HOME/.nix-profile
+            home-manager.extraSpecialArgs = {inherit system inputs;  mainFlake = inputs.nixos; is_nixos = true;};
+            home-manager.users.root  = { imports = hm-modules;};
+            home-manager.users.paulg = { imports = hm-modules;};
+          }
+          inputs.nix-ld.nixosModules.nix-ld
+        ] ++ nixos-modules;
+      };
     in { 
-      nixos-nas = inputs.nixos-unstable-small.lib.nixosSystem { # not defined in the lib... but in Nixpkgs/flake.nix !
-        inherit system;
-        specialArgs = { inherit system inputs; }; #  passes inputs to modules
-        modules = [ 
-          { nixpkgs = {overlays = getOverlays system; }; }
-          ./nixos/hosts/nas/hardware-configuration.nix
-          ./nixos/common.nix
-          ./nixos/nspawns/ubuntu.nix
-          ./nixos/net.nix
-          ./nixos/auto-upgrade.nix
-          {
-            networking.hostId="51079489";
-            system.stateVersion = "21.05"; # Did you read the comment?
-            networking.hostName = "nixos-nas";
-            services.net = {
-              enable = true;
-              mainInt = "enp3s0";
-            }; 
-          }
-          inputs.home-manager-unstable.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit system inputs;  mainFlake = inputs.nixos-unstable-small; installDesktopApp = false; is_unstable = true;};
-            home-manager.users.root  = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-root.nix];};
-            home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-user.nix];};
-          }
-          inputs.nix-ld.nixosModules.nix-ld
-        ];
-      };
+      nixos-nas = mkNixosConf "x86_64" "nixos-unstable-small" [
+        ./nixos/hosts/nas/hardware-configuration.nix
+        ./nixos/common.nix
+        ./nixos/nspawns/ubuntu.nix
+        ./nixos/net.nix
+        ./nixos/auto-upgrade.nix
+        {
+          networking.hostId="51079489";
+          networking.hostName = "nixos-nas";
+          services.net = {
+            enable = true;
+            mainInt = "enp3s0";
+          }; 
+        }
+      ]
+      [
+        ./home-manager/cmdline.nix
+      ];
 
-      nixos-gcp = inputs.nixos-unstable-small.lib.nixosSystem { # not defined in the lib... but in Nixpkgs/flake.nix !
-        inherit system;
-        specialArgs = { inherit system inputs; }; #  passes inputs to modules
-        modules = [ 
-          { nixpkgs = {overlays = getOverlays system; }; }
-          ./nixos/hosts/gcp/hardware-configuration.nix
-          ./nixos/google-compute-config.nix
-          ./nixos/common.nix
-          ./nixos/containers/web.nix
-          # ./nixos/auto-upgrade.nix # 1G of memory is not enough to evaluate the system's derivation, even with zram...
-          ({pkgs, lib, ...}:{
-            networking.hostId = "1c734661"; # for ZFS
-            networking.hostName = "nixos-gcp";
-            networking.interfaces.eth0.useDHCP = true;
-            
-            # useful to build and deploy closures from nixos-xps which a lot beefier than nixos-gcp
-            users.users.root.openssh.authorizedKeys.keys = [ 
-              "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHOIxgOXuz4/8JB++umc4fEvFwIlM3eeVadTsvCZCQN2" # root@nixos-xps
-              "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMK/GnaGGlU7pl4po31XP6K5VpodTu67J+D1/3d74R57" # root@MacBookPaul NixOS
-              "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF5s0Fe3Y2kX5bxhipkD/OGePPRew40fElqzgacdavuY" # root@nixos-nas
-            ];
-            
-            services.smartd.enable = lib.mkForce false;
-
-            system.stateVersion = "21.05"; # Did you read the comment?
+      nixos-gcp = mkNixosConf "x86_64" "nixos-unstable-small" [
+        ./nixos/hosts/gcp/hardware-configuration.nix
+        ./nixos/google-compute-config.nix
+        ./nixos/common.nix
+        ./nixos/containers/web.nix
+        # ./nixos/auto-upgrade.nix # 1G of memory is not enough to evaluate the system's derivation, even with zram...
+        ({pkgs, lib, ...}:{
+          networking.hostId = "1c734661"; # for ZFS
+          networking.hostName = "nixos-gcp";
+          networking.interfaces.eth0.useDHCP = true;
           
-            environment.systemPackages = with pkgs; [
-              google-cloud-sdk-gce
-            ];
-          })
-          inputs.home-manager-unstable.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit system inputs; mainFlake = inputs.nixos-unstable-small; installDesktopApp = false; is_unstable = true;};
-            home-manager.users.root  = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-root.nix];};
-            home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-user.nix];};
-          }
-          inputs.nix-ld.nixosModules.nix-ld
-        ];
-      };
+          # useful to build and deploy closures from nixos-xps which a lot beefier than nixos-gcp
+          users.users.root.openssh.authorizedKeys.keys = [ 
+            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHOIxgOXuz4/8JB++umc4fEvFwIlM3eeVadTsvCZCQN2" # root@nixos-xps
+            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMK/GnaGGlU7pl4po31XP6K5VpodTu67J+D1/3d74R57" # root@MacBookPaul NixOS
+            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF5s0Fe3Y2kX5bxhipkD/OGePPRew40fElqzgacdavuY" # root@nixos-nas
+          ];
+          
+          services.smartd.enable = lib.mkForce false;
+        
+          environment.systemPackages = with pkgs; [
+            google-cloud-sdk-gce
+          ];
+        })
+      ]
+      [
+        ./home-manager/cmdline.nix
+      ];
 
-      nixos-xps = inputs.nixos-unstable.lib.nixosSystem { # not defined in the lib... but in Nixpkgs/flake.nix !
-        inherit system;
-        specialArgs = { inherit system inputs; }; #  passes inputs to modules
-        modules = [ 
-          { nixpkgs = {overlays = getOverlays system; }; }
-          ./nixos/hosts/xps/hardware-configuration.nix
-          ./nixos/common.nix
-          ./nixos/net.nix
-          ./nixos/laptop.nix
-          ./nixos/desktop.nix
-          ./nixos/desktop-i915.nix
-          ./nixos/nvidia.nix
-          {
-            networking.hostId="7ee1da4a";
-            system.stateVersion = "21.11"; # Did you read the comment?
-            networking.hostName = "nixos-xps";
-            services.net = {
-              enable = true;
-              mainInt = "wlp2s0";
-            };
-            systemd.network.wait-online = {
-              timeout = 10;
-              extraArgs = ["-i" "wlan0"]; # FIXME why --any isn't working? 
-            };
-          }
-          inputs.home-manager-unstable.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit system inputs; mainFlake = inputs.nixos-unstable; installDesktopApp = true; is_unstable = true;};
-            home-manager.users.root  = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-root.nix];};
-            home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-user.nix ./home-manager/desktop.nix ./home-manager/desktop-linux.nix ./home-manager/rust-nightly.nix];};
-          }
-          inputs.nix-ld.nixosModules.nix-ld
-        ];
-      };
+      nixos-xps = mkNixosConf "x86_64" "nixos-unstable" [
+        ./nixos/hosts/xps/hardware-configuration.nix
+        ./nixos/common.nix
+        ./nixos/net.nix
+        ./nixos/laptop.nix
+        ./nixos/desktop.nix
+        ./nixos/desktop-i915.nix
+        ./nixos/nvidia.nix
+        {
+          networking.hostId="7ee1da4a";
+          networking.hostName = "nixos-xps";
+          services.net = {
+            enable = true;
+            mainInt = "wlp2s0";
+          };
+          systemd.network.wait-online = {
+            timeout = 10;
+            extraArgs = ["-i" "wlan0"]; # FIXME why --any isn't working? 
+          };
+        }
+      ]
+      [
+        ./home-manager/cmdline.nix
+        ./home-manager/desktop.nix
+        ./home-manager/desktop-linux.nix
+        ./home-manager/rust-nightly.nix
+      ];
 
+      MacBookPaul = mkNixosConf "x86_64" "nixos-unstable" [
+        ./nixos/hosts/MacBookPaul/hardware-configuration.nix
+        ./nixos/common.nix
+        ./nixos/net.nix
+        ./nixos/laptop.nix
+        ./nixos/desktop.nix
+        ./nixos/desktop-i915.nix
+        ({pkgs, lib, ...}:{
+          networking.hostId="f2b2467d";
+          hardware.facetimehd.enable = true;
+          services.mbpfan.enable = true;
 
-      MacBookPaul = inputs.nixos-unstable.lib.nixosSystem { # not defined in the lib... but in Nixpkgs/flake.nix !
-        inherit system;
-        specialArgs = { inherit system inputs; }; #  passes inputs to modules
-        modules = [ 
-          { nixpkgs = {overlays = getOverlays system; }; }
-          ./nixos/hosts/MacBookPaul/hardware-configuration.nix
-          ./nixos/common.nix
-          ./nixos/net.nix
-          ./nixos/laptop.nix
-          ./nixos/desktop.nix
-          ./nixos/desktop-i915.nix
-          ({pkgs, lib, ...}:{
-            networking.hostId="f2b2467d";
-            hardware.facetimehd.enable = true;
-            services.mbpfan.enable = true;
+          programs.nix-ld.enable = true;
 
-            programs.nix-ld.enable = true;
+          powerManagement = {
+            powerDownCommands = lib.mkBefore ''
+              # brcmfmac being loaded during hibernation would not let a successful resume
+              # https://bugzilla.kernel.org/show_bug.cgi?id=101681#c116.
+              # Also brcmfmac could randomly crash on resume from sleep.
+              # And also, brcmfac prevents suspending
+              ${pkgs.kmod}/bin/rmmod brcmfmac
+              #echo disabled > /sys/bus/pci/devices/0000:03:00.0/power/wakeup # ARPT in /proc/acpi/wakeup, wifi adapter always wakes up the machine, already disabled by rmmod
 
-            powerManagement = {
-              powerDownCommands = lib.mkBefore ''
-                # brcmfmac being loaded during hibernation would not let a successful resume
-                # https://bugzilla.kernel.org/show_bug.cgi?id=101681#c116.
-                # Also brcmfmac could randomly crash on resume from sleep.
-                # And also, brcmfac prevents suspending
-                ${pkgs.kmod}/bin/rmmod brcmfmac
-                #echo disabled > /sys/bus/pci/devices/0000:03:00.0/power/wakeup # ARPT in /proc/acpi/wakeup, wifi adapter always wakes up the machine, already disabled by rmmod
+              # if the LID is open
+              if grep open /proc/acpi/button/lid/LID0/state; then
+                # disable the open-lid sensor but enable the keyboard (USB) wake up events
+                echo enabled > /sys/bus/pci/devices/0000:00:14.0/power/wakeup # XHC1 in /proc/acpi/wakeup, USB controller, sometimes wakes up the machine
+                echo disabled > /sys/bus/acpi/devices/PNP0C0D:00/power/wakeup # LID0 in /proc/acpi/wakeup, wakes up the machine when the lid is in open position
+              else 
+                # enable the open-lid sensor wake events but disable to USB controller to be extra sure
+                echo enabled > /sys/bus/acpi/devices/PNP0C0D:00/power/wakeup # LID0 in /proc/acpi/wakeup, wakes up the machine when the lid is in open position
+                echo disabled > /sys/bus/pci/devices/0000:00:14.0/power/wakeup # XHC1 in /proc/acpi/wakeup, USB controller, sometimes wakes up the machine
+              fi
+            '';
+            powerUpCommands = lib.mkBefore "${pkgs.kmod}/bin/modprobe brcmfmac";
+          };
 
-                # if the LID is open
-                if grep open /proc/acpi/button/lid/LID0/state; then
-                  # disable the open-lid sensor but enable the keyboard (USB) wake up events
-                  echo enabled > /sys/bus/pci/devices/0000:00:14.0/power/wakeup # XHC1 in /proc/acpi/wakeup, USB controller, sometimes wakes up the machine
-                  echo disabled > /sys/bus/acpi/devices/PNP0C0D:00/power/wakeup # LID0 in /proc/acpi/wakeup, wakes up the machine when the lid is in open position
-                else 
-                  # enable the open-lid sensor wake events but disable to USB controller to be extra sure
-                  echo enabled > /sys/bus/acpi/devices/PNP0C0D:00/power/wakeup # LID0 in /proc/acpi/wakeup, wakes up the machine when the lid is in open position
-                  echo disabled > /sys/bus/pci/devices/0000:00:14.0/power/wakeup # XHC1 in /proc/acpi/wakeup, USB controller, sometimes wakes up the machine
-                fi
-              '';
-              powerUpCommands = lib.mkBefore "${pkgs.kmod}/bin/modprobe brcmfmac";
-            };
-
-            # USB subsystem wakes up MBP right after suspend unless we disable it.
-            #services.udev.extraRules = ''
-            #  ### fix suspend on MacBookPro12,1 
-            #  # found using:
-            #  # cat /proc/acpi/wakeup
-            #  # echo $device > /proc/acpi/wakeup # to bruteforce which devices woke up the laptop
-            #  # fd $sysfs_node /sys
-            #  # udevadm info -a -p $path
-            #  #SUBSYSTEM=="pci", KERNEL=="0000:03:00.0", DRIVER=="brcmfmac", ATTR{power/wakeup}="disabled"
-            #  #SUBSYSTEM=="acpi", KERNEL=="PNP0C0D:00", DRIVER=="button", ATTR{power/wakeup}="disabled" # LID0 in /proc/acpi/wakeup
-            #  SUBSYSTEM=="acpi", KERNEL=="PNP0C0D:00", ATTR{power/wakeup}="disabled" # LID0 in /proc/acpi/wakeup
-            #'';
-            system.stateVersion = "21.11"; # Did you read the comment?
-            networking.hostName = "MacBookPaul";
-            services.net = {
-              enable = true;
-              mainInt = "wlp3s0";
-            };
-          })
-          inputs.home-manager-unstable.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit system inputs;  mainFlake = inputs.nixos-unstable; installDesktopApp = true; is_unstable = true;};
-            home-manager.users.root  = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-root.nix];};
-            home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/cmdline-user.nix ./home-manager/desktop.nix ./home-manager/desktop-linux.nix ./home-manager/rust-stable.nix];};
-          }
-        ];
-      };
+          # USB subsystem wakes up MBP right after suspend unless we disable it.
+          #services.udev.extraRules = ''
+          #  ### fix suspend on MacBookPro12,1 
+          #  # found using:
+          #  # cat /proc/acpi/wakeup
+          #  # echo $device > /proc/acpi/wakeup # to bruteforce which devices woke up the laptop
+          #  # fd $sysfs_node /sys
+          #  # udevadm info -a -p $path
+          #  #SUBSYSTEM=="pci", KERNEL=="0000:03:00.0", DRIVER=="brcmfmac", ATTR{power/wakeup}="disabled"
+          #  #SUBSYSTEM=="acpi", KERNEL=="PNP0C0D:00", DRIVER=="button", ATTR{power/wakeup}="disabled" # LID0 in /proc/acpi/wakeup
+          #  SUBSYSTEM=="acpi", KERNEL=="PNP0C0D:00", ATTR{power/wakeup}="disabled" # LID0 in /proc/acpi/wakeup
+          #'';
+          networking.hostName = "MacBookPaul";
+          services.net = {
+            enable = true;
+            mainInt = "wlp3s0";
+          };
+        })
+      ]
+      [
+        ./home-manager/cmdline.nix
+        ./home-manager/desktop.nix
+        ./home-manager/desktop-linux.nix
+        ./home-manager/rust-stable.nix
+      ];
 
     };
   };

@@ -3,6 +3,7 @@
   imports = [
     ./mail.nix
   ];
+  system.stateVersion = "21.11";
 
   # Hardening
   # TODO: noexec mounts, tmpfs...
