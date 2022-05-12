@@ -21,7 +21,7 @@
 
     darwin-unstable = {
       url = "github:lnl7/nix-darwin/master";
-      inputs.nixpkgs.follows = "nixpkgs-darwin-unstable"; # TODO try to remove
+      inputs.nixpkgs.follows = "nixpkgs-darwin-unstable"; # FIXME only used to access lib...
     };
 
     flake-utils = {
@@ -146,50 +146,33 @@
     };
 
     darwinConfigurations = let
-      system = "x86_64-darwin";
-      inputs-tmp = inputs // {nixpkgs = inputs.nixpkgs-darwin-unstable; darwin = inputs.darwin-unstable;}; # HACK: I don't know a better way to make HM use nixpkgs-darwin...
-    in let 
-      inputs = inputs-tmp; # HACK: is there a better way to avoid infinite recurtion?
+      mkDarwinConf = arch: let
+          inputs-patched = inputs // {nixpkgs = inputs.nixpkgs-darwin-unstable; darwin = inputs.darwin-unstable;};
+        in inputs-patched.darwin.lib.darwinSystem rec {
+          system = "${arch}-darwin";
+          inputs = inputs-patched; # otherwise it would take this flake's inputs and expect nixpkgs and darwin to be hardcoded
+          specialArgs = { inherit system inputs; }; #  passes inputs to modules
+          modules = [
+            { 
+              nixpkgs = {
+                overlays = getOverlays system;
+                config.allowUnfree = true;
+              };
+            }
+            ./nix-darwin/common.nix
+            inputs.home-manager-unstable.darwinModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = {inherit system inputs; mainFlake = inputs.nixpkgs; is_nixos = false;};
+              home-manager.users.root  = { imports = [./home-manager/cmdline.nix];};
+              home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/desktop.nix ./home-manager/desktop-macos.nix ./home-manager/rust-stable.nix];};
+            }
+          ];
+        };
     in {
-      "MacBookPaul" = inputs.darwin.lib.darwinSystem {
-        inherit system;
-        specialArgs = { inherit system inputs; }; #  passes inputs to modules
-        modules = [
-          { 
-            nixpkgs = {overlays = getOverlays system;};
-            nixpkgs.config.allowUnfree = true;
-          }
-          ./nix-darwin/common.nix
-          inputs.home-manager-unstable.darwinModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit system inputs; mainFlake = inputs.nixpkgs; installDesktopApp = false; is_unstable = true;};
-            home-manager.users.root  = { imports = [./home-manager/cmdline.nix];};
-            home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/desktop.nix ./home-manager/desktop-macos.nix ./home-manager/rust-stable.nix];};
-          }
-        ];
-      };
-
-      "MacMiniPaul" = inputs.darwin.lib.darwinSystem {
-        inherit system;
-        specialArgs = { inherit system inputs; }; #  passes inputs to modules
-        modules = [
-          { 
-            nixpkgs = {overlays = getOverlays system;};
-            nixpkgs.config.allowUnfree = true;
-          }
-          ./nix-darwin/common.nix
-          inputs.home-manager-unstable.darwinModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit system inputs; mainFlake = inputs.nixpkgs; installDesktopApp = false; is_unstable = true;};
-            home-manager.users.root  = { imports = [./home-manager/cmdline.nix];};
-            home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/desktop.nix ./home-manager/desktop-macos.nix];};
-          }
-        ];
-      };
+      "MacBookPaul" = mkDarwinConf "x86_64";
+      "MacMiniPaul" = mkDarwinConf "x86_64";
     };
 
     # Used with `nixos-rebuild --flake .#<hostname>`
