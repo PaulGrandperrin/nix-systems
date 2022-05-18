@@ -73,6 +73,10 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
       unstable.fq # not yet available in 21.11
       smartmontools
 
+      #man
+      man-pages
+      man-pages-posix
+
 
       #dev
       gnumake
