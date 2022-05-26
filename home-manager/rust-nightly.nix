@@ -15,7 +15,7 @@ in {
   programs = {
     vscode = {
       extensions = [
-        (inputs.nixos-unstable.legacyPackages.${system}.vscode-extensions.matklad.rust-analyzer.override {
+        (inputs.nixos-22-05.legacyPackages.${system}.vscode-extensions.matklad.rust-analyzer.override {
           rust-analyzer = my-rust;
         })
       ];

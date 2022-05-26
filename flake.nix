@@ -3,25 +3,22 @@
   description = "Paul Grandperrin NixOS confs";
 
   inputs = {
-    nixos.url = "github:NixOS/nixpkgs/nixos-21.11";
-    nixos-small.url = "github:NixOS/nixpkgs/nixos-21.11-small";
-    nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixos-unstable-small.url = "github:NixOS/nixpkgs/nixos-unstable-small";
-    nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-21.11-darwin";
-    nixpkgs-darwin-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixos-22-05.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixos-22-05-small.url = "github:NixOS/nixpkgs/nixos-22.05-small";
+    nixpkgs-22-05-darwin.url = "github:NixOS/nixpkgs/nixpkgs-22.05-darwin";
 
     nur.url = "github:nix-community/NUR";
 
     nix-on-droid = {
       url = "github:t184256/nix-on-droid/testing";
-      inputs.nixpkgs.follows = "nixos-unstable"; # TODO try to remove
+      inputs.nixpkgs.follows = "nixos-22-05"; # TODO try to remove
       inputs.flake-utils.follows = "flake-utils";
-      inputs.home-manager.follows = "home-manager-unstable"; # TODO try to remove
+      inputs.home-manager.follows = "home-manager-22-05"; # TODO try to remove
     };
 
-    darwin-unstable = {
+    nix-darwin = {
       url = "github:lnl7/nix-darwin/master";
-      inputs.nixpkgs.follows = "nixpkgs-darwin-unstable"; # FIXME only used to access lib...
+      inputs.nixpkgs.follows = "nixpkgs-22-05-darwin"; # FIXME only used to access lib...
     };
 
     flake-utils = {
@@ -34,14 +31,8 @@
       inputs.flake-utils.follows = "flake-utils";
     };
 
-    home-manager = {
-      url = "github:nix-community/home-manager/release-21.11";
-      inputs.nixpkgs.follows = ""; # doesn't matter because we use home-manager.useGlobalPkgs = true
-
-    };
-
-    home-manager-unstable = {
-      url = "github:nix-community/home-manager/master";
+    home-manager-22-05 = {
+      url = "github:nix-community/home-manager/release-22.05";
       inputs.nixpkgs.follows = ""; # doesn't matter because we use home-manager.useGlobalPkgs = true
     };
 
@@ -52,26 +43,26 @@
 
     nix-alien = {
       url = "github:thiagokokada/nix-alien";
-      inputs.nixpkgs.follows = "nixos-unstable"; # TODO the overlay is using it, but I would like it to not use it
+      inputs.nixpkgs.follows = "nixos-22-05"; # TODO the overlay is using it, but I would like it to not use it
     };
 
     nixgl = {
       url = "github:guibou/nixGL";
-      flake = false;
+      flake = false; # TODO it's now a flake!
     };
   };
 
 
   outputs = inputs: let 
     getOverlays = system: let # FIXME not sure those are the good channels for darwin
-      stable-pkgs = inputs.nixos.legacyPackages.${system};
-      unstable-pkgs = inputs.nixos-unstable.legacyPackages.${system};
-      unstable-overlay = final: prev: { unstable = unstable-pkgs; };
+      pkgs-22-05 = inputs.nixos-22-05.legacyPackages.${system};
+      #unstable-pkgs = inputs.nixos-unstable.legacyPackages.${system};
+      #unstable-overlay = final: prev: { unstable = unstable-pkgs; };
     in
-      [ inputs.nur.overlay inputs.rust-overlay.overlay unstable-overlay inputs.nix-alien.overlay];
+      [ inputs.nur.overlay inputs.rust-overlay.overlay inputs.nix-alien.overlay];
   in {
 
-    packages.x86_64-linux.vcv-rack = inputs.nixos.legacyPackages.x86_64-linux.callPackage ./pkgs/vcv-rack {};
+    packages.x86_64-linux.vcv-rack = inputs.nixos-22-05.legacyPackages.x86_64-linux.callPackage ./pkgs/vcv-rack {};
 
     #devShell.x86_64-linux = stable-pkgs.mkShell {
     #    buildInputs = with stable-pkgs; [
@@ -115,11 +106,11 @@
     };
 
     homeConfigurations = {
-      paulg-x86_64-linux = inputs.home-manager-unstable.lib.homeManagerConfiguration rec {
+      paulg-x86_64-linux = inputs.home-manager-22-05.lib.homeManagerConfiguration rec {
         system = "x86_64-linux";
         homeDirectory = "/home/paulg";
         username = "paulg";
-        extraSpecialArgs = {inherit system inputs; mainFlake = inputs.home-manager-unstable.inputs.nixpkgs; installDesktopApp = false; is_unstable = true;};
+        extraSpecialArgs = {inherit system inputs; mainFlake = inputs.home-manager-22-05.inputs.nixpkgs; installDesktopApp = false; is_unstable = true;};
         configuration = { config, pkgs, lib, ... }: {
           imports = [ ./home-manager/cmdline.nix ./home-manager/desktop.nix];
           nixpkgs.overlays = getOverlays system;
@@ -132,11 +123,11 @@
           ];
         };
       };
-      paulg-aarch64-darwin = inputs.home-manager-unstable.lib.homeManagerConfiguration rec {
+      paulg-aarch64-darwin = inputs.home-manager-22-05.lib.homeManagerConfiguration rec {
         system = "aarch64-darwin";
         homeDirectory = "/Users/paulg";
         username = "paulg";
-        extraSpecialArgs = {inherit system inputs; mainFlake = inputs.home-manager-unstable.inputs.nixpkgs; installDesktopApp = false; is_unstable = true;};
+        extraSpecialArgs = {inherit system inputs; mainFlake = inputs.home-manager-22-05.inputs.nixpkgs; installDesktopApp = false; is_unstable = true;};
         configuration = { config, pkgs, lib, ... }: {
           imports = [ ./home-manager/cmdline.nix ./home-manager/desktop.nix ./home-manager/desktop-macos.nix];
           nixpkgs.overlays = getOverlays system;
@@ -147,7 +138,7 @@
 
     darwinConfigurations = let
       mkDarwinConf = arch: let
-          inputs-patched = inputs // {nixpkgs = inputs.nixpkgs-darwin-unstable; darwin = inputs.darwin-unstable;};
+          inputs-patched = inputs // {nixpkgs = inputs.nixpkgs-22-05-darwin; darwin = inputs.nix-darwin;};
         in inputs-patched.darwin.lib.darwinSystem rec {
           system = "${arch}-darwin";
           inputs = inputs-patched; # otherwise it would take this flake's inputs and expect nixpkgs and darwin to be hardcoded
@@ -160,7 +151,7 @@
               };
             }
             ./nix-darwin/common.nix
-            inputs.home-manager-unstable.darwinModules.home-manager
+            inputs.home-manager-22-05.darwinModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
@@ -183,11 +174,11 @@
         specialArgs = { inherit system inputs channel; }; #  passes inputs to modules
         modules = [ 
           { nixpkgs = {overlays = getOverlays system; }; }
-          inputs.home-manager-unstable.nixosModules.home-manager
+          inputs.home-manager-22-05.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true; # means that pkgs are taken from the nixosSystem and not from home-manager.inputs.nixpkgs
             home-manager.useUserPackages = true; # means that pkgs are installed at /etc/profiles instead of $HOME/.nix-profile
-            home-manager.extraSpecialArgs = {inherit system inputs;  mainFlake = inputs.nixos; is_nixos = true;};
+            home-manager.extraSpecialArgs = {inherit system inputs;  mainFlake = inputs.${channel}; is_nixos = true;};
             home-manager.users.root  = { imports = hm-modules;};
             home-manager.users.paulg = { imports = hm-modules;};
           }
@@ -195,7 +186,7 @@
         ] ++ nixos-modules;
       };
     in { 
-      nixos-nas = mkNixosConf "x86_64" "nixos-unstable-small" [
+      nixos-nas = mkNixosConf "x86_64" "nixos-22-05-small" [
         ./nixos/hosts/nas/hardware-configuration.nix
         ./nixos/common.nix
         ./nixos/nspawns/ubuntu.nix
@@ -214,7 +205,7 @@
         ./home-manager/cmdline.nix
       ];
 
-      nixos-gcp = mkNixosConf "x86_64" "nixos-unstable-small" [
+      nixos-gcp = mkNixosConf "x86_64" "nixos-22-05-small" [
         ./nixos/hosts/gcp/hardware-configuration.nix
         ./nixos/google-compute-config.nix
         ./nixos/common.nix
@@ -243,7 +234,7 @@
         ./home-manager/cmdline.nix
       ];
 
-      nixos-xps = mkNixosConf "x86_64" "nixos-unstable" [
+      nixos-xps = mkNixosConf "x86_64" "nixos-22-05" [
         ./nixos/hosts/xps/hardware-configuration.nix
         ./nixos/common.nix
         ./nixos/net.nix
@@ -271,7 +262,7 @@
         ./home-manager/rust-nightly.nix
       ];
 
-      MacBookPaul = mkNixosConf "x86_64" "nixos-unstable" [
+      MacBookPaul = mkNixosConf "x86_64" "nixos-22-05" [
         ./nixos/hosts/MacBookPaul/hardware-configuration.nix
         ./nixos/common.nix
         ./nixos/net.nix

@@ -14,8 +14,8 @@
       enable = true;
       package = let 
 
-        # build firefox-bin version from nixos-unstable but with current dependencies
-        path = inputs.nixos-unstable-small.outPath;
+        # build firefox-bin version from nixos-22-05-small but with current dependencies
+        path = inputs.nixos-22-05-small.outPath;
         firefox-bin-unwrapped = pkgs.callPackage ( # taken from pkgs/top-level/all-packages.nix
           path + "/pkgs/applications/networking/browsers/firefox-bin"
         ) {

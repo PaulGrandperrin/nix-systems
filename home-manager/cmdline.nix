@@ -8,14 +8,14 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
   nix.settings."experimental-features" = "nix-command flakes";
 
   nix.registry = {
-    nixos.flake = inputs.nixos;
-    nixos-small.flake = inputs.nixos-small;
-    nixos-unstable.flake = inputs.nixos-unstable;
-    nixpkgs-darwin.flake = inputs.nixpkgs-darwin;
-    nur.flake = inputs.nur;
-    flake-utils.flake = inputs.flake-utils;
-    rust-overlay.flake = inputs.rust-overlay;
-    home-manager.flake = inputs.home-manager;
+    #nixos.flake = inputs.nixos;
+    #nixos-small.flake = inputs.nixos-small;
+    #nixos-unstable.flake = inputs.nixos-unstable;
+    #nixpkgs-darwin.flake = inputs.nixpkgs-darwin;
+    #nur.flake = inputs.nur;
+    #flake-utils.flake = inputs.flake-utils;
+    #rust-overlay.flake = inputs.rust-overlay;
+    #home-manager.flake = inputs.home-manager;
     n.flake = mainFlake;
   };
 
@@ -70,7 +70,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
       choose
       tmate
       du-dust
-      unstable.fq # not yet available in 21.11
+      fq # not yet available in 21.11
       smartmontools
 
       #man
@@ -113,8 +113,8 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
         nix-index
         nix-index-update
 
-        unstable.nix
-        unstable.nixos-rebuild
+        #unstable.nix
+        #unstable.nixos-rebuild
       ] ++ lib.optionals (config.home.username == "root") [ # if root and linux
         parted
         iftop
