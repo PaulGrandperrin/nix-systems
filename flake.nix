@@ -3,7 +3,7 @@
   description = "Paul Grandperrin NixOS confs";
 
   inputs = {
-    nixos-22-05.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixos-22-05.url = "github:NixOS/nixpkgs/nixos-22.05";
     nixos-22-05-small.url = "github:NixOS/nixpkgs/nixos-22.05-small";
     nixpkgs-22-05-darwin.url = "github:NixOS/nixpkgs/nixpkgs-22.05-darwin";
 
