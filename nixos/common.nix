@@ -289,5 +289,13 @@
       "DNS" = "8.8.8.8 8.8.4.4"; # don't use GCP's link-local DNS
     };
   };
+
+  services.udisks2.settings = { # fix NTFS mount, from https://wiki.archlinux.org/title/NTFS#udisks_support
+    "mount_options.conf" = {
+      defaults = {
+        ntfs_defaults = "uid=$UID,gid=$GID,noatime,prealloc";
+      };
+    };
+  };
 }
 
