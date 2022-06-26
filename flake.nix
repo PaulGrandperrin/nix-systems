@@ -259,7 +259,7 @@
         ./home-manager/cmdline.nix
         ./home-manager/desktop.nix
         ./home-manager/desktop-linux.nix
-        ./home-manager/rust-nightly.nix
+        ./home-manager/rust-stable.nix
       ];
 
       MacBookPaul = mkNixosConf "x86_64" "nixos-22-05" [
