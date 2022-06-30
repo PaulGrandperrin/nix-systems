@@ -86,6 +86,15 @@
 
   # enabling mails in ZFS enables mails in smartmontools and zed
   nixpkgs.overlays = [(final: prev: { 
+    linuxPackages_5_18 = prev.linuxPackages_5_18.extend (lpself: lpsuper: { # HACK temp fix
+      zfs = lpsuper.zfs.overrideAttrs (old: {
+        patches = old.patches ++ [ (pkgs.fetchpatch {
+          name = "zfs-2.1.5.patch";
+          url = "https://gist.githubusercontent.com/mpasternacki/819b7ff33c0df3f37b5687cfdeabf954/raw/df9d8c585642bffda7d8e542722b704bd14cfb69/zfs-2.1.5.patch";
+          hash = "sha256-rGvoUsBZza5p9Zdn8Zq0HRzIhtPiDZfIfyq0T1hozEk=";
+        })];
+      });
+    });
     zfs = (prev.zfs.override { 
       enableMail = true;
     });
