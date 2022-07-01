@@ -21,8 +21,6 @@
     '') (lib.attrValues config.users.users)}
   '';
 
-  nix.package = pkgs.nix_2_4;
-
   nix.extraOptions = ''
     experimental-features = nix-command flakes
     auto-optimise-store = true
