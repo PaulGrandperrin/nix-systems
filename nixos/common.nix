@@ -292,7 +292,7 @@
       "Address" = "0.0.0.0/28";
       "LinkLocalAddressing" = "no"; # link-local addresses clash with GCP's
       "DHCPServer" = "yes";
-      "IPMasquerade" = "yes";
+      "IPMasquerade" = "ipv4";
       "LLDP" = "yes";
       "EmitLLDP" = "customer-bridge";
     };
