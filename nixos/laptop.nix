@@ -6,8 +6,6 @@
      i7z
    ];
 
-  services.thermald.enable = true;
-
 }
 
 
