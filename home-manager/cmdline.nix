@@ -115,9 +115,16 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
 
         #unstable.nix
         #unstable.nixos-rebuild
+
+        cpuid
+        stress
+        hwinfo
+        lm_sensors
       ] ++ lib.optionals (config.home.username == "root") [ # if root and linux
         parted
         iftop
+        powertop
+        i7z
       ]
     );
   };
