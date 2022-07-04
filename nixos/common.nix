@@ -226,7 +226,7 @@
 
   # List services that you want to enable:
 
-  services.gpm.enable = true;
+  #services.gpm.enable = true;
   services.thermald.enable = true;
 
   # Enable the OpenSSH daemon.

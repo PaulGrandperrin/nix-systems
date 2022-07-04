@@ -217,6 +217,48 @@
               MINPWM=hwmon1/pwm2=0
             '';
           };
+
+          services.samba-wsdd.enable = true; # make shares visible for windows 10 clients
+          networking.firewall.allowedTCPPorts = [ 5357 ]; # wsdd
+          networking.firewall.allowedUDPPorts = [ 3702 ]; # wsdd
+          networking.firewall.allowPing = true; # NOTE why ?
+
+          services.samba = {
+            enable = true;
+            openFirewall = true;
+            nsswins = true; # name resolution
+            securityType = "user";
+            extraConfig = ''
+              workgroup = WORKGROUP
+              security = user 
+              use sendfile = yes
+              # note: localhost is the ipv6 localhost ::1
+              hosts allow = 192.168. 127.0.0.1 localhost
+              hosts deny = 0.0.0.0/0
+              guest account = nobody
+              map to guest = bad user
+              dfree command = ${}
+            '';
+            shares = {
+              public = {
+                path = "/shared";
+                browseable = "yes";
+                #"read only" = "yes";
+                writable = "yes";
+                "guest ok" = "yes";
+                public = "yes";
+                "only guest" = "yes";
+                #"create mask" = "0644";
+                #"directory mask" = "0755";
+                #"force user" = "username";
+                #"force group" = "groupname";
+                "vfs objects" = "recycle";
+                #"recycle:repository" = ".recycle";
+                "recycle:keeptree" = "yes";
+                "recycle:versions" = "yes";
+              };
+            };
+          };
         }
       ]
       [
