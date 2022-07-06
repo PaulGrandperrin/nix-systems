@@ -210,8 +210,8 @@
               DEVNAME=hwmon0=coretemp hwmon1=it8771
               FCTEMPS=hwmon1/pwm1=hwmon0/temp1_input  hwmon1/pwm2=hwmon1/temp2_input
               FCFANS=hwmon1/pwm1=hwmon1/fan1_input  hwmon1/pwm2=hwmon1/fan2_input
-              MINTEMP=hwmon1/pwm1=50  hwmon1/pwm2=30
-              MAXTEMP=hwmon1/pwm1=70  hwmon1/pwm2=50
+              MINTEMP=hwmon1/pwm1=30  hwmon1/pwm2=20
+              MAXTEMP=hwmon1/pwm1=50  hwmon1/pwm2=30
               MINSTART=hwmon1/pwm1=150  hwmon1/pwm2=90
               MINSTOP=hwmon1/pwm1=0  hwmon1/pwm2=60
               MINPWM=hwmon1/pwm2=0
