@@ -268,8 +268,8 @@
             mainInt = "wlp2s0";
           };
           systemd.network.wait-online = {
-            timeout = 10;
-            extraArgs = ["-i" "wlan0"]; # FIXME why --any isn't working? 
+            timeout = 5; # waiting 30 seconds is wayyy too long
+            #extraArgs = ["-i" "wlp2s0"]; # was needed at some point 
           };
         }
       ]
