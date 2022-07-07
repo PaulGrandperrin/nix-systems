@@ -331,7 +331,7 @@
         ./nixos/desktop-i915.nix
         ({pkgs, lib, ...}:{
           networking.hostId="f2b2467d";
-          hardware.facetimehd.enable = true;
+          # hardware.facetimehd.enable = true; # FIXME broken
           services.mbpfan.enable = true;
 
           programs.nix-ld.enable = true;
