@@ -230,6 +230,19 @@
             };
           };
 
+          services.nfs.server = {
+            enable = true;
+            exports = ''
+              /export        192.168.1.0/24(fsid=root,insecure,no_subtree_check,all_squash,ro)
+              /export/public 192.168.1.0/24(insecure,no_subtree_check,all_squash,rw)
+            '';
+
+            # fixed rpc.statd port; for firewall
+            lockdPort = 4001;
+            mountdPort = 4002;
+            statdPort = 4000;
+          };
+
           networking.firewall.allowedTCPPorts = [ 
             5357 # wsdd 
             2049 # nfs v3 and v4
