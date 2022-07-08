@@ -230,6 +230,43 @@
             };
           };
 
+          services.avahi = {
+            enable = true;
+            publish = {
+              enable = true;
+              addresses = true;
+              workstation = true;
+              hinfo = true;
+              userServices = true;
+              domain = true;
+            };
+            extraServiceFiles = {
+              nfs = ''
+                <?xml version="1.0" standalone='no'?>
+                <!DOCTYPE service-group SYSTEM "avahi-service.dtd">
+                <service-group>
+                  <name replace-wildcards="yes">NFS share on %h</name>
+                  <service>
+                    <type>_nfs._tcp</type>
+                    <port>2049</port>
+                    <txt-record>path=/export</txt-record>
+                  </service>
+                </service-group>
+              '';
+              smb = ''
+                <?xml version="1.0" standalone='no'?><!--*-nxml-*-->
+                <!DOCTYPE service-group SYSTEM "avahi-service.dtd">
+                <service-group>
+                  <name replace-wildcards="yes">SMB share on %h</name>
+                  <service>
+                    <type>_smb._tcp</type>
+                    <port>445</port>
+                  </service>
+                </service-group>
+              '';
+            };
+          };
+
           services.nfs.server = {
             enable = true;
             exports = ''
