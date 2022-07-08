@@ -218,9 +218,30 @@
             '';
           };
 
+          fileSystems = {
+            "/export" = { # for security, make /export its own filesystem instead of just being a directory of / 
+              device = "none";
+              fsType = "tmpfs";
+              options = [ "mode=755" ];
+            };
+            "/export/public" = {
+              device = "/IronWolf12TB/clear";
+              options = [ "bind" ];
+            };
+          };
+
+          networking.firewall.allowedTCPPorts = [ 
+            5357 # wsdd 
+            2049 # nfs v3 and v4
+            111 4000 4001 4002 20048 # nfs v3
+          ];
+          networking.firewall.allowedUDPPorts = [
+            3702 # wsdd
+            2049 # nfs v3 and v4
+            111 4000 4001 4002 20048 # nfs v3
+          ];
+
           services.samba-wsdd.enable = true; # make shares visible for windows 10 clients
-          networking.firewall.allowedTCPPorts = [ 5357 ]; # wsdd
-          networking.firewall.allowedUDPPorts = [ 3702 ]; # wsdd
           networking.firewall.allowPing = true; # NOTE why ?
 
           services.samba = {
@@ -241,7 +262,7 @@
             '';
             shares = {
               public = {
-                path = "/shared";
+                path = "/export/public";
                 browseable = "yes";
                 #"read only" = "yes";
                 writable = "yes";
