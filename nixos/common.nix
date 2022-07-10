@@ -77,7 +77,7 @@
 
   hardware.cpu.intel.updateMicrocode = true;
   services.fstrim.enable = true;
-  boot.kernelParams = [ "panic=20" "boot.panic_on_fail" "oops=panic"];
+  boot.kernelParams = [ "panic=20" "boot.panic_on_fail" "oops=panic" "ipv6.disable=1"];
 
 
   #boot.kernelPackages = pkgs.linuxPackages_latest; # breakes ZFS sometimes
@@ -278,6 +278,7 @@
     extraConfig = ''
       FallbackDNS=
       DNSOverTLS=true
+      MulticastDNS=true
     '';
   };
 

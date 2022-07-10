@@ -192,7 +192,7 @@
         ./nixos/nspawns/ubuntu.nix
         ./nixos/net.nix
         ./nixos/auto-upgrade.nix
-        {
+        ({config, lib, ... }:{
           networking.hostId="51079489";
           networking.hostName = "nixos-nas";
           services.net = {
@@ -230,42 +230,31 @@
             };
           };
 
-          services.avahi = {
-            enable = true;
-            publish = {
-              enable = true;
-              addresses = true;
-              workstation = true;
-              hinfo = true;
-              userServices = true;
-              domain = true;
-            };
-            extraServiceFiles = {
-              nfs = ''
-                <?xml version="1.0" standalone='no'?>
-                <!DOCTYPE service-group SYSTEM "avahi-service.dtd">
-                <service-group>
-                  <name replace-wildcards="yes">NFS share on %h</name>
-                  <service>
-                    <type>_nfs._tcp</type>
-                    <port>2049</port>
-                    <txt-record>path=/export</txt-record>
-                  </service>
-                </service-group>
-              '';
-              smb = ''
-                <?xml version="1.0" standalone='no'?><!--*-nxml-*-->
-                <!DOCTYPE service-group SYSTEM "avahi-service.dtd">
-                <service-group>
-                  <name replace-wildcards="yes">SMB share on %h</name>
-                  <service>
-                    <type>_smb._tcp</type>
-                    <port>445</port>
-                  </service>
-                </service-group>
-              '';
+          systemd.network.networks."40-enp3s0" = { # merge in mDNS conf into already existing network file (instead of replacing it)
+            matchConfig.Name = "enp3s0";
+            networkConfig= {
+              MulticastDNS = true; # for DNS-SD 
             };
           };
+
+          environment.etc."systemd/dnssd/10-nfs.dnssd".text = ''
+            [Service]
+            Name=NFS share on %H
+            Type=_nfs._tcp
+            Port=2049
+            TxtText=path=/export/public
+          '';
+
+          environment.etc."systemd/dnssd/10-smb.dnssd".text = ''
+            [Service]
+            Name=SMB share on %H
+            Type=_smb._tcp
+            Port=445
+            TxtText=path=/public
+          '';
+
+          systemd.services.systemd-resolved.restartTriggers = # reload resolved when a dnssd file changes
+            map (i: i.source) (builtins.attrValues (lib.filterAttrs (n: _: builtins.isList (builtins.match "systemd/dnssd/.+" n)) config.environment.etc));
 
           services.nfs.server = {
             enable = true;
@@ -289,6 +278,7 @@
             3702 # wsdd
             2049 # nfs v3 and v4
             111 4000 4001 4002 20048 # nfs v3
+            5353 # mdns
           ];
 
           services.samba-wsdd.enable = true; # make shares visible for windows 10 clients
@@ -330,7 +320,7 @@
               };
             };
           };
-        }
+        })
       ]
       [
         ./home-manager/cmdline.nix
