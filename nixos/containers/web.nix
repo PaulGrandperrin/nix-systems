@@ -26,9 +26,10 @@
     #    isReadOnly = true;
     #  };
     #};
-    config = { config, pkgs, ... }: {
+    config = let hostConfig = config; in { config, pkgs, ... }: {
       networking.useDHCP = false;
       networking.useNetworkd = true;
+      networking.enableIPv6 = hostConfig.networking.enableIPv6;
       services.resolved.enable = true;
       networking.useHostResolvConf = false; # must be explicitly disabled because in conflict with resolved
       networking.firewall.allowedTCPPorts = [ 80 443 ];
