@@ -219,6 +219,14 @@
           };
 
           fileSystems = {
+            "/IronWolf12TB" = {
+              device = "IronWolf12TB";
+              fsType = "zfs";
+            };
+            "/IronWolf12TB/clear" = {
+              device = "IronWolf12TB/clear";
+              fsType = "zfs";
+            };
             "/export" = { # for security, make /export its own filesystem instead of just being a directory of / 
               device = "none";
               fsType = "tmpfs";
