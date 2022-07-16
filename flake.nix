@@ -382,6 +382,13 @@
             timeout = 5; # waiting 30 seconds is wayyy too long
             #extraArgs = ["-i" "wlp2s0"]; # was needed at some point 
           };
+
+          fileSystems."/mnt/nixos-nas/public" = {
+            device = "192.168.1.1:/export/public";
+            fsType = "nfs";
+            #options = [ "nfsvers=4.2" ];
+            options = [ "noauto" "x-systemd.automount" "_netdev" "x-systemd.mount-timeout=5" "x-systemd.idle-timeout=3600"];
+          };
         }
       ]
       [
