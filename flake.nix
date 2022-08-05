@@ -237,6 +237,11 @@
               options = [ "bind" ];
             };
           };
+          services.nix-serve = {
+            enable = true;
+            secretKeyFile = "/etc/nixos/secrets/cache-nas.paulg.fr-privkey.pem";
+            openFirewall = true;
+          };
 
           systemd.network.networks."40-enp3s0" = { # merge in mDNS conf into already existing network file (instead of replacing it)
             matchConfig.Name = "enp3s0";

@@ -8,7 +8,7 @@
   # Hardening
   # TODO: noexec mounts, tmpfs...
   environment.defaultPackages = lib.mkForce [];
-  nix.allowedUsers = [ "@wheel" ];
+  nix.allowedUsers = [ "@wheel" "nix-serve" ];
 
   nix.gc = {
     automatic = true;
