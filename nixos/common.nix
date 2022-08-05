@@ -149,12 +149,15 @@
   #  '';
   #}];
 
-  nix = {
-    binaryCaches = [
+  nix.settings = {
+    substituters = [
+      "http://nas.paulg.fr:5000"
       "https://nix-community.cachix.org"
+      "https://cache.nixos.org"
     ];
-    binaryCachePublicKeys = [
+    trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "nas.paulg.fr:QwhwNrClkzxCvdA0z3idUyl76Lmho6JTJLWplKtC2ig="
     ];
   };
 
