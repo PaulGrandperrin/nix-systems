@@ -383,6 +383,8 @@
             #extraArgs = ["-i" "wlp2s0"]; # was needed at some point 
           };
 
+          # boot.kernelParams = [ "mitigations=off" ];
+
           fileSystems."/mnt/nixos-nas/public" = {
             device = "192.168.1.1:/export/public";
             fsType = "nfs";
