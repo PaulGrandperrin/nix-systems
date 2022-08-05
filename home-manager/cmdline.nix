@@ -82,6 +82,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
       gnumake
       gcc11
       (lib.setPrio 20 clang_13)
+      mold
 
       # utility to fetch and launch missing but unambiguous commands
       (pkgs.writeShellApplication {

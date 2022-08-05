@@ -176,7 +176,7 @@
     mangohud.enable = true;
     vscode = with pkgs; { # better than plain package which can't install extensions from internet
       enable = true;
-      package = vscode-fhsWithPackages(ps: with ps; [rnix-lsp]); # vscodium version can't use synchronization. FHS version works better with internet's extensions
+      package = vscode-fhsWithPackages(ps: with ps; [rnix-lsp bintools]); # vscodium version can't use synchronization. FHS version works better with internet's extensions
       userSettings = {
         "editor.bracketPairColorization.enabled" = true;
         "editor.guides.bracketPairs" = "active";
