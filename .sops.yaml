@@ -4,6 +4,7 @@ keys:
   - &nixos-macmini age1xkm04qn4r7gvd6a962t863gmzzpzeqqvusrdfq293uelktrc4v0qz2d6nk
   - &nixos-macbook age1q2tee5p4ffxu6g4g90gfcykcwttr9u5p4sqg4n494uelt2cqhefsleexuy
   - &nixos-nas age1aedtqphdcvyaz2vhxysy9xx5l47vckp8xy0fngmwgg36wmt3zftq7yjqkc 
+  - &recovery age14u76z7ch37cx6hesffvr3kazmjjyxhnsvja2xspznt8683xn79ksxg8f4r # just in case
 creation_rules:
   - path_regex: ^secrets/common\.yaml$
     key_groups:
@@ -13,9 +14,11 @@ creation_rules:
       - *nixos-macmini
       - *nixos-macbook
       - *nixos-nas
+      - *recovery
   - path_regex: ^secrets/nixos-nas\.yaml$
     key_groups:
     - age:
       - *nixos-nas
       - *nixos-xps # dev
       - *nixos-macbook # dev
+      - *recovery
