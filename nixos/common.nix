@@ -244,8 +244,8 @@
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
-    passwordAuthentication = true;
-    #permitRootLogin = "yes";
+    passwordAuthentication = lib.mkForce true;
+    permitRootLogin = lib.mkForce "yes";
   };
 
   virtualisation = {
