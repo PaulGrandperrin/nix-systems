@@ -244,9 +244,14 @@
               options = [ "bind" ];
             };
           };
+
+          sops.secrets."cache-nas.paulg.fr-privkey.pem" = {
+            sopsFile = ./secrets/nixos-nas.yaml;
+            restartUnits = [ "nix-serve.service" ];
+          };
           services.nix-serve = {
             enable = true;
-            secretKeyFile = "/etc/nixos/secrets/cache-nas.paulg.fr-privkey.pem";
+            secretKeyFile = config.sops.secrets."cache-nas.paulg.fr-privkey.pem".path;
             openFirewall = true;
           };
 

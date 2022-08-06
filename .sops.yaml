@@ -13,3 +13,9 @@ creation_rules:
       - *nixos-macmini
       - *nixos-macbook
       - *nixos-nas
+  - path_regex: ^secrets/nixos-nas\.yaml$
+    key_groups:
+    - age:
+      - *nixos-nas
+      - *nixos-xps # dev
+      - *nixos-macbook # dev
