@@ -12,6 +12,7 @@
   # automatically convert the SSH server's private key to an age key for SOPS
   system.activationScripts = {
     ssh-to-age = ''
+      mkdir -p /root/.config/sops/age/
       ${pkgs.ssh-to-age}/bin/ssh-to-age -private-key -i /etc/ssh/ssh_host_ed25519_key -o /root/.config/sops/age/keys.txt 
     '';
   };
