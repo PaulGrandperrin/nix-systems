@@ -157,7 +157,10 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
    '';
   });
 
-
+  services.gpg-agent = {
+    enable = true;
+    pinentryFlavor = "tty";
+  };
   programs = {
     home-manager.enable = true;
     direnv = {
