@@ -157,10 +157,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
    '';
   });
 
-  services.gpg-agent = {
-    enable = true;
-    pinentryFlavor = "tty";
-  };
+  services.gpg-agent.enable = true;
   programs = {
     home-manager.enable = true;
     direnv = {
@@ -209,7 +206,12 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
       ];
     };
     topgrade.enable = !pkgs.stdenv.isDarwin; # FIXME broken on darwin
-    gpg.enable = true;
+    gpg = {
+      enable = true;
+      settings = {
+        pinentry-mode = "loopback";
+      };
+    };
     jq.enable = true;
     lazygit.enable = true;
     skim.enable = true;
@@ -266,7 +268,9 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
         pull.ff = "only";
         merge.conflictstyle = "diff3";
       };
-      #signing?
+      signing = {
+        key = "4AB1353033774DA3";
+      };
     };
     fish = {
       enable = true;
