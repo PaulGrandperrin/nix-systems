@@ -22,6 +22,7 @@
     mode = "0440";
     owner = "root";
     group = "wheel";
+    restartUnits = [ "nix-daemon.service" ];
   };
   environment.sessionVariables = {
     NIX_USER_CONF_FILES = "/run/secrets/github-public-access-token"; 

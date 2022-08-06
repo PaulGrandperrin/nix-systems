@@ -6,6 +6,7 @@
     mode = "0400";
     owner = config.users.users.smtpd.name;
     group = config.users.users.smtpd.group;
+    restartUnits = [ "opensmtpd.service" ];
   };
   services.opensmtpd = {
     enable = true;
