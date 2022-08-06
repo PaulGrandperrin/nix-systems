@@ -339,6 +339,29 @@
         ./home-manager/cmdline.nix
       ];
 
+      MacMiniPaul = mkNixosConf "x86_64" "nixos-22-05-small" [
+        ./nixos/hosts/MacMiniPaul/hardware-configuration.nix
+        ./nixos/common.nix
+        ./nixos/net.nix
+        ./nixos/auto-upgrade.nix
+        ({pkgs, config, lib, ... }:{
+          networking.hostId="aedc67f9";
+          networking.hostName = "MacMiniPaul";
+          services.net = {
+            enable = true;
+            mainInt = "enp3s0f0";
+          }; 
+          powerManagement.cpuFreqGovernor = "schedutil";
+
+
+          # broadcom_sta fails to build on linux 5.18: https://github.com/NixOS/nixpkgs/issues/177798
+          #boot.kernelPackages = lib.mkForce pkgs.linuxPackages; # use stable kernel where broadcom_sta build
+        })
+      ]
+      [
+        ./home-manager/cmdline.nix
+      ];
+
       nixos-gcp = mkNixosConf "x86_64" "nixos-22-05-small" [
         ./nixos/hosts/gcp/hardware-configuration.nix
         ./nixos/google-compute-config.nix

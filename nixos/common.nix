@@ -200,7 +200,7 @@
     isNormalUser = true;
     description = "Paul Grandperrin";
     passwordFile = "/etc/nixos/secrets/password-paulg";
-    extraGroups = [ "wheel" "video" "netdev" ]; # audio?
+    extraGroups = [ "wheel" "video" "netdev" "networkmanager"]; # audio?
     uid = 1000;
     useDefaultShell = true;
     createHome = true;
@@ -238,7 +238,7 @@
 
   # List services that you want to enable:
 
-  #services.gpm.enable = true;
+  services.gpm.enable = false;
   services.thermald.enable = true;
 
   # Enable the OpenSSH daemon.
