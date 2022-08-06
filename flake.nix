@@ -50,6 +50,12 @@
       url = "github:guibou/nixGL";
       flake = false; # TODO it's now a flake!
     };
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = ""; # optional, not necessary for the module
+      inputs.nixpkgs-22_05.follows = ""; # optional, not necessary for the module
+    };
   };
 
 
@@ -183,6 +189,7 @@
             home-manager.users.paulg = { imports = hm-modules;};
           }
           inputs.nix-ld.nixosModules.nix-ld
+          inputs.sops-nix.nixosModules.sops
         ] ++ nixos-modules;
       };
     in { 

@@ -255,7 +255,8 @@
         "nixos-22-05-small": "nixos-22-05-small",
         "nixpkgs-22-05-darwin": "nixpkgs-22-05-darwin",
         "nur": "nur",
-        "rust-overlay": "rust-overlay"
+        "rust-overlay": "rust-overlay",
+        "sops-nix": "sops-nix"
       }
     },
     "rust-overlay": {
@@ -276,6 +277,25 @@
       "original": {
         "owner": "oxalica",
         "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "sops-nix": {
+      "inputs": {
+        "nixpkgs": [],
+        "nixpkgs-22_05": []
+      },
+      "locked": {
+        "lastModified": 1659441021,
+        "narHash": "sha256-J2C83bo1mHcdfzxk8S3rE8iqNZM2AlPUGqftdhbm5Zk=",
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "rev": "34ee98b8c2ca153a23a63c1841a0a067313856d5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "sops-nix",
         "type": "github"
       }
     },
