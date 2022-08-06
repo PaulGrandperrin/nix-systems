@@ -73,6 +73,9 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
       fq # not yet available in 21.11
       smartmontools
 
+      sops
+      ssh-to-age
+
       #man
       man-pages
       man-pages-posix

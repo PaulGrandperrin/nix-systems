@@ -1,0 +1,15 @@
+keys:
+  - &nixos-xps age1ux7xcmxf77wjtnzcykcpm2h8pcnudf9c5e0ncudfd2qgvuwuq3pqmyj0xl
+  - &nixos-gcp age1js0r7ap05js7t3ctjxmzt3q6l0rc4dz28xqrx2k468znt386efsq8ky25h
+  - &nixos-macmini age1xkm04qn4r7gvd6a962t863gmzzpzeqqvusrdfq293uelktrc4v0qz2d6nk
+  - &nixos-macbook age1q2tee5p4ffxu6g4g90gfcykcwttr9u5p4sqg4n494uelt2cqhefsleexuy
+  - &nixos-nas age1aedtqphdcvyaz2vhxysy9xx5l47vckp8xy0fngmwgg36wmt3zftq7yjqkc 
+creation_rules:
+  - path_regex: ^secrets/common\.yaml$
+    key_groups:
+    - age:
+      - *nixos-xps
+      - *nixos-gcp
+      - *nixos-macmini
+      - *nixos-macbook
+      - *nixos-nas

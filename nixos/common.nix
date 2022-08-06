@@ -5,6 +5,23 @@
   ];
   system.stateVersion = "21.11";
 
+  sops = {
+    defaultSopsFile = ../secrets/common.yaml;
+  };
+
+  # automatically convert the SSH server's private key to an age key for SOPS
+  system.activationScripts = {
+    ssh-to-age = ''
+      ${pkgs.ssh-to-age}/bin/ssh-to-age -private-key -i /etc/ssh/ssh_host_ed25519_key -o /root/.config/sops/age/keys.txt 
+    '';
+  };
+
+  # deploy our github public access token everywhere to avoid API rate limitations
+  sops.secrets.github-public-access-token.mode = "0444";
+  environment.sessionVariables = {
+    NIX_USER_CONF_FILES = "/run/secrets/github-public-access-token"; 
+  };
+
   # Hardening
   # TODO: noexec mounts, tmpfs...
   environment.defaultPackages = lib.mkForce [];
