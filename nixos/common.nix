@@ -18,7 +18,11 @@
   };
 
   # deploy our github public access token everywhere to avoid API rate limitations
-  sops.secrets.github-public-access-token.mode = "0444";
+  sops.secrets.github-public-access-token = {
+    mode = "0440";
+    owner = "root";
+    group = "wheel";
+  };
   environment.sessionVariables = {
     NIX_USER_CONF_FILES = "/run/secrets/github-public-access-token"; 
   };
