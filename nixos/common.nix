@@ -25,7 +25,7 @@
     restartUnits = [ "nix-daemon.service" ];
   };
   environment.sessionVariables = {
-    NIX_USER_CONF_FILES = "/run/secrets/github-public-access-token"; 
+    NIX_USER_CONF_FILES = config.sops.secrets.github-public-access-token.path; 
   };
 
   # Hardening
@@ -214,15 +214,18 @@
 
   users.mutableUsers = false;
 
+  sops.secrets.password-root.neededForUsers = true;
+  sops.secrets.password-paulg.neededForUsers = true;
+
   users.users.root = {
-    passwordFile = "/etc/nixos/secrets/password-root";
+    passwordFile = config.sops.secrets.password-root.path;
     shell = pkgs.fish;
   };
 
   users.users.paulg = {
     isNormalUser = true;
     description = "Paul Grandperrin";
-    passwordFile = "/etc/nixos/secrets/password-paulg";
+    passwordFile = config.sops.secrets.password-paulg.path;
     extraGroups = [ "wheel" "video" "netdev" "networkmanager"]; # audio?
     uid = 1000;
     useDefaultShell = true;
