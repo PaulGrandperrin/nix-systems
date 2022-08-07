@@ -11,6 +11,9 @@ in {
     sopsFile = mkOption {
       type = types.path;
     };
+    ip-number = mkOption {
+      type = types.ints.u8;
+    };
   };
 
   config = mkIf cfg.services.my-wg.enable {
@@ -71,29 +74,29 @@ in {
           ];
         };
       };
-      #networks = {
-      #  # See also man systemd.network
-      #  "40-wg0".extraConfig = ''
-      #    [Match]
-      #    Name=wg0
+      networks = {
+        "40-wg0".extraConfig = ''
+          [Match]
+          Name=wg0
   
-      #    [Network]
-      #    DHCP=none
-      #    IPv6AcceptRA=false
-      #    Gateway=fc00::1
-      #    Gateway=10.100.0.1
-      #    DNS=fc00::53
-      #    NTP=fc00::123
+          [Network]
+          Address = 10.0.0.${toString cfg.services.my-wg.ip-number}/24
+          #DHCP=none
+          #IPv6AcceptRA=false
+          #Gateway=fc00::1
+          #Gateway=10.100.0.1
+          #DNS=fc00::53
+          #NTP=fc00::123
   
-      #    # IP addresses the client interface will have
-      #    [Address]
-      #    Address=fe80::3/64
-      #    [Address]
-      #    Address=fc00::3/120
-      #    [Address]
-      #    Address=10.100.0.2/24
-      #  '';
-      #};
+          # IP addresses the client interface will have
+          #[Address]
+          #Address=fe80::3/64
+          #[Address]
+          #Address=fc00::3/120
+          #[Address]
+          #Address=10.100.0.2/24
+        '';
+      };
     };
 
 

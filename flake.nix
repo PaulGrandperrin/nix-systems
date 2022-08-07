@@ -212,6 +212,7 @@
             enable = true;
             mainInt = "enp3s0";
             sopsFile = ./secrets/nixos-nas.yaml;
+            ip-number = 1;
           };
 
           powerManagement.cpuFreqGovernor = "schedutil";
@@ -432,6 +433,7 @@
             enable = true;
             mainInt = "wlp2s0";
             sopsFile = ./secrets/nixos-macbook.yaml;
+            ip-number = 2;
           };
 
           systemd.network.wait-online = {
@@ -473,6 +475,7 @@
             enable = true;
             mainInt = "wlp3s0";
             sopsFile = ./secrets/nixos-macbook.yaml;
+            ip-number = 3;
           };
 
           programs.nix-ld.enable = true;
