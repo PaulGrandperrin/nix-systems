@@ -72,6 +72,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
       du-dust
       fq # not yet available in 21.11
       smartmontools
+      wireguard-tools
 
       sops
       ssh-to-age

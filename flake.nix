@@ -199,6 +199,7 @@
         ./nixos/nspawns/ubuntu.nix
         ./nixos/net.nix
         ./nixos/auto-upgrade.nix
+        ./nixos/wireguard.nix
         ({config, lib, ... }:{
           networking.hostId="51079489";
           networking.hostName = "nixos-nas";
@@ -206,6 +207,13 @@
             enable = true;
             mainInt = "enp3s0";
           }; 
+
+          services.my-wg = {
+            enable = true;
+            mainInt = "enp3s0";
+            sopsFile = ./secrets/nixos-nas.yaml;
+          };
+
           powerManagement.cpuFreqGovernor = "schedutil";
           boot.kernelModules = ["coretemp" "it87"]; # detected by sensors-detect
           hardware.fancontrol = {
@@ -444,13 +452,20 @@
         ./nixos/hosts/MacBookPaul/hardware-configuration.nix
         ./nixos/common.nix
         ./nixos/net.nix
+        ./nixos/wireguard.nix
         ./nixos/laptop.nix
         ./nixos/desktop.nix
         ./nixos/desktop-i915.nix
-        ({pkgs, lib, ...}:{
+        ({pkgs, lib, config, ...}:{
           networking.hostId="f2b2467d";
           # hardware.facetimehd.enable = true; # FIXME broken
           services.mbpfan.enable = true;
+
+          services.my-wg = {
+            enable = true;
+            mainInt = "wlp3s0";
+            sopsFile = ./secrets/nixos-macbook.yaml;
+          };
 
           programs.nix-ld.enable = true;
 
