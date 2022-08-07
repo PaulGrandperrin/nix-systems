@@ -157,7 +157,12 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
    '';
   });
 
-  services.gpg-agent.enable = true;
+  services.gpg-agent = {
+    enable = true;
+    extraConfig = ''
+      allow-loopback-pinentry
+    '';
+  };
   programs = {
     home-manager.enable = true;
     direnv = {
