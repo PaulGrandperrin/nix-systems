@@ -160,8 +160,10 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
 
   services.gpg-agent = {
     enable = true;
+    defaultCacheTtl = 60 * 60 * 24;
     extraConfig = ''
       allow-loopback-pinentry
+      max-cache-ttl ${toString (60 * 60 * 24 * 7)}
     '';
   };
   programs = {
