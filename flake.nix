@@ -438,8 +438,11 @@
 
           systemd.network.wait-online = {
             timeout = 5; # waiting 30 seconds is wayyy too long
+            #anyInterface = true;
             #extraArgs = ["-i" "wlp2s0"]; # was needed at some point 
           };
+
+          systemd.services.systemd-networkd-wait-online.enable = false; # I just can't deal with this anymore... I don't even understand WHY!?
 
           # boot.kernelParams = [ "mitigations=off" ];
 
