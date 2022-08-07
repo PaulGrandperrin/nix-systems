@@ -234,6 +234,7 @@
             '';
           };
 
+          boot.zfs.requestEncryptionCredentials = false;
           fileSystems = {
             "/IronWolf12TB" = {
               device = "IronWolf12TB";
