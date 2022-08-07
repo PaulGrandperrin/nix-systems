@@ -415,6 +415,7 @@
         ./nixos/hosts/xps/hardware-configuration.nix
         ./nixos/common.nix
         ./nixos/net.nix
+        ./nixos/wireguard.nix
         ./nixos/laptop.nix
         ./nixos/desktop.nix
         ./nixos/desktop-i915.nix
@@ -426,6 +427,13 @@
             enable = true;
             mainInt = "wlp2s0";
           };
+
+          services.my-wg = {
+            enable = true;
+            mainInt = "wlp2s0";
+            sopsFile = ./secrets/nixos-macbook.yaml;
+          };
+
           systemd.network.wait-online = {
             timeout = 5; # waiting 30 seconds is wayyy too long
             #extraArgs = ["-i" "wlp2s0"]; # was needed at some point 

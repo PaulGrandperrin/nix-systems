@@ -62,6 +62,12 @@ in {
                 AllowedIPs = "0.0.0.0/0";
               };
             }
+            {
+              wireguardPeerConfig = {
+                PublicKey = "mKW+Ctr8OfmbRPTjTK7vct93eWUilPBovTHSxaLQQkI="; # nixos-xps
+                AllowedIPs = "0.0.0.0/0";
+              };
+            }
           ];
         };
       };
