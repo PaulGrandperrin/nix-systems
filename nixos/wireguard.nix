@@ -39,7 +39,7 @@ in {
       sopsFile = cfg.services.my-wg.sopsFile;
       group = "systemd-network";
       mode = "0640";
-      restartUnits = [ "systemd-networkd.service" ]; # FIXME overkill ?
+      restartUnits = [ "systemd-networkd.service" ];
     };
 
     systemd.network = {
@@ -49,7 +49,6 @@ in {
           netdevConfig = {
             Name = "wg0";
             Kind = "wireguard";
-            #MTUBytes = "1300"; # FIXME needed?
           };
           wireguardConfig = { 
             PrivateKeyFile = cfg.sops.secrets.wg-private-key.path;
@@ -82,6 +81,13 @@ in {
               wireguardPeerConfig = {
                 PublicKey = "bHTo1rMQiWGxV1EoCRxkazFB9XSxi6NNmlg25+6kmlk="; # nixos-gcp
                 AllowedIPs = "10.0.0.5/32";
+                PersistentKeepalive = 25;
+              };
+            }
+            {
+              wireguardPeerConfig = {
+                PublicKey = "2ZJnuMeA+vQsB7tXpJT98554xB0J6JSVRqihV35MkCQ="; # pixel6pro
+                AllowedIPs = "10.0.0.6/32";
                 PersistentKeepalive = 25;
               };
             }
