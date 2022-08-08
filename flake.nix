@@ -317,7 +317,6 @@
           ];
 
           services.samba-wsdd.enable = true; # make shares visible for windows 10 clients
-          networking.firewall.allowPing = true; # NOTE why ?
 
           services.samba = {
             enable = true;

@@ -13,6 +13,7 @@ in {
 
   config = mkIf cfg.enable {
     networking.interfaces.${cfg.mainInt}.useDHCP = true;
+    networking.firewall.allowPing = true;
     #networking.firewall.enable =  false;
     
     #systemd.network.networks."40-br0" = { # allows networkd to configure bridge even without a carrier
