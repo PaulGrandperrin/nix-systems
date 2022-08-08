@@ -444,7 +444,7 @@
           services.my-wg = {
             enable = true;
             mainInt = "wlp2s0";
-            sopsFile = ./secrets/nixos-macbook.yaml;
+            sopsFile = ./secrets/nixos-xps.yaml;
             ip-number = 2;
           };
 
