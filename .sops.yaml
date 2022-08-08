@@ -34,3 +34,10 @@ creation_rules:
       - *nixos-xps
       - *nixos-macbook # dev
       - *recovery
+  - path_regex: ^secrets/nixos-macmini\.yaml$
+    key_groups:
+    - age:
+      - *nixos-macmini
+      - *nixos-xps # dev
+      - *nixos-macbook # dev
+      - *recovery

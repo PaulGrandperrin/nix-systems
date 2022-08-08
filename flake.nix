@@ -364,6 +364,7 @@
         ./nixos/hosts/MacMiniPaul/hardware-configuration.nix
         ./nixos/common.nix
         ./nixos/net.nix
+        ./nixos/wireguard.nix
         ./nixos/auto-upgrade.nix
         ({pkgs, config, lib, ... }:{
           networking.hostId="aedc67f9";
@@ -373,6 +374,13 @@
             mainInt = "enp3s0f0";
           }; 
           powerManagement.cpuFreqGovernor = "schedutil";
+
+          services.my-wg = {
+            enable = true;
+            mainInt = "enp3s0f0";
+            sopsFile = ./secrets/nixos-macmini.yaml;
+            ip-number = 4;
+          };
 
           boot.zfs.requestEncryptionCredentials = false; # don't ask for password when the machine is headless
 

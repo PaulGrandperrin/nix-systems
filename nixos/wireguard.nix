@@ -71,6 +71,12 @@ in {
                 AllowedIPs = "0.0.0.0/0";
               };
             }
+            {
+              wireguardPeerConfig = {
+                PublicKey = "V6eHfEsJa+42VKn/1QLgQgtK9Ja/U0o8F11e5Ph0nSU="; # nixos-macmini
+                AllowedIPs = "0.0.0.0/0";
+              };
+            }
           ];
         };
       };
