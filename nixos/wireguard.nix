@@ -44,7 +44,7 @@ in {
           netdevConfig = {
             Name = "wg0";
             Kind = "wireguard";
-            MTUBytes = "1300"; # FIXME needed?
+            #MTUBytes = "1300"; # FIXME needed?
           };
           wireguardConfig = { 
             PrivateKeyFile = cfg.sops.secrets.wg-private-key.path;
