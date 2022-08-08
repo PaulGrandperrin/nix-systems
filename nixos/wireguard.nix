@@ -26,6 +26,8 @@ in {
     #networking.nat.externalInterface = cfg.mainInt;
     #networking.nat.internalInterfaces = [ "wg0" ];
 
+    boot.kernel.sysctl."net.ipv4.ip_forward" = mkIf cfg.services.my-wg.is-server 1;
+
     environment.systemPackages = [ pkgs.wireguard-tools ];
     boot.extraModulePackages = optional (versionOlder cfg.boot.kernelPackages.kernel.version "5.6") cfg.boot.kernelPackages.wireguard;
 
@@ -139,7 +141,6 @@ in {
 
     #networking.bridges.br0.interfaces = [  ];
     #networking.interfaces.br0.ipv4.addresses = [{ address = "10.0.0.1"; prefixLength = 24; }];
-    #boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
 
     #networking.nat.enable = true;
     #networking.nat.internalInterfaces = [ "vz-nat" ];
