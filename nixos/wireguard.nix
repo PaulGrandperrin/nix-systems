@@ -55,7 +55,7 @@ in {
             {
               wireguardPeerConfig = {
                 PublicKey = "q716Jlq2QEvISYecCRWY/TrBjxP3t586eV9sz+yUHCM="; # nixos-nas
-                AllowedIPs = "10.0.0.1/24";
+                AllowedIPs = "0.0.0.0/0";
                 Endpoint = "192.168.1.1:51820";
                 PersistentKeepalive = 25;
               };
