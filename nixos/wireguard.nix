@@ -55,7 +55,7 @@ in {
             {
               wireguardPeerConfig = {
                 PublicKey = "q716Jlq2QEvISYecCRWY/TrBjxP3t586eV9sz+yUHCM="; # nixos-nas
-                AllowedIPs = "0.0.0.0/0";
+                AllowedIPs = "10.0.0.1/32";
                 Endpoint = "192.168.1.1:51820";
                 PersistentKeepalive = 25;
               };
@@ -63,21 +63,21 @@ in {
             {
               wireguardPeerConfig = {
                 PublicKey = "9Y2LfXGKytyWaXHTVxLhXHQHKuI3J+UwjSmf7/Rcnic="; # nixos-macbook
-                AllowedIPs = "0.0.0.0/0";
+                AllowedIPs = "10.0.0.3/32";
                 PersistentKeepalive = 25;
               };
             }
             {
               wireguardPeerConfig = {
                 PublicKey = "mKW+Ctr8OfmbRPTjTK7vct93eWUilPBovTHSxaLQQkI="; # nixos-xps
-                AllowedIPs = "0.0.0.0/0";
+                AllowedIPs = "10.0.0.2/32";
                 PersistentKeepalive = 25;
               };
             }
             {
               wireguardPeerConfig = {
                 PublicKey = "V6eHfEsJa+42VKn/1QLgQgtK9Ja/U0o8F11e5Ph0nSU="; # nixos-macmini
-                AllowedIPs = "0.0.0.0/0";
+                AllowedIPs = "10.0.0.4/32";
                 PersistentKeepalive = 25;
               };
             }
