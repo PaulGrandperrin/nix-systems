@@ -213,6 +213,7 @@
             mainInt = "enp3s0";
             sopsFile = ./secrets/nixos-nas.yaml;
             ip-number = 1;
+            is-server = true;
           };
 
           powerManagement.cpuFreqGovernor = "schedutil";
@@ -380,6 +381,7 @@
             mainInt = "enp3s0f0";
             sopsFile = ./secrets/nixos-macmini.yaml;
             ip-number = 4;
+            is-server = false;
           };
 
           boot.zfs.requestEncryptionCredentials = false; # don't ask for password when the machine is headless
@@ -446,6 +448,7 @@
             mainInt = "wlp2s0";
             sopsFile = ./secrets/nixos-xps.yaml;
             ip-number = 2;
+            is-server = false;
           };
 
           systemd.network.wait-online = {
@@ -491,6 +494,7 @@
             mainInt = "wlp3s0";
             sopsFile = ./secrets/nixos-macbook.yaml;
             ip-number = 3;
+            is-server = false;
           };
 
           programs.nix-ld.enable = true;

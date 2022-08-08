@@ -14,6 +14,9 @@ in {
     ip-number = mkOption {
       type = types.ints.u8;
     };
+    is-server = mkOption {
+      type = types.bool;
+    };
   };
 
   config = mkIf cfg.services.my-wg.enable {
@@ -51,15 +54,7 @@ in {
             ListenPort = 51820;
           };
 
-          wireguardPeers = [
-            {
-              wireguardPeerConfig = {
-                PublicKey = "q716Jlq2QEvISYecCRWY/TrBjxP3t586eV9sz+yUHCM="; # nixos-nas
-                AllowedIPs = "0.0.0.0/0";
-                Endpoint = "192.168.1.1:51820";
-                PersistentKeepalive = 25;
-              };
-            }
+          wireguardPeers = (if cfg.services.my-wg.is-server then [
             {
               wireguardPeerConfig = {
                 PublicKey = "9Y2LfXGKytyWaXHTVxLhXHQHKuI3J+UwjSmf7/Rcnic="; # nixos-macbook
@@ -81,7 +76,16 @@ in {
                 PersistentKeepalive = 25;
               };
             }
-          ];
+          ] else [
+            {
+              wireguardPeerConfig = {
+                PublicKey = "q716Jlq2QEvISYecCRWY/TrBjxP3t586eV9sz+yUHCM="; # nixos-nas
+                AllowedIPs = "10.0.0.0/24";
+                Endpoint = "192.168.1.1:51820";
+                PersistentKeepalive = 25;
+              };
+            }
+          ]);
         };
       };
       networks = {
