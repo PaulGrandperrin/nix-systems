@@ -234,7 +234,7 @@
             '';
           };
 
-          boot.zfs.requestEncryptionCredentials = false;
+          boot.zfs.requestEncryptionCredentials = false; # don't ask for password when the machine is headless
           fileSystems = {
             "/IronWolf12TB" = {
               device = "IronWolf12TB";
@@ -375,6 +375,8 @@
           }; 
           powerManagement.cpuFreqGovernor = "schedutil";
 
+          boot.zfs.requestEncryptionCredentials = false; # don't ask for password when the machine is headless
+
 
           # broadcom_sta fails to build on linux 5.18: https://github.com/NixOS/nixpkgs/issues/177798
           #boot.kernelPackages = lib.mkForce pkgs.linuxPackages; # use stable kernel where broadcom_sta build
@@ -394,6 +396,8 @@
           networking.hostId = "1c734661"; # for ZFS
           networking.hostName = "nixos-gcp";
           networking.interfaces.eth0.useDHCP = true;
+
+          boot.zfs.requestEncryptionCredentials = false; # don't ask for password when the machine is headless
           
           # useful to build and deploy closures from nixos-xps which a lot beefier than nixos-gcp
           users.users.root.openssh.authorizedKeys.keys = [ 
