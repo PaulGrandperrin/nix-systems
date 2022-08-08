@@ -41,3 +41,10 @@ creation_rules:
       - *nixos-xps # dev
       - *nixos-macbook # dev
       - *recovery
+  - path_regex: ^secrets/nixos-gcp\.yaml$
+    key_groups:
+    - age:
+      - *nixos-gcp
+      - *nixos-xps # dev
+      - *nixos-macbook # dev
+      - *recovery

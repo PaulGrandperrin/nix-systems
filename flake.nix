@@ -400,11 +400,26 @@
         ./nixos/google-compute-config.nix
         ./nixos/common.nix
         ./nixos/containers/web.nix
+        ./nixos/net.nix
+        ./nixos/wireguard.nix
         # ./nixos/auto-upgrade.nix # 1G of memory is not enough to evaluate the system's derivation, even with zram...
         ({pkgs, lib, ...}:{
           networking.hostId = "1c734661"; # for ZFS
           networking.hostName = "nixos-gcp";
           networking.interfaces.eth0.useDHCP = true;
+
+          services.net = {
+            enable = true;
+            mainInt = "eth0";
+          }; 
+
+          services.my-wg = {
+            enable = true;
+            mainInt = "eth0";
+            sopsFile = ./secrets/nixos-gcp.yaml;
+            ip-number = 5;
+            is-server = false;
+          };
 
           boot.zfs.requestEncryptionCredentials = false; # don't ask for password when the machine is headless
           

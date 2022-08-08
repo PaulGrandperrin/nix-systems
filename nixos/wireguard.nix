@@ -78,6 +78,13 @@ in {
                 PersistentKeepalive = 25;
               };
             }
+            {
+              wireguardPeerConfig = {
+                PublicKey = "bHTo1rMQiWGxV1EoCRxkazFB9XSxi6NNmlg25+6kmlk="; # nixos-gcp
+                AllowedIPs = "10.0.0.5/32";
+                PersistentKeepalive = 25;
+              };
+            }
           ] else [
             {
               wireguardPeerConfig = {
