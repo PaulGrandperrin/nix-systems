@@ -17,21 +17,23 @@ in {
   };
 
   config = mkIf cfg.services.my-wg.enable {
+    
+    # install
+    environment.systemPackages = [ pkgs.wireguard-tools ];
+    boot.extraModulePackages = optional (versionOlder cfg.boot.kernelPackages.kernel.version "5.6") cfg.boot.kernelPackages.wireguard;
+
+    # enable IP forwarding for server
+    #boot.kernel.sysctl."net.ipv4.ip_forward" = mkIf cfg.services.my-wg.is-server 1;
+
+    # open port in firewall
+    networking.firewall.allowedUDPPorts = [ 51820 ];
 
     ## enable NAT
     #networking.nat.enable = true;
     #networking.nat.externalInterface = cfg.mainInt;
     #networking.nat.internalInterfaces = [ "wg0" ];
 
-    boot.kernel.sysctl."net.ipv4.ip_forward" = mkIf cfg.services.my-wg.is-server 1;
-
-    environment.systemPackages = [ pkgs.wireguard-tools ];
-    boot.extraModulePackages = optional (versionOlder cfg.boot.kernelPackages.kernel.version "5.6") cfg.boot.kernelPackages.wireguard;
-
-    networking.firewall = {
-      allowedUDPPorts = [ 51820 ];
-    };
-
+    # setup private key
     sops.secrets."wg-private-key" = {
       sopsFile = ../secrets/${cfg.networking.hostName}.yaml;
       group = "systemd-network";
@@ -107,20 +109,6 @@ in {
   
           [Network]
           Address = 10.0.0.${toString cfg.services.my-wg.ip-number}/24
-          #DHCP=none
-          #IPv6AcceptRA=false
-          #Gateway=fc00::1
-          #Gateway=10.100.0.1
-          #DNS=fc00::53
-          #NTP=fc00::123
-  
-          # IP addresses the client interface will have
-          #[Address]
-          #Address=fe80::3/64
-          #[Address]
-          #Address=fc00::3/120
-          #[Address]
-          #Address=10.100.0.2/24
         '';
       };
     };
