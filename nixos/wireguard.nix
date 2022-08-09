@@ -8,9 +8,6 @@ in {
     mainInt = mkOption {
       type = types.str;
     };
-    sopsFile = mkOption {
-      type = types.path;
-    };
     ip-number = mkOption {
       type = types.ints.u8;
     };
@@ -36,7 +33,7 @@ in {
     };
 
     sops.secrets."wg-private-key" = {
-      sopsFile = cfg.services.my-wg.sopsFile;
+      sopsFile = ../secrets/${cfg.networking.hostName}.yaml;
       group = "systemd-network";
       mode = "0640";
       restartUnits = [ "systemd-networkd.service" ];

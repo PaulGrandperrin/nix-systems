@@ -211,7 +211,6 @@
           services.my-wg = {
             enable = true;
             mainInt = "enp3s0";
-            sopsFile = ./secrets/nixos-nas.yaml;
             ip-number = 1;
             is-server = true;
           };
@@ -379,7 +378,6 @@
           services.my-wg = {
             enable = true;
             mainInt = "enp3s0f0";
-            sopsFile = ./secrets/nixos-macmini.yaml;
             ip-number = 4;
             is-server = false;
           };
@@ -416,7 +414,6 @@
           services.my-wg = {
             enable = true;
             mainInt = "eth0";
-            sopsFile = ./secrets/nixos-gcp.yaml;
             ip-number = 5;
             is-server = false;
           };
@@ -461,7 +458,6 @@
           services.my-wg = {
             enable = true;
             mainInt = "wlp2s0";
-            sopsFile = ./secrets/nixos-xps.yaml;
             ip-number = 2;
             is-server = false;
           };
@@ -507,7 +503,6 @@
           services.my-wg = {
             enable = true;
             mainInt = "wlp3s0";
-            sopsFile = ./secrets/nixos-macbook.yaml;
             ip-number = 3;
             is-server = false;
           };
