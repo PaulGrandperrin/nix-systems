@@ -2,13 +2,12 @@
 with lib;                      
 let
   cfg = config;
-  server = {
-    hostname = "nixos-nas";
-    publicKey = "naS+n7Tj8/Oq+svcRqw71ZQrXjC93byT3poFeLB2t3E=";
-    ip = "10.0.0.100";
-    domain = "nas.paulg.fr";
-  };
-  clients = {
+  peers = {
+    "nixos-nas" = {
+      publicKey = "naS+n7Tj8/Oq+svcRqw71ZQrXjC93byT3poFeLB2t3E=";
+      ip = "10.0.0.100";
+      endPoint = "nas.paulg.fr";
+    };
     "nixos-macmini" = {
       publicKey = "mcM+NQQuwuTlKAMxrxZnyZxHMXa5RHENq1pDAIw49zQ=";
       ip = "10.0.0.1";
@@ -36,7 +35,7 @@ in {
   };
 
   config = let
-    is_server = cfg.networking.hostName == server.hostname;
+    is_server = peers.${cfg.networking.hostName} ? endPoint;
   in mkIf cfg.services.my-wg.enable {
     
     # install
@@ -80,13 +79,13 @@ in {
                 PublicKey = e.publicKey;
                 AllowedIPs = "${e.ip}/32";
               };
-            }) (lib.attrValues clients)
+            }) (lib.attrValues peers)
           else [
             {
               wireguardPeerConfig = {
-                PublicKey = server.publicKey;
+                PublicKey = peers.${cfg.networking.hostName}.publicKey;
                 AllowedIPs = "10.0.0.0/24";
-                Endpoint = "${server.domain}:51820";
+                Endpoint = "${peers.${cfg.networking.hostName}.endPoint}:51820";
                 PersistentKeepalive = 25; # to keep NAT connections open
               };
             }
@@ -96,11 +95,9 @@ in {
       networks = {
         "40-wg0" = {
           matchConfig.Name = "wg0";
-          networkConfig = if is_server then {
-            Address = "${toString server.ip}/24"; 
-            IPForward = "ipv4";
-          } else {
-            Address = "${toString clients.${cfg.networking.hostName}.ip}/24"; 
+          networkConfig = {
+            Address = "${toString peers.${cfg.networking.hostName}.ip}/24"; 
+            IPForward = mkIf is_server "ipv4";
           };
         };
       };
