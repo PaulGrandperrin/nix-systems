@@ -126,6 +126,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
         lm_sensors
  
         mold
+        bintools
       ] ++ lib.optionals (config.home.username == "root") [ # if root and linux
         parted
         iftop
