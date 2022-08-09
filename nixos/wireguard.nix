@@ -60,35 +60,35 @@ in {
               wireguardPeerConfig = {
                 PublicKey = "9Y2LfXGKytyWaXHTVxLhXHQHKuI3J+UwjSmf7/Rcnic="; # nixos-macbook
                 AllowedIPs = "10.0.0.3/32";
-                PersistentKeepalive = 25;
+                #PersistentKeepalive = 25;
               };
             }
             {
               wireguardPeerConfig = {
                 PublicKey = "mKW+Ctr8OfmbRPTjTK7vct93eWUilPBovTHSxaLQQkI="; # nixos-xps
                 AllowedIPs = "10.0.0.2/32";
-                PersistentKeepalive = 25;
+                #PersistentKeepalive = 25;
               };
             }
             {
               wireguardPeerConfig = {
                 PublicKey = "V6eHfEsJa+42VKn/1QLgQgtK9Ja/U0o8F11e5Ph0nSU="; # nixos-macmini
                 AllowedIPs = "10.0.0.4/32";
-                PersistentKeepalive = 25;
+                #PersistentKeepalive = 25;
               };
             }
             {
               wireguardPeerConfig = {
                 PublicKey = "bHTo1rMQiWGxV1EoCRxkazFB9XSxi6NNmlg25+6kmlk="; # nixos-gcp
                 AllowedIPs = "10.0.0.5/32";
-                PersistentKeepalive = 25;
+                #PersistentKeepalive = 25;
               };
             }
             {
               wireguardPeerConfig = {
                 PublicKey = "2ZJnuMeA+vQsB7tXpJT98554xB0J6JSVRqihV35MkCQ="; # pixel6pro
                 AllowedIPs = "10.0.0.6/32";
-                PersistentKeepalive = 25;
+                #PersistentKeepalive = 25;
               };
             }
           ] else [
@@ -97,7 +97,7 @@ in {
                 PublicKey = "q716Jlq2QEvISYecCRWY/TrBjxP3t586eV9sz+yUHCM="; # nixos-nas
                 AllowedIPs = "10.0.0.0/24";
                 Endpoint = "nas.paulg.fr:51820";
-                PersistentKeepalive = 25;
+                #PersistentKeepalive = 25;
               };
             }
           ]);
