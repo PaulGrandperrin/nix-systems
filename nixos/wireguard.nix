@@ -22,8 +22,7 @@ in {
     environment.systemPackages = [ pkgs.wireguard-tools ];
     boot.extraModulePackages = optional (versionOlder cfg.boot.kernelPackages.kernel.version "5.6") cfg.boot.kernelPackages.wireguard;
 
-    # enable IP forwarding for server
-    #boot.kernel.sysctl."net.ipv4.ip_forward" = mkIf cfg.services.my-wg.is-server 1;
+    # boot.kernel.sysctl."net.ipv4.conf.wg0.forwarding" = mkIf cfg.services.my-wg.is-server 1; # already done in systemd-network config
 
     # open port in firewall
     networking.firewall.allowedUDPPorts = [ 51820 ];
@@ -103,13 +102,13 @@ in {
         };
       };
       networks = {
-        "40-wg0".extraConfig = ''
-          [Match]
-          Name=wg0
-  
-          [Network]
-          Address = 10.0.0.${toString cfg.services.my-wg.ip-number}/24
-        '';
+        "40-wg0" = {
+          matchConfig.Name = "wg0";
+          networkConfig = {
+            Address = "10.0.0.${toString cfg.services.my-wg.ip-number}/24"; 
+            IPForward = mkIf cfg.services.my-wg.is-server "ipv4";
+          };
+        };
       };
     };
 
