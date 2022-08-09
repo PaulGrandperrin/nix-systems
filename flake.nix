@@ -426,7 +426,7 @@
           # useful to build and deploy closures from nixos-xps which a lot beefier than nixos-gcp
           users.users.root.openssh.authorizedKeys.keys = [ 
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHOIxgOXuz4/8JB++umc4fEvFwIlM3eeVadTsvCZCQN2" # root@nixos-xps
-            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMK/GnaGGlU7pl4po31XP6K5VpodTu67J+D1/3d74R57" # root@nixos-MacBookPaul
+            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMK/GnaGGlU7pl4po31XP6K5VpodTu67J+D1/3d74R57" # root@nixos-macbook
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF5s0Fe3Y2kX5bxhipkD/OGePPRew40fElqzgacdavuY" # root@nixos-nas
           ];
           
@@ -491,8 +491,8 @@
         ./home-manager/rust-stable.nix
       ];
 
-      MacBookPaul = mkNixosConf "x86_64" "nixos-22-05" [
-        ./nixos/hosts/MacBookPaul/hardware-configuration.nix
+      nixos-macbook = mkNixosConf "x86_64" "nixos-22-05" [
+        ./nixos/hosts/nixos-macbook/hardware-configuration.nix
         ./nixos/common.nix
         ./nixos/net.nix
         ./nixos/wireguard.nix
@@ -549,7 +549,7 @@
           #  #SUBSYSTEM=="acpi", KERNEL=="PNP0C0D:00", DRIVER=="button", ATTR{power/wakeup}="disabled" # LID0 in /proc/acpi/wakeup
           #  SUBSYSTEM=="acpi", KERNEL=="PNP0C0D:00", ATTR{power/wakeup}="disabled" # LID0 in /proc/acpi/wakeup
           #'';
-          networking.hostName = "MacBookPaul";
+          networking.hostName = "nixos-macbook";
           services.net = {
             enable = true;
             mainInt = "wlp3s0";
