@@ -41,7 +41,7 @@ in {
 
     #networking.nat.enable = true;
     #networking.nat.internalInterfaces = [ "vz-nat" ];
-    #networking.nat.externalInterface = "${cfg.mainInt}";
+    networking.nat.externalInterface = "${cfg.mainInt}"; # NAT is not enabled here, but if used, it will already be correctly setup
   };
 }
 

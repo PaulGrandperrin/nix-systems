@@ -210,7 +210,6 @@
 
           services.my-wg = {
             enable = true;
-            mainInt = "enp3s0";
           };
 
           powerManagement.cpuFreqGovernor = "schedutil";
@@ -375,7 +374,6 @@
 
           services.my-wg = {
             enable = true;
-            mainInt = "enp3s0f0";
           };
 
           boot.zfs.requestEncryptionCredentials = false; # don't ask for password when the machine is headless
@@ -409,7 +407,6 @@
 
           services.my-wg = {
             enable = true;
-            mainInt = "eth0";
           };
 
           boot.zfs.requestEncryptionCredentials = false; # don't ask for password when the machine is headless
@@ -451,7 +448,6 @@
 
           services.my-wg = {
             enable = true;
-            mainInt = "wlp2s0";
           };
 
           systemd.network.wait-online = {
@@ -494,7 +490,6 @@
 
           services.my-wg = {
             enable = true;
-            mainInt = "wlp3s0";
           };
 
           programs.nix-ld.enable = true;

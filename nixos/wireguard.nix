@@ -33,9 +33,6 @@ let
 in {
   options.services.my-wg = {
     enable = mkEnableOption "My Wireguard";
-    mainInt = mkOption {
-      type = types.str;
-    };
   };
 
   config = let
@@ -52,9 +49,9 @@ in {
     networking.firewall.allowedUDPPorts = [ 51820 ];
 
     ## enable NAT
-    #networking.nat.enable = true;
-    #networking.nat.externalInterface = cfg.mainInt;
-    #networking.nat.internalInterfaces = [ "wg0" ];
+    networking.nat.enable = mkIf is_server true;
+    # the externalInterface is already setup in net.nix
+    networking.nat.internalInterfaces = mkIf is_server [ "wg0" ];
 
     # setup private key
     sops.secrets."wg-private-key" = {
@@ -82,7 +79,6 @@ in {
               wireguardPeerConfig = {
                 PublicKey = e.publicKey;
                 AllowedIPs = "${e.ip}/32";
-                #PersistentKeepalive = 25;
               };
             }) (lib.attrValues clients)
           else [
@@ -91,7 +87,7 @@ in {
                 PublicKey = server.publicKey;
                 AllowedIPs = "10.0.0.0/24";
                 Endpoint = "${server.domain}:51820";
-                PersistentKeepalive = 25;
+                PersistentKeepalive = 25; # to keep NAT connections open
               };
             }
           ]);
@@ -110,36 +106,6 @@ in {
       };
     };
 
-
-    # --------------------
-
-    #networking.firewall.enable =  false;
-    
-    #systemd.network.networks."40-br0" = { # allows networkd to configure bridge even without a carrier
-    #  name = "br0";
-    #  networkConfig = {
-    #    "ConfigureWithoutCarrier"= "yes";
-    #  };
-    #};
-
-    #systemd.network.networks."10-zone" = {
-    #  name = "vz-nat";
-    #  networkConfig = {
-    #    "DHCPServer"= "yes";
-    #  };
-    #  #dhcpServerConfig = {
-    #  #  
-    #  #};
-    #  address = ["10.0.0.1/24"];
-    #};
-
-
-    #networking.bridges.br0.interfaces = [  ];
-    #networking.interfaces.br0.ipv4.addresses = [{ address = "10.0.0.1"; prefixLength = 24; }];
-
-    #networking.nat.enable = true;
-    #networking.nat.internalInterfaces = [ "vz-nat" ];
-    #networking.nat.externalInterface = "${cfg.mainInt}";
   };
 }
 
