@@ -2,27 +2,51 @@
 with lib;                      
 let
   cfg = config;
+  server = {
+    hostname = "nixos-nas";
+    publicKey = "q716Jlq2QEvISYecCRWY/TrBjxP3t586eV9sz+yUHCM=";
+    ip = "10.0.0.1";
+    domain = "nas.paulg.fr";
+  };
+  clients = {
+    "nixos-xps" = {
+      publicKey = "mKW+Ctr8OfmbRPTjTK7vct93eWUilPBovTHSxaLQQkI=";
+      ip = "10.0.0.2";
+    };
+    "nixos-macbook" = {
+      publicKey = "9Y2LfXGKytyWaXHTVxLhXHQHKuI3J+UwjSmf7/Rcnic=";
+      ip = "10.0.0.3";
+    };
+    "nixos-macmini" = {
+      publicKey = "V6eHfEsJa+42VKn/1QLgQgtK9Ja/U0o8F11e5Ph0nSU=";
+      ip = "10.0.0.4";
+    };
+    "nixos-gcp" = {
+      publicKey = "bHTo1rMQiWGxV1EoCRxkazFB9XSxi6NNmlg25+6kmlk=";
+      ip = "10.0.0.5";
+    };
+    "pixel6pro" = {
+      publicKey = "2ZJnuMeA+vQsB7tXpJT98554xB0J6JSVRqihV35MkCQ=";
+      ip = "10.0.0.6";
+    };
+  };
 in {
   options.services.my-wg = {
     enable = mkEnableOption "My Wireguard";
     mainInt = mkOption {
       type = types.str;
     };
-    ip-number = mkOption {
-      type = types.ints.u8;
-    };
-    is-server = mkOption {
-      type = types.bool;
-    };
   };
 
-  config = mkIf cfg.services.my-wg.enable {
+  config = let
+    is_server = cfg.networking.hostName == server.hostname;
+  in mkIf cfg.services.my-wg.enable {
     
     # install
     environment.systemPackages = [ pkgs.wireguard-tools ];
     boot.extraModulePackages = optional (versionOlder cfg.boot.kernelPackages.kernel.version "5.6") cfg.boot.kernelPackages.wireguard;
 
-    # boot.kernel.sysctl."net.ipv4.conf.wg0.forwarding" = mkIf cfg.services.my-wg.is-server 1; # already done in systemd-network config
+    # boot.kernel.sysctl."net.ipv4.conf.wg0.forwarding" = mkIf is_server 1; # already done in systemd-network config
 
     # open port in firewall
     networking.firewall.allowedUDPPorts = [ 51820 ];
@@ -53,48 +77,20 @@ in {
             ListenPort = 51820;
           };
 
-          wireguardPeers = (if cfg.services.my-wg.is-server then [
-            {
+          wireguardPeers = (if is_server then
+            map (e: {
               wireguardPeerConfig = {
-                PublicKey = "9Y2LfXGKytyWaXHTVxLhXHQHKuI3J+UwjSmf7/Rcnic="; # nixos-macbook
-                AllowedIPs = "10.0.0.3/32";
+                PublicKey = e.publicKey;
+                AllowedIPs = "${e.ip}/32";
                 #PersistentKeepalive = 25;
               };
-            }
+            }) (lib.attrValues clients)
+          else [
             {
               wireguardPeerConfig = {
-                PublicKey = "mKW+Ctr8OfmbRPTjTK7vct93eWUilPBovTHSxaLQQkI="; # nixos-xps
-                AllowedIPs = "10.0.0.2/32";
-                #PersistentKeepalive = 25;
-              };
-            }
-            {
-              wireguardPeerConfig = {
-                PublicKey = "V6eHfEsJa+42VKn/1QLgQgtK9Ja/U0o8F11e5Ph0nSU="; # nixos-macmini
-                AllowedIPs = "10.0.0.4/32";
-                #PersistentKeepalive = 25;
-              };
-            }
-            {
-              wireguardPeerConfig = {
-                PublicKey = "bHTo1rMQiWGxV1EoCRxkazFB9XSxi6NNmlg25+6kmlk="; # nixos-gcp
-                AllowedIPs = "10.0.0.5/32";
-                #PersistentKeepalive = 25;
-              };
-            }
-            {
-              wireguardPeerConfig = {
-                PublicKey = "2ZJnuMeA+vQsB7tXpJT98554xB0J6JSVRqihV35MkCQ="; # pixel6pro
-                AllowedIPs = "10.0.0.6/32";
-                #PersistentKeepalive = 25;
-              };
-            }
-          ] else [
-            {
-              wireguardPeerConfig = {
-                PublicKey = "q716Jlq2QEvISYecCRWY/TrBjxP3t586eV9sz+yUHCM="; # nixos-nas
+                PublicKey = server.publicKey;
                 AllowedIPs = "10.0.0.0/24";
-                Endpoint = "nas.paulg.fr:51820";
+                Endpoint = "${server.domain}:51820";
                 #PersistentKeepalive = 25;
               };
             }
@@ -104,9 +100,11 @@ in {
       networks = {
         "40-wg0" = {
           matchConfig.Name = "wg0";
-          networkConfig = {
-            Address = "10.0.0.${toString cfg.services.my-wg.ip-number}/24"; 
-            IPForward = mkIf cfg.services.my-wg.is-server "ipv4";
+          networkConfig = if is_server then {
+            Address = "${toString server.ip}/24"; 
+            IPForward = "ipv4";
+          } else {
+            Address = "${toString clients.${cfg.networking.hostName}.ip}/24"; 
           };
         };
       };
