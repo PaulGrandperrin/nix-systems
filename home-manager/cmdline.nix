@@ -148,8 +148,8 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
     ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMK/GnaGGlU7pl4po31XP6K5VpodTu67J+D1/3d74R57 root@nixos-macbook
     ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF5s0Fe3Y2kX5bxhipkD/OGePPRew40fElqzgacdavuY root@nixos-nas
     ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICSJQGYQs+KJX+V/X3KxhyQgahE0g+ITF2jr1wUY1s/3 paulg@nixos-nas
-    ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMvmspiXsIgqF+idEIyEierOJa3m/665LP1U1TkwNx/8 root@MacMiniPaul
-    ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICLwI5YV8LFCX4MD64uZg6KV5ln+HgMWHR1r/rjVV6T7 paulg@MacMiniPaul
+    ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMvmspiXsIgqF+idEIyEierOJa3m/665LP1U1TkwNx/8 root@nixos-macmini
+    ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICLwI5YV8LFCX4MD64uZg6KV5ln+HgMWHR1r/rjVV6T7 paulg@nixos-macmini
   '';
   in {
     copySshAuthorizedKeys = lib.hm.dag.entryAfter ["writeBoundary"] ''

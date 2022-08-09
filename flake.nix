@@ -361,15 +361,15 @@
         ./home-manager/cmdline.nix
       ];
 
-      MacMiniPaul = mkNixosConf "x86_64" "nixos-22-05-small" [
-        ./nixos/hosts/MacMiniPaul/hardware-configuration.nix
+      nixos-macmini = mkNixosConf "x86_64" "nixos-22-05-small" [
+        ./nixos/hosts/nixos-macmini/hardware-configuration.nix
         ./nixos/common.nix
         ./nixos/net.nix
         ./nixos/wireguard.nix
         ./nixos/auto-upgrade.nix
         ({pkgs, config, lib, ... }:{
           networking.hostId="aedc67f9";
-          networking.hostName = "MacMiniPaul";
+          networking.hostName = "nixos-macmini";
           services.net = {
             enable = true;
             mainInt = "enp3s0f0";
