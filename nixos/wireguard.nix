@@ -91,7 +91,7 @@ in {
                 PublicKey = server.publicKey;
                 AllowedIPs = "10.0.0.0/24";
                 Endpoint = "${server.domain}:51820";
-                #PersistentKeepalive = 25;
+                PersistentKeepalive = 25;
               };
             }
           ]);
