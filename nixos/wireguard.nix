@@ -4,30 +4,30 @@ let
   cfg = config;
   server = {
     hostname = "nixos-nas";
-    publicKey = "q716Jlq2QEvISYecCRWY/TrBjxP3t586eV9sz+yUHCM=";
-    ip = "10.0.0.1";
+    publicKey = "naS+n7Tj8/Oq+svcRqw71ZQrXjC93byT3poFeLB2t3E=";
+    ip = "10.0.0.100";
     domain = "nas.paulg.fr";
   };
   clients = {
-    "nixos-xps" = {
-      publicKey = "mKW+Ctr8OfmbRPTjTK7vct93eWUilPBovTHSxaLQQkI=";
-      ip = "10.0.0.2";
-    };
-    "nixos-macbook" = {
-      publicKey = "9Y2LfXGKytyWaXHTVxLhXHQHKuI3J+UwjSmf7/Rcnic=";
-      ip = "10.0.0.3";
-    };
     "nixos-macmini" = {
-      publicKey = "V6eHfEsJa+42VKn/1QLgQgtK9Ja/U0o8F11e5Ph0nSU=";
-      ip = "10.0.0.4";
+      publicKey = "mcM+NQQuwuTlKAMxrxZnyZxHMXa5RHENq1pDAIw49zQ=";
+      ip = "10.0.0.1";
     };
     "nixos-gcp" = {
-      publicKey = "bHTo1rMQiWGxV1EoCRxkazFB9XSxi6NNmlg25+6kmlk=";
-      ip = "10.0.0.5";
+      publicKey = "GCp+nDutIu0Ei+f1j1ZB5Opr50S3DiN/wY4usMC08zM=";
+      ip = "10.0.0.2";
+    };
+    "nixos-xps" = {
+      publicKey = "xPs+nrka9e2qA8OmoNFEjLmyVvdb/8HkTBIwpxLNc1s=";
+      ip = "10.0.0.3";
+    };
+    "nixos-macbook" = {
+      publicKey = "mcb+N3JPq2qKCpAv9V2wWCFerk36DzLvbMS7ByEuIXc=";
+      ip = "10.0.0.4";
     };
     "pixel6pro" = {
-      publicKey = "2ZJnuMeA+vQsB7tXpJT98554xB0J6JSVRqihV35MkCQ=";
-      ip = "10.0.0.6";
+      publicKey = "P6p+aJrLSBYFsw5f9q+b9sOgA9HnKh2UWz+uwGjnLEE=";
+      ip = "10.0.0.5";
     };
   };
 in {

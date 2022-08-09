@@ -48,3 +48,9 @@ creation_rules:
       - *nixos-xps # dev
       - *nixos-macbook # dev
       - *recovery
+  - path_regex: ^secrets/other\.yaml$
+    key_groups:
+    - age:
+      - *nixos-xps # dev
+      - *nixos-macbook # dev
+      - *recovery
