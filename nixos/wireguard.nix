@@ -6,31 +6,33 @@ let
     {
       hostname = "nixos-nas";
       publicKey = "naS+n7Tj8/Oq+svcRqw71ZQrXjC93byT3poFeLB2t3E=";
-      ip = "10.0.0.100";
+      ip = "10.0.0.1";
       endPoint.host = "nas.paulg.fr";
       endPoint.port = 51820;
     } {
       hostname = "nixos-macmini";
       publicKey = "mcM+NQQuwuTlKAMxrxZnyZxHMXa5RHENq1pDAIw49zQ=";
-      ip = "10.0.0.1";
+      ip = "10.0.0.2";
       endPoint.host = "nas.paulg.fr";
       endPoint.port = 51821;
     } {
       hostname = "nixos-gcp";
       publicKey = "GCp+nDutIu0Ei+f1j1ZB5Opr50S3DiN/wY4usMC08zM=";
-      ip = "10.0.0.2";
+      ip = "10.0.0.3";
+      endPoint.host = "paulg.fr";
+      endPoint.port = 51820;
     } {
       hostname = "nixos-xps";
       publicKey = "xPs+nrka9e2qA8OmoNFEjLmyVvdb/8HkTBIwpxLNc1s=";
-      ip = "10.0.0.3";
+      ip = "10.0.0.4";
     } {
       hostname = "nixos-macbook";
       publicKey = "mcb+N3JPq2qKCpAv9V2wWCFerk36DzLvbMS7ByEuIXc=";
-      ip = "10.0.0.4";
+      ip = "10.0.0.5";
     } {
       hostname = "pixel6pro";
       publicKey = "P6p+aJrLSBYFsw5f9q+b9sOgA9HnKh2UWz+uwGjnLEE=";
-      ip = "10.0.0.5";
+      ip = "10.0.0.6";
     }
   ];
 in {
