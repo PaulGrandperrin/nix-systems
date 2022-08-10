@@ -13,6 +13,8 @@ let
       hostname = "nixos-macmini";
       publicKey = "mcM+NQQuwuTlKAMxrxZnyZxHMXa5RHENq1pDAIw49zQ=";
       ip = "10.0.0.1";
+      endPoint.host = "nas.paulg.fr";
+      endPoint.port = 51821;
     } {
       hostname = "nixos-gcp";
       publicKey = "GCp+nDutIu0Ei+f1j1ZB5Opr50S3DiN/wY4usMC08zM=";
