@@ -40,7 +40,7 @@ in {
 
   config = let
     is_server = builtins.any (e: e.hostname == cfg.networking.hostName && e ? endPoint) peers;
-    port = (head (builtins.filter (e: e.hostname == cfg.networking.hostName) peers)).endPoint.port;
+    port = mkIf is_server (head (builtins.filter (e: e.hostname == cfg.networking.hostName) peers)).endPoint.port;
   in mkIf cfg.services.my-wg.enable {
     
     # install
@@ -50,7 +50,7 @@ in {
     # boot.kernel.sysctl."net.ipv4.conf.wg0.forwarding" = mkIf is_server 1; # already done in systemd-network config
 
     # open port in firewall
-    networking.firewall.allowedUDPPorts = [ port ];
+    networking.firewall.allowedUDPPorts = mkIf is_server [ port ];
 
     ## enable NAT
     networking.nat.enable = mkIf is_server true;
@@ -90,7 +90,7 @@ in {
               wireguardPeerConfig = {
                 PublicKey = e.publicKey;
                 AllowedIPs = "10.0.0.0/24";
-                Endpoint = "${e.endPoint.host}:${e.endPoint.port}";
+                Endpoint = "${e.endPoint.host}:${toString e.endPoint.port}";
                 PersistentKeepalive = 25; # to keep NAT connections open
               };
             }) (builtins.filter (e: e.hostname != cfg.networking.hostName && e ? endPoint) peers)
