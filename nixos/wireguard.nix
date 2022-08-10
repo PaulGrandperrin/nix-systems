@@ -81,8 +81,7 @@ in {
           };
           wireguardConfig = { 
             PrivateKeyFile = cfg.sops.secrets.wg-private-key.path;
-            ListenPort = mkIf (my_conf ? endPoint) my_conf.endPoint.port;
-
+            ListenPort = mkIf (my_conf ? endPoint) my_conf.endPoint.port; # if we are an endPoint
           };
 
           wireguardPeers =
@@ -93,7 +92,7 @@ in {
                 Endpoint = mkIf (e ? endPoint) "${e.endPoint.host}:${toString e.endPoint.port}";
                 PersistentKeepalive = mkIf (! my_conf ? endPoint) 25; # to keep NAT connections open if I'm not an endPoint
               };
-            }) (builtins.filter (e: e.hostname != my_hostname && (my_conf ? endPoint || e ? endPoint)) peers)
+            }) (builtins.filter (e: e.hostname != my_hostname && (my_conf ? endPoint || e ? endPoint)) peers) # filter peers that are not myself and where one of us is not an endPoint
           ;
         };
       };
