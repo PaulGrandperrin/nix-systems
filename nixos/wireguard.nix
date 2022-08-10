@@ -78,24 +78,16 @@ in {
             ListenPort = port;
           };
 
-          wireguardPeers = (if is_server then
+          wireguardPeers =
             map (e: {
               wireguardPeerConfig = {
                 PublicKey = e.publicKey;
                 AllowedIPs = if e ? endPoint then "${e.ip}/32, 10.0.0.0/24" else "${e.ip}/32";
                 Endpoint = mkIf (e ? endPoint) "${e.endPoint.host}:${toString e.endPoint.port}";
+                PersistentKeepalive = mkIf (! is_server) 25; # to keep NAT connections open
               };
-            }) (builtins.filter (e: e.hostname != cfg.networking.hostName) peers)
-          else
-            map (e: {
-              wireguardPeerConfig = {
-                PublicKey = e.publicKey;
-                AllowedIPs = "${e.ip}/32, 10.0.0.0/24";
-                Endpoint = "${e.endPoint.host}:${toString e.endPoint.port}";
-                PersistentKeepalive = 25; # to keep NAT connections open
-              };
-            }) (builtins.filter (e: e.hostname != cfg.networking.hostName && e ? endPoint) peers)
-          );
+            }) (builtins.filter (e: e.hostname != cfg.networking.hostName && (is_server || e ? endPoint)) peers)
+          ;
         };
       };
       networks = {
