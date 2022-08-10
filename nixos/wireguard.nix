@@ -7,7 +7,8 @@ let
       hostname = "nixos-nas";
       publicKey = "naS+n7Tj8/Oq+svcRqw71ZQrXjC93byT3poFeLB2t3E=";
       ip = "10.0.0.100";
-      endPoint = "nas.paulg.fr";
+      endPoint.host = "nas.paulg.fr";
+      endPoint.port = 51820;
     } {
       hostname = "nixos-macmini";
       publicKey = "mcM+NQQuwuTlKAMxrxZnyZxHMXa5RHENq1pDAIw49zQ=";
@@ -37,6 +38,7 @@ in {
 
   config = let
     is_server = builtins.any (e: e.hostname == cfg.networking.hostName && e ? endPoint) peers;
+    port = (head (builtins.filter (e: e.hostname == cfg.networking.hostName) peers)).endPoint.port;
   in mkIf cfg.services.my-wg.enable {
     
     # install
@@ -46,7 +48,7 @@ in {
     # boot.kernel.sysctl."net.ipv4.conf.wg0.forwarding" = mkIf is_server 1; # already done in systemd-network config
 
     # open port in firewall
-    networking.firewall.allowedUDPPorts = [ 51820 ];
+    networking.firewall.allowedUDPPorts = [ port ];
 
     ## enable NAT
     networking.nat.enable = mkIf is_server true;
@@ -71,7 +73,7 @@ in {
           };
           wireguardConfig = { 
             PrivateKeyFile = cfg.sops.secrets.wg-private-key.path;
-            ListenPort = 51820;
+            ListenPort = port;
           };
 
           wireguardPeers = (if is_server then
@@ -86,7 +88,7 @@ in {
               wireguardPeerConfig = {
                 PublicKey = e.publicKey;
                 AllowedIPs = "10.0.0.0/24";
-                Endpoint = "${e.endPoint}:51820";
+                Endpoint = "${e.endPoint.host}:${e.endPoint.port}";
                 PersistentKeepalive = 25; # to keep NAT connections open
               };
             }) (builtins.filter (e: e.hostname != cfg.networking.hostName && e ? endPoint) peers)
