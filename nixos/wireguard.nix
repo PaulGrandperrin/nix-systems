@@ -58,11 +58,6 @@ in {
     # open port in firewall if we expose an endPoint
     networking.firewall.allowedUDPPorts = mkIf (my_conf ? endPoint) [ my_conf.endPoint.port ];
 
-    ## enable NAT if our conf says so
-    networking.nat.enable = mkIf (my_conf.natToInternet or false) true;
-    # the externalInterface is already setup in net.nix
-    networking.nat.internalInterfaces = mkIf (my_conf.natToInternet or false) [ "wg0" ];
-
     # setup private key
     sops.secrets."wg-private-key" = {
       sopsFile = ../secrets/${my_hostname}.yaml;
@@ -102,6 +97,7 @@ in {
           networkConfig = {
             Address = "${toString my_conf.ip}/24"; 
             IPForward = mkIf (my_conf.forwardToAll or false) "ipv4";
+            IPMasquerade = mkIf (my_conf.natToInternet or false) "ipv4";
           };
         };
       };
