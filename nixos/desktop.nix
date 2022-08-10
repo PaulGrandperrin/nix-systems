@@ -69,7 +69,8 @@
 
 
   environment.sessionVariables = {
-    #"XDG_SESSION_TYPE" = "wayland"; # absolutly force wayland
+    #XDG_SESSION_TYPE = "wayland"; # absolutly force wayland
+    #QT_QPA_PLATFORM = "wayland";
   };
 
   services.xserver.desktopManager.gnome.enable = true;
@@ -112,6 +113,22 @@
     };
   };
 
+
+  networking.firewall.allowedUDPPorts = [
+    6970 # RTP for VLC
+  ];
+
+  home-manager.users.paulg.home.file.".config/vlc/vlcrc".text = ''
+    [core]
+    metadata-network-access=1
+
+    [qt]
+    qt-privacy-ask=0
+
+    [live555] # RTP/RTSP/SDP demuxer (using Live555)
+    # Client port (integer)
+    rtp-client-port=6970
+  '';
 
 
   #networking.wireless.iwd.enable = true;
