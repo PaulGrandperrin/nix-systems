@@ -9,18 +9,22 @@ let
       ip = "10.0.0.1";
       endPoint.host = "nas.paulg.fr";
       endPoint.port = 51820;
+      natToInternet = true;
+      forwardToAll = true; # Only one
     } {
       hostname = "nixos-macmini";
       publicKey = "mcM+NQQuwuTlKAMxrxZnyZxHMXa5RHENq1pDAIw49zQ=";
       ip = "10.0.0.2";
       endPoint.host = "nas.paulg.fr";
       endPoint.port = 51821;
+      natToInternet = true;
     } {
       hostname = "nixos-gcp";
       publicKey = "GCp+nDutIu0Ei+f1j1ZB5Opr50S3DiN/wY4usMC08zM=";
       ip = "10.0.0.3";
       endPoint.host = "paulg.fr";
       endPoint.port = 51820;
+      natToInternet = true;
     } {
       hostname = "nixos-xps";
       publicKey = "xPs+nrka9e2qA8OmoNFEjLmyVvdb/8HkTBIwpxLNc1s=";
@@ -41,27 +45,27 @@ in {
   };
 
   config = let
-    is_server = builtins.any (e: e.hostname == cfg.networking.hostName && e ? endPoint) peers;
-    port = mkIf is_server (head (builtins.filter (e: e.hostname == cfg.networking.hostName) peers)).endPoint.port;
+    my_hostname = cfg.networking.hostName;
+    my_conf = head (builtins.filter (e: e.hostname == my_hostname) peers);
   in mkIf cfg.services.my-wg.enable {
     
     # install
     environment.systemPackages = [ pkgs.wireguard-tools ];
     boot.extraModulePackages = optional (versionOlder cfg.boot.kernelPackages.kernel.version "5.6") cfg.boot.kernelPackages.wireguard;
 
-    # boot.kernel.sysctl."net.ipv4.conf.wg0.forwarding" = mkIf is_server 1; # already done in systemd-network config
+    # boot.kernel.sysctl."net.ipv4.conf.wg0.forwarding" = mkIf (my_conf.forwardToAll or false) 1; # already done in systemd-network config
 
-    # open port in firewall
-    networking.firewall.allowedUDPPorts = mkIf is_server [ port ];
+    # open port in firewall if we expose an endPoint
+    networking.firewall.allowedUDPPorts = mkIf (my_conf ? endPoint) [ my_conf.endPoint.port ];
 
-    ## enable NAT
-    networking.nat.enable = mkIf is_server true;
+    ## enable NAT if our conf says so
+    networking.nat.enable = mkIf (my_conf.natToInternet or false) true;
     # the externalInterface is already setup in net.nix
-    networking.nat.internalInterfaces = mkIf is_server [ "wg0" ];
+    networking.nat.internalInterfaces = mkIf (my_conf.natToInternet or false) [ "wg0" ];
 
     # setup private key
     sops.secrets."wg-private-key" = {
-      sopsFile = ../secrets/${cfg.networking.hostName}.yaml;
+      sopsFile = ../secrets/${my_hostname}.yaml;
       group = "systemd-network";
       mode = "0640";
       restartUnits = [ "systemd-networkd.service" ];
@@ -77,18 +81,19 @@ in {
           };
           wireguardConfig = { 
             PrivateKeyFile = cfg.sops.secrets.wg-private-key.path;
-            ListenPort = port;
+            ListenPort = mkIf (my_conf ? endPoint) my_conf.endPoint.port;
+
           };
 
           wireguardPeers =
             map (e: {
               wireguardPeerConfig = {
                 PublicKey = e.publicKey;
-                AllowedIPs = if e ? endPoint then "${e.ip}/32, 10.0.0.0/24" else "${e.ip}/32";
+                AllowedIPs = if (e.forwardToAll or false) then "10.0.0.0/24" else "${e.ip}/32";
                 Endpoint = mkIf (e ? endPoint) "${e.endPoint.host}:${toString e.endPoint.port}";
-                PersistentKeepalive = mkIf (! is_server) 25; # to keep NAT connections open
+                PersistentKeepalive = mkIf (! my_conf ? endPoint) 25; # to keep NAT connections open if I'm not an endPoint
               };
-            }) (builtins.filter (e: e.hostname != cfg.networking.hostName && (is_server || e ? endPoint)) peers)
+            }) (builtins.filter (e: e.hostname != my_hostname && (my_conf ? endPoint || e ? endPoint)) peers)
           ;
         };
       };
@@ -96,8 +101,8 @@ in {
         "40-wg0" = {
           matchConfig.Name = "wg0";
           networkConfig = {
-            Address = "${toString (head (builtins.filter (e: e.hostname == cfg.networking.hostName) peers)).ip}/24"; 
-            IPForward = mkIf is_server "ipv4";
+            Address = "${toString my_conf.ip}/24"; 
+            IPForward = mkIf (my_conf.forwardToAll or false) "ipv4";
           };
         };
       };
