@@ -2,40 +2,41 @@
 with lib;                      
 let
   cfg = config;
-  peers = {
-    "nixos-nas" = {
+  peers = [
+    {
+      hostname = "nixos-nas";
       publicKey = "naS+n7Tj8/Oq+svcRqw71ZQrXjC93byT3poFeLB2t3E=";
       ip = "10.0.0.100";
       endPoint = "nas.paulg.fr";
-    };
-    "nixos-macmini" = {
+    } {
+      hostname = "nixos-macmini";
       publicKey = "mcM+NQQuwuTlKAMxrxZnyZxHMXa5RHENq1pDAIw49zQ=";
       ip = "10.0.0.1";
-    };
-    "nixos-gcp" = {
+    } {
+      hostname = "nixos-gcp";
       publicKey = "GCp+nDutIu0Ei+f1j1ZB5Opr50S3DiN/wY4usMC08zM=";
       ip = "10.0.0.2";
-    };
-    "nixos-xps" = {
+    } {
+      hostname = "nixos-xps";
       publicKey = "xPs+nrka9e2qA8OmoNFEjLmyVvdb/8HkTBIwpxLNc1s=";
       ip = "10.0.0.3";
-    };
-    "nixos-macbook" = {
+    } {
+      hostname = "nixos-macbook";
       publicKey = "mcb+N3JPq2qKCpAv9V2wWCFerk36DzLvbMS7ByEuIXc=";
       ip = "10.0.0.4";
-    };
-    "pixel6pro" = {
+    } {
+      hostname = "pixel6pro";
       publicKey = "P6p+aJrLSBYFsw5f9q+b9sOgA9HnKh2UWz+uwGjnLEE=";
       ip = "10.0.0.5";
-    };
-  };
+    }
+  ];
 in {
   options.services.my-wg = {
     enable = mkEnableOption "My Wireguard";
   };
 
   config = let
-    is_server = peers.${cfg.networking.hostName} ? endPoint;
+    is_server = builtins.any (e: e.hostname == cfg.networking.hostName && e ? endPoint) peers;
   in mkIf cfg.services.my-wg.enable {
     
     # install
@@ -79,24 +80,24 @@ in {
                 PublicKey = e.publicKey;
                 AllowedIPs = "${e.ip}/32";
               };
-            }) (lib.attrValues peers)
-          else [
-            {
+            }) (builtins.filter (e: e.hostname != cfg.networking.hostName) peers)
+          else
+            map (e: {
               wireguardPeerConfig = {
-                PublicKey = peers.${cfg.networking.hostName}.publicKey;
+                PublicKey = e.publicKey;
                 AllowedIPs = "10.0.0.0/24";
-                Endpoint = "${peers.${cfg.networking.hostName}.endPoint}:51820";
+                Endpoint = "${e.endPoint}:51820";
                 PersistentKeepalive = 25; # to keep NAT connections open
               };
-            }
-          ]);
+            }) (builtins.filter (e: e.hostname != cfg.networking.hostName && e ? endPoint) peers)
+          );
         };
       };
       networks = {
         "40-wg0" = {
           matchConfig.Name = "wg0";
           networkConfig = {
-            Address = "${toString peers.${cfg.networking.hostName}.ip}/24"; 
+            Address = "${toString (head (builtins.filter (e: e.hostname == cfg.networking.hostName) peers)).ip}/24"; 
             IPForward = mkIf is_server "ipv4";
           };
         };
