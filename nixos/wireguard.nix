@@ -90,7 +90,7 @@ in {
             map (e: {
               wireguardPeerConfig = {
                 PublicKey = e.publicKey;
-                AllowedIPs = "10.0.0.0/24";
+                AllowedIPs = "${e.ip}/32, 10.0.0.0/24";
                 Endpoint = "${e.endPoint.host}:${toString e.endPoint.port}";
                 PersistentKeepalive = 25; # to keep NAT connections open
               };
