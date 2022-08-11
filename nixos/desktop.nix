@@ -160,10 +160,15 @@
     path = "/etc/NetworkManager/system-connections/Pixel 6 Pro.nmconnection";
   };
 
-  networking.networkmanager.extraConfig = ''
-    [connectivity]
-    uri=http://nmcheck.gnome.org/check_network_status.txt
-  '';
+  networking.networkmanager = {
+    wifi.scanRandMacAddress = true; # default is true
+    wifi.macAddress = "stable"; # default is "preverve"
+    ethernet.macAddress = "stable"; # default is "preserve"
+    extraConfig = ''
+      [connectivity]
+      uri=http://nmcheck.gnome.org/check_network_status.txt
+    '';
+  };
   
 }
 
