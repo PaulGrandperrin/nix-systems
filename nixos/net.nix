@@ -26,6 +26,11 @@ in {
     services.resolved = {
       enable = true;
       dnssec = "false"; # https://github.com/systemd/systemd/issues/10579
+      domains = [
+        "~."
+        "grandperrin.fr"
+        "paulg.fr"
+      ];
       extraConfig = ''
         FallbackDNS=
         DNSOverTLS=true
