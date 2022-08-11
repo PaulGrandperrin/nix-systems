@@ -149,6 +149,11 @@
       cnijfilter2
     ];
   };
+
+  sops.secrets."DelPuppo.nmconnection" = {
+    restartUnits = [ "NetworkManager.service" ];
+    path = "/etc/NetworkManager/system-connections/DelPuppo.nmconnection";
+  };
   
 }
 
