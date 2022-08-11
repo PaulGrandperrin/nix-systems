@@ -154,6 +154,11 @@
     restartUnits = [ "NetworkManager.service" ];
     path = "/etc/NetworkManager/system-connections/DelPuppo.nmconnection";
   };
+
+  sops.secrets."Pixel 6 Pro.nmconnection" = {
+    restartUnits = [ "NetworkManager.service" ];
+    path = "/etc/NetworkManager/system-connections/Pixel 6 Pro.nmconnection";
+  };
   
 }
 
