@@ -11,8 +11,55 @@ in {
   };
 
   config = mkIf cfg.enable {
-    networking.interfaces.${cfg.mainInt}.useDHCP = true;
+    networking.interfaces.${cfg.mainInt}.useDHCP = true; # TODO use networkd
     networking.firewall.allowPing = true;
+
+    networking.useNetworkd = true;
+    networking.useDHCP = false; # TODO use networkd
+
+    networking.nameservers = ["9.9.9.11#dns11.quad9.net" "149.112.112.11#dns11.quad9.net" "2620:fe::11#dns11.quad9.net" "2620:fe::fe:11#dns11.quad9.net"]; # Malware blocking, DNSSEC Validation, ECS enabled
+    #networking.nameservers = ["9.9.9.9#dns.quad9.net" "149.112.112.112#dns.quad9.net" "2620:fe::fe#dns.quad9.net" "2620:fe::9#dns.quad9.net"]; # Malware Blocking, DNSSEC Validation
+    #networking.nameservers = ["9.9.9.10#dns10.quad9.net" "149.112.112.10#dns10.quad9.net" "2620:fe::10#dns10.quad9.net" "2620:fe::fe:10#dns10.quad9.net"]; # No Malware blocking, no DNSSEC validation
+    #networking.nameservers = ["1.1.1.1#cloudflare-dns.com" "1.0.0.1#cloudflare-dns.com" "2606:4700:4700::1111#cloudflare-dns.com" "2606:4700:4700::1001#cloudflare-dns.com"];
+    #networking.nameservers = ["8.8.8.8#dns.google" "8.8.4.4#dns.google" "2001:4860:4860::8888#dns.google" "2001:4860:4860::8844#dns.google"];
+
+    services.resolved = {
+      enable = true;
+      dnssec = "false"; # https://github.com/systemd/systemd/issues/10579
+      extraConfig = ''
+        FallbackDNS=
+        DNSOverTLS=true
+        MulticastDNS=true
+      '';
+    };
+
+    systemd.network.networks."10-proton" = {
+      matchConfig = {
+        "Name" = "proton*";
+        "Driver" = "tun";
+      };
+      networkConfig = {
+        "DNSDefaultRoute" = "no";
+      };
+    };
+
+    systemd.network.networks."10-container-ve" = { # same as original except 2 lines related to link-local address clashs
+      matchConfig = {
+        "Name" = "ve-*";
+        "Driver" = "veth";
+      };
+      networkConfig = {
+        "Address" = "0.0.0.0/28";
+        "LinkLocalAddressing" = "no"; # link-local addresses clash with GCP's
+        "DHCPServer" = "yes";
+        "IPMasquerade" = "ipv4";
+        "LLDP" = "yes";
+        "EmitLLDP" = "customer-bridge";
+      };
+      dhcpServerConfig = {
+        "DNS" = "8.8.8.8 8.8.4.4"; # don't use GCP's link-local DNS TODO get from networking.nameservers
+      };
+    };
 
   
     systemd.network.networks."40-${cfg.mainInt}" = { # merge in mDNS conf into already existing network file (instead of replacing it)
