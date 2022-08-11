@@ -130,10 +130,6 @@
     rtp-client-port=6970
   '';
 
-
-  #networking.wireless.iwd.enable = true;
-  #networking.networkmanager.wifi.backend = "iwd";
-
   # printing
   services.printing = {
     enable = true;
@@ -169,6 +165,17 @@
       uri=http://nmcheck.gnome.org/check_network_status.txt
     '';
   };
+
+  systemd.network.wait-online = {
+    timeout = 5; # waiting 30 seconds is wayyy too long
+    #anyInterface = true;
+    #extraArgs = ["-i" "wlp2s0"]; # was needed at some point 
+  };
+
+  systemd.services.systemd-networkd-wait-online.enable = false; # I just can't deal with this anymore... I don't even understand WHY!?
+
+  #networking.wireless.iwd.enable = true;
+  #networking.networkmanager.wifi.backend = "iwd";
   
 }
 
