@@ -262,13 +262,6 @@
             openFirewall = true;
           };
 
-          systemd.network.networks."40-enp3s0" = { # merge in mDNS conf into already existing network file (instead of replacing it)
-            matchConfig.Name = "enp3s0";
-            networkConfig= {
-              MulticastDNS = true; # for DNS-SD 
-            };
-          };
-
           environment.etc."systemd/dnssd/10-nfs.dnssd".text = ''
             [Service]
             Name=NFS share on %H
@@ -310,7 +303,6 @@
             3702 # wsdd
             2049 # nfs v3 and v4
             111 4000 4001 4002 20048 # nfs v3
-            5353 # mdns
           ];
 
           services.samba-wsdd.enable = true; # make shares visible for windows 10 clients

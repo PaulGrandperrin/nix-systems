@@ -13,6 +13,20 @@ in {
   config = mkIf cfg.enable {
     networking.interfaces.${cfg.mainInt}.useDHCP = true;
     networking.firewall.allowPing = true;
+
+  
+    systemd.network.networks."40-${cfg.mainInt}" = { # merge in mDNS conf into already existing network file (instead of replacing it)
+      matchConfig.Name = cfg.mainInt;
+      networkConfig= {
+        MulticastDNS = true; # mDNS and DNS-SD 
+      };
+    };
+
+     networking.firewall.allowedUDPPorts = [
+       5353 # mdns
+     ];
+
+
     #networking.firewall.enable =  false;
     
     #systemd.network.networks."40-br0" = { # allows networkd to configure bridge even without a carrier

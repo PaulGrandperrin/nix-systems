@@ -149,11 +149,6 @@
       cnijfilter2
     ];
   };
-  services.avahi = { # needed to use printers shared on the network
-    enable = true;
-    nssmdns = true;
-  };
-
   
 }
 
