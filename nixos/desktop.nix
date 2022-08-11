@@ -159,6 +159,11 @@
     restartUnits = [ "NetworkManager.service" ];
     path = "/etc/NetworkManager/system-connections/Pixel 6 Pro.nmconnection";
   };
+
+  networking.networkmanager.extraConfig = ''
+    [connectivity]
+    uri=http://nmcheck.gnome.org/check_network_status.txt
+  '';
   
 }
 
