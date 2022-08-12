@@ -48,6 +48,8 @@ in {
     my_hostname = cfg.networking.hostName;
     my_conf = head (builtins.filter (e: e.hostname == my_hostname) peers);
   in mkIf cfg.services.my-wg.enable {
+    # add domains in /etc/hosts
+    networking.extraHosts = concatStringsSep "\n" (map (p: "${p.ip} ${p.hostname}.wg") peers);
     
     # install
     environment.systemPackages = [ pkgs.wireguard-tools ];
