@@ -5,6 +5,8 @@
   ];
   system.stateVersion = "21.11";
 
+  hardware.video.hidpi.enable = true;
+
   sops = {
     defaultSopsFile = ../secrets/common.yaml;
   };
