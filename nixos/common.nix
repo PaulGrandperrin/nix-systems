@@ -92,6 +92,9 @@
   hardware.enableAllFirmware = true;
   services.fwupd.enable = true;
 
+  documentation.enable = true;
+  documentation.nixos.enable = true;
+
   # Flakes
   nix = {
     package = pkgs.nixFlakes;
