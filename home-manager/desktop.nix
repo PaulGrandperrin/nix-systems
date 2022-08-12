@@ -1,4 +1,9 @@
 {pkgs, inputs, system, lib, config, is_nixos, ...}: lib.mkIf (config.home.username != "root") { 
+  home = {
+    packages = with pkgs; [
+      czkawka
+    ];
+  };
 
   programs = {
     chromium = {
