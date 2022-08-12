@@ -1,5 +1,44 @@
 {
   "nodes": {
+    "colmena": {
+      "inputs": {
+        "flake-compat": "flake-compat",
+        "nixpkgs": [],
+        "stable": [],
+        "utils": [
+          "flake-utils"
+        ]
+      },
+      "locked": {
+        "lastModified": 1659157989,
+        "narHash": "sha256-XHyjblfOAhoHwIDfPxYqAbvYzCO0/XjntULV6Dmavo8=",
+        "owner": "zhaofengli",
+        "repo": "colmena",
+        "rev": "34bb2e46747e69c9a34f94583330ad9a9f5ad20a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "zhaofengli",
+        "repo": "colmena",
+        "type": "github"
+      }
+    },
+    "flake-compat": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1650374568,
+        "narHash": "sha256-Z+s0J8/r907g149rllvwhb4pKi8Wam5ij0st8PwAh+E=",
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "rev": "b4a34015c698c7793d592d66adbab377907a2be8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
     "flake-utils": {
       "locked": {
         "lastModified": 1659877975,
@@ -244,6 +283,7 @@
     },
     "root": {
       "inputs": {
+        "colmena": "colmena",
         "flake-utils": "flake-utils",
         "home-manager-22-05": "home-manager-22-05",
         "nix-alien": "nix-alien",

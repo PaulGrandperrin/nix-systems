@@ -74,6 +74,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
       smartmontools
       wireguard-tools
       dogdns
+      colmena
 
       sops
       ssh-to-age

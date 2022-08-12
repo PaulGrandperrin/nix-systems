@@ -56,6 +56,13 @@
       inputs.nixpkgs.follows = ""; # optional, not necessary for the module
       inputs.nixpkgs-22_05.follows = ""; # optional, not necessary for the module
     };
+
+    colmena = {
+      url = "github:zhaofengli/colmena";
+      inputs.nixpkgs.follows = ""; # optional, not necessary for the module
+      inputs.stable.follows = ""; # optional, not necessary for the module
+      inputs.utils.follows = "flake-utils";
+    };
   };
 
 
@@ -67,6 +74,12 @@
     in
       [ inputs.nur.overlay inputs.rust-overlay.overlay inputs.nix-alien.overlay];
   in {
+    colmena = {
+      meta.nixpkgs = inputs.nixos-22-05.legacyPackages.x86_64-linux;
+    } // builtins.mapAttrs (name: value: { # from https://github.com/zhaofengli/colmena/issues/60#issuecomment-1047199551
+        nixpkgs.system = value.config.nixpkgs.system;
+        imports = value._module.args.modules;
+      }) (inputs.self.nixosConfigurations);
 
     packages.x86_64-linux.vcv-rack = inputs.nixos-22-05.legacyPackages.x86_64-linux.callPackage ./pkgs/vcv-rack {};
 
@@ -178,6 +191,7 @@
       mkNixosConf = arch: channel: nixos-modules: hm-modules: inputs.${channel}.lib.nixosSystem rec {
         system = "${arch}-linux";
         specialArgs = { inherit system inputs channel; }; #  passes inputs to modules
+        extraModules = [ inputs.colmena.nixosModules.deploymentOptions ]; # from https://github.com/zhaofengli/colmena/issues/60#issuecomment-1047199551
         modules = [ 
           { nixpkgs = {overlays = getOverlays system; }; }
           inputs.home-manager-22-05.nixosModules.home-manager
@@ -201,6 +215,14 @@
         ./nixos/auto-upgrade.nix
         ./nixos/wireguard.nix
         ({config, lib, ... }:{
+          # colmena options
+          deployment = {
+            allowLocalDeployment = true;
+            buildOnTarget = true;
+            tags = ["nixos" "server" "headless" "deploy"];
+            targetHost = "${config.networking.hostName}.wg";
+          };
+          
           networking.hostId="51079489";
           networking.hostName = "nixos-nas";
           services.net = {
@@ -356,6 +378,14 @@
         ./nixos/wireguard.nix
         ./nixos/auto-upgrade.nix
         ({pkgs, config, lib, ... }:{
+          # colmena options
+          deployment = {
+            allowLocalDeployment = true;
+            buildOnTarget = true;
+            tags = ["nixos" "server" "headless" "deploy"];
+            targetHost = "${config.networking.hostName}.wg";
+          };
+
           networking.hostId="aedc67f9";
           networking.hostName = "nixos-macmini";
           services.net = {
@@ -387,7 +417,15 @@
         ./nixos/net.nix
         ./nixos/wireguard.nix
         # ./nixos/auto-upgrade.nix # 1G of memory is not enough to evaluate the system's derivation, even with zram...
-        ({pkgs, lib, ...}:{
+        ({pkgs, lib, config, ...}:{
+          # colmena options
+          deployment = {
+            allowLocalDeployment = false;
+            buildOnTarget = false;
+            tags = ["nixos" "server" "headless" "web"];
+            targetHost = "${config.networking.hostName}.wg";
+          };
+
           networking.hostId = "1c734661"; # for ZFS
           networking.hostName = "nixos-gcp";
           networking.interfaces.eth0.useDHCP = true;
@@ -428,7 +466,15 @@
         ./nixos/desktop.nix
         ./nixos/desktop-i915.nix
         ./nixos/nvidia.nix
-        {
+        ({config, ...}:{
+          # colmena options
+          deployment = {
+            allowLocalDeployment = true;
+            buildOnTarget = true;
+            tags = ["nixos" "laptop" "desktop" "deploy"];
+            targetHost = "${config.networking.hostName}.wg";
+          };
+
           networking.hostId="7ee1da4a";
           networking.hostName = "nixos-xps";
           services.net = {
@@ -448,7 +494,7 @@
             #options = [ "nfsvers=4.2" ];
             options = [ "noauto" "x-systemd.automount" "_netdev" "x-systemd.mount-timeout=5" "x-systemd.idle-timeout=3600"];
           };
-        }
+        })
       ]
       [
         ./home-manager/cmdline.nix
@@ -466,6 +512,14 @@
         ./nixos/desktop.nix
         ./nixos/desktop-i915.nix
         ({pkgs, lib, config, ...}:{
+          # colmena options
+          deployment = {
+            allowLocalDeployment = true;
+            buildOnTarget = true;
+            tags = ["nixos" "laptop" "desktop" "deploy"];
+            targetHost = "${config.networking.hostName}.wg";
+          };
+
           networking.hostId="f2b2467d";
           # hardware.facetimehd.enable = true; # FIXME broken
           services.mbpfan.enable = true;
