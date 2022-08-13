@@ -227,6 +227,7 @@
         ./nixos/common.nix
         ./nixos/nspawns/ubuntu.nix
         ./nixos/net.nix
+        ./nixos/web.nix
         ./nixos/auto-upgrade.nix
         ./nixos/wireguard.nix
         ({config, lib, ... }:{
