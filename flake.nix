@@ -63,6 +63,11 @@
       inputs.stable.follows = ""; # optional, not necessary for the module
       inputs.utils.follows = "flake-utils";
     };
+
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixos-22-05";
+    };
   };
 
 
@@ -82,6 +87,16 @@
       }) (inputs.self.nixosConfigurations);
 
     packages.x86_64-linux.vcv-rack = inputs.nixos-22-05.legacyPackages.x86_64-linux.callPackage ./pkgs/vcv-rack {};
+
+    packages.x86_64-linux = {
+      iso = inputs.nixos-generators.nixosGenerate {
+        pkgs = inputs.nixos-22-05.legacyPackages.x86_64-linux;
+        modules = [
+          ./iso.nix
+        ];
+        format = "iso";
+      };
+    };
 
     #devShell.x86_64-linux = stable-pkgs.mkShell {
     #    buildInputs = with stable-pkgs; [
