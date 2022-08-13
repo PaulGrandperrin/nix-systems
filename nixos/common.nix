@@ -285,6 +285,13 @@
     permitRootLogin = lib.mkForce "yes";
   };
 
+  # give nix-daemon the lowest priority 
+  nix = {
+    daemonIOSchedClass = "idle";
+    daemonCPUSchedPolicy = "idle";
+    daemonIOSchedPriority = 7; # only used by "best-effort"
+  };
+
   virtualisation = {
     podman.enable = true;
     docker = {
