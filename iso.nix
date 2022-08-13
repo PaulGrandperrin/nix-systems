@@ -36,7 +36,8 @@
   '';
 
   # ISO naming.
-  isoImage.isoName = "${config.isoImage.isoBaseName}-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.iso";
+  #isoImage.isoName = "${config.isoImage.isoBaseName}-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.iso";
+  isoImage.isoName = "nixos.iso";
 
   # Add Memtest86+ to the CD.
   boot.loader.grub.memtest86.enable = true;
