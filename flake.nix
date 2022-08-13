@@ -27,7 +27,7 @@
 
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
-      inputs.nixpkgs.follows = ""; # not used because we use the overlay
+      inputs.nixpkgs.follows = "nixos-22-05"; # FIXME used only for the lib
       inputs.flake-utils.follows = "flake-utils";
     };
 
