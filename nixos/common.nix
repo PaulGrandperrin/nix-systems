@@ -11,6 +11,7 @@
     defaultSopsFile = ../secrets/common.yaml;
   };
 
+
   # automatically convert the SSH server's private key to an age key for SOPS
   system.activationScripts = {
     ssh-to-age = ''
@@ -259,11 +260,21 @@
   ##  builders-use-substitutes = true
   ##'';
 
+  # expose HW MAC addresses for WOL
+  sops.secrets.hwmac-nas = {};
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     busybox-sandbox-shell
+    (writeShellApplication {
+      name = "wol-nas";
+      text = ''
+        ${wol}/bin/wol -p9 -h nas.paulg.fr "$(cat ${config.sops.secrets.hwmac-nas.path})"
+        # also send locally because sending on the internet from the same network doesn't work
+        ${wol}/bin/wol -p9 "$(cat ${config.sops.secrets.hwmac-nas.path})"
+      '';
+    })
   ];
 
   zramSwap = {
