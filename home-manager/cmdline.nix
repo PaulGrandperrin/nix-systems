@@ -75,6 +75,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
       wireguard-tools
       dogdns
       colmena
+      wol
 
       sops
       ssh-to-age
