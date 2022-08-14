@@ -134,6 +134,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
         iftop
         powertop
         i7z
+        ethtool
       ]
     );
   };

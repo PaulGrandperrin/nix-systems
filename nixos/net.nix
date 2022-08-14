@@ -14,6 +14,23 @@ in {
     networking.interfaces.${cfg.mainInt}.useDHCP = true; # TODO use networkd
     networking.firewall.allowPing = true;
 
+    systemd.network.links."10-wol" = {
+      enable = true;
+      matchConfig = {
+        Type = "ether";
+        Virtualization = "false";
+      };
+      linkConfig = {
+        WakeOnLan = "magic";
+
+        # we need to copy what was at /run/current-system/systemd/lib/systemd/network/99-default.link because only one file can match at a time
+        NamePolicy = "keep kernel database onboard slot path";
+        AlternativeNamesPolicy = "database onboard slot path";
+        MACAddressPolicy = "persistent";
+      };
+
+    };
+
     networking.useNetworkd = true;
     networking.useDHCP = false; # TODO use networkd
 
