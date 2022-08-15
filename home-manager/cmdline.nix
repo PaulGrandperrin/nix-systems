@@ -76,6 +76,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
       dogdns
       colmena
       wol
+      pciutils
 
       sops
       ssh-to-age
@@ -136,6 +137,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
         powertop
         i7z
         ethtool
+        dmidecode
       ]
     );
   };
