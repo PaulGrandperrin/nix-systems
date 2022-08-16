@@ -17,6 +17,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
     #rust-overlay.flake = inputs.rust-overlay;
     #home-manager.flake = inputs.home-manager;
     n.flake = mainFlake;
+    nixpkgs.flake = mainFlake;
   };
 
   # systemd.user.systemctlPath = "/usr/bin/systemctl"; # TODO ?
