@@ -77,6 +77,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
       colmena
       wol
       pciutils
+      lsof
 
       sops
       ssh-to-age
