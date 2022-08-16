@@ -236,7 +236,12 @@
     isNormalUser = true;
     description = "Paul Grandperrin";
     passwordFile = config.sops.secrets.password-paulg.path;
-    extraGroups = [ "wheel" "video" "netdev" "networkmanager"]; # audio?
+    extraGroups = [
+      "wheel"
+      "networkmanager" # no need for password
+      "audio" # used by JACK for realtime, otherwise not needed on systemd
+      "kvm"
+    ];
     uid = 1000;
     useDefaultShell = true;
     createHome = true;
