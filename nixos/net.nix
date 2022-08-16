@@ -13,6 +13,7 @@ in {
   config = mkIf cfg.enable {
     networking.interfaces.${cfg.mainInt}.useDHCP = true; # TODO use networkd
     networking.firewall.allowPing = true;
+    networking.enableIPv6 = false; # TODO later? never?
 
     systemd.network.links."10-wol" = {
       enable = true;

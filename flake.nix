@@ -230,6 +230,7 @@
         ./nixos/web.nix
         ./nixos/auto-upgrade.nix
         ./nixos/wireguard.nix
+        ./nixos/headless.nix
         ({config, lib, ... }:{
           # colmena options
           deployment = {
@@ -269,7 +270,6 @@
             '';
           };
 
-          boot.zfs.requestEncryptionCredentials = false; # don't ask for password when the machine is headless
           fileSystems = {
             "/IronWolf12TB" = {
               device = "IronWolf12TB";

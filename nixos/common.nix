@@ -113,8 +113,6 @@
   hardware.cpu.intel.updateMicrocode = true;
   services.fstrim.enable = true;
   boot.kernelParams = [ "panic=20" "boot.panic_on_fail" "oops=panic" "ipv6.disable=1"];
-  networking.enableIPv6 = false;
-
 
   #boot.kernelPackages = pkgs.linuxPackages_latest; # breakes ZFS sometimes
   boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
