@@ -167,7 +167,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
    '';
   });
 
-  services.gpg-agent = {
+  services.gpg-agent = lib.mkIf pkgs.stdenv.isLinux {
     enable = true;
     defaultCacheTtl = 60 * 60 * 24;
     extraConfig = ''
