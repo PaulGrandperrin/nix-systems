@@ -271,11 +271,11 @@
   environment.systemPackages = with pkgs; [
     busybox-sandbox-shell
     (writeShellApplication {
-      name = "wol-nas";
+      name = "wakelan-nas";
       text = ''
-        ${wol}/bin/wol -p9 -h nas.paulg.fr "$(cat ${config.sops.secrets.hwmac-nas.path})"
+        ${wakelan}/bin/wakelan -p9 -b nas.paulg.fr -m "$(cat ${config.sops.secrets.hwmac-nas.path})"
         # also send locally because sending on the internet from the same network doesn't work
-        ${wol}/bin/wol -p9 "$(cat ${config.sops.secrets.hwmac-nas.path})"
+        ${wakelan}/bin/wakelan -p9 -m "$(cat ${config.sops.secrets.hwmac-nas.path})"
       '';
     })
   ];
