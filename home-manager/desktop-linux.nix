@@ -177,12 +177,12 @@
     vscode = with pkgs; { # better than plain package which can't install extensions from internet
       enable = true;
       package = vscode-fhsWithPackages(ps: with ps; [rnix-lsp bintools]); # vscodium version can't use synchronization. FHS version works better with internet's extensions
-      userSettings = {
-        "editor.bracketPairColorization.enabled" = true;
-        "editor.guides.bracketPairs" = "active";
-        "editor.fontFamily" =  "'FiraCode Nerd Font Mono', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'";
-        "terminal.integrated.fontFamily" = "'FiraCode Nerd Font Mono'";
-      };
+      #userSettings = { # we use synchronization feature instead
+      #  "editor.bracketPairColorization.enabled" = true;
+      #  "editor.guides.bracketPairs" = "active";
+      #  "editor.fontFamily" =  "'FiraCode Nerd Font Mono', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'";
+      #  "terminal.integrated.fontFamily" = "'FiraCode Nerd Font Mono'";
+      #};
       extensions = with vscode-extensions; [
         #matklad.rust-analyzer # already defined in rust module
         tamasfe.even-better-toml
