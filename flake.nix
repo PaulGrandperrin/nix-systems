@@ -7,6 +7,8 @@
     nixos-22-05-small.url = "github:NixOS/nixpkgs/nixos-22.05-small";
     nixpkgs-22-05-darwin.url = "github:NixOS/nixpkgs/nixpkgs-22.05-darwin";
 
+    nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+
     nur.url = "github:nix-community/NUR";
 
     nix-on-droid = {

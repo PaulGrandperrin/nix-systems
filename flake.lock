@@ -261,6 +261,22 @@
         "type": "github"
       }
     },
+    "nixos-unstable": {
+      "locked": {
+        "lastModified": 1660646295,
+        "narHash": "sha256-V4G+egGRc3elXPTr7QLJ7r7yrYed0areIKDiIAlMLC8=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "762b003329510ea855b4097a37511eb19c7077f0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-22-05-darwin": {
       "locked": {
         "lastModified": 1660370028,
@@ -330,6 +346,7 @@
         "nixos-22-05": "nixos-22-05",
         "nixos-22-05-small": "nixos-22-05-small",
         "nixos-generators": "nixos-generators",
+        "nixos-unstable": "nixos-unstable",
         "nixpkgs-22-05-darwin": "nixpkgs-22-05-darwin",
         "nur": "nur",
         "rust-overlay": "rust-overlay",

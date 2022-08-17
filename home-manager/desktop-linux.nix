@@ -174,16 +174,20 @@
     kitty.enable = true; 
     alacritty.enable = true;
     mangohud.enable = true;
-    vscode = with pkgs; { # better than plain package which can't install extensions from internet
+    vscode = { # better than plain package which can't install extensions from internet
       enable = true;
-      package = vscode-fhsWithPackages(ps: with ps; [rnix-lsp bintools]); # vscodium version can't use synchronization. FHS version works better with internet's extensions
+      package = let
+        vscode = pkgs.callPackage (inputs.nixos-unstable.outPath + "/pkgs/applications/editors/vscode/vscode.nix") {};
+        vscode-fhsWithPackages = vscode.fhsWithPackages;
+      in
+        vscode-fhsWithPackages(ps: with ps; [rnix-lsp bintools]); # vscodium version can't use synchronization. FHS version works better with internet's extensions
       #userSettings = { # we use synchronization feature instead
       #  "editor.bracketPairColorization.enabled" = true;
       #  "editor.guides.bracketPairs" = "active";
       #  "editor.fontFamily" =  "'FiraCode Nerd Font Mono', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'";
       #  "terminal.integrated.fontFamily" = "'FiraCode Nerd Font Mono'";
       #};
-      extensions = with vscode-extensions; [
+      extensions = with pkgs.vscode-extensions; [
         #matklad.rust-analyzer # already defined in rust module
         tamasfe.even-better-toml
         serayuzgur.crates
