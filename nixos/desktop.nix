@@ -86,7 +86,7 @@
   programs.steam.enable = true;
 
   hardware.pulseaudio.enable = false;
-  security.rtkit.enable = true;
+  security.rtkit.enable = true; # to make realtime scheduling possible in gnome-shell
   services.pipewire = {
     enable = true;
     alsa.enable = true;

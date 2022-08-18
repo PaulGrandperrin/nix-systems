@@ -48,8 +48,8 @@
       show-battery-percentage = true;
       clock-show-weekday = true;
     };
-    "org/gnome/mutter/experimental-features" = {
-      rt-scheduler = true;
+    "org/gnome/mutter" = {
+      experimental-features = [ "scale-monitor-framebuffer" "rt-scheduler" ];
     };
     "org/gnome/desktop/privacy" = {
       remember-recent-files = true;
