@@ -101,7 +101,7 @@
       idle-brightness = 100; # 100 means that it stay at whatever is was before
       sleep-inactive-ac-type = "nothing";
       sleep-inactive-battery-type = "suspend";
-      sleep-inactive-battery-timeout = 180; # time to sleep on battery 
+      sleep-inactive-battery-timeout = 300; # time to sleep on battery 
       power-saver-profile-on-low-battery = true;
       power-button-action = "suspend";
     };
