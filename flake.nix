@@ -568,7 +568,7 @@
                 echo disabled > /sys/bus/pci/devices/0000:00:14.0/power/wakeup # XHC1 in /proc/acpi/wakeup, USB controller, sometimes wakes up the machine
               fi
             '';
-            powerUpCommands = lib.mkBefore "${pkgs.kmod}/bin/modprobe brcmfmac";
+            powerUpCommands = lib.mkBefore ''[ "$IN_NIXOS_SYSTEMD_STAGE1" = "true" ] || ${pkgs.kmod}/bin/modprobe brcmfmac''; # must not run in stage1 because module loading is not ready yet
           };
 
           # USB subsystem wakes up MBP right after suspend unless we disable it.
