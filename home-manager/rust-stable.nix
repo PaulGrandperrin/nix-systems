@@ -21,6 +21,7 @@
 in {
   home.packages = with pkgs; [
     my-rust
+    my-rust-analyzer
   ];
   programs = {
     vscode = {
