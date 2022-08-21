@@ -79,6 +79,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
       wakelan
       pciutils
       lsof
+      e2fsprogs
 
       sops
       ssh-to-age
