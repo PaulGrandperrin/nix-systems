@@ -28,6 +28,12 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
       EDITOR = "vim";
     };
 
+    file.".cargo/config.toml".text = ''
+      [target.x86_64-unknown-linux-gnu]
+      linker = "${pkgs.clang_13}/bin/clang"
+      rustflags = ["-C", "link-arg=--ld-path=${pkgs.mold}/bin/mold"]
+    '';
+
     packages = with pkgs; [
       gnugrep
       findutils
