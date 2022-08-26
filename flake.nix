@@ -302,6 +302,38 @@
             openFirewall = true;
           };
 
+          sops.secrets."deluge-auth" = {
+            sopsFile = ./secrets/nixos-nas.yaml;
+            owner = "nobody";
+            restartUnits = [ "deluged.service" "delugeweb.service" ];
+          };
+          services.deluge = {
+            enable = true;
+            declarative = true;
+            authFile = config.sops.secrets."deluge-auth".path;
+            config = {
+              download_location = "/export/public/torrent";
+              allow_remote = true;
+              daemon_port = 58846;
+              listen_ports = [6881 6891];
+              pre_allocate_storage = true;
+              prioritize_first_last_pieces = true;
+              sequential_download = true;
+              stop_seed_at_ratio = true;
+              stop_seed_ratio = 1.0;
+              share_ratio_limit = 1.0;
+              
+            };
+            openFirewall = true;
+            user = "nobody";
+            group = "nogroup";
+            web = {
+              enable = true;
+              openFirewall = true;
+              port = 8112;
+            };
+          };
+
           environment.etc."systemd/dnssd/10-nfs.dnssd".text = ''
             [Service]
             Name=NFS share on %H
