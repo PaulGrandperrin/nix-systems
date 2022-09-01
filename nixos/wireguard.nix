@@ -50,6 +50,9 @@ in {
   in mkIf cfg.services.my-wg.enable {
     # add domains in /etc/hosts
     networking.extraHosts = concatStringsSep "\n" (map (p: "${p.ip} ${p.hostname}.wg") peers);
+
+    # allow all connections on this trusted interface
+    networking.firewall.trustedInterfaces = [ "wg0" ];
     
     # install
     environment.systemPackages = [ pkgs.wireguard-tools ];
