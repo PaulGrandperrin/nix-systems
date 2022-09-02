@@ -19,6 +19,7 @@ in {
       enable = true;
       matchConfig = {
         Type = "ether";
+        Driver = "!veth";
         Virtualization = "false";
       };
       linkConfig = {
