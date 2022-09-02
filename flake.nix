@@ -536,7 +536,7 @@
             enable = true;
           };
 
-          # boot.kernelParams = [ "mitigations=off" ];
+          boot.kernelParams = [ "mitigations=off" ];
 
           fileSystems."/mnt/nixos-nas/public" = {
             device = "192.168.1.1:/export/public";
