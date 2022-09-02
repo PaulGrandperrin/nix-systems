@@ -361,20 +361,20 @@
             '';
 
             # fixed rpc.statd port; for firewall
-            lockdPort = 4001;
-            mountdPort = 4002;
-            statdPort = 4000;
+            lockdPort = 4101;
+            mountdPort = 4102;
+            statdPort = 4100;
           };
 
           networking.firewall.allowedTCPPorts = [ 
             5357 # wsdd 
             2049 # nfs v3 and v4
-            111 4000 4001 4002 20048 # nfs v3
+            111 4100 4101 4102 20048 # nfs v3
           ];
           networking.firewall.allowedUDPPorts = [
             3702 # wsdd
             2049 # nfs v3 and v4
-            111 4000 4001 4002 20048 # nfs v3
+            111 4100 4101 4102 20048 # nfs v3
           ];
 
           services.samba-wsdd.enable = true; # make shares visible for windows 10 clients
