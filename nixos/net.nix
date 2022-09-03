@@ -81,7 +81,7 @@ in {
         "EmitLLDP" = "customer-bridge";
       };
       dhcpServerConfig = {
-        "DNS" = "8.8.8.8 8.8.4.4"; # don't use GCP's link-local DNS TODO get from networking.nameservers
+        "DNS" = "9.9.9.11 149.112.112.11"; # don't use GCP's link-local DNS
       };
     };
 
