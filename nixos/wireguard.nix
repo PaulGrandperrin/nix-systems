@@ -3,40 +3,41 @@ with lib;
 let
   cfg = config;
   peers = [
+    # each peer get assigned an IP on the VPN's network (10.0.0.$id) and a network (10.0.$id.0/24)
     {
+      id = 1;
       hostname = "nixos-nas";
       publicKey = "naS+n7Tj8/Oq+svcRqw71ZQrXjC93byT3poFeLB2t3E=";
-      ip = "10.0.0.1";
       endPoint.host = "nas.paulg.fr";
       endPoint.port = 51820;
       natToInternet = true;
       forwardToAll = true; # Only one
     } {
+      id = 2;
       hostname = "nixos-macmini";
       publicKey = "mcM+NQQuwuTlKAMxrxZnyZxHMXa5RHENq1pDAIw49zQ=";
-      ip = "10.0.0.2";
       endPoint.host = "nas.paulg.fr";
       endPoint.port = 51821;
       natToInternet = true;
     } {
+      id = 3;
       hostname = "nixos-gcp";
       publicKey = "GCp+nDutIu0Ei+f1j1ZB5Opr50S3DiN/wY4usMC08zM=";
-      ip = "10.0.0.3";
       endPoint.host = "paulg.fr";
       endPoint.port = 51820;
       natToInternet = true;
     } {
+      id = 4;
       hostname = "nixos-xps";
       publicKey = "xPs+nrka9e2qA8OmoNFEjLmyVvdb/8HkTBIwpxLNc1s=";
-      ip = "10.0.0.4";
     } {
+      id = 5;
       hostname = "nixos-macbook";
       publicKey = "mcb+N3JPq2qKCpAv9V2wWCFerk36DzLvbMS7ByEuIXc=";
-      ip = "10.0.0.5";
     } {
+      id = 6;
       hostname = "pixel6pro";
       publicKey = "P6p+aJrLSBYFsw5f9q+b9sOgA9HnKh2UWz+uwGjnLEE=";
-      ip = "10.0.0.6";
     }
   ];
 in {
@@ -49,7 +50,7 @@ in {
     my_conf = head (builtins.filter (e: e.hostname == my_hostname) peers);
   in mkIf cfg.services.my-wg.enable {
     # add domains in /etc/hosts
-    networking.extraHosts = concatStringsSep "\n" (map (p: "${p.ip} ${p.hostname}.wg") peers);
+    networking.extraHosts = concatStringsSep "\n" (map (p: "10.0.0.${toString p.id} ${p.hostname}.wg") peers);
 
     # allow all connections on this trusted interface
     networking.firewall.trustedInterfaces = [ "wg0" ];
@@ -88,7 +89,7 @@ in {
             map (e: {
               wireguardPeerConfig = {
                 PublicKey = e.publicKey;
-                AllowedIPs = if (e.forwardToAll or false) then "10.0.0.0/24" else "${e.ip}/32";
+                AllowedIPs = if (e.forwardToAll or false) then [ "10.0.0.0/16" ] else [ "10.0.0.${toString e.id}/32" "10.0.${toString e.id}.0/24" ];
                 Endpoint = mkIf (e ? endPoint) "${e.endPoint.host}:${toString e.endPoint.port}";
                 PersistentKeepalive = mkIf (! my_conf ? endPoint) 25; # to keep NAT connections open if I'm not an endPoint
               };
@@ -100,7 +101,7 @@ in {
         "40-wg0" = {
           matchConfig.Name = "wg0";
           networkConfig = {
-            Address = "${toString my_conf.ip}/24"; 
+            Address = "10.0.0.${toString my_conf.id}/16"; 
             IPForward = mkIf (my_conf.forwardToAll or false) "ipv4";
             IPMasquerade = mkIf (my_conf.natToInternet or false) "ipv4";
           };
