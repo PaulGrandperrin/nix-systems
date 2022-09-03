@@ -101,7 +101,7 @@ in {
         "40-wg0" = {
           matchConfig.Name = "wg0";
           networkConfig = {
-            Address = "10.0.0.${toString my_conf.id}/24"; 
+            Address = "10.0.0.${toString my_conf.id}/24"; # dont set /16 here because then IPMasquerade would be enabled for all those addresses, i.e. including those on the 10.0.X.0/24 networks.
             IPForward = mkIf (my_conf.forwardToAll or false) "ipv4";
             IPMasquerade = mkIf (my_conf.natToInternet or false) "ipv4";
           };
