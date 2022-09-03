@@ -101,10 +101,15 @@ in {
         "40-wg0" = {
           matchConfig.Name = "wg0";
           networkConfig = {
-            Address = "10.0.0.${toString my_conf.id}/16"; 
+            Address = "10.0.0.${toString my_conf.id}/24"; 
             IPForward = mkIf (my_conf.forwardToAll or false) "ipv4";
             IPMasquerade = mkIf (my_conf.natToInternet or false) "ipv4";
           };
+          routes = [{
+            routeConfig = {
+              Destination = "10.0.0.0/16";
+            };
+          }];
         };
       };
     };
