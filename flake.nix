@@ -227,7 +227,7 @@
       nixos-nas = mkNixosConf "x86_64" "nixos-22-05-small" [
         ./nixos/hosts/nas/hardware-configuration.nix
         ./nixos/common.nix
-        ./nixos/nspawns/ubuntu.nix
+        ./nixos/nspawns.nix
         ./nixos/net.nix
         ./nixos/web.nix
         ./nixos/auto-upgrade.nix
@@ -251,6 +251,13 @@
 
           services.my-wg = {
             enable = true;
+          };
+
+          services.my-nspawn = {
+            enable = true;
+            name = "tikv-nas";
+            net-id = 1;
+            id = 1;
           };
 
           powerManagement.cpuFreqGovernor = "schedutil";
@@ -425,6 +432,7 @@
         ./nixos/hosts/nixos-macmini/hardware-configuration.nix
         ./nixos/common.nix
         ./nixos/net.nix
+        ./nixos/nspawns.nix
         ./nixos/wireguard.nix
         ./nixos/auto-upgrade.nix
         ({pkgs, config, lib, ... }:{
@@ -446,6 +454,13 @@
 
           services.my-wg = {
             enable = true;
+          };
+
+          services.my-nspawn = {
+            enable = true;
+            name = "tikv-macmini";
+            net-id = 2;
+            id = 1;
           };
 
           boot.zfs.requestEncryptionCredentials = false; # don't ask for password when the machine is headless
