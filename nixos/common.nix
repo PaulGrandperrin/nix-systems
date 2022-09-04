@@ -213,8 +213,12 @@
   };
 
   boot.kernel.sysctl = {
-    "kernel.sysrq" = 1;
+   "kernel.sysrq" = 1; # magic keyboard shortcuts
+   "vm.nr_hugepages" = "0"; # disabled is better for DBs
+   #"vm.overcommit_memory" = "1";
   };
+
+  services.irqbalance.enable = true;
 
   programs.sysdig.enable = true;
 
@@ -287,6 +291,7 @@
     priority = 5;
     memoryPercent = 200;
   };
+
 
   # List services that you want to enable:
 

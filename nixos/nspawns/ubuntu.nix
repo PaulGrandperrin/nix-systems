@@ -1,6 +1,11 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 {
   networking.firewall.trustedInterfaces =  [ "ve-ubuntu" ];
+
+  # nix run nixpkgs#debootstrap -- --include=systemd-container --components=main,universe jammy /var/lib/machines/ubuntu http://archive.ubuntu.com/ubuntu/
+  # systemctl enable/start systemd-networkd
+  # systemctl enable/start systemd-resolved
+
   systemd.nspawn."ubuntu" = {
     enable = true;
     #wantedBy = [ "multi-user.target" ]; # doesn't work https://github.com/NixOS/nixpkgs/issues/189499
