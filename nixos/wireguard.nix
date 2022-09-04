@@ -105,6 +105,10 @@ in {
             IPForward = mkIf (my_conf.forwardToAll or false) "ipv4";
             IPMasquerade = mkIf (my_conf.natToInternet or false) "ipv4";
           };
+          linkConfig = {
+            "ActivationPolicy" = "up";
+            "RequiredForOnline" = "no";
+          };
           routes = [{
             routeConfig = {
               Destination = "10.0.0.0/16";
