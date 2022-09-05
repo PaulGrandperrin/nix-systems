@@ -65,11 +65,11 @@ in {
             ];
             reservations = [
               {
-                hw-address = "4e:56:49:a0:4f:07";
+                hw-address = "22:ec:95:92:f5:84";
                 ip-address = "10.0.1.1";
               }
               {
-                hw-address = "5e:e2:b1:50:0a:2d";
+                hw-address = "96:29:82:e8:5b:6a";
                 ip-address = "10.0.2.1";
               }
             ];
