@@ -51,12 +51,16 @@ in {
         subnet4 = [
           {
             pools = [ { pool = "10.0.${toString cfg.net-id}.100 - 10.0.${toString cfg.net-id}.200"; } ];
-            subnet = "10.0.${toString cfg.net-id}.0/24";
-            #interface = "br-my-nspawn";
+            subnet = "10.0.0.0/16"; # should be a /24, but makes config easier that way with reservations
+            # interface = "br-my-nspawn"; # FIXME needed?
             reservations = [
               {
                 hw-address = "4e:56:49:a0:4f:07";
-                ip-address = "10.0.${toString cfg.net-id}.${toString cfg.id}";
+                ip-address = "10.0.1.1";
+              }
+              {
+                hw-address = "5e:e2:b1:50:0a:2d";
+                ip-address = "10.0.2.1";
               }
             ];
           }
