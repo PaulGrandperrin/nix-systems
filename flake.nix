@@ -255,7 +255,7 @@
 
           services.my-nspawn = {
             enable = true;
-            name = "tikv-nas";
+            name = "tidb-nas";
             net-id = 1;
             id = 1;
           };
@@ -458,7 +458,7 @@
 
           services.my-nspawn = {
             enable = true;
-            name = "tikv-macmini";
+            name = "tidb-macmini";
             net-id = 2;
             id = 1;
           };
