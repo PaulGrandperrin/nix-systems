@@ -1,7 +1,8 @@
 { lib, pkgs, config, ... }:
 with lib;                      
 let
-  cfg = config;
+  cfg = config.services.my-wg;
+  outside-config = config;
   peers = [
     # each peer get assigned an IP on the VPN's network (10.0.0.$id) and a network (10.0.$id.0/24)
     {
@@ -46,9 +47,9 @@ in {
   };
 
   config = let
-    my_hostname = cfg.networking.hostName;
+    my_hostname = config.networking.hostName;
     my_conf = head (builtins.filter (e: e.hostname == my_hostname) peers);
-  in mkIf cfg.services.my-wg.enable {
+  in mkIf cfg.enable {
     # add domains in /etc/hosts
     networking.extraHosts = concatStringsSep "\n" (map (p: "10.0.0.${toString p.id} ${p.hostname}.wg") peers);
 
@@ -57,7 +58,7 @@ in {
     
     # install
     environment.systemPackages = [ pkgs.wireguard-tools ];
-    boot.extraModulePackages = optional (versionOlder cfg.boot.kernelPackages.kernel.version "5.6") cfg.boot.kernelPackages.wireguard;
+    boot.extraModulePackages = optional (versionOlder outside-config.boot.kernelPackages.kernel.version "5.6") outside-config.boot.kernelPackages.wireguard;
 
     # boot.kernel.sysctl."net.ipv4.conf.wg0.forwarding" = mkIf (my_conf.forwardToAll or false) 1; # already done in systemd-network config
 
@@ -81,7 +82,7 @@ in {
             Kind = "wireguard";
           };
           wireguardConfig = { 
-            PrivateKeyFile = cfg.sops.secrets.wg-private-key.path;
+            PrivateKeyFile = outside-config.sops.secrets.wg-private-key.path;
             ListenPort = mkIf (my_conf ? endPoint) my_conf.endPoint.port; # if we are an endPoint
           };
 
