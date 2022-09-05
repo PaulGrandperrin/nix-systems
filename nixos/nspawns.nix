@@ -52,7 +52,17 @@ in {
           {
             pools = [ { pool = "10.0.${toString cfg.net-id}.100 - 10.0.${toString cfg.net-id}.200"; } ];
             subnet = "10.0.0.0/16"; # should be a /24, but makes config easier that way with reservations
-            # interface = "br-my-nspawn"; # FIXME needed?
+            interface = "br-my-nspawn";
+            option-data = [
+              {
+                name = "routers";
+                data = "10.0.${toString cfg.net-id}.254";
+              }
+              {
+                name = "domain-name-servers";
+                data = "9.9.9.11, 149.112.112.11";
+              }
+            ];
             reservations = [
               {
                 hw-address = "4e:56:49:a0:4f:07";
