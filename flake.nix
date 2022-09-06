@@ -35,7 +35,7 @@
 
     home-manager-22-05 = {
       url = "github:nix-community/home-manager/release-22.05";
-      inputs.nixpkgs.follows = ""; # doesn't matter because we use home-manager.useGlobalPkgs = true
+      inputs.nixpkgs.follows = "nixos-22-05"; # not needed by NixOS' module thanks to `home-manager.useGlobalPkgs = true` but needed by the unpriviledged module
     };
 
     nix-ld = {
@@ -119,7 +119,7 @@
           user.shell = "${pkgs.fish}/bin/fish";
           nix.package = pkgs.nixFlakes;
           home-manager = {
-            extraSpecialArgs = {inherit system inputs; mainFlake = inputs.nix-on-droid.inputs.nixpkgs; installDesktopApp = false; is_unstable = true;};
+            extraSpecialArgs = {inherit system inputs; mainFlake = inputs.nix-on-droid.inputs.nixpkgs; is_nixos = false;};
             config = {pkgs, lib, config, ...}: {
               imports = [./home-manager/cmdline.nix];
               nixpkgs.overlays = getOverlays system;
@@ -146,28 +146,32 @@
         system = "x86_64-linux";
         homeDirectory = "/home/paulg";
         username = "paulg";
-        extraSpecialArgs = {inherit system inputs; mainFlake = inputs.home-manager-22-05.inputs.nixpkgs; installDesktopApp = false; is_unstable = true;};
+        stateVersion = "22.05";
+        pkgs = (import inputs.nixos-22-05 {
+          # https://github.com/nix-community/home-manager/issues/2954
+          # https://github.com/nix-community/home-manager/pull/2720
+          inherit system;
+          overlays = getOverlays system;
+          config.allowUnfree = true;
+        });
+        extraSpecialArgs = {inherit system inputs; mainFlake = inputs.home-manager-22-05.inputs.nixpkgs; is_nixos = false;};
         configuration = { config, pkgs, lib, ... }: {
           imports = [ ./home-manager/cmdline.nix ./home-manager/desktop.nix];
-          nixpkgs.overlays = getOverlays system;
-          nixpkgs.config.allowUnfree = true;
-          home.packages = [
-            (pkgs.writeShellScriptBin "nixGLNvidia" ''$(NIX_PATH=nixpkgs=${inputs.nixos} nix-build ${inputs.nixgl} -A auto.nixGLNvidia --no-out-link)/bin/* "$@"'')
-            (pkgs.writeShellScriptBin "nixGLIntel" ''$(NIX_PATH=nixpkgs=${inputs.nixos} nix-build ${inputs.nixgl} -A nixGLIntel --no-out-link)/bin/* "$@"'')
-            (pkgs.writeShellScriptBin "nixVulkanIntel" ''$(NIX_PATH=nixpkgs=${inputs.nixos} nix-build ${inputs.nixgl} -A nixVulkanIntel --no-out-link)/bin/* "$@"'')
-            (pkgs.writeShellScriptBin "nixVulkanNvidia" ''$(NIX_PATH=nixpkgs=${inputs.nixos} nix-build ${inputs.nixgl} -A auto.nixVulkanNvidia --no-out-link)/bin/* "$@"'')
-          ];
         };
       };
       paulg-aarch64-darwin = inputs.home-manager-22-05.lib.homeManagerConfiguration rec {
         system = "aarch64-darwin";
         homeDirectory = "/Users/paulg";
         username = "paulg";
-        extraSpecialArgs = {inherit system inputs; mainFlake = inputs.home-manager-22-05.inputs.nixpkgs; installDesktopApp = false; is_unstable = true;};
+        stateVersion = "22.05";
+        pkgs = (import inputs.nixos-22-05 {
+          inherit system;
+          overlays = getOverlays system;
+          config.allowUnfree = true;
+        });
+        extraSpecialArgs = {inherit system inputs; mainFlake = inputs.home-manager-22-05.inputs.nixpkgs; is_nixos = false;};
         configuration = { config, pkgs, lib, ... }: {
           imports = [ ./home-manager/cmdline.nix ./home-manager/desktop.nix ./home-manager/desktop-macos.nix];
-          nixpkgs.overlays = getOverlays system;
-          nixpkgs.config.allowUnfree = true;
         };  
       };
     };

@@ -22,7 +22,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
 
   # systemd.user.systemctlPath = "/usr/bin/systemctl"; # TODO ?
   home = {
-    stateVersion = "21.11";
+    stateVersion = "22.05";
     enableNixpkgsReleaseCheck = true; # check for release version mismatch between Home Manager and Nixpkgs
     sessionVariables = { # only works for interactive shells, pam works for all kind of sessions
       EDITOR = "vim";
@@ -35,6 +35,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
     '';
 
     packages = with pkgs; [
+      config.nix.package
       gnugrep
       findutils
       which
@@ -77,7 +78,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
       choose
       tmate
       du-dust
-      fq # not yet available in 21.11
+      fq
       smartmontools
       wireguard-tools
       dogdns
