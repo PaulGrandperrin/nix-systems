@@ -121,7 +121,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
         name = "git";
         text = ''
           pname="$(ps -o comm= $PPID)"
-          if [ "$pname" == "nix" ] && [ "$5" == "add" ] && [ "$6" == "--force" ] && [ "$7" == "--intent-to-add" ] && [ "$8" == "--" ] && [ "$9" == "flake.lock" ]; then
+          if [ "$pname" == "nix" ] && [ "$#" -ge 9 ] && [ "$5" == "add" ] && [ "$6" == "--force" ] && [ "$7" == "--intent-to-add" ] && [ "$8" == "--" ] && [ "$9" == "flake.lock" ]; then
             exit 0
           else
             exec -a "$0" "${pkgs.git}/bin/git" "$@" 
