@@ -341,6 +341,7 @@
     #options = [ "nfsvers=4.2" ];
     options = [
       "proto=tcp"
+      "mountproto=tcp" # NFSv3 only
       "soft" # return errors to client when access is lost, instead of waiting indefinitely
       "softreval" # use cache even when access is lost
       "timeo=100"
