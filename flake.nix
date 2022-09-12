@@ -368,7 +368,7 @@
             enable = true;
             exports = ''
               /export        192.168.1.0/24(fsid=root,insecure,no_subtree_check,all_squash,ro) 10.0.0.0/24(fsid=root,insecure,no_subtree_check,all_squash,ro)
-              /export/public 192.168.1.0/24(insecure,no_subtree_check,all_squash,rw)           10.0.0.0/24(insecure,no_subtree_check,all_squash,rw)
+              /export/public 192.168.1.0/24(insecure,no_subtree_check,all_squash,no_wdelay,rw)           10.0.0.0/24(insecure,no_subtree_check,all_squash,no_wdelay,rw)
             '';
 
             # fixed rpc.statd port; for firewall

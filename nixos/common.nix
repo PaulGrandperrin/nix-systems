@@ -339,7 +339,20 @@
     device = "10.0.0.1:/export/public";
     fsType = "nfs";
     #options = [ "nfsvers=4.2" ];
-    options = [ "noauto" "x-systemd.automount" "_netdev" "x-systemd.mount-timeout=5" "x-systemd.idle-timeout=3600"];
+    options = [
+      "proto=tcp"
+      "soft" # return errors to client when access is lost, instead of waiting indefinitely
+      "softreval" # use cache even when access is lost
+      "timeo=100"
+      "noatime"
+      "nodiratime"
+      "noauto" # don't mount until needed
+      #"x-systemd.requires=example.service"
+      "x-systemd.automount" # mount when accessed
+      "_netdev" # wait for network
+      "x-systemd.mount-timeout=5"
+      "x-systemd.idle-timeout=3600"
+    ];
   };
 }
 
