@@ -90,6 +90,7 @@
 
           "apz.overscroll.enabled" = true;
           #"apz.gtk.kinetic_scroll.enabled" = false;
+          "widget.disable-swipe-tracker" = false;
           "widget.swipe.whole-page-pixel-size" = 800;
           "apz.fling_friction" = "0.006";
           "apz.gtk.pangesture.delta_mode" = 2;
