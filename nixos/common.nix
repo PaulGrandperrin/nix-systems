@@ -334,5 +334,12 @@
       };
     };
   };
+
+  fileSystems."/mnt/nixos-nas/public" = {
+    device = "10.0.0.1:/export/public";
+    fsType = "nfs";
+    #options = [ "nfsvers=4.2" ];
+    options = [ "noauto" "x-systemd.automount" "_netdev" "x-systemd.mount-timeout=5" "x-systemd.idle-timeout=3600"];
+  };
 }
 

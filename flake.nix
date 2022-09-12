@@ -367,8 +367,8 @@
           services.nfs.server = {
             enable = true;
             exports = ''
-              /export        192.168.1.0/24(fsid=root,insecure,no_subtree_check,all_squash,ro)
-              /export/public 192.168.1.0/24(insecure,no_subtree_check,all_squash,rw)
+              /export        192.168.1.0/24(fsid=root,insecure,no_subtree_check,all_squash,ro) 10.0.0.0/24(fsid=root,insecure,no_subtree_check,all_squash,ro)
+              /export/public 192.168.1.0/24(insecure,no_subtree_check,all_squash,rw)           10.0.0.0/24(insecure,no_subtree_check,all_squash,rw)
             '';
 
             # fixed rpc.statd port; for firewall
@@ -400,7 +400,7 @@
               security = user 
               use sendfile = yes
               # note: localhost is the ipv6 localhost ::1
-              hosts allow = 192.168. 127.0.0.1 localhost
+              hosts allow = 192.168. 10.0.0 127.0.0.1 localhost
               hosts deny = 0.0.0.0/0
               guest account = nobody
               map to guest = bad user
@@ -557,12 +557,6 @@
 
           boot.kernelParams = [ "mitigations=off" ];
 
-          fileSystems."/mnt/nixos-nas/public" = {
-            device = "192.168.1.1:/export/public";
-            fsType = "nfs";
-            #options = [ "nfsvers=4.2" ];
-            options = [ "noauto" "x-systemd.automount" "_netdev" "x-systemd.mount-timeout=5" "x-systemd.idle-timeout=3600"];
-          };
         })
       ]
       [
