@@ -23,7 +23,7 @@
 
   nix.extraOptions = ''
     experimental-features = nix-command flakes
-    auto-optimise-store = true
+    #auto-optimise-store = true # maybe causes build failures
   '';
 
   nix.gc = {
@@ -58,7 +58,6 @@
     #cleanup = "zap";
     global = {
       brewfile = true;
-      noLock = true;
     };
     taps = ["homebrew/bundle" "homebrew/cask" "homebrew/core"];
     brews = [];
