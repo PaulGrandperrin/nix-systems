@@ -142,7 +142,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
         intel-gpu-tools
         difftastic # FIXME broken on darwin
 
-        nix-alien
+        # nix-alien # recompiles python..
         nix-index
         nix-index-update
 
