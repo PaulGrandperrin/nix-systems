@@ -180,7 +180,11 @@
         vscode = pkgs.callPackage (inputs.nixos-unstable.outPath + "/pkgs/applications/editors/vscode/vscode.nix") {};
         vscode-fhsWithPackages = vscode.fhsWithPackages;
       in
-        vscode-fhsWithPackages(ps: with ps; [rnix-lsp bintools]); # vscodium version can't use synchronization. FHS version works better with internet's extensions
+      vscode-fhsWithPackages(ps: with ps; [
+        rnix-lsp
+        bintools
+        # jdk17_headless rustup # for Prusti
+      ]); # vscodium version can't use synchronization. FHS version works better with internet's extensions
       #userSettings = { # we use synchronization feature instead
       #  "editor.bracketPairColorization.enabled" = true;
       #  "editor.guides.bracketPairs" = "active";

@@ -297,16 +297,16 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
       enable = true;
       userName = "Paul Grandperrin";
       userEmail = "paul.grandperrin@gmail.com";
-      #delta = {
-      #  enable = true;
-      #  options = {
-      #    navigate = true;
-      #    line-numbers = true;
-      #    syntax-theme = "Dracula";
-      #  };
-      #};
-      difftastic = {
+      delta = {
         enable = true;
+        options = {
+          navigate = true;
+          line-numbers = true;
+          syntax-theme = "Dracula";
+        };
+      };
+      difftastic = {
+        #enable = true;
         background = "dark";
         #display = "side-by-side"; # "side-by-side", "side-by-side-show-both", "inline"
       };
