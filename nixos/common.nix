@@ -93,8 +93,14 @@
   hardware.enableAllFirmware = true;
   services.fwupd.enable = true;
 
-  documentation.enable = true;
-  documentation.nixos.enable = true;
+  documentation = {
+    man = {
+      man-db.enable = false;
+      mandoc.enable = true;
+    };
+    dev.enable = true;
+    #nixos.includeAllModules = true;
+  };
 
   # those machines can easily deploy closures to all nixos machines
   users.users.root.openssh.authorizedKeys.keys = [ 
