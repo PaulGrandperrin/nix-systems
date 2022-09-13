@@ -90,11 +90,12 @@
 
           "apz.overscroll.enabled" = true;
           #"apz.gtk.kinetic_scroll.enabled" = false;
-          "widget.disable-swipe-tracker" = false;
-          "widget.swipe.whole-page-pixel-size" = 800;
+          "widget.disable-swipe-tracker" = false; # scroll sideways in history
+          "widget.swipe.whole-page-pixel-size" = 800; # scroll sideway sensitivity
           "apz.fling_friction" = "0.006";
           "apz.gtk.pangesture.delta_mode" = 2;
           "apz.gtk.pangesture.pixel_delta_mode_multiplier" = 25;
+          "general.autoScroll" = true; # scroll with middle click
 
           "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
           "browser.newtabpage.activity-stream.showSponsored" = false;
