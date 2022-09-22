@@ -21,23 +21,23 @@
 
         # build firefox-bin version from nixos-22-05-small but with current dependencies
         path = inputs.nixos-22-05-small.outPath;
-        firefox-beta-bin-unwrapped = pkgs.callPackage ( # taken from pkgs/top-level/all-packages.nix
+        firefox-bin-unwrapped = pkgs.callPackage ( # taken from pkgs/top-level/all-packages.nix
           path + "/pkgs/applications/networking/browsers/firefox-bin"
         ) {
           inherit (pkgs.gnome) adwaita-icon-theme;
-          channel = "beta";
-          generated = import ( path + "/pkgs/applications/networking/browsers/firefox-bin/beta_sources.nix");
+          channel = "release";
+          generated = import ( path + "/pkgs/applications/networking/browsers/firefox-bin/release_sources.nix");
         };
-        firefox-beta-bin = pkgs.wrapFirefox firefox-beta-bin-unwrapped { # taken from pkgs/top-level/all-packages.nix
+        firefox-bin = pkgs.wrapFirefox firefox-bin-unwrapped { # taken from pkgs/top-level/all-packages.nix
           applicationName = "firefox";
-          pname = "firefox-beta-bin";
-          desktopName = "Firefox Beta";
+          pname = "firefox-bin";
+          desktopName = "Firefox";
         };
 
         # wrap it to run with Wayland
-        firefox-beta-bin-wayland = (pkgs.symlinkJoin {
-          name = "firefox-beta-bin-wayland";
-          paths = [ firefox-beta-bin ];
+        firefox-bin-wayland = (pkgs.symlinkJoin {
+          name = "firefox-bin-wayland";
+          paths = [ firefox-bin ];
           buildInputs = [ pkgs.makeWrapper ];
           postBuild = ''
             wrapProgram $out/bin/firefox \
@@ -46,7 +46,7 @@
         });
       in
       pkgs.emptyDirectory // { override = _: # ugly trick to make things work in HM
-        if is_nixos then firefox-beta-bin-wayland else pkgs.emptyDirectory; # trick to allow using HM config without installing nix version of Firefox
+        if is_nixos then firefox-bin-wayland else pkgs.emptyDirectory; # trick to allow using HM config without installing nix version of Firefox
       };
 
       extensions = with pkgs.nur.repos.rycee.firefox-addons; [
