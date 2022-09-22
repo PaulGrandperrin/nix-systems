@@ -222,6 +222,8 @@
    "kernel.sysrq" = 1; # magic keyboard shortcuts
    "vm.nr_hugepages" = "0"; # disabled is better for DBs
    #"vm.overcommit_memory" = "1";
+   "vm.swappiness" = 10; # default 60, between 0 to 100. 10 means try to not swap
+   "vm.vfs_cache_pressure" = 500; # default 100, recommended between 50 to 500. 500 means less file cache for less swapping
   };
 
   services.irqbalance.enable = true;
@@ -293,7 +295,7 @@
 
   zramSwap = {
     enable = true;
-    algorithm = "lz4";
+    algorithm = "lzo-rle";
     priority = 5;
     memoryPercent = 200;
   };
