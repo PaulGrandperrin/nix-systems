@@ -41,7 +41,8 @@
           buildInputs = [ pkgs.makeWrapper ];
           postBuild = ''
             wrapProgram $out/bin/firefox \
-              --set-default "MOZ_ENABLE_WAYLAND" "1"
+              --set-default "MOZ_ENABLE_WAYLAND" "1" \
+              --set-default "MOZ_USE_XINPUT2" "1"
           '';
         });
       in
@@ -91,7 +92,8 @@
           "apz.overscroll.enabled" = true;
           #"apz.gtk.kinetic_scroll.enabled" = false;
           "widget.disable-swipe-tracker" = false; # scroll sideways in history
-          "widget.swipe.whole-page-pixel-size" = 800; # scroll sideway sensitivity
+          "widget.swipe.whole-page-pixel-size" = 2000; # scroll sideway sensitivity
+          "general.smoothScroll.msdPhysics.enabled" = true; # better mouse wheel scroll
           "apz.fling_friction" = "0.006";
           "apz.gtk.pangesture.delta_mode" = 2;
           "apz.gtk.pangesture.pixel_delta_mode_multiplier" = 25;
