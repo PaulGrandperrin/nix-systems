@@ -6,8 +6,8 @@
     nixos-22-05.url = "github:NixOS/nixpkgs/nixos-22.05";
     nixos-22-05-small.url = "github:NixOS/nixpkgs/nixos-22.05-small";
     nixpkgs-22-05-darwin.url = "github:NixOS/nixpkgs/nixpkgs-22.05-darwin";
-
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixos-gnome.url = "github:NixOS/nixpkgs/gnome";
 
     nur.url = "github:nix-community/NUR";
 
@@ -35,6 +35,11 @@
 
     home-manager-22-05 = {
       url = "github:nix-community/home-manager/release-22.05";
+      inputs.nixpkgs.follows = "nixos-22-05"; # not needed by NixOS' module thanks to `home-manager.useGlobalPkgs = true` but needed by the unpriviledged module
+    };
+
+    home-manager-master = {
+      url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixos-22-05"; # not needed by NixOS' module thanks to `home-manager.useGlobalPkgs = true` but needed by the unpriviledged module
     };
 
@@ -209,17 +214,17 @@
     # Used with `nixos-rebuild --flake .#<hostname>`
     # nixosConfigurations."<hostname>".config.system.build.toplevel must be a derivation
     nixosConfigurations = let
-      mkNixosConf = arch: channel: nixos-modules: hm-modules: inputs.${channel}.lib.nixosSystem rec {
+      mkNixosConf = arch: nixos-channel: nixos-modules: hm-channel: hm-modules: inputs.${nixos-channel}.lib.nixosSystem rec {
         system = "${arch}-linux";
-        specialArgs = { inherit system inputs channel; }; #  passes inputs to modules
+        specialArgs = { inherit system inputs nixos-channel; }; #  passes inputs to modules
         extraModules = [ inputs.colmena.nixosModules.deploymentOptions ]; # from https://github.com/zhaofengli/colmena/issues/60#issuecomment-1047199551
         modules = [ 
           { nixpkgs = {overlays = getOverlays system; }; }
-          inputs.home-manager-22-05.nixosModules.home-manager
+          inputs.${hm-channel}.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true; # means that pkgs are taken from the nixosSystem and not from home-manager.inputs.nixpkgs
             home-manager.useUserPackages = true; # means that pkgs are installed at /etc/profiles instead of $HOME/.nix-profile
-            home-manager.extraSpecialArgs = {inherit system inputs;  mainFlake = inputs.${channel}; is_nixos = true;};
+            home-manager.extraSpecialArgs = {inherit system inputs;  mainFlake = inputs.${nixos-channel}; is_nixos = true;};
             home-manager.users.root  = { imports = hm-modules;};
             home-manager.users.paulg = { imports = hm-modules;};
           }
@@ -428,6 +433,7 @@
           };
         })
       ]
+      "home-manager-22-05"
       [
         ./home-manager/cmdline.nix
       ];
@@ -474,6 +480,7 @@
           #boot.kernelPackages = lib.mkForce pkgs.linuxPackages; # use stable kernel where broadcom_sta build
         })
       ]
+      "home-manager-22-05"
       [
         ./home-manager/cmdline.nix
       ];
@@ -522,6 +529,7 @@
           ];
         })
       ]
+      "home-manager-22-05"
       [
         ./home-manager/cmdline.nix
       ];
@@ -559,6 +567,7 @@
 
         })
       ]
+      "home-manager-22-05"
       [
         ./home-manager/cmdline.nix
         ./home-manager/desktop.nix
@@ -566,7 +575,7 @@
         ./home-manager/rust-stable.nix
       ];
 
-      nixos-macbook = mkNixosConf "x86_64" "nixos-22-05" [
+      nixos-macbook = mkNixosConf "x86_64" "nixos-gnome" [
         ./nixos/hosts/nixos-macbook/hardware-configuration.nix
         ./nixos/common.nix
         ./nixos/net.nix
@@ -635,6 +644,7 @@
           };
         })
       ]
+      "home-manager-master"
       [
         ./home-manager/cmdline.nix
         ./home-manager/desktop.nix

@@ -106,6 +106,28 @@
         "type": "github"
       }
     },
+    "home-manager-master": {
+      "inputs": {
+        "nixpkgs": [
+          "nixos-22-05"
+        ],
+        "utils": "utils"
+      },
+      "locked": {
+        "lastModified": 1663932797,
+        "narHash": "sha256-IH8ZBW99W2k7wKLS+Sat9HiKX1TPZjFTnsPizK5crok=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "de3758e31a3a1bc79d569f5deb5dac39791bf9b6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "ref": "master",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
     "nix-alien": {
       "inputs": {
         "flake-utils": "flake-utils_3",
@@ -175,7 +197,7 @@
     "nix-ld": {
       "inputs": {
         "nixpkgs": [],
-        "utils": "utils"
+        "utils": "utils_2"
       },
       "locked": {
         "lastModified": 1652641841,
@@ -302,6 +324,22 @@
         "type": "github"
       }
     },
+    "nixos-gnome": {
+      "locked": {
+        "lastModified": 1664020916,
+        "narHash": "sha256-9rS85AuC/UpdBF114YywAh6xzAO1fAuhxOPMdgWRVQ4=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "d717ca2f169ac54219335fa0f9f2a0159f1eb637",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "gnome",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixos-unstable": {
       "locked": {
         "lastModified": 1663761423,
@@ -379,6 +417,7 @@
         "colmena": "colmena",
         "flake-utils": "flake-utils_2",
         "home-manager-22-05": "home-manager-22-05",
+        "home-manager-master": "home-manager-master",
         "nix-alien": "nix-alien",
         "nix-darwin": "nix-darwin",
         "nix-ld": "nix-ld",
@@ -387,6 +426,7 @@
         "nixos-22-05": "nixos-22-05",
         "nixos-22-05-small": "nixos-22-05-small",
         "nixos-generators": "nixos-generators",
+        "nixos-gnome": "nixos-gnome",
         "nixos-unstable": "nixos-unstable",
         "nixpkgs-22-05-darwin": "nixpkgs-22-05-darwin",
         "nur": "nur",
@@ -437,6 +477,21 @@
       }
     },
     "utils": {
+      "locked": {
+        "lastModified": 1659877975,
+        "narHash": "sha256-zllb8aq3YO3h8B/U0/J1WBgAL8EX5yWf5pMj3G0NAmc=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "c0e246b9b83f637f4681389ecabcb2681b4f3af0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "utils_2": {
       "locked": {
         "lastModified": 1652372896,
         "narHash": "sha256-lURGussfF3mGrFPQT3zgW7+RC0pBhbHzco0C7I+ilow=",
