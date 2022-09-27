@@ -34,23 +34,26 @@
   # Hardening
   # TODO: noexec mounts, tmpfs...
   environment.defaultPackages = lib.mkForce [];
-  nix.allowedUsers = [ "@wheel" "nix-serve" ];
 
-  nix.gc = {
-    automatic = true;
-    persistent = true;
-    dates = "05:00:00";
-    options = "--delete-older-than 7d";
+  nix = {
+    settings = {
+      allowed-users = [ "@wheel" "nix-serve" ];
+      auto-optimise-store = true;
+      #trusted-users = ["@wheel"];
+    };
+    gc = {
+      automatic = true;
+      persistent = true;
+      dates = "05:00:00";
+      options = "--delete-older-than 7d";
+    };
   };
 
-  nix.autoOptimiseStore = true;
   nix.optimise = {
     automatic = true;
     dates = ["06:00:00"];
   };
   
-  #nix.trustedUsers = ["@wheel"];
-
   security = {
     sudo = {
       enable = true; # TODO: remove when we are sure doas work properly
