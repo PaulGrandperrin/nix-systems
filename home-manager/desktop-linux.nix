@@ -190,18 +190,19 @@
       #  "editor.guides.bracketPairs" = "active";
       #  "editor.fontFamily" =  "'FiraCode Nerd Font Mono', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'";
       #  "terminal.integrated.fontFamily" = "'FiraCode Nerd Font Mono'";
+      #  "rust-analyzer.server.path" = "/etc/profiles/per-user/paulg/bin/rust-analyzer";
       #};
-      extensions = with pkgs.vscode-extensions; [
-        #matklad.rust-analyzer # already defined in rust module
-        tamasfe.even-better-toml
-        serayuzgur.crates
-        vadimcn.vscode-lldb
-        #jscearcy.rust-doc-viewer
-        usernamehw.errorlens
-        eamodio.gitlens
-        #swellaby.vscode-rust-test-adapter
-        #sidp.strict-whitespace
-      ];
+      #extensions = with pkgs.vscode-extensions; [
+      #  #matklad.rust-analyzer # already defined in rust module
+      #  tamasfe.even-better-toml
+      #  serayuzgur.crates
+      #  vadimcn.vscode-lldb
+      #  #jscearcy.rust-doc-viewer
+      #  usernamehw.errorlens
+      #  eamodio.gitlens
+      #  #swellaby.vscode-rust-test-adapter
+      #  #sidp.strict-whitespace
+      #];
     };
     terminator = {
       enable = true;

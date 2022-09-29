@@ -8,10 +8,10 @@
   #  targets = ["wasm32-unknown-emscripten"];
   #});
 
-  my-rust = pkgs.rust-bin.nightly."2022-05-28".default.override {
+  my-rust = pkgs.rust-bin.nightly."2022-09-28".default.override {
     extensions = [
       "rust-src" # needed by rust-analyzer vscode extension when installed through internet
-      "rust-analyzer-preview"
+      "rust-analyzer"
     ];
     targets = ["wasm32-unknown-emscripten"];
   };
@@ -20,13 +20,13 @@ in {
   home.packages = with pkgs; [
     my-rust
   ];
-  programs = {
-    vscode = {
-      extensions = [
-        (inputs.nixos-22-05.legacyPackages.${system}.vscode-extensions.matklad.rust-analyzer.override {
-          rust-analyzer = my-rust;
-        })
-      ];
-    };
-  };
+  #programs = {
+  #  vscode = {
+  #    extensions = [
+  #      (inputs.nixos-22-05.legacyPackages.${system}.vscode-extensions.matklad.rust-analyzer.override {
+  #        rust-analyzer = my-rust;
+  #      })
+  #    ];
+  #  };
+  #};
 }
