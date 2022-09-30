@@ -12,7 +12,7 @@
     enable = true;
     setSendmail = true;
     serverConfiguration = ''
-      #listen on localhost
+      listen on localhost
       table secrets file:/${config.sops.secrets.smtpd.path}
       table aliases { "@" = "paul.grandperrin+${config.networking.hostName}@gmail.com" } # catch all
       action "forward" forward-only virtual <aliases> # forward all local mails

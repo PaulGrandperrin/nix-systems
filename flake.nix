@@ -242,6 +242,7 @@
         ./nixos/auto-upgrade.nix
         ./nixos/wireguard.nix
         ./nixos/headless.nix
+        ./nixos/modules/observability.nix
         ({config, lib, ... }:{
           # colmena options
           deployment = {
