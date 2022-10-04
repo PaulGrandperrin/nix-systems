@@ -5,22 +5,33 @@ let
   pkgs-unstable = inputs.nixos-unstable.legacyPackages.${system};
 in
 {
+  disabledModules = [
+    "services/monitoring/grafana.nix"
+    "services/monitoring/prometheus/default.nix"
+    "services/logging/promtail.nix"
+    "services/monitoring/loki.nix"
+  ];
 
   imports = [
     "${inputs.nixos-unstable.outPath}/nixos/modules/services/tracing/tempo.nix"
+    "${inputs.nixos-unstable.outPath}/nixos/modules/services/monitoring/grafana.nix"
+    "${inputs.nixos-unstable.outPath}/nixos/modules/services/monitoring/prometheus/default.nix"
+    "${inputs.nixos-unstable.outPath}/nixos/modules/services/logging/promtail.nix"
+    "${inputs.nixos-unstable.outPath}/nixos/modules/services/monitoring/loki.nix"
   ];
 
   nixpkgs.overlays = [(final: prev: { 
     tempo = pkgs-unstable.tempo;
     promtail = pkgs-unstable.promtail;
+    prometheus = pkgs-unstable.prometheus;
     grafana-loki = pkgs-unstable.grafana-loki;
+    grafana = pkgs-unstable.grafana;
   })]; 
 
   services = {
     prometheus = {
       enable = true;
       port = 9090; # default
-      package = pkgs-unstable.prometheus;
 
       exporters = {
         node = {
@@ -209,7 +220,6 @@ in
       port = 3000; # default
       domain = "nixos-nas.wg";
       rootUrl = "http://nixos-nas.wg:3000/";
-      package = pkgs-unstable.grafana;
 
       smtp = {
         enable = true;
@@ -219,30 +229,29 @@ in
         enable = true;
         datasources = [
           {
-            #uid = "metrics"; # in 22.11
+            uid = "metrics"; # in 22.11
             name = "Metrics";
             type = "prometheus";
             url = "http://localhost:${toString config.services.prometheus.port}";
             isDefault = true;
           }
           {
-            #uid = "logs"; # in 22.11
+            uid = "logs"; # in 22.11
             name = "Logs";
             type = "loki";
             url = "http://localhost:${toString config.services.loki.configuration.server.http_listen_port}";
           }
           {
-            #uid = "traces"; # in 22.11
+            uid = "traces"; # in 22.11
             name = "Traces";
             type = "tempo";
             url = "http://localhost:${toString config.services.tempo.settings.server.http_listen_port}";
             jsonData = {
-              # TODO in 22.11
-              #tracesToLogs.datasourceUid = "logs";
-              #tracesToMetrics.datasourceUid = "metrics";
-              #serviceMap.datasourceUid = "metrics";
-              #nodeGraph.enable = true;
-              #lokiSearch.datasourceUid = "logs";
+              tracesToLogs.datasourceUid = "logs";
+              tracesToMetrics.datasourceUid = "metrics";
+              serviceMap.datasourceUid = "metrics";
+              nodeGraph.enabled = true;
+              lokiSearch.datasourceUid = "logs";
             };
           }
         ];
