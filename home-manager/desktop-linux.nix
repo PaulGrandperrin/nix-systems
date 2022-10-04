@@ -179,8 +179,17 @@
       package = let
         vscode = pkgs.callPackage (inputs.nixos-unstable.outPath + "/pkgs/applications/editors/vscode/vscode.nix") {};
         vscode-fhsWithPackages = vscode.fhsWithPackages;
+        vscode-wayland = a: pkgs.symlinkJoin {
+          name = "code";
+          paths = [ (vscode-fhsWithPackages a) ];
+          buildInputs = [ pkgs.makeWrapper ];
+          postBuild = ''
+            wrapProgram $out/bin/code \
+              --set-default NIXOS_OZONE_WL 1
+          '';
+        };
       in
-      vscode-fhsWithPackages(ps: with ps; [
+      vscode-wayland(ps: with ps; [
         rnix-lsp
         bintools
         # jdk17_headless rustup # for Prusti
