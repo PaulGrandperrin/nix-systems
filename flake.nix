@@ -238,12 +238,12 @@
         ./nixos/common.nix
         ./nixos/nspawns.nix
         ./nixos/net.nix
-        ./nixos/web.nix
+        ./nixos/modules/web.nix
         ./nixos/auto-upgrade.nix
         ./nixos/wireguard.nix
         ./nixos/headless.nix
         ./nixos/modules/observability.nix
-        ({config, lib, ... }:{
+        ({pkgs, config, lib, ... }:{
           # colmena options
           deployment = {
             allowLocalDeployment = true;
@@ -269,6 +269,34 @@
             net-id = 1;
             id = 1;
           };
+
+          # web
+          sops.secrets."web-nas.paulg.fr" = {
+            sopsFile = ./secrets/nixos-nas.yaml;
+            mode = "0440";
+            owner = "nginx";
+            group = "nginx";
+            restartUnits = [ "nginx.service" ];
+          };
+          security.acme.certs."nas.paulg.fr".email = "paul.grandperrin@gmail.com";
+          services.nginx = {
+            additionalModules = [ pkgs.nginxModules.fancyindex ];
+            virtualHosts."nas.paulg.fr" = {
+              enableACME = true;
+              forceSSL = true;
+              default = true;
+              root = "/export/public/movies";
+              locations."/" = {
+                basicAuthFile = config.sops.secrets."web-nas.paulg.fr".path;
+                extraConfig = ''
+                  #autoindex on;
+                  fancyindex on;              # Enable fancy indexes.
+                  fancyindex_exact_size off;  # Output human-readable file sizes.
+                '';
+              };
+            };
+          };
+
 
           powerManagement.cpuFreqGovernor = "schedutil";
           boot.kernelModules = ["coretemp" "it87"]; # detected by sensors-detect

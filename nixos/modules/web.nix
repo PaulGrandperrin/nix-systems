@@ -1,19 +1,9 @@
 { config, pkgs, ... }: {
   networking.firewall.allowedTCPPorts = [ 80 443 ];
   security.acme.acceptTerms = true;
-  security.acme.certs."nas.paulg.fr".email = "paul.grandperrin@gmail.com";
-
-  sops.secrets."web-nas.paulg.fr" = {
-    sopsFile = ../secrets/nixos-nas.yaml;
-    mode = "0440";
-    owner = "nginx";
-    group = "nginx";
-    restartUnits = [ "nginx.service" ];
-  };
   
   services.nginx = {
     enable = true;
-    additionalModules = [ pkgs.nginxModules.fancyindex ];
   
     # https://observatory.mozilla.org/
     # https://www.ssllabs.com/ssltest/index.html
@@ -38,8 +28,7 @@
       }
       add_header Strict-Transport-Security $hsts_header;
   
-      # Enable CSP for your services.
-      add_header Content-Security-Policy "default-src 'none'; connect-src 'self'; font-src 'self' data: https://*.wp.com https://fonts.gstatic.com; form-action 'self'; frame-src 'self' https://louis.grandperrin.fr https://*.wp.com https://wp-themes.com https://www.youtube.com; img-src 'self' data: https://*.wp.com https://*.w.org https://secure.gravatar.com; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://*.wp.com; style-src 'self' 'unsafe-inline' https://code.jquery.com https://fonts.googleapis.com https://*.wp.com;" always;
+      # Enable CSP for your services: to be done per virtualhost
   
       # Minimize information leaked to other domains
       add_header 'Referrer-Policy' 'strict-origin-when-cross-origin' always;
@@ -70,20 +59,6 @@
     '';
   
     clientMaxBodySize = "100m";
-    virtualHosts."nas.paulg.fr" = {
-      enableACME = true;
-      forceSSL = true;
-      default = true;
-      root = "/export/public/movies";
-      locations."/" = {
-        basicAuthFile = config.sops.secrets."web-nas.paulg.fr".path;
-        extraConfig = ''
-          #autoindex on;
-          fancyindex on;              # Enable fancy indexes.
-          fancyindex_exact_size off;  # Output human-readable file sizes.
-        '';
-      };
-     };
    };
   
   }

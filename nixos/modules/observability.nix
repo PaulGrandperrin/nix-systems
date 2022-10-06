@@ -13,6 +13,7 @@ in
   ];
 
   imports = [
+    ./web.nix
     "${inputs.nixos-unstable.outPath}/nixos/modules/services/tracing/tempo.nix"
     "${inputs.nixos-unstable.outPath}/nixos/modules/services/monitoring/grafana.nix"
     "${inputs.nixos-unstable.outPath}/nixos/modules/services/monitoring/prometheus/default.nix"
@@ -218,8 +219,15 @@ in
       enable = true;
       addr = "0.0.0.0";
       port = 3000; # default
-      domain = "nixos-nas.wg";
-      rootUrl = "http://nixos-nas.wg:3000/";
+      domain = "observability.cachou.org";
+      rootUrl = "https://observability.cachou.org/grafana/";
+
+
+      extraOptions = {
+        AUTH_ANONYMOUS_ENABLED = "true";
+        AUTH_ANONYMOUS_ORG_ROLE = "Admin";
+        AUTH_BASIC_ENABLED = "false";
+      };
 
       smtp = {
         enable = true;
@@ -257,16 +265,30 @@ in
         ];
       };
     };
+  };
 
-    #nginx.virtualHosts."observability.cachou.org" = {
-    #  addSSL = true;
-    #  enableACME = true;
-    #  locations."/grafana/" = {
-    #      proxyPass = "http://localhost:${toString config.services.grafana.port}";
-    #      proxyWebsockets = true;
-    #  };
-    #};
+  security.acme.acceptTerms = true;
+  security.acme.certs."observability.cachou.org".email = "paul.grandperrin@gmail.com";
 
+  sops.secrets."web-observability.cachou.org" = {
+    sopsFile = ../../secrets/nixos-nas.yaml;
+    mode = "0440";
+    owner = "nginx";
+    group = "nginx";
+    restartUnits = [ "nginx.service" ];
+  };
+
+  services.nginx.virtualHosts."observability.cachou.org" = {
+    enableACME = true;
+    forceSSL = true;
+    locations."/grafana/" = {
+        basicAuthFile = config.sops.secrets."web-observability.cachou.org".path;
+        proxyPass = "http://localhost:${toString config.services.grafana.port}/";
+        proxyWebsockets = true;
+        #extraConfig = ''
+        #  proxy_set_header Host $host;
+        #'';
+    };
   };
 
 
