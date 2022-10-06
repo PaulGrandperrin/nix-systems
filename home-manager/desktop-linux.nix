@@ -1,4 +1,4 @@
-{pkgs, inputs, lib, config, ...}: lib.mkIf (config.home.username != "root") {
+{pkgs, inputs, lib, config, system, ...}: lib.mkIf (config.home.username != "root") {
   targets.genericLinux.enable = true;
   home = {
     packages = with pkgs; [
@@ -13,7 +13,15 @@
       waydroid
       gimp
       easyeffects
-      signal-desktop
+      (symlinkJoin {
+        name = "signal-desktop";
+        paths = [ (callPackage (inputs.nixos-unstable.outPath + "/pkgs/applications/networking/instant-messengers/signal-desktop/default.nix") {}) ];
+        buildInputs = [ pkgs.makeWrapper ];
+        postBuild = ''
+          wrapProgram $out/bin/signal-desktop \
+            --set-default NIXOS_OZONE_WL 1
+        '';
+      })
       discord
       (nerdfonts.override { fonts = [ "FiraCode" ]; })
       deluge
