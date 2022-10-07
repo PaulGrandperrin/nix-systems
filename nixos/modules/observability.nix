@@ -39,6 +39,24 @@ in
           enable = true;
           enabledCollectors = [ "systemd" ];
         };
+        #sql = {
+        #  enable = true;
+        #  configuration.jobs = {
+        #    test = {
+        #      
+        #    };
+        #  };
+        #};
+        #systemd
+        #sql
+        #smartctl
+        #script
+        #nginx
+        #nginxlog
+        #minio
+        #influxdb
+        #wireguard
+        
       };
 
       scrapeConfigs = [
