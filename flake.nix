@@ -335,6 +335,10 @@
               device = "/IronWolf12TB/clear";
               options = [ "bind" ];
             };
+            "/export/encrypted" = {
+              device = "/IronWolf12TB/encrypted";
+              options = [ "bind" ];
+            };
           };
 
           sops.secrets."cache-nas.paulg.fr-privkey.pem" = {
@@ -400,9 +404,14 @@
 
           services.nfs.server = {
             enable = true;
-            exports = ''
-              /export        192.168.1.0/24(fsid=root,insecure,no_subtree_check,all_squash,ro) 10.0.0.0/24(fsid=root,insecure,no_subtree_check,all_squash,ro)
-              /export/public 192.168.1.0/24(insecure,no_subtree_check,all_squash,no_wdelay,rw)           10.0.0.0/24(insecure,no_subtree_check,all_squash,no_wdelay,rw)
+            exports = let
+              root_options      = "fsid=root,insecure,no_subtree_check,all_squash,ro";
+              public_options    = "insecure,no_subtree_check,all_squash,no_wdelay,rw";
+              encrypted_options = "insecure,no_subtree_check,all_squash,no_wdelay,rw,anonuid=${toString config.users.users.paulg.uid},anongid=${toString config.users.groups.${config.users.users.paulg.group}.gid}";
+            in ''
+              /export           10.0.0.0/24(${root_options})   192.168.1.0/24(${root_options})
+              /export/public    10.0.0.0/24(${public_options}) 192.168.1.0/24(${public_options})
+              /export/encrypted 10.0.0.4(${encrypted_options}) 10.0.0.5(${encrypted_options}) # nixos-nas and nixos-macbook
             '';
 
             # fixed rpc.statd port; for firewall
