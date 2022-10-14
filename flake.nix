@@ -7,7 +7,6 @@
     nixos-22-05-small.url = "github:NixOS/nixpkgs/nixos-22.05-small";
     nixpkgs-22-05-darwin.url = "github:NixOS/nixpkgs/nixpkgs-22.05-darwin";
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixos-gnome.url = "github:NixOS/nixpkgs/gnome";
 
     nur.url = "github:nix-community/NUR";
 
@@ -614,7 +613,7 @@
         ./home-manager/modules/wine.nix
       ];
 
-      nixos-macbook = mkNixosConf "x86_64" "nixos-gnome" [
+      nixos-macbook = mkNixosConf "x86_64" "nixos-unstable" [
         ./nixos/hosts/nixos-macbook/hardware-configuration.nix
         ./nixos/common.nix
         ./nixos/net.nix
