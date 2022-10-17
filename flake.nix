@@ -571,7 +571,7 @@
         ./home-manager/cmdline.nix
       ];
 
-      nixos-xps = mkNixosConf "x86_64" "nixos-22-05" [
+      nixos-xps = mkNixosConf "x86_64" "nixos-unstable" [
         ./nixos/hosts/xps/hardware-configuration.nix
         ./nixos/common.nix
         ./nixos/net.nix
@@ -604,7 +604,7 @@
 
         })
       ]
-      "home-manager-22-05"
+      "home-manager-master"
       [
         ./home-manager/cmdline.nix
         ./home-manager/desktop.nix
