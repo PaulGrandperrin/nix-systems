@@ -4,11 +4,11 @@
     videoDrivers = ["nvidia" ];
 
     # Fix screen tearing by forcing full composition pipeline
-    screenSection = ''
-      Option         "metamodes" "nvidia-auto-select +0+0 {ForceFullCompositionPipeline=On}"
-      Option         "AllowIndirectGLXProtocol" "off"
-      Option         "TripleBuffer" "on"
-    '';
+    #screenSection = ''
+    #  Option         "metamodes" "nvidia-auto-select +0+0 {ForceFullCompositionPipeline=On}"
+    #  Option         "AllowIndirectGLXProtocol" "off"
+    #  Option         "TripleBuffer" "on"
+    #'';
   };
 
   hardware.nvidia = {
