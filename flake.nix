@@ -600,8 +600,6 @@
             enable = true;
           };
 
-          boot.kernelParams = [ "mitigations=off" ];
-
         })
       ]
       "home-manager-master"

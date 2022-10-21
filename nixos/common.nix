@@ -338,6 +338,18 @@
     };
   };
 
+  specialisation = {
+    "Mitigations_Off" = {
+      inheritParentConfig = true; # defaults to true
+      configuration = {
+        system.nixos.tags = [ "mitigations_off" ];
+        boot.kernelParams = [ "mitigations=off" ];
+      };
+    };
+  };
+
+
+
   systemd.targets.machines.enable = true;
 
   services.udisks2.settings = { # fix NTFS mount, from https://wiki.archlinux.org/title/NTFS#udisks_support
