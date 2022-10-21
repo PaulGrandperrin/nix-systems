@@ -7,6 +7,10 @@
     flags = [ "--update-input" "nixos-22-05" "--update-input" "nixos-22-05-small" "--update-input" "nur" "--update-input" "flake-utils" "--no-write-lock-file" ];
     dates = "04:00:00";
     allowReboot = true;
+    rebootWindow = {
+      lower = "02:00";
+      upper = "03:00";
+    }
   };
 
 }
