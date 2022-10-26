@@ -82,8 +82,13 @@
       pkgs-22-05 = inputs.nixos-22-05.legacyPackages.${system};
       #unstable-pkgs = inputs.nixos-unstable.legacyPackages.${system};
       #unstable-overlay = final: prev: { unstable = unstable-pkgs; };
+      openssl_1_1-overlay = final: prev: { # avoid openssl 3.0 CVE 
+        nginxStable = prev.nginxStable.override {
+          openssl = prev.openssl_1_1;
+        };
+      };
     in
-      [ inputs.nur.overlay inputs.rust-overlay.overlay inputs.nix-alien.overlay];
+      [ inputs.nur.overlay inputs.rust-overlay.overlay inputs.nix-alien.overlay openssl_1_1-overlay ];
   in {
     colmena = {
       meta.nixpkgs = inputs.nixos-22-05.legacyPackages.x86_64-linux;
