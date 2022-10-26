@@ -237,12 +237,15 @@ in
 
     grafana = {
       enable = true;
-      addr = "0.0.0.0";
-      domain = "observability.cachou.org";
-      rootUrl = "https://observability.cachou.org/grafana/";
 
       settings = {
-        server.http_port = 3000; # default
+        server = {
+          http_addr = "0.0.0.0";
+          http_port = 3000; # default
+          domain = "observability.cachou.org";
+          rootUrl = "https://observability.cachou.org/grafana/";
+        };
+        smtp.enable = true;
         "auth.anonymous" = {
             enabled = true;
             org_role = "Admin";
@@ -250,28 +253,24 @@ in
         "auth.basic".enabled = false;
       };
 
-      smtp = {
-        enable = true;
-      };
-
       provision = {
         enable = true;
-        datasources = [
+        datasources.settings.datasources = [
           {
-            uid = "metrics"; # in 22.11
+            uid = "metrics";
             name = "Metrics";
             type = "prometheus";
             url = "http://localhost:${toString config.services.prometheus.port}";
             isDefault = true;
           }
           {
-            uid = "logs"; # in 22.11
+            uid = "logs";
             name = "Logs";
             type = "loki";
             url = "http://localhost:${toString config.services.loki.configuration.server.http_listen_port}";
           }
           {
-            uid = "traces"; # in 22.11
+            uid = "traces";
             name = "Traces";
             type = "tempo";
             url = "http://localhost:${toString config.services.tempo.settings.server.http_listen_port}";
