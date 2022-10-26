@@ -7,6 +7,7 @@ in
 {
   disabledModules = [
     "services/monitoring/grafana.nix"
+    "services/monitoring/grafana-image-renderer.nix"
     "services/monitoring/prometheus/default.nix"
     "services/logging/promtail.nix"
     "services/monitoring/loki.nix"
@@ -16,6 +17,7 @@ in
     ./web.nix
     "${inputs.nixos-unstable.outPath}/nixos/modules/services/tracing/tempo.nix"
     "${inputs.nixos-unstable.outPath}/nixos/modules/services/monitoring/grafana.nix"
+    "${inputs.nixos-unstable.outPath}/nixos/modules/services/monitoring/grafana-image-renderer.nix"
     "${inputs.nixos-unstable.outPath}/nixos/modules/services/monitoring/prometheus/default.nix"
     "${inputs.nixos-unstable.outPath}/nixos/modules/services/logging/promtail.nix"
     "${inputs.nixos-unstable.outPath}/nixos/modules/services/monitoring/loki.nix"
@@ -236,15 +238,16 @@ in
     grafana = {
       enable = true;
       addr = "0.0.0.0";
-      port = 3000; # default
       domain = "observability.cachou.org";
       rootUrl = "https://observability.cachou.org/grafana/";
 
-
-      extraOptions = {
-        AUTH_ANONYMOUS_ENABLED = "true";
-        AUTH_ANONYMOUS_ORG_ROLE = "Admin";
-        AUTH_BASIC_ENABLED = "false";
+      settings = {
+        server.http_port = 3000; # default
+        "auth.anonymous" = {
+            enabled = true;
+            org_role = "Admin";
+        };
+        "auth.basic".enabled = false;
       };
 
       smtp = {
@@ -301,7 +304,7 @@ in
     forceSSL = true;
     locations."/grafana/" = {
         basicAuthFile = config.sops.secrets."web-observability.cachou.org".path;
-        proxyPass = "http://localhost:${toString config.services.grafana.port}/";
+        proxyPass = "http://localhost:${toString config.services.grafana.settings.server.http_port}/";
         proxyWebsockets = true;
         #extraConfig = ''
         #  proxy_set_header Host $host;
