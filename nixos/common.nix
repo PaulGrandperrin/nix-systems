@@ -93,7 +93,7 @@
     };
   };
 
-  #hardware.enableAllFirmware = true;
+  hardware.enableAllFirmware = true;
   services.fwupd.enable = true;
 
   documentation = {
