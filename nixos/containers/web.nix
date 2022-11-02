@@ -29,11 +29,6 @@
     config = let hostConfig = config; in { config, pkgs, ... }: {
       imports = [ ../modules/web.nix ];
       system.stateVersion = "22.05";
-      nixpkgs.overlays = [(final: prev: {
-        nginxStable = prev.nginxStable.override { # avoid openssl 3.0 CVE
-          openssl = prev.openssl_1_1;
-        };
-      })];
 
       networking.useDHCP = false;
       networking.useNetworkd = true;
