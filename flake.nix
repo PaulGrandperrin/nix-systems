@@ -6,6 +6,7 @@
     nixos-22-05.url = "github:NixOS/nixpkgs/nixos-22.05";
     nixos-22-05-small.url = "github:NixOS/nixpkgs/nixos-22.05-small";
     nixpkgs-22-05-darwin.url = "github:NixOS/nixpkgs/nixpkgs-22.05-darwin";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable"; # darwin-unstable for now (https://github.com/NixOS/nixpkgs/issues/107466)
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     nur.url = "github:nix-community/NUR";
@@ -19,7 +20,7 @@
 
     nix-darwin = {
       url = "github:lnl7/nix-darwin/master";
-      inputs.nixpkgs.follows = "nixpkgs-22-05-darwin"; # FIXME only used to access lib...
+      inputs.nixpkgs.follows = "nixpkgs-unstable"; # FIXME only used to access lib...
     };
 
     flake-utils = {
@@ -182,7 +183,7 @@
 
     darwinConfigurations = let
       mkDarwinConf = arch: let
-          inputs-patched = inputs // {nixpkgs = inputs.nixpkgs-22-05-darwin; darwin = inputs.nix-darwin;};
+          inputs-patched = inputs // {nixpkgs = inputs.nixpkgs-unstable; darwin = inputs.nix-darwin;};
         in inputs-patched.darwin.lib.darwinSystem rec {
           system = "${arch}-darwin";
           inputs = inputs-patched; # otherwise it would take this flake's inputs and expect nixpkgs and darwin to be hardcoded
@@ -195,7 +196,7 @@
               };
             }
             ./nix-darwin/common.nix
-            inputs.home-manager-22-05.darwinModules.home-manager
+            inputs.home-manager-master.darwinModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
