@@ -524,7 +524,7 @@
         ./home-manager/cmdline.nix
       ];
 
-      nixos-gcp = mkNixosConf "x86_64" "nixos-22-05-small" [
+      nixos-gcp = mkNixosConf "x86_64" "nixos-unstable-small" [
         ./nixos/hosts/gcp/hardware-configuration.nix
         ./nixos/google-compute-config.nix
         ./nixos/common.nix
@@ -568,7 +568,7 @@
           ];
         })
       ]
-      "home-manager-22-05"
+      "home-manager-master"
       [
         ./home-manager/cmdline.nix
       ];

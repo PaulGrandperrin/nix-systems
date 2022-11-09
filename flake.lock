@@ -340,6 +340,22 @@
         "type": "github"
       }
     },
+    "nixos-unstable-small": {
+      "locked": {
+        "lastModified": 1667969101,
+        "narHash": "sha256-GL53T705HO7Q/KVfbb5STx8AxFs8YgaGY8pvAZC+O7U=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "bbf77421ac51a7c93f5f0f760da99e4dbce614fa",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable-small",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-22-05-darwin": {
       "locked": {
         "lastModified": 1667934366,
@@ -402,6 +418,7 @@
         "nixos-22-05-small": "nixos-22-05-small",
         "nixos-generators": "nixos-generators",
         "nixos-unstable": "nixos-unstable",
+        "nixos-unstable-small": "nixos-unstable-small",
         "nixpkgs-22-05-darwin": "nixpkgs-22-05-darwin",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nur": "nur",
