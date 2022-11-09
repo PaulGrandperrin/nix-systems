@@ -4,7 +4,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
   nixpkgs.config.allowUnfree = true; # only works inside HM
   xdg.configFile."nixpkgs/config.nix".text = "{ allowUnfree = true; }"; # works for `nix run/shell`, also needs `--impure`
 
-  nix.package = pkgs.nixUnstable;
+  #nix.package = pkgs.nixUnstable;
   nix.settings."experimental-features" = "nix-command flakes";
 
   nix.registry = {

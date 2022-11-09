@@ -2,34 +2,34 @@
 
 { config, pkgs, system, inputs, ... }:
 let
-  pkgs-unstable = inputs.nixos-unstable.legacyPackages.${system};
+  #pkgs-unstable = inputs.nixos-unstable.legacyPackages.${system};
 in
 {
-  disabledModules = [
-    "services/monitoring/grafana.nix"
-    "services/monitoring/grafana-image-renderer.nix"
-    "services/monitoring/prometheus/default.nix"
-    "services/logging/promtail.nix"
-    "services/monitoring/loki.nix"
-  ];
+  #disabledModules = [
+  #  "services/monitoring/grafana.nix"
+  #  "services/monitoring/grafana-image-renderer.nix"
+  #  "services/monitoring/prometheus/default.nix"
+  #  "services/logging/promtail.nix"
+  #  "services/monitoring/loki.nix"
+  #];
 
   imports = [
     ./web.nix
-    "${inputs.nixos-unstable.outPath}/nixos/modules/services/tracing/tempo.nix"
-    "${inputs.nixos-unstable.outPath}/nixos/modules/services/monitoring/grafana.nix"
-    "${inputs.nixos-unstable.outPath}/nixos/modules/services/monitoring/grafana-image-renderer.nix"
-    "${inputs.nixos-unstable.outPath}/nixos/modules/services/monitoring/prometheus/default.nix"
-    "${inputs.nixos-unstable.outPath}/nixos/modules/services/logging/promtail.nix"
-    "${inputs.nixos-unstable.outPath}/nixos/modules/services/monitoring/loki.nix"
+    #"${inputs.nixos-unstable.outPath}/nixos/modules/services/tracing/tempo.nix"
+    #"${inputs.nixos-unstable.outPath}/nixos/modules/services/monitoring/grafana.nix"
+    #"${inputs.nixos-unstable.outPath}/nixos/modules/services/monitoring/grafana-image-renderer.nix"
+    #"${inputs.nixos-unstable.outPath}/nixos/modules/services/monitoring/prometheus/default.nix"
+    #"${inputs.nixos-unstable.outPath}/nixos/modules/services/logging/promtail.nix"
+    #"${inputs.nixos-unstable.outPath}/nixos/modules/services/monitoring/loki.nix"
   ];
 
-  nixpkgs.overlays = [(final: prev: { 
-    tempo = pkgs-unstable.tempo;
-    promtail = pkgs-unstable.promtail;
-    prometheus = pkgs-unstable.prometheus;
-    grafana-loki = pkgs-unstable.grafana-loki;
-    grafana = pkgs-unstable.grafana;
-  })]; 
+  #nixpkgs.overlays = [(final: prev: { 
+  #  tempo = pkgs-unstable.tempo;
+  #  promtail = pkgs-unstable.promtail;
+  #  prometheus = pkgs-unstable.prometheus;
+  #  grafana-loki = pkgs-unstable.grafana-loki;
+  #  grafana = pkgs-unstable.grafana;
+  #})]; 
 
   services = {
     prometheus = {

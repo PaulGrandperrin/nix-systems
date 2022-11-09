@@ -8,6 +8,7 @@
     nixpkgs-22-05-darwin.url = "github:NixOS/nixpkgs/nixpkgs-22.05-darwin";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable"; # darwin-unstable for now (https://github.com/NixOS/nixpkgs/issues/107466)
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixos-unstable-small.url = "github:NixOS/nixpkgs/nixos-unstable-small";
 
     nur.url = "github:nix-community/NUR";
 
@@ -233,7 +234,7 @@
         ] ++ nixos-modules;
       };
     in { 
-      nixos-nas = mkNixosConf "x86_64" "nixos-22-05-small" [
+      nixos-nas = mkNixosConf "x86_64" "nixos-unstable-small" [
         ./nixos/hosts/nas/hardware-configuration.nix
         ./nixos/common.nix
         ./nixos/nspawns.nix
@@ -471,7 +472,7 @@
           };
         })
       ]
-      "home-manager-22-05"
+      "home-manager-master"
       [
         ./home-manager/cmdline.nix
       ];
