@@ -317,6 +317,19 @@
             '';
           };
 
+          services.mastodon = {
+            enable = true;
+            localDomain = "social.paulg.fr";
+            configureNginx = true;
+            smtp = {
+              createLocally = false;
+              fromAddress = "admin@social.paulg.fr";
+            };
+            extraConfig = {
+              SINGLE_USER_MODE = "true";
+            };
+          };
+
           fileSystems = {
             "/IronWolf12TB" = {
               device = "IronWolf12TB";
