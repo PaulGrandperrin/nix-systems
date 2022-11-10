@@ -287,9 +287,6 @@ in
     };
   };
 
-  security.acme.acceptTerms = true;
-  security.acme.certs."observability.cachou.org".email = "paul.grandperrin@gmail.com";
-
   sops.secrets."web-observability.cachou.org" = {
     sopsFile = ../../secrets/nixos-nas.yaml;
     mode = "0440";

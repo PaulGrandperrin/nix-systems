@@ -39,10 +39,6 @@
       #systemd.network.networks.eth0.gateway = ["10.0.0.1"];
       #systemd.network.networks.eth0.address = ["10.0.0.2/24"];
       #systemd.network.networks.eth0.name = "eth0";
-      #security.acme.server = "https://acme-staging-v02.api.letsencrypt.org/directory";
-      security.acme.acceptTerms = true;
-      security.acme.certs."louis.grandperrin.fr".email = "paul.grandperrin@gmail.com";
-      security.acme.certs."paulg.fr".email = "paul.grandperrin@gmail.com";
     
       ## test wordpress
       #services.httpd.adminAddr = "paul.grandperrin@gmail.com";

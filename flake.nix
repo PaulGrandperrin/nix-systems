@@ -279,7 +279,6 @@
             group = "nginx";
             restartUnits = [ "nginx.service" ];
           };
-          security.acme.certs."nas.paulg.fr".email = "paul.grandperrin@gmail.com";
           services.nginx = {
             additionalModules = [ pkgs.nginxModules.fancyindex ];
             virtualHosts."nas.paulg.fr" = {
