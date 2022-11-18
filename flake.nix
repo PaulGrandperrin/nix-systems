@@ -9,6 +9,7 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable"; # darwin-unstable for now (https://github.com/NixOS/nixpkgs/issues/107466)
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-unstable-small.url = "github:NixOS/nixpkgs/nixos-unstable-small";
+    master.url = "github:NixOS/nixpkgs/master";
 
     nur.url = "github:nix-community/NUR";
 
@@ -244,6 +245,7 @@
         ./nixos/wireguard.nix
         ./nixos/headless.nix
         ./nixos/modules/observability.nix
+        ./nixos/modules/mastodon.nix
         ({pkgs, config, lib, ... }:{
           # colmena options
           deployment = {
@@ -316,22 +318,6 @@
               MINPWM=hwmon1/pwm2=0
             '';
           };
-
-          services.mastodon = {
-            enable = true;
-            localDomain = "social.paulg.fr";
-            configureNginx = true;
-            smtp = {
-              createLocally = false;
-              fromAddress = "admin@social.paulg.fr";
-            };
-            extraConfig = {
-              SINGLE_USER_MODE = "true";
-            };
-          };
-          environment.systemPackages = [
-            pkgs.mastodon
-          ];
 
           fileSystems = {
             "/IronWolf12TB" = {
