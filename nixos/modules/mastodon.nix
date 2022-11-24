@@ -3,9 +3,9 @@
 { config, pkgs, system, inputs, ... }:
 {
 
-  nixpkgs.overlays = [(final: prev: { 
-    mastodon = prev.callPackage (inputs.master.outPath + "/pkgs/servers/mastodon") {};
-  })]; 
+  #nixpkgs.overlays = [(final: prev: { 
+  #  mastodon = prev.callPackage (inputs.master.outPath + "/pkgs/servers/mastodon") {};
+  #})]; 
 
   services.mastodon = {
     enable = true;

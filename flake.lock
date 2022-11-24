@@ -137,28 +137,6 @@
         "type": "github"
       }
     },
-    "home-manager-master": {
-      "inputs": {
-        "nixpkgs": [
-          "nixos-22-11"
-        ],
-        "utils": "utils_2"
-      },
-      "locked": {
-        "lastModified": 1669071065,
-        "narHash": "sha256-KBpgj3JkvlPsJ3duOZqFJe6tgr+wc75t8sFmgRbBSbw=",
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "rev": "f7641a3ff398ccce952e19a199d775934e518c1d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "ref": "master",
-        "repo": "home-manager",
-        "type": "github"
-      }
-    },
     "nix-alien": {
       "inputs": {
         "flake-utils": "flake-utils_3",
@@ -230,7 +208,7 @@
     "nix-ld": {
       "inputs": {
         "nixpkgs": [],
-        "utils": "utils_3"
+        "utils": "utils_2"
       },
       "locked": {
         "lastModified": 1668423731,
@@ -411,7 +389,6 @@
         "darwin-unstable": "darwin-unstable",
         "flake-utils": "flake-utils_2",
         "home-manager-22-11": "home-manager-22-11",
-        "home-manager-master": "home-manager-master",
         "nix-alien": "nix-alien",
         "nix-darwin": "nix-darwin",
         "nix-ld": "nix-ld",
@@ -485,21 +462,6 @@
       }
     },
     "utils_2": {
-      "locked": {
-        "lastModified": 1667395993,
-        "narHash": "sha256-nuEHfE/LcWyuSWnS8t12N1wc105Qtau+/OdUAjtQ0rA=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "5aed5285a952e0b949eb3ba02c12fa4fcfef535f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
-    "utils_3": {
       "locked": {
         "lastModified": 1667395993,
         "narHash": "sha256-nuEHfE/LcWyuSWnS8t12N1wc105Qtau+/OdUAjtQ0rA=",

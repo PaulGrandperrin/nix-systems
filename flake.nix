@@ -40,10 +40,10 @@
       inputs.nixpkgs.follows = "nixos-22-11"; # not needed by NixOS' module thanks to `home-manager.useGlobalPkgs = true` but needed by the unpriviledged module
     };
 
-    home-manager-master = {
-      url = "github:nix-community/home-manager/master";
-      inputs.nixpkgs.follows = "nixos-22-11"; # not needed by NixOS' module thanks to `home-manager.useGlobalPkgs = true` but needed by the unpriviledged module
-    };
+    #home-manager-master = {
+    #  url = "github:nix-community/home-manager/master";
+    #  inputs.nixpkgs.follows = "nixos-22-11"; # not needed by NixOS' module thanks to `home-manager.useGlobalPkgs = true` but needed by the unpriviledged module
+    #};
 
     nix-ld = {
       url = "github:Mic92/nix-ld";
