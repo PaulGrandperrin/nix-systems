@@ -603,6 +603,9 @@
             enable = true;
           };
 
+          services.thermald.enable = false; # should be disabled when throttled is enabled
+          services.throttled.enable = true;
+
         })
       ]
       "home-manager-master"

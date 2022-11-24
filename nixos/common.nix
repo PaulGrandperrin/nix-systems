@@ -313,7 +313,7 @@
   # List services that you want to enable:
 
   services.gpm.enable = false;
-  services.thermald.enable = true;
+  services.thermald.enable = lib.mkDefault true; # should be disabled when power-profile-daemon (GNOME or KDE) or throttled is enabled
 
   # Enable the OpenSSH daemon.
   services.openssh = {

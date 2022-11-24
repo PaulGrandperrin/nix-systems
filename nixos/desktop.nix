@@ -20,6 +20,8 @@
 
   time.timeZone = lib.mkForce null; # allow TZ to be set by desktop user
 
+  services.thermald.enable = false; # should be disabled when power-profile-daemon (GNOME or KDE)
+
   environment.systemPackages = with pkgs; [
     stockfish
     solaar
