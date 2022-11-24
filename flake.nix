@@ -70,7 +70,6 @@
       url = "github:zhaofengli/colmena";
       inputs.nixpkgs.follows = ""; # optional, not necessary for the module
       inputs.stable.follows = ""; # optional, not necessary for the module
-      inputs.utils.follows = "flake-utils";
     };
 
     nixos-generators = {
