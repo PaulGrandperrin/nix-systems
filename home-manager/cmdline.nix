@@ -89,6 +89,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
       pciutils
       lsof
       e2fsprogs
+      nmap
 
       sops
       ssh-to-age
@@ -143,6 +144,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
         zenith
         intel-gpu-tools
         difftastic # FIXME broken on darwin
+        lsb-release
 
         # nix-alien # recompiles python..
         nix-index
