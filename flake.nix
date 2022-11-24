@@ -96,15 +96,15 @@
 
     packages.x86_64-linux.vcv-rack = inputs.nixos-22-11.legacyPackages.x86_64-linux.callPackage ./pkgs/vcv-rack {};
 
-    packages.x86_64-linux = {
-      iso = inputs.nixos-generators.nixosGenerate {
-        pkgs = inputs.nixos-22-11.legacyPackages.x86_64-linux;
-        modules = [
-          ./iso.nix
-        ];
-        format = "iso";
-      };
-    };
+    #packages.x86_64-linux = {
+    #  iso = inputs.nixos-generators.nixosGenerate {
+    #    pkgs = inputs.nixos-22-11.legacyPackages.x86_64-linux;
+    #    modules = [
+    #      ./iso.nix
+    #    ];
+    #    format = "iso";
+    #  };
+    #};
 
     #devShell.x86_64-linux = stable-pkgs.mkShell {
     #    buildInputs = with stable-pkgs; [
