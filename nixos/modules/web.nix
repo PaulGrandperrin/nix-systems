@@ -50,7 +50,7 @@
   
       add_header Expect-CT "max-age=86400, enforce" always;
   
-      add_header Access-Control-Allow-Origin "null" always;
+      #add_header Access-Control-Allow-Origin "null" always; # breaks things on mastodon
   
       more_clear_headers Server;
       more_clear_headers X-Powered-By;
