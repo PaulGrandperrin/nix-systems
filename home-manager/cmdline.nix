@@ -90,6 +90,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
       lsof
       e2fsprogs
       nmap
+      iperf
 
       sops
       ssh-to-age
