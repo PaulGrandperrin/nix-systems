@@ -349,7 +349,7 @@
           services.nix-serve = {
             enable = true;
             secretKeyFile = config.sops.secrets."cache-nas.paulg.fr-privkey.pem".path;
-            openFirewall = true;
+            openFirewall = false;
           };
 
           sops.secrets."deluge-auth" = {
