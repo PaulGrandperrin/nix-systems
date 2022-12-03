@@ -89,6 +89,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
       pciutils
       lsof
       e2fsprogs
+      usbutils
       nmap
       iperf
 
