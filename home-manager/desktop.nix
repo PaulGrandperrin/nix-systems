@@ -98,6 +98,7 @@
           "apz.gtk.pangesture.delta_mode" = 2;
           "apz.gtk.pangesture.pixel_delta_mode_multiplier" = 25;
           "general.autoScroll" = true; # scroll with middle click
+          "toolkit.tabbox.switchByScrolling" = true; # scroll to switch tabs
 
           "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
           "browser.newtabpage.activity-stream.showSponsored" = false;
