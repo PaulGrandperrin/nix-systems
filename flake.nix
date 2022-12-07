@@ -63,7 +63,7 @@
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = ""; # optional, not necessary for the module
-      inputs.nixpkgs-22_05.follows = ""; # optional, not necessary for the module
+      inputs.nixpkgs-stable.follows = ""; # optional, not necessary for the module
     };
 
     colmena = {
