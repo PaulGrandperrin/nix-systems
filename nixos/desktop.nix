@@ -18,6 +18,18 @@
   #  })
   #];
 
+  boot.kernelParams = [
+    "quiet"
+    #"loglevel=3"
+    #"rd.udev.log_level=3"
+    #"systemd.show_status=auto"
+    #"vga=current"
+    #"vt.global_cursor_default=0" 
+    #"fbcon.nodefer" # don't use vendor logo
+  ];
+  boot.plymouth.enable = true;
+  boot.plymouth.theme = "spinner";
+
   time.timeZone = lib.mkForce null; # allow TZ to be set by desktop user
 
   services.thermald.enable = false; # should be disabled when power-profile-daemon (GNOME or KDE)
