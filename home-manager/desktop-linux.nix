@@ -15,7 +15,7 @@
       easyeffects
       (symlinkJoin {
         name = "signal-desktop";
-        paths = [ (callPackage (inputs.nixos-unstable.outPath + "/pkgs/applications/networking/instant-messengers/signal-desktop/default.nix") {}) ];
+        paths = [ (callPackage (inputs.nixos-unstable.outPath + "/pkgs/applications/networking/instant-messengers/signal-desktop") {}).signal-desktop ];
         buildInputs = [ pkgs.makeWrapper ];
         postBuild = ''
           wrapProgram $out/bin/signal-desktop \
