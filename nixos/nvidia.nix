@@ -2,13 +2,6 @@
 {
   services.xserver = {
     videoDrivers = ["nvidia" ];
-
-    # Fix screen tearing by forcing full composition pipeline
-    #screenSection = ''
-    #  Option         "metamodes" "nvidia-auto-select +0+0 {ForceFullCompositionPipeline=On}"
-    #  Option         "AllowIndirectGLXProtocol" "off"
-    #  Option         "TripleBuffer" "on"
-    #'';
   };
 
   hardware.nvidia = {
@@ -25,6 +18,8 @@
       intelBusId = "PCI:0:2:0";
       nvidiaBusId = "PCI:1:0:0";
     };
+    # Fix screen tearing by forcing full composition pipeline
+    #forceFullCompositionPipeline = true;
   };
 
   virtualisation.docker.enableNvidia = true;
