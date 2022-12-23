@@ -46,7 +46,7 @@
     #};
 
     nix-ld = {
-      url = "github:Mic92/nix-ld";
+      url = "github:Mic92/nix-ld/7d251c0c5adf6b9b003499243be257d0f130b3d6"; # FIXME avoid https://github.com/Mic92/nix-ld/issues/35
       inputs.nixpkgs.follows = ""; # doesn't matter because we use the nixosModule
     };
 
