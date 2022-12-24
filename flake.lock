@@ -205,26 +205,6 @@
         "type": "github"
       }
     },
-    "nix-ld": {
-      "inputs": {
-        "nixpkgs": [],
-        "utils": "utils_2"
-      },
-      "locked": {
-        "lastModified": 1668423731,
-        "narHash": "sha256-WHizQHtkMGWdsmbZmtYxJ0xlg97FLy4Ft/4XAoHCRH0=",
-        "owner": "Mic92",
-        "repo": "nix-ld",
-        "rev": "7d251c0c5adf6b9b003499243be257d0f130b3d6",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Mic92",
-        "repo": "nix-ld",
-        "rev": "7d251c0c5adf6b9b003499243be257d0f130b3d6",
-        "type": "github"
-      }
-    },
     "nix-on-droid": {
       "inputs": {
         "flake-utils": [
@@ -392,7 +372,6 @@
         "home-manager-22-11": "home-manager-22-11",
         "nix-alien": "nix-alien",
         "nix-darwin": "nix-darwin",
-        "nix-ld": "nix-ld",
         "nix-on-droid": "nix-on-droid",
         "nixgl": "nixgl",
         "nixos-22-11": "nixos-22-11",
@@ -448,21 +427,6 @@
       }
     },
     "utils": {
-      "locked": {
-        "lastModified": 1667395993,
-        "narHash": "sha256-nuEHfE/LcWyuSWnS8t12N1wc105Qtau+/OdUAjtQ0rA=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "5aed5285a952e0b949eb3ba02c12fa4fcfef535f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
-    "utils_2": {
       "locked": {
         "lastModified": 1667395993,
         "narHash": "sha256-nuEHfE/LcWyuSWnS8t12N1wc105Qtau+/OdUAjtQ0rA=",

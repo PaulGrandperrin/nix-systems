@@ -45,11 +45,6 @@
     #  inputs.nixpkgs.follows = "nixos-22-11"; # not needed by NixOS' module thanks to `home-manager.useGlobalPkgs = true` but needed by the unpriviledged module
     #};
 
-    nix-ld = {
-      url = "github:Mic92/nix-ld/7d251c0c5adf6b9b003499243be257d0f130b3d6"; # FIXME avoid https://github.com/Mic92/nix-ld/issues/35
-      inputs.nixpkgs.follows = ""; # doesn't matter because we use the nixosModule
-    };
-
     nix-alien = {
       url = "github:thiagokokada/nix-alien";
       inputs.nixpkgs.follows = "nixos-22-11"; # TODO the overlay is using it, but I would like it to not use it
@@ -229,7 +224,6 @@
             home-manager.users.root  = { imports = hm-modules;};
             home-manager.users.paulg = { imports = hm-modules;};
           }
-          inputs.nix-ld.nixosModules.nix-ld
           inputs.sops-nix.nixosModules.sops
         ] ++ nixos-modules;
       };
@@ -641,8 +635,6 @@
           services.my-wg = {
             enable = true;
           };
-
-          programs.nix-ld.enable = true;
 
           powerManagement = {
             powerDownCommands = lib.mkBefore ''
