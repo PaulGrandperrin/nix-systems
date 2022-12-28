@@ -179,7 +179,7 @@
 
     darwinConfigurations = let
       mkDarwinConf = arch: let
-          inputs-patched = inputs // {nixpkgs = inputs.darwin-22.11; darwin = inputs.nix-darwin;};
+          inputs-patched = inputs // {nixpkgs = inputs.darwin-22-11; darwin = inputs.nix-darwin;};
         in inputs-patched.darwin.lib.darwinSystem rec {
           system = "${arch}-darwin";
           inputs = inputs-patched; # otherwise it would take this flake's inputs and expect nixpkgs and darwin to be hardcoded
