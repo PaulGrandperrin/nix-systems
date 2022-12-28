@@ -89,7 +89,6 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
       pciutils
       lsof
       e2fsprogs
-      usbutils
       nmap
       iperf
 
@@ -147,6 +146,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
         intel-gpu-tools
         difftastic # FIXME broken on darwin
         lsb-release
+        usbutils
 
         # nix-alien # recompiles python..
         nix-index
