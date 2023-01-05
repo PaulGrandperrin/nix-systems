@@ -35,6 +35,10 @@
   services.thermald.enable = false; # should be disabled when power-profile-daemon (GNOME or KDE)
 
   environment.systemPackages = with pkgs; [
+    # gaming
+    protonup-ng
+    lutris
+
     stockfish
     solaar
     gnomeExtensions.sound-output-device-chooser
