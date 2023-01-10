@@ -35,11 +35,6 @@
   services.thermald.enable = false; # should be disabled when power-profile-daemon (GNOME or KDE)
 
   environment.systemPackages = with pkgs; [
-    # gaming
-    protonup-ng
-    lutris
-
-    stockfish
     solaar
     gnomeExtensions.sound-output-device-chooser
     gnomeExtensions.bluetooth-quick-connect
@@ -94,14 +89,12 @@
   services.xserver.desktopManager.gnome.enable = true;
   environment.gnome.excludePackages = [
   ];
-  services.gnome.games.enable = true;
   services.gvfs.enable = true;
 
   # android
   programs.adb.enable = true;
   users.users.paulg.extraGroups = ["adbusers"];
 
-  programs.steam.enable = true;
 
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true; # to make realtime scheduling possible in gnome-shell

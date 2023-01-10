@@ -577,6 +577,7 @@
         ./nixos/desktop.nix
         ./nixos/desktop-i915.nix
         ./nixos/nvidia.nix
+        ./nixos/modules/gaming.nix
         ({config, ...}:{
           # colmena options
           deployment = {
