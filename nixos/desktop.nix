@@ -34,28 +34,6 @@
 
   services.thermald.enable = false; # should be disabled when power-profile-daemon (GNOME or KDE)
 
-  environment.systemPackages = with pkgs; [
-    solaar
-    gnomeExtensions.sound-output-device-chooser
-    gnomeExtensions.bluetooth-quick-connect
-    gnomeExtensions.gsconnect
-    gnomeExtensions.blur-my-shell
-    gnomeExtensions.pixel-saver
-    gnomeExtensions.floating-dock
-    gnomeExtensions.emoji-selector
-    gnomeExtensions.clipboard-indicator
-    gnomeExtensions.drop-down-terminal
-    gnomeExtensions.ddterm
-    gnomeExtensions.coverflow-alt-tab
-    gnomeExtensions.dash-to-dock
-    gnomeExtensions.dash-to-panel
-    gnomeExtensions.appindicator
-    gnomeExtensions.bluetooth-battery
-    gnomeExtensions.desktop-cube
-    gnomeExtensions.pop-shell
-    gnomeExtensions.system76-scheduler
-    #wintile?
-  ];
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;

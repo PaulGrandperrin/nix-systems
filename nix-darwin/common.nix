@@ -43,7 +43,6 @@
 
 
   services.nix-daemon.enable = true;
-  environment.systemPackages = [];
 
   system.stateVersion = 4;
 

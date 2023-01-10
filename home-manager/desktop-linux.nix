@@ -3,6 +3,28 @@
   home = {
     packages = with pkgs; [
       gnome.gnome-tweaks
+
+      #gnomeExtensions.sound-output-device-chooser # incomp
+      gnomeExtensions.bluetooth-quick-connect
+      #gnomeExtensions.gsconnect
+      gnomeExtensions.blur-my-shell
+      #gnomeExtensions.pixel-saver # incomp
+      #gnomeExtensions.floating-dock # incomp
+      gnomeExtensions.emoji-selector
+      gnomeExtensions.clipboard-indicator
+      #gnomeExtensions.drop-down-terminal # incomp
+      #gnomeExtensions.ddterm
+      #gnomeExtensions.coverflow-alt-tab
+      #gnomeExtensions.dash-to-dock
+      #gnomeExtensions.dash-to-panel
+      gnomeExtensions.appindicator
+      gnomeExtensions.bluetooth-battery
+      gnomeExtensions.desktop-cube
+      #gnomeExtensions.pop-shell
+      gnomeExtensions.system76-scheduler
+      #wintile?
+
+      solaar
       glxinfo
       vulkan-tools
       libva-utils # vainfo
@@ -91,14 +113,10 @@
         "code.desktop"
         "signal-desktop.desktop"
       ];
-      enabled-extensions = [
+      enabled-extensions = (map (extension: extension.extensionUuid) (builtins.filter (x: x ? extensionUuid) config.home.packages)) ++ [
         "apps-menu@gnome-shell-extensions.gcampax.github.com"
-        "bluetooth-quick-connect@bjarosze.gmail.com"
-        "clipboard-indicator@tudmotu.com"
         "places-menu@gnome-shell-extensions.gcampax.github.com"
-        "sound-output-device-chooser@kgshank.net"
         "workspace-indicator@gnome-shell-extensions.gcampax.github.com"
-        "appindicatorsupport@rgcjonas.gmail.com"
       ];
     };
     "org/gnome/desktop/calendar" = {
