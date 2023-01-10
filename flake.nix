@@ -573,7 +573,6 @@
         ./nixos/common.nix
         ./nixos/net.nix
         ./nixos/wireguard.nix
-        ./nixos/laptop.nix
         ./nixos/desktop.nix
         ./nixos/desktop-i915.nix
         ./nixos/nvidia.nix
@@ -617,7 +616,6 @@
         ./nixos/common.nix
         ./nixos/net.nix
         ./nixos/wireguard.nix
-        ./nixos/laptop.nix
         ./nixos/desktop.nix
         ./nixos/desktop-i915.nix
         ({pkgs, lib, config, ...}:{

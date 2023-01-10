@@ -159,6 +159,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
         stress
         hwinfo
         lm_sensors
+        cpufrequtils
  
         mold
         bintools
