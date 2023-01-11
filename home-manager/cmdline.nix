@@ -10,7 +10,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
   nix.registry = {
     #nixos.flake = inputs.nixos;
     #nixos-small.flake = inputs.nixos-small;
-    #nixos-unstable.flake = inputs.nixos-unstable;
+    nixos-unstable.flake = inputs.nixos-unstable;
     #nixpkgs-darwin.flake = inputs.nixpkgs-darwin;
     #nur.flake = inputs.nur;
     #flake-utils.flake = inputs.flake-utils;
