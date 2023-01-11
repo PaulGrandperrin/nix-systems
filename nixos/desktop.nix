@@ -73,6 +73,8 @@
   programs.adb.enable = true;
   users.users.paulg.extraGroups = ["adbusers"];
 
+  hardware.logitech.wireless.enable = true; # includes ltunify
+  hardware.logitech.wireless.enableGraphical = true; # includes solaar
 
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true; # to make realtime scheduling possible in gnome-shell

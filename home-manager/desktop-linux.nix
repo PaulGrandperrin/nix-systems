@@ -24,7 +24,6 @@
       gnomeExtensions.system76-scheduler
       #wintile?
 
-      solaar
       glxinfo
       vulkan-tools
       libva-utils # vainfo
