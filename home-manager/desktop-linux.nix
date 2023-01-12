@@ -53,16 +53,22 @@
       gnome-console
       popcorntime
 
-      (
-        kodi-wayland.withPackages (kodiPkgs: with kodiPkgs; [
-                #youtube
-                libretro
-                libretro-snes9x
-                #osmc-skin
-                arteplussept
-                steam-library
-                steam-launcher
-	])
+      ( let my-kodi = 
+          kodi-wayland.withPackages (kodiPkgs: with kodiPkgs; [
+            #youtube
+            libretro
+            libretro-snes9x
+            #osmc-skin
+            arteplussept
+            steam-library
+            steam-launcher
+	]); in 
+        buildFHSUserEnvBubblewrap {
+          name = "kodi";
+          targetPkgs = pkgs: (with pkgs; [
+          ]);
+          runScript = "${my-kodi}/bin/kodi";
+        }
       )
 
       #(callPackage ../pkgs/vcv-rack {})
