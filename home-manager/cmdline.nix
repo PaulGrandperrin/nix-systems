@@ -148,7 +148,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
         lsb-release
         usbutils
 
-        # nix-alien # recompiles python..
+        nix-alien
         nix-index
         nix-index-update
 
