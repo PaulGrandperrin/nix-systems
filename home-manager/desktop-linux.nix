@@ -51,6 +51,7 @@
       gnome.dconf-editor
       helvum
       gnome-console
+      popcorntime
 
       #(callPackage ../pkgs/vcv-rack {})
 
