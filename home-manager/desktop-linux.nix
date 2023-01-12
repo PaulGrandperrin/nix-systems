@@ -53,6 +53,18 @@
       gnome-console
       popcorntime
 
+      (
+        kodi-wayland.withPackages (kodiPkgs: with kodiPkgs; [
+                #youtube
+                libretro
+                libretro-snes9x
+                #osmc-skin
+                arteplussept
+                steam-library
+                steam-launcher
+	])
+      )
+
       #(callPackage ../pkgs/vcv-rack {})
 
       # I want protonvpn from unstable but I don't want to pull its dependencies from unstable
