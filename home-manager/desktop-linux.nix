@@ -19,9 +19,9 @@
       #gnomeExtensions.dash-to-panel
       gnomeExtensions.appindicator
       gnomeExtensions.bluetooth-battery
-      gnomeExtensions.desktop-cube
+      #gnomeExtensions.desktop-cube
       #gnomeExtensions.pop-shell
-      gnomeExtensions.system76-scheduler
+      #gnomeExtensions.system76-scheduler # missing daemon: https://github.com/NixOS/nixpkgs/pull/195082
       #wintile?
 
       glxinfo
