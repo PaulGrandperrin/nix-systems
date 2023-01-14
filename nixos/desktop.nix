@@ -147,6 +147,11 @@
     path = "/etc/NetworkManager/system-connections/Pixel 6 Pro.nmconnection";
   };
 
+  sops.secrets."Eero.nmconnection" = {
+    restartUnits = [ "NetworkManager.service" ];
+    path = "/etc/NetworkManager/system-connections/Eero.nmconnection";
+  };
+
   networking.networkmanager = {
     wifi.scanRandMacAddress = true; # default is true
     wifi.macAddress = "stable"; # default is "preverve"
