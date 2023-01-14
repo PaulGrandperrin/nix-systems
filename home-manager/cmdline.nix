@@ -137,6 +137,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
     ]
     ++ lib.optionals pkgs.stdenv.isLinux (
       [
+        lshw
         dstat
         sysstat
         strace
