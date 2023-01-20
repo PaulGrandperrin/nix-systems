@@ -2,6 +2,18 @@
 
   description = "Paul Grandperrin NixOS confs";
 
+  nixConfig = { # NOTE: sync with nixos/common.nix
+    extra-substituters = [
+      "http://nixos-nas.wg:5000"
+      "https://nix-community.cachix.org"
+      "https://cache.nixos.org"
+    ];
+    extra-trusted-public-keys = [
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "nas.paulg.fr:QwhwNrClkzxCvdA0z3idUyl76Lmho6JTJLWplKtC2ig="
+    ];
+  };
+
   inputs = {
     nixos-22-11.url = "github:NixOS/nixpkgs/nixos-22.11";
     nixos-22-11-small.url = "github:NixOS/nixpkgs/nixos-22.11-small";
