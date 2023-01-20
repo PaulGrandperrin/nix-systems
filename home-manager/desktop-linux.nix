@@ -24,6 +24,8 @@
       #gnomeExtensions.system76-scheduler # missing daemon: https://github.com/NixOS/nixpkgs/pull/195082
       #wintile?
 
+      # nix run --impure --expr '(builtins.getFlake "n").legacyPackages.x86_64-linux.blender.override {cudaSupport = true;}'
+
       glxinfo
       vulkan-tools
       libva-utils # vainfo
