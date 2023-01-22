@@ -148,6 +148,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
         difftastic # FIXME broken on darwin
         lsb-release
         usbutils
+        usbtop
 
         nix-alien
         nix-index
