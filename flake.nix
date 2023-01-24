@@ -585,7 +585,7 @@
         ./nixos/common.nix
         #./nixos/containers/web.nix
         ./nixos/net.nix
-        #./nixos/wireguard.nix
+        ./nixos/wireguard.nix
         ./nixos/auto-upgrade.nix
         ({pkgs, lib, config, ...}:{
           # colmena options
@@ -607,9 +607,9 @@
             mainInt = "eth0";
           }; 
 
-          #services.my-wg = {
-          #  enable = true;
-          #};
+          services.my-wg = {
+            enable = true;
+          };
 
           boot.zfs.requestEncryptionCredentials = false; # don't ask for password when the machine is headless
 

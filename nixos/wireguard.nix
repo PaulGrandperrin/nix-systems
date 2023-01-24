@@ -39,6 +39,10 @@ let
       id = 6;
       hostname = "pixel6pro";
       publicKey = "P6p+aJrLSBYFsw5f9q+b9sOgA9HnKh2UWz+uwGjnLEE=";
+    } {
+      id = 7;
+      hostname = "nixos-oci";
+      publicKey = "Oci+nA4cbcCjmK5sfG413Jh+wUqBuK4qHnLdvghsGy0=";
     }
   ];
 in {
