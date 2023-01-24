@@ -622,6 +622,7 @@
       "home-manager-22-11"
       [
         ./home-manager/cmdline.nix
+        ./home-manager/rust-stable.nix
       ];
 
       nixos-xps = mkNixosConf "x86_64" "nixos-22-11" [
