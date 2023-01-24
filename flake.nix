@@ -580,6 +580,50 @@
         ./home-manager/cmdline.nix
       ];
 
+      nixos-oci = mkNixosConf "aarch64" "nixos-22-11-small" [
+        ./nixos/hosts/nixos-oci/hardware-configuration.nix
+        ./nixos/common.nix
+        #./nixos/containers/web.nix
+        ./nixos/net.nix
+        #./nixos/wireguard.nix
+        ./nixos/auto-upgrade.nix
+        ({pkgs, lib, config, ...}:{
+          # colmena options
+          deployment = {
+            allowLocalDeployment = true;
+            buildOnTarget = true;
+            tags = ["nixos" "server" "headless" "web"];
+            targetHost = "${config.networking.hostName}.wg";
+          };
+
+          networking.hostId = "ea026662"; # head -c 8 /etc/machine-id
+          networking.hostName = "nixos-oci";
+          networking.interfaces.eth0.useDHCP = true;
+
+          boot.kernelParams = [ "net.ifnames=0" ]; # so that network is always eth0
+
+          services.net = {
+            enable = true;
+            mainInt = "eth0";
+          }; 
+
+          #services.my-wg = {
+          #  enable = true;
+          #};
+
+          boot.zfs.requestEncryptionCredentials = false; # don't ask for password when the machine is headless
+
+          services.smartd.enable = lib.mkForce false;
+
+          environment.systemPackages = with pkgs; [
+          ];
+        })
+      ]
+      "home-manager-22-11"
+      [
+        ./home-manager/cmdline.nix
+      ];
+
       nixos-xps = mkNixosConf "x86_64" "nixos-22-11" [
         ./nixos/hosts/xps/hardware-configuration.nix
         ./nixos/common.nix

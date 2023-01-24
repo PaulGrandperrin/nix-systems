@@ -1,4 +1,4 @@
-{ config, pkgs, lib, inputs, ... }:
+{ config, pkgs, lib, inputs, system, ... }:
 {
   imports = [
     ./mail.nix
@@ -125,7 +125,7 @@
     '';
    };
 
-  hardware.cpu.intel.updateMicrocode = true;
+  hardware.cpu.intel.updateMicrocode = lib.mkIf (system == "x86_64-linux") true;
   services.fstrim.enable = true;
   boot.kernelParams = [
     "panic=20"
@@ -245,7 +245,7 @@
 
   services.irqbalance.enable = true;
 
-  programs.sysdig.enable = true;
+  programs.sysdig.enable = lib.mkIf (system == "x86_64-linux") true;
 
   programs.fish = {
     enable = true;
@@ -321,7 +321,7 @@
   # List services that you want to enable:
 
   services.gpm.enable = false;
-  services.thermald.enable = lib.mkDefault true; # should be disabled when power-profile-daemon (GNOME or KDE) or throttled is enabled
+  services.thermald.enable = lib.mkIf (system == "x86_64-linux") (lib.mkDefault true); # should be disabled when power-profile-daemon (GNOME or KDE) or throttled is enabled
 
   # Enable the OpenSSH daemon.
   services.openssh = {

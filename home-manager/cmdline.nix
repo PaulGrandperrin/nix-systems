@@ -143,8 +143,6 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
         strace
         bmon
         btop
-        zenith
-        intel-gpu-tools
         difftastic # FIXME broken on darwin
         lsb-release
         usbutils
@@ -157,11 +155,9 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
         #unstable.nix
         #unstable.nixos-rebuild
 
-        cpuid
         stress
         hwinfo
         lm_sensors
-        cpufrequtils
  
         mold
         bintools
@@ -169,9 +165,17 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
         parted
         iftop
         powertop
-        i7z
         ethtool
         dmidecode
+      ]
+    ) ++ lib.optionals (system == "x86_64-linux") (
+      [ 
+        cpuid
+        cpufrequtils
+        zenith
+        intel-gpu-tools
+      ] ++ lib.optionals (config.home.username == "root") [ # if root and linux
+        i7z
       ]
     );
   };
@@ -191,6 +195,8 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
     ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICSJQGYQs+KJX+V/X3KxhyQgahE0g+ITF2jr1wUY1s/3 paulg@nixos-nas
     ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMvmspiXsIgqF+idEIyEierOJa3m/665LP1U1TkwNx/8 root@nixos-macmini
     ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICLwI5YV8LFCX4MD64uZg6KV5ln+HgMWHR1r/rjVV6T7 paulg@nixos-macmini
+    ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINsQJwr21m67xQIUqnHAc4wGkaj6o/Uy002xgN34G8Wj root@nixos-oci
+    ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGUV9km+CluTn/QZGOstjxNpPEVkxWktmNrlC8Xqss4F paulg@nixos-oci
   '';
   in {
     copySshAuthorizedKeys = lib.hm.dag.entryAfter ["writeBoundary"] ''
@@ -341,7 +347,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
         fish_add_path --move --prepend --path $HOME/.nix-profile/bin /run/wrappers/bin /etc/profiles/per-user/$USER/bin /run/current-system/sw/bin /nix/var/nix/profiles/default/bin # https://github.com/LnL7/nix-darwin/issues/122
       '';
       shellAbbrs = {
-        ssh-keygen = "ssh-keygen -t ed25519";
+        ssh-keygen-ed25519 = "ssh-keygen -t ed25519";
         nixos-rebuild-gcp = "nixos-rebuild --flake git+file:///etc/nixos#nixos-gcp --use-substitutes --target-host root@paulg.fr";
       };
       plugins = [ # TODO add fish-done
