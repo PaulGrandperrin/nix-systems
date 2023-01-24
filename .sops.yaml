@@ -1,9 +1,10 @@
-keys:
+keys: # ssh-to-age -i /etc/ssh/ssh_host_ed25519_key.pub
   - &nixos-xps age1ux7xcmxf77wjtnzcykcpm2h8pcnudf9c5e0ncudfd2qgvuwuq3pqmyj0xl
   - &nixos-gcp age1js0r7ap05js7t3ctjxmzt3q6l0rc4dz28xqrx2k468znt386efsq8ky25h
   - &nixos-macmini age1xkm04qn4r7gvd6a962t863gmzzpzeqqvusrdfq293uelktrc4v0qz2d6nk
   - &nixos-macbook age1q2tee5p4ffxu6g4g90gfcykcwttr9u5p4sqg4n494uelt2cqhefsleexuy
   - &nixos-nas age1aedtqphdcvyaz2vhxysy9xx5l47vckp8xy0fngmwgg36wmt3zftq7yjqkc 
+  - &nixos-oci age1s9tauh069l9esyzwmudfkz7t226kkattp6qvze36p4950en3xqysduf4xg 
   - &recovery age14u76z7ch37cx6hesffvr3kazmjjyxhnsvja2xspznt8683xn79ksxg8f4r # just in case
 creation_rules:
   - path_regex: ^secrets/common\.yaml$
@@ -14,6 +15,7 @@ creation_rules:
       - *nixos-macmini
       - *nixos-macbook
       - *nixos-nas
+      - *nixos-oci
       - *recovery
   - path_regex: ^secrets/nixos-nas\.yaml$
     key_groups:
@@ -45,6 +47,13 @@ creation_rules:
     key_groups:
     - age:
       - *nixos-gcp
+      - *nixos-xps # dev
+      - *nixos-macbook # dev
+      - *recovery
+  - path_regex: ^secrets/nixos-oci\.yaml$
+    key_groups:
+    - age:
+      - *nixos-oci
       - *nixos-xps # dev
       - *nixos-macbook # dev
       - *recovery
