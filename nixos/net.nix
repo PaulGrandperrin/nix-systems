@@ -115,12 +115,12 @@ in {
     #  #dhcpServerConfig = {
     #  #  
     #  #};
-    #  address = ["10.0.0.1/24"];
+    #  address = ["10.42.0.1/24"];
     #};
 
 
     #networking.bridges.br0.interfaces = [  ];
-    #networking.interfaces.br0.ipv4.addresses = [{ address = "10.0.0.1"; prefixLength = 24; }];
+    #networking.interfaces.br0.ipv4.addresses = [{ address = "10.42.0.1"; prefixLength = 24; }];
     #boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
   };
 }

@@ -36,8 +36,8 @@
       services.resolved.enable = true;
       networking.useHostResolvConf = false; # must be explicitly disabled because in conflict with resolved
       networking.firewall.allowedTCPPorts = [ 80 443 ];
-      #systemd.network.networks.eth0.gateway = ["10.0.0.1"];
-      #systemd.network.networks.eth0.address = ["10.0.0.2/24"];
+      #systemd.network.networks.eth0.gateway = ["10.42.0.1"];
+      #systemd.network.networks.eth0.address = ["10.42.0.2/24"];
       #systemd.network.networks.eth0.name = "eth0";
 
       security.acme.acceptTerms = true;

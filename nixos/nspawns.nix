@@ -50,13 +50,13 @@ in {
         };
         subnet4 = [
           {
-            pools = [ { pool = "10.0.${toString cfg.net-id}.100 - 10.0.${toString cfg.net-id}.200"; } ];
-            subnet = "10.0.0.0/16"; # should be a /24, but makes config easier that way with reservations
+            pools = [ { pool = "10.42.${toString cfg.net-id}.100 - 10.42.${toString cfg.net-id}.200"; } ];
+            subnet = "10.42.0.0/16"; # should be a /24, but makes config easier that way with reservations
             interface = "br-my-nspawn";
             option-data = [
               {
                 name = "routers";
-                data = "10.0.${toString cfg.net-id}.254";
+                data = "10.42.${toString cfg.net-id}.254";
               }
               {
                 name = "domain-name-servers";
@@ -66,11 +66,11 @@ in {
             reservations = [
               {
                 hw-address = "22:ec:95:92:f5:84";
-                ip-address = "10.0.1.1";
+                ip-address = "10.42.1.1";
               }
               {
                 hw-address = "96:29:82:e8:5b:6a";
-                ip-address = "10.0.2.1";
+                ip-address = "10.42.2.1";
               }
             ];
           }
@@ -90,7 +90,7 @@ in {
       };
 
       networkConfig = {
-        Address = "10.0.${toString cfg.net-id}.254/24";
+        Address = "10.42.${toString cfg.net-id}.254/24";
         LinkLocalAddressing = "yes";
         #DHCPServer = "yes"; # doesn't work properly. using kea instead. https://github.com/systemd/systemd/issues/21368
         IPMasquerade = "ipv4";
@@ -101,14 +101,14 @@ in {
         "ActivationPolicy" = "up";
         "RequiredForOnline" = "no";
       };
-      #dhcpServerConfig = { # 10.0.${toString cfg.net-id}.${toString cfg.id}
+      #dhcpServerConfig = { # 10.42.${toString cfg.net-id}.${toString cfg.id}
       #  PoolOffset = 100;
       #  PoolSize = 200;
       #};
       #dhcpServerStaticLeases = [{
       #  dhcpServerStaticLeaseConfig = {
       #    MACAddress = "4e:56:49:a0:4f:07";
-      #    Address = "10.0.${toString cfg.net-id}.${toString cfg.id}";
+      #    Address = "10.42.${toString cfg.net-id}.${toString cfg.id}";
       #  };
       #}];
 

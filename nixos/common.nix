@@ -373,7 +373,7 @@
   };
 
   fileSystems."/mnt/nixos-nas/public" = {
-    device = "10.0.0.1:/export/public";
+    device = "10.42.0.1:/export/public";
     fsType = "nfs";
     #options = [ "nfsvers=4.2" ];
     options = [
@@ -393,7 +393,7 @@
     ];
   };
   fileSystems."/mnt/nixos-nas/encrypted" = {
-    device = "10.0.0.1:/export/encrypted";
+    device = "10.42.0.1:/export/encrypted";
     fsType = "nfs";
     #options = [ "nfsvers=4.2" ];
     options = [

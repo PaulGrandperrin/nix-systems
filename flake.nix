@@ -416,9 +416,9 @@
               public_options    = "insecure,no_subtree_check,all_squash,no_wdelay,rw";
               encrypted_options = "insecure,no_subtree_check,all_squash,no_wdelay,rw,anonuid=${toString config.users.users.paulg.uid},anongid=${toString config.users.groups.${config.users.users.paulg.group}.gid}";
             in ''
-              /export           10.0.0.0/24(${root_options})   192.168.1.0/24(${root_options})
-              /export/public    10.0.0.0/24(${public_options}) 192.168.1.0/24(${public_options})
-              /export/encrypted 10.0.0.4(${encrypted_options}) 10.0.0.5(${encrypted_options}) # nixos-nas and nixos-macbook
+              /export           10.42.0.0/24(${root_options})   192.168.1.0/24(${root_options})
+              /export/public    10.42.0.0/24(${public_options}) 192.168.1.0/24(${public_options})
+              /export/encrypted 10.42.0.4(${encrypted_options}) 10.42.0.5(${encrypted_options}) # nixos-nas and nixos-macbook
             '';
 
             # fixed rpc.statd port; for firewall
@@ -451,7 +451,7 @@
               security = user 
               use sendfile = yes
               # note: localhost is the ipv6 localhost ::1
-              hosts allow = 192.168. 10.0.0 127.0.0.1 localhost
+              hosts allow = 192.168. 10.42.0 127.0.0.1 localhost
               hosts deny = 0.0.0.0/0
               guest account = nobody
               map to guest = bad user

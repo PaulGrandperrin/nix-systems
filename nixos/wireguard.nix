@@ -4,7 +4,7 @@ let
   cfg = config.services.my-wg;
   outside-config = config;
   peers = [
-    # each peer get assigned an IP on the VPN's network (10.0.0.$id) and a network (10.0.$id.0/24)
+    # each peer get assigned an IP on the VPN's network (10.42.0.$id) and a network (10.42.$id.0/24)
     {
       id = 1;
       hostname = "nixos-nas";
@@ -55,7 +55,7 @@ in {
     my_conf = head (builtins.filter (e: e.hostname == my_hostname) peers);
   in mkIf cfg.enable {
     # add domains in /etc/hosts
-    networking.extraHosts = concatStringsSep "\n" (map (p: "10.0.0.${toString p.id} ${p.hostname}.wg") peers);
+    networking.extraHosts = concatStringsSep "\n" (map (p: "10.42.0.${toString p.id} ${p.hostname}.wg") peers);
 
     # allow all connections on this trusted interface
     networking.firewall.trustedInterfaces = [ "wg0" ];
@@ -94,7 +94,7 @@ in {
             map (e: {
               wireguardPeerConfig = {
                 PublicKey = e.publicKey;
-                AllowedIPs = if (e.forwardToAll or false) then [ "10.0.0.0/16" ] else [ "10.0.0.${toString e.id}/32" "10.0.${toString e.id}.0/24" ];
+                AllowedIPs = if (e.forwardToAll or false) then [ "10.42.0.0/16" ] else [ "10.42.0.${toString e.id}/32" "10.42.${toString e.id}.0/24" ];
                 Endpoint = mkIf (e ? endPoint) "${e.endPoint.host}:${toString e.endPoint.port}";
                 PersistentKeepalive = mkIf (! my_conf ? endPoint) 25; # to keep NAT connections open if I'm not an endPoint
               };
@@ -106,7 +106,7 @@ in {
         "40-wg0" = {
           matchConfig.Name = "wg0";
           networkConfig = {
-            Address = "10.0.0.${toString my_conf.id}/24"; # dont set /16 here because then IPMasquerade would be enabled for all those addresses, i.e. including those on the 10.0.X.0/24 networks.
+            Address = "10.42.0.${toString my_conf.id}/24"; # dont set /16 here because then IPMasquerade would be enabled for all those addresses, i.e. including those on the 10.42.X.0/24 networks.
             IPForward = mkIf (my_conf.forwardToAll or false) "ipv4";
             IPMasquerade = mkIf (my_conf.natToInternet or false) "ipv4";
           };
@@ -116,7 +116,7 @@ in {
           };
           routes = [{
             routeConfig = {
-              Destination = "10.0.0.0/16";
+              Destination = "10.42.0.0/16";
             };
           }];
         };
