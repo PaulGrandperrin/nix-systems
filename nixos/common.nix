@@ -338,9 +338,9 @@
   };
 
   virtualisation = {
-    podman.enable = true;
+    #podman.enable = true;
     docker = {
-      enable = true;
+      #enable = true;
       #storageDriver = "overlay2";
       autoPrune = {
         enable = true;
