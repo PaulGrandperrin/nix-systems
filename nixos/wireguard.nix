@@ -12,7 +12,6 @@ let
       endPoint.host = "nas.paulg.fr";
       endPoint.port = 51820;
       natToInternet = true;
-      forwardToAll = true; # Only one
     } {
       id = 2;
       hostname = "nixos-macmini";
@@ -24,7 +23,7 @@ let
       id = 3;
       hostname = "nixos-gcp";
       publicKey = "GCp+nDutIu0Ei+f1j1ZB5Opr50S3DiN/wY4usMC08zM=";
-      endPoint.host = "paulg.fr";
+      endPoint.host = "gcp.paulg.fr";
       endPoint.port = 51820;
       natToInternet = true;
     } {
@@ -43,6 +42,10 @@ let
       id = 7;
       hostname = "nixos-oci";
       publicKey = "Oci+nA4cbcCjmK5sfG413Jh+wUqBuK4qHnLdvghsGy0=";
+      endPoint.host = "oci.paulg.fr";
+      endPoint.port = 51820;
+      natToInternet = true;
+      forwardToAll = true; # Only one
     }
   ];
 in {
