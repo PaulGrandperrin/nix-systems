@@ -535,7 +535,6 @@
         ./nixos/hosts/gcp/hardware-configuration.nix
         ./nixos/google-compute-config.nix
         ./nixos/common.nix
-        ./nixos/containers/web.nix
         ./nixos/net.nix
         ./nixos/wireguard.nix
         # ./nixos/auto-upgrade.nix # 1G of memory is not enough to evaluate the system's derivation, even with zram...
@@ -583,7 +582,7 @@
       nixos-oci = mkNixosConf "aarch64" "nixos-22-11-small" [
         ./nixos/hosts/nixos-oci/hardware-configuration.nix
         ./nixos/common.nix
-        #./nixos/containers/web.nix
+        ./nixos/containers/web.nix
         ./nixos/net.nix
         ./nixos/wireguard.nix
         ./nixos/auto-upgrade.nix
