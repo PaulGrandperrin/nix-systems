@@ -350,6 +350,11 @@
     };
   };
 
+  boot.binfmt.emulatedSystems = [] # using box64 in place of qemu would be great, but it doesn't work so well at the moment: https://github.com/NixOS/nixpkgs/issues/213197
+    ++ lib.optionals ( system != "x86_64-linux" ) [ "x86_64-linux" ]
+    ++ lib.optionals ( system != "aarch64-linux" ) [ "aarch64-linux" ]
+  ;
+
   specialisation = {
     "Mitigations_Off" = {
       inheritParentConfig = true; # defaults to true
