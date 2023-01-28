@@ -44,6 +44,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
       gzip
       openssh
       rsync
+      socat
 
       fd
       tree
