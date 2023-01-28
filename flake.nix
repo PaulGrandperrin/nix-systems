@@ -740,6 +740,7 @@
         ./home-manager/desktop.nix
         ./home-manager/desktop-linux.nix
         ./home-manager/rust-stable.nix
+        ./home-manager/modules/wine.nix
       ];
 
     };
