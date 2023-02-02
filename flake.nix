@@ -693,6 +693,8 @@
 
           powerManagement = {
             powerDownCommands = lib.mkBefore ''
+              modprobe -r thunderbolt # seems to help with resuming faster from S3
+
               # brcmfmac being loaded during hibernation would not let a successful resume
               # https://bugzilla.kernel.org/show_bug.cgi?id=101681#c116.
               # Also brcmfmac could randomly crash on resume from sleep.
