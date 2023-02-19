@@ -16,11 +16,11 @@
 
   inputs = {
     nixos-22-11.url = "github:NixOS/nixpkgs/nixos-22.11";
-    nixos-22-11-small.url = "github:NixOS/nixpkgs/nixos-22.11-small";
+    #nixos-22-11-small.url = "github:NixOS/nixpkgs/nixos-22.11-small";
     darwin-22-11.url = "github:NixOS/nixpkgs/nixpkgs-22.11-darwin";
     darwin-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable"; # darwin-unstable for now (https://github.com/NixOS/nixpkgs/issues/107466)
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixos-unstable-small.url = "github:NixOS/nixpkgs/nixos-unstable-small";
+    #nixos-unstable-small.url = "github:NixOS/nixpkgs/nixos-unstable-small";
     #master.url = "github:NixOS/nixpkgs/master";
 
     nur.url = "github:nix-community/NUR";
@@ -240,7 +240,7 @@
         ] ++ nixos-modules;
       };
     in { 
-      nixos-nas = mkNixosConf "x86_64" "nixos-22-11-small" [
+      nixos-nas = mkNixosConf "x86_64" "nixos-22-11" [
         ./nixos/hosts/nas/hardware-configuration.nix
         ./nixos/common.nix
         ./nixos/nspawns.nix
@@ -484,7 +484,7 @@
         ./home-manager/cmdline.nix
       ];
 
-      nixos-macmini = mkNixosConf "x86_64" "nixos-22-11-small" [
+      nixos-macmini = mkNixosConf "x86_64" "nixos-22-11" [
         ./nixos/hosts/nixos-macmini/hardware-configuration.nix
         ./nixos/common.nix
         ./nixos/net.nix
@@ -531,7 +531,7 @@
         ./home-manager/cmdline.nix
       ];
 
-      nixos-gcp = mkNixosConf "x86_64" "nixos-22-11-small" [
+      nixos-gcp = mkNixosConf "x86_64" "nixos-22-11" [
         ./nixos/hosts/gcp/hardware-configuration.nix
         ./nixos/google-compute-config.nix
         ./nixos/common.nix
@@ -579,7 +579,7 @@
         ./home-manager/cmdline.nix
       ];
 
-      nixos-oci = mkNixosConf "aarch64" "nixos-22-11-small" [
+      nixos-oci = mkNixosConf "aarch64" "nixos-22-11" [
         ./nixos/hosts/nixos-oci/hardware-configuration.nix
         ./nixos/common.nix
         ./nixos/containers/web.nix
