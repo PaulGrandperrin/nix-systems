@@ -291,22 +291,6 @@
         "type": "github"
       }
     },
-    "nixos-22-11-small": {
-      "locked": {
-        "lastModified": 1676771332,
-        "narHash": "sha256-YYn2K0AwyIyCzvP7C+xzEt64rlCRPyrllRPGNNu+50M=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "f27a4e2f6a3a23b843ca1c736e6043fb8b99acc1",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixos-22.11-small",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixos-generators": {
       "inputs": {
         "nixlib": "nixlib",
@@ -344,22 +328,6 @@
         "type": "github"
       }
     },
-    "nixos-unstable-small": {
-      "locked": {
-        "lastModified": 1676795730,
-        "narHash": "sha256-X69A9BdcPTySJJ7DqS4wc8b6eqGKi32jCSyaBsz4WB0=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "efc59894b1ba73cb745676616c56c780383d6788",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixos-unstable-small",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nur": {
       "locked": {
         "lastModified": 1676820779,
@@ -387,10 +355,8 @@
         "nix-on-droid": "nix-on-droid",
         "nixgl": "nixgl",
         "nixos-22-11": "nixos-22-11",
-        "nixos-22-11-small": "nixos-22-11-small",
         "nixos-generators": "nixos-generators",
         "nixos-unstable": "nixos-unstable",
-        "nixos-unstable-small": "nixos-unstable-small",
         "nur": "nur",
         "rust-overlay": "rust-overlay",
         "sops-nix": "sops-nix"
