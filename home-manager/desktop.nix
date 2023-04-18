@@ -53,13 +53,13 @@
       extensions = with pkgs.nur.repos.rycee.firefox-addons; [
         bitwarden
         buster-captcha-solver
-        bypass-paywalls-clean
+        #bypass-paywalls-clean # FIXME
         clearurls
         darkreader
         gesturefy
         i-dont-care-about-cookies
         languagetool
-        netflix-1080p
+        #netflix-1080p # FIXME
         no-pdf-download
         octolinker
         old-reddit-redirect
