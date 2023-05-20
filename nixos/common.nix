@@ -5,8 +5,6 @@
   ];
   system.stateVersion = "22.05";
 
-  hardware.video.hidpi.enable = true;
-
   sops = {
     defaultSopsFile = ../secrets/common.yaml;
   };

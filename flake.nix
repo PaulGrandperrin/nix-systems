@@ -18,6 +18,7 @@
     nixos-22-11.url = "github:NixOS/nixpkgs/nixos-22.11";
     #nixos-22-11-small.url = "github:NixOS/nixpkgs/nixos-22.11-small";
     darwin-22-11.url = "github:NixOS/nixpkgs/nixpkgs-22.11-darwin";
+    nixos-23-05.url = "github:NixOS/nixpkgs/nixos-unstable";
     darwin-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable"; # darwin-unstable for now (https://github.com/NixOS/nixpkgs/issues/107466)
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     #nixos-unstable-small.url = "github:NixOS/nixpkgs/nixos-unstable-small";
@@ -28,7 +29,6 @@
     nix-on-droid = {
       url = "github:t184256/nix-on-droid/testing";
       inputs.nixpkgs.follows = "nixos-22-11"; # TODO try to remove
-      inputs.flake-utils.follows = "flake-utils";
       inputs.home-manager.follows = "home-manager-22-11"; # TODO try to remove
     };
 
@@ -51,11 +51,10 @@
       url = "github:nix-community/home-manager/release-22.11";
       inputs.nixpkgs.follows = "nixos-22-11"; # not needed by NixOS' module thanks to `home-manager.useGlobalPkgs = true` but needed by the unpriviledged module
     };
-
-    #home-manager-master = {
-    #  url = "github:nix-community/home-manager/master";
-    #  inputs.nixpkgs.follows = "nixos-22-11"; # not needed by NixOS' module thanks to `home-manager.useGlobalPkgs = true` but needed by the unpriviledged module
-    #};
+    home-manager-master = {
+      url = "github:nix-community/home-manager/master";
+      inputs.nixpkgs.follows = "nixos-23-05"; # not needed by NixOS' module thanks to `home-manager.useGlobalPkgs = true` but needed by the unpriviledged module
+    };
 
     nix-alien = {
       url = "github:thiagokokada/nix-alien";
@@ -287,10 +286,12 @@
             restartUnits = [ "nginx.service" ];
           };
           services.nginx = {
+            #package = pkgs.nginxQuic;
             additionalModules = [ pkgs.nginxModules.fancyindex ];
             virtualHosts."nas.paulg.fr" = {
               enableACME = true;
               forceSSL = true;
+              #quic = true;
               default = true;
               root = "/export/public/movies";
               locations."/" = {
@@ -667,7 +668,7 @@
         ./home-manager/modules/wine.nix
       ];
 
-      nixos-macbook = mkNixosConf "x86_64" "nixos-22-11" [
+      nixos-macbook = mkNixosConf "x86_64" "nixos-23-05" [
         ./nixos/hosts/nixos-macbook/hardware-configuration.nix
         ./nixos/common.nix
         ./nixos/net.nix
@@ -735,7 +736,7 @@
           };
         })
       ]
-      "home-manager-22-11"
+      "home-manager-master"
       [
         ./home-manager/cmdline.nix
         ./home-manager/desktop.nix

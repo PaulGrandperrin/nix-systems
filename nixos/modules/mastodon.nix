@@ -19,10 +19,6 @@
       SINGLE_USER_MODE = "true";
     };
   };
-  environment.systemPackages = [
-    pkgs.mastodon
-  ];
-
 }
 
 
