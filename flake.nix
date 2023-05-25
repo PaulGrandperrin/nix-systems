@@ -18,7 +18,7 @@
     nixos-22-11.url = "github:NixOS/nixpkgs/nixos-22.11";
     #nixos-22-11-small.url = "github:NixOS/nixpkgs/nixos-22.11-small";
     darwin-22-11.url = "github:NixOS/nixpkgs/nixpkgs-22.11-darwin";
-    nixos-23-05.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixos-23-05.url = "github:NixOS/nixpkgs/nixos-23.05";
     darwin-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable"; # darwin-unstable for now (https://github.com/NixOS/nixpkgs/issues/107466)
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     #nixos-unstable-small.url = "github:NixOS/nixpkgs/nixos-unstable-small";

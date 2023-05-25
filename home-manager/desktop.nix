@@ -19,8 +19,8 @@
       enable = true;
       package = let 
 
-        # build firefox-bin version from nixos-22-11-small but with current dependencies
-        path = inputs.nixos-22-11-small.outPath;
+        # build firefox-bin version from nixos-23-05 but with current dependencies
+        path = inputs.nixos-23-05.outPath;
         firefox-bin-unwrapped = pkgs.callPackage ( # taken from pkgs/top-level/all-packages.nix
           path + "/pkgs/applications/networking/browsers/firefox-bin"
         ) {
@@ -50,38 +50,37 @@
         if is_nixos then firefox-bin-wayland else pkgs.emptyDirectory; # trick to allow using HM config without installing nix version of Firefox
       };
 
-      extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-        bitwarden
-        buster-captcha-solver
-        #bypass-paywalls-clean # FIXME
-        clearurls
-        darkreader
-        gesturefy
-        i-dont-care-about-cookies
-        languagetool
-        #netflix-1080p # FIXME
-        no-pdf-download
-        octolinker
-        old-reddit-redirect
-        reddit-comment-collapser
-        reddit-enhancement-suite
-        refined-github
-        rust-search-extension
-        save-page-we
-        sponsorblock
-        stylus
-        terms-of-service-didnt-read
-        translate-web-pages
-        tree-style-tab
-        ublock-origin
-        unpaywall
-        videospeed
-        xbrowsersync
-        zoom-page-we
-      ];
-
       profiles."paulgrandperrin@gmail.com" = {
         id = 0;
+        extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+          bitwarden
+          buster-captcha-solver
+          #bypass-paywalls-clean # FIXME
+          clearurls
+          darkreader
+          gesturefy
+          i-dont-care-about-cookies
+          languagetool
+          #netflix-1080p # FIXME
+          no-pdf-download
+          octolinker
+          old-reddit-redirect
+          reddit-comment-collapser
+          reddit-enhancement-suite
+          refined-github
+          rust-search-extension
+          save-page-we
+          sponsorblock
+          stylus
+          terms-of-service-didnt-read
+          translate-web-pages
+          tree-style-tab
+          ublock-origin
+          unpaywall
+          videospeed
+          xbrowsersync
+          zoom-page-we
+        ];
         settings = { # user.js
           "services.sync.username" = "paulgrandperrin@gmail.com";
           "browser.search.region" = "US";

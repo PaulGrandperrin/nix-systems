@@ -168,7 +168,7 @@
     #extraArgs = ["-i" "wlp2s0"]; # was needed at some point 
   };
 
-  systemd.services.systemd-networkd-wait-online.enable = false; # I just can't deal with this anymore... I don't even understand WHY!?
+  systemd.services.systemd-networkd-wait-online.enable = lib.mkForce false; # I just can't deal with this anymore... I don't even understand WHY!?
 
   #networking.wireless.iwd.enable = true;
   #networking.networkmanager.wifi.backend = "iwd";

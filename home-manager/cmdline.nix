@@ -59,7 +59,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
       nix-du graphviz-nox
       jq yq
       ruby pry
-      mycli
+      #mycli
       tldr
       hyperfine
       ranger
