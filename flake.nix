@@ -580,7 +580,7 @@
         ./home-manager/cmdline.nix
       ];
 
-      nixos-oci = mkNixosConf "aarch64" "nixos-22-11" [
+      nixos-oci = mkNixosConf "aarch64" "nixos-23-05" [
         ./nixos/hosts/nixos-oci/hardware-configuration.nix
         ./nixos/common.nix
         ./nixos/containers/web.nix
@@ -619,7 +619,7 @@
           ];
         })
       ]
-      "home-manager-22-11"
+      "home-manager-master"
       [
         ./home-manager/cmdline.nix
         ./home-manager/rust-stable.nix
