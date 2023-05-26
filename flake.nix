@@ -239,7 +239,7 @@
         ] ++ nixos-modules;
       };
     in { 
-      nixos-nas = mkNixosConf "x86_64" "nixos-22-11" [
+      nixos-nas = mkNixosConf "x86_64" "nixos-23-05" [
         ./nixos/hosts/nas/hardware-configuration.nix
         ./nixos/common.nix
         ./nixos/nspawns.nix
@@ -480,7 +480,7 @@
           };
         })
       ]
-      "home-manager-22-11"
+      "home-manager-master"
       [
         ./home-manager/cmdline.nix
       ];
@@ -532,7 +532,7 @@
         ./home-manager/cmdline.nix
       ];
 
-      nixos-gcp = mkNixosConf "x86_64" "nixos-22-11" [
+      nixos-gcp = mkNixosConf "x86_64" "nixos-23-05" [
         ./nixos/hosts/gcp/hardware-configuration.nix
         ./nixos/google-compute-config.nix
         ./nixos/common.nix
@@ -575,7 +575,7 @@
           ];
         })
       ]
-      "home-manager-22-11"
+      "home-manager-master"
       [
         ./home-manager/cmdline.nix
       ];

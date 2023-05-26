@@ -15,7 +15,7 @@ with lib;
   #  autoResize = true;
   #};
 
-  boot.growPartition = true;
+  boot.initrd.systemd.repart.enable = true;
   boot.kernelParams = [ "console=ttyS0" "panic=1" "boot.panic_on_fail" ];
   boot.initrd.kernelModules = [ "virtio_scsi" ];
   boot.kernelModules = [ "virtio_pci" "virtio_net" ];
