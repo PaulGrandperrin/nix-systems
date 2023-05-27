@@ -156,8 +156,6 @@ in
     tempo = {
       enable = true;
       settings = {
-        search_enabled = true;
-        
         server = {
           http_listen_port = 3200;
           grpc_listen_port = 9096;
@@ -189,7 +187,6 @@ in
         #  };
         #};
 
-        metrics_generator_enabled = true;
         metrics_generator = {
           registry = {
             external_labels = {
