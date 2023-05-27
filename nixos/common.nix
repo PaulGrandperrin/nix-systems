@@ -324,8 +324,10 @@
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
-    passwordAuthentication = lib.mkForce true;
-    permitRootLogin = lib.mkForce "yes";
+    settings = {
+      PasswordAuthentication = lib.mkForce true;
+      PermitRootLogin = lib.mkForce "yes";
+    };
   };
 
   # give nix-daemon the lowest priority 
