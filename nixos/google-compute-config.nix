@@ -32,7 +32,7 @@ with lib;
   # and disable password authentication in general
   services.openssh.enable = true;
   services.openssh.settings.PermitRootLogin = "prohibit-password";
-  services.openssh.settings.passwordAuthentication = mkDefault false;
+  services.openssh.settings.PasswordAuthentication = mkDefault false;
 
   # enable OS Login. This also requires setting enable-oslogin=TRUE metadata on
   # instance or project level
