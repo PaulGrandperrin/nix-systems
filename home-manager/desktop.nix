@@ -73,7 +73,7 @@
           sponsorblock
           stylus
           terms-of-service-didnt-read
-          translate-web-pages
+          #translate-web-pages
           tree-style-tab
           ublock-origin
           unpaywall
