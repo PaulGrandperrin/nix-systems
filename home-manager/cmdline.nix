@@ -46,6 +46,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
       rsync
       socat
 
+      trashy
       fd
       tree
       ncdu
