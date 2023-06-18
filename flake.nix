@@ -229,7 +229,11 @@
         specialArgs = { inherit system inputs nixos-channel; }; #  passes inputs to modules
         extraModules = [ inputs.colmena.nixosModules.deploymentOptions ]; # from https://github.com/zhaofengli/colmena/issues/60#issuecomment-1047199551
         modules = [ 
-          { nixpkgs = {overlays = getOverlays system; }; }
+          { nixpkgs = {
+              overlays = getOverlays system;
+              config.allowUnfree = true;
+            };
+          }
           inputs.${hm-channel}.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true; # means that pkgs are taken from the nixosSystem and not from home-manager.inputs.nixpkgs
