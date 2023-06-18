@@ -699,6 +699,12 @@
             enable = true;
           };
 
+          # use stable ZFS from nixos-unstable
+          # NOTE: this also pulls the latest ZFS compatible linux from nixos-unstable
+          nixpkgs.config.packageOverrides = _pkgs: {
+            zfsStable = pkgs.unstable.zfsStable;
+          };
+
           powerManagement = {
             powerDownCommands = lib.mkBefore ''
               modprobe -r thunderbolt # seems to help with resuming faster from S3
