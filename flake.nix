@@ -87,10 +87,14 @@
   outputs = inputs: let 
     getOverlays = system: let # FIXME not sure those are the good channels for darwin
       pkgs-23-05 = inputs.nixos-23-05.legacyPackages.${system};
-      #unstable-pkgs = inputs.nixos-unstable.legacyPackages.${system};
-      #unstable-overlay = final: prev: { unstable = unstable-pkgs; };
-    in
-      [ inputs.nur.overlay inputs.rust-overlay.overlay inputs.nix-alien.overlay];
+      unstable-pkgs = inputs.nixos-unstable.legacyPackages.${system};
+      unstable-overlay = final: prev: { unstable = unstable-pkgs; };
+    in [
+      unstable-overlay
+      inputs.nur.overlay
+      inputs.rust-overlay.overlay
+      inputs.nix-alien.overlay
+    ];
   in {
     colmena = {
       meta.nixpkgs = inputs.nixos-23-05.legacyPackages.x86_64-linux;
