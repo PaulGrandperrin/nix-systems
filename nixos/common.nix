@@ -133,8 +133,8 @@
     "nosgx"
   ];
 
-  #boot.kernelPackages = pkgs.linuxPackages_latest; # breakes ZFS sometimes
-  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
+  #boot.kernelPackages = pkgs.linuxPackages_latest; # breakes ZFS sometimes # nix eval --raw n#linuxPackages.kernel.version
+  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages; # nix eval --raw n#zfs.latestCompatibleLinuxPackages.kernel.version
   # boot.forceImportRoot = false; 
 
   # enabling mails in ZFS enables mails in smartmontools and zed
