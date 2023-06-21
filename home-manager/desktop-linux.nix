@@ -15,8 +15,10 @@
       #gnomeExtensions.drop-down-terminal # incomp
       #gnomeExtensions.ddterm
       #gnomeExtensions.coverflow-alt-tab
-      #gnomeExtensions.dash-to-dock
-      #gnomeExtensions.dash-to-panel
+      gnomeExtensions.dash-to-dock # well maintained
+      #gnomeExtensions.dash-to-panel # unmaintained
+      #gnomeExtensions.dock-from-dash # little maintained
+      gnomeExtensions.caffeine
       gnomeExtensions.appindicator
       gnomeExtensions.bluetooth-battery
       #gnomeExtensions.desktop-cube
