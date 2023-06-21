@@ -9,7 +9,10 @@
     extraConfig = {
       reverseProxy = true;
       defaults = {
-        host = "localhost";
+        nick = "paulgdpr";
+        username = "paulgdpr";
+        realname = "Paul Grandperrin";
+        join = "";
       };
     };
   };

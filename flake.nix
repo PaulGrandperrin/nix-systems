@@ -545,6 +545,7 @@
         ./nixos/common.nix
         ./nixos/net.nix
         ./nixos/wireguard.nix
+        ./nixos/modules/thelounge.nix
         # ./nixos/auto-upgrade.nix # 1G of memory is not enough to evaluate the system's derivation, even with zram...
         ({pkgs, lib, config, ...}:{
           # colmena options
