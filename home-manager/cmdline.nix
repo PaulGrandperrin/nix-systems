@@ -45,6 +45,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
       openssh
       rsync
       socat
+      whois
 
       trashy
       fd
