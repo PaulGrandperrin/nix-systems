@@ -21,6 +21,7 @@
       gnomeExtensions.caffeine
       gnomeExtensions.appindicator
       gnomeExtensions.bluetooth-battery
+      gnomeExtensions.task-widget
       #gnomeExtensions.desktop-cube
       #gnomeExtensions.pop-shell
 
