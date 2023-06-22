@@ -170,6 +170,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
         powertop
         ethtool
         dmidecode
+        bcc
       ]
     ) ++ lib.optionals (system == "x86_64-linux") (
       [ 
