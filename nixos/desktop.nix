@@ -69,6 +69,10 @@
   ];
   services.gvfs.enable = true;
 
+  services.system76-scheduler = {
+    enable = true;
+  };
+
   # android
   programs.adb.enable = true;
   users.users.paulg.extraGroups = ["adbusers"];

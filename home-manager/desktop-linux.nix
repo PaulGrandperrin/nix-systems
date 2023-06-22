@@ -23,7 +23,8 @@
       gnomeExtensions.bluetooth-battery
       #gnomeExtensions.desktop-cube
       #gnomeExtensions.pop-shell
-      #gnomeExtensions.system76-scheduler # missing daemon: https://github.com/NixOS/nixpkgs/pull/195082
+
+      unstable.gnomeExtensions.system76-scheduler
       #wintile?
 
       # nix run --impure --expr '(builtins.getFlake "n").legacyPackages.x86_64-linux.blender.override {cudaSupport = true;}'
