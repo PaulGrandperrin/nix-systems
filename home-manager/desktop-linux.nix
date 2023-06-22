@@ -22,6 +22,7 @@
       gnomeExtensions.appindicator
       gnomeExtensions.bluetooth-battery
       gnomeExtensions.task-widget
+      gnomeExtensions.focus-indicator
       #gnomeExtensions.desktop-cube
       #gnomeExtensions.pop-shell
 
