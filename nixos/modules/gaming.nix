@@ -1,11 +1,17 @@
 { config, pkgs, lib, ... }:
 {
-  programs.steam = {
-    enable = true;
-    dedicatedServer.openFirewall = true;
-    remotePlay.openFirewall = true;
+  programs = {
+    steam = {
+      enable = true;
+      dedicatedServer.openFirewall = true;
+      remotePlay.openFirewall = true;
+    };
+    gamemode.enable = true;
+    gamescope = {
+      enable = true;
+      capSysNice = true;
+    };
   };
-  programs.gamemode.enable = true;
   services.gnome.games.enable = true;
 
   home-manager.users.paulg.home.packages = with pkgs; [
