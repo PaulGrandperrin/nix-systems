@@ -81,6 +81,12 @@
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixos-23-05";
     };
+
+    xremap-flake = {
+      url = "github:xremap/nix-flake";
+      inputs.nixpkgs.follows = "nixos-23-05";
+      inputs.home-manager.follows = "home-manager-23-05";
+    };
   };
 
 
