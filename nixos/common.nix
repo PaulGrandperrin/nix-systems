@@ -125,7 +125,10 @@
    };
 
   hardware.cpu.intel.updateMicrocode = lib.mkIf (system == "x86_64-linux") true;
-  services.fstrim.enable = true;
+  services.fstrim = {
+    enable = true;
+    interval = "07:00:00";
+  };
   boot.kernelParams = [
     "panic=20"
     "boot.panic_on_fail"
@@ -161,7 +164,7 @@
 
     trim = {
       enable = true;
-      interval = "daily";
+      interval = "07:00:00";
     };
     autoScrub = {
       enable = true;
