@@ -4,20 +4,23 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
   nixpkgs.config.allowUnfree = true; # only works inside HM
   xdg.configFile."nixpkgs/config.nix".text = "{ allowUnfree = true; }"; # works for `nix run/shell`, also needs `--impure`
 
-  #nix.package = pkgs.nixUnstable;
-  nix.settings."experimental-features" = "nix-command flakes";
+  nix = {
+    settings."experimental-features" = "nix-command flakes";
 
-  nix.registry = {
-    #nixos.flake = inputs.nixos;
-    #nixos-small.flake = inputs.nixos-small;
-    nixos-unstable.flake = inputs.nixos-unstable;
-    #nixpkgs-darwin.flake = inputs.nixpkgs-darwin;
-    #nur.flake = inputs.nur;
-    #flake-utils.flake = inputs.flake-utils;
-    #rust-overlay.flake = inputs.rust-overlay;
-    #home-manager.flake = inputs.home-manager;
-    n.flake = mainFlake;
-    nixpkgs.flake = mainFlake;
+    registry = {
+      #nixos.flake = inputs.nixos;
+      #nixos-small.flake = inputs.nixos-small;
+      nixos-unstable.flake = inputs.nixos-unstable;
+      #nixpkgs-darwin.flake = inputs.nixpkgs-darwin;
+      #nur.flake = inputs.nur;
+      #flake-utils.flake = inputs.flake-utils;
+      #rust-overlay.flake = inputs.rust-overlay;
+      #home-manager.flake = inputs.home-manager;
+      n.flake = mainFlake;
+      nixpkgs.flake = mainFlake;
+    };
+    #registry = lib.mapAttrs (_: value: { flake = value; }) inputs; # nix.generateRegistryFromInputs in flake-utils-plus
+    #nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry; # nix.generateNixPathFromInputs in flake-utils-plus
   };
 
   # systemd.user.systemctlPath = "/usr/bin/systemctl"; # TODO ?
@@ -26,6 +29,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
     enableNixpkgsReleaseCheck = true; # check for release version mismatch between Home Manager and Nixpkgs
     sessionVariables = { # only works for interactive shells, pam works for all kind of sessions
       EDITOR = "vim";
+      NIX_PATH = (lib.concatStringsSep " " (lib.mapAttrsToList (name: path: "${name}=${path.to.path}") config.nix.registry));
     };
 
     file.".cargo/config.toml" = lib.mkIf pkgs.stdenv.isLinux {
