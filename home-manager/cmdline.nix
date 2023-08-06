@@ -155,9 +155,9 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
         usbutils
         usbtop
 
-        nix-alien
-        nix-index
-        nix-index-update
+        #nix-alien # or nix-autobahn
+        #nix-index
+        #nix-index-update
 
         #unstable.nix
         #unstable.nixos-rebuild
