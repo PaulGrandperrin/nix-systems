@@ -28,6 +28,7 @@
   };
   environment.sessionVariables = {
     NIX_USER_CONF_FILES = config.sops.secrets.github-public-access-token.path; 
+    ENVFS_RESOLVE_ALWAYS = "1";
   };
 
   # Hardening
@@ -108,7 +109,59 @@
     #nixos.includeAllModules = true;
   };
 
-  programs.nix-ld.enable = true;
+  services.envfs.enable = true;
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      stdenv.cc.cc
+      fuse3
+      alsa-lib
+      at-spi2-atk
+      at-spi2-core
+      atk
+      cairo
+      cups
+      curl
+      dbus
+      expat
+      fontconfig
+      freetype
+      gdk-pixbuf
+      glib
+      gtk3
+      libGL
+      libappindicator-gtk3
+      libdrm
+      libnotify
+      libpulseaudio
+      libuuid
+      libusb1
+      xorg.libxcb
+      libxkbcommon
+      mesa
+      nspr
+      nss
+      pango
+      pipewire
+      systemd
+      icu
+      openssl
+      xorg.libX11
+      xorg.libXScrnSaver
+      xorg.libXcomposite
+      xorg.libXcursor
+      xorg.libXdamage
+      xorg.libXext
+      xorg.libXfixes
+      xorg.libXi
+      xorg.libXrandr
+      xorg.libXrender
+      xorg.libXtst
+      xorg.libxkbfile
+      xorg.libxshmfence
+      zlib
+    ];
+  };
 
   # those machines can easily deploy closures to all nixos machines
   users.users.root.openssh.authorizedKeys.keys = [ 
