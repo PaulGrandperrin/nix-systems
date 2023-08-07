@@ -3,8 +3,7 @@
     enable = true;
     flake = "git+ssh://git@github.com/PaulGrandperrin/nix-systems?ref=main";
     #flake = "git+file:///etc/nixos/";
-    #flags = [ "--update-input" "nixos" "--commit-lock-file" ];
-    flags = [ "--update-input" "nixos-23-05" "--update-input" "nixos-23-05-small" "--update-input" "nur" "--update-input" "flake-utils" "--no-write-lock-file" ];
+    flags = [ "--recreate-lock-file" "--no-write-lock-file" ]; # updates all inputs but don't write anything to FS
     dates = "04:00:00";
     allowReboot = true;
     rebootWindow = {
