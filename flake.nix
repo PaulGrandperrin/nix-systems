@@ -671,6 +671,21 @@
           services.thermald.enable = false; # should be disabled when throttled is enabled
           services.throttled.enable = true;
 
+          # workaround kernel bug
+          boot.blacklistedKernelModules = [
+            "rtsx_pci_sdmmc"
+            "rtsx_pci"
+          ];
+          #boot.kernelParams = [
+          #  "module_blacklist=rtsx_pci_sdmmc,rtsx_pci"
+          #];
+          #boot.kernelPatches = [
+          #  {
+          #    patch = ./nixos/0001-Revert-misc-rtsx-judge-ASPM-Mode-to-set-PETXCFG-Reg.patch;
+          #    name = "0001-Revert-misc-rtsx-judge-ASPM-Mode-to-set-PETXCFG-Reg";
+          #  }
+          #];
+
         })
       ]
       "home-manager-23-05"
