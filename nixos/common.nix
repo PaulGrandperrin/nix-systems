@@ -220,6 +220,48 @@
   #  });
   #})]; 
 
+  # to bisect kernel
+  #boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_6_1.override { # (#4)
+  #  argsOverride = rec {
+  #    src = pkgs.fetchFromGitHub {
+  #      owner = "gregkh";
+  #      repo = "linux";
+  #      # (#1) -> put the bisect revision here
+  #      rev = "f11a26633eb6d3bb24a10b1bacc4e4a9b0c6389f";
+  #      # (#2) -> clear the sha; run a build, get the sha, populate the sha
+  #      sha256 = "sha256-7Ep9/ScE+Ix8DRAjUiIUuBFKIuBlmBkDXP8EA9cNFmQ=";
+  #    };
+  #    dontStrip = true;
+  #    # (#3) `head Makefile` from the kernel and put the right version numbers here
+  #    version = "6.1.45";
+  #    modDirVersion = "6.1.45";
+  #  };
+  #});
+  
+
+  # tried to use ccache
+  #programs.ccache.enable = false;
+  #programs.ccache.cacheDir = "/opt/ccache";
+  #programs.ccache.packageNames = [ "linuxPackages_6_1.kernel" ];
+  #nix.settings.extra-sandbox-paths = [ "/opt/ccache" ];
+  #
+  #nixpkgs.overlays = [
+  #  (self: prev: {
+  #    kernel_cache = (prev.linuxPackages_6_1.kernel.override {
+  #      stdenv = self.ccacheStdenv;
+  #      buildPackages = prev.buildPackages // {
+  #        stdenv = self.ccacheStdenv;
+  #      };
+  #    }).overrideDerivation (attrs: {
+  #      preConfigure = ''
+  #        export NIX_CFLAGS_COMPILE="$(echo "$NIX_CFLAGS_COMPILE" | sed -e "s/-frandom-seed=[^-]*//")"
+  #      '';
+  #    });
+  #  })
+  #];
+
+
+
   services.zfs = {
     zed.settings = {
       # enable email notifications
