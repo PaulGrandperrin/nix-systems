@@ -188,7 +188,20 @@
     "oops=panic"
     #"ipv6.disable=1"
     "nosgx"
+    #"module_blacklist=rtsx_pci_sdmmc,rtsx_pci"
   ];
+
+  boot.blacklistedKernelModules = [
+    "rtsx_pci_sdmmc"
+    "rtsx_pci"
+  ];
+
+  #boot.kernelPatches = [
+  #  {
+  #    patch = ./0001-Revert-misc-rtsx-judge-ASPM-Mode-to-set-PETXCFG-Reg.patch;
+  #    name = "0001-Revert-misc-rtsx-judge-ASPM-Mode-to-set-PETXCFG-Reg";
+  #  }
+  #];
 
   #boot.kernelPackages = pkgs.linuxPackages_latest; # breakes ZFS sometimes # nix eval --raw n#linuxPackages.kernel.version
   boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages; # nix eval --raw n#zfs.latestCompatibleLinuxPackages.kernel.version
