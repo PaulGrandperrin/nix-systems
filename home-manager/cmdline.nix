@@ -175,6 +175,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
         ethtool
         dmidecode
         bcc
+        #mkosi # in 23.11
       ]
     ) ++ lib.optionals (system == "x86_64-linux") (
       [ 
