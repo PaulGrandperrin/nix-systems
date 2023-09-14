@@ -5,7 +5,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
   xdg.configFile."nixpkgs/config.nix".text = "{ allowUnfree = true; }"; # works for `nix run/shell`, also needs `--impure`
 
   nix = {
-    settings."experimental-features" = "nix-command flakes";
+    settings."experimental-features" = "nix-command flakes repl-flake";
 
     registry = {
       #nixos.flake = inputs.nixos;
