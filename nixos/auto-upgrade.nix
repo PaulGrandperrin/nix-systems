@@ -7,8 +7,8 @@
     dates = "04:00:00";
     allowReboot = true;
     rebootWindow = {
-      lower = "02:00";
-      upper = "03:00";
+      lower = "04:00";
+      upper = "06:00";
     };
   };
 
