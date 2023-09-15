@@ -188,6 +188,13 @@
     "oops=panic"
     #"ipv6.disable=1"
     "nosgx"
+    #"iommu=pt"
+    "intel_iommu=on"
+    "amd_iommu=on"
+    "efi=disable_early_pci_dma"
+    #"init_on_alloc=1"
+    #"init_on_free=1"
+    #"page_alloc.shuffle=1"
   ];
 
   #boot.kernelPackages = pkgs.linuxPackages_latest; # breakes ZFS sometimes # nix eval --raw n#linuxPackages.kernel.version
