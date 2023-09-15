@@ -16,6 +16,7 @@
 
   inputs = {
     nixos-23-05.url = "github:NixOS/nixpkgs/nixos-23.05";
+    nixos-23-05-lib.url = "github:NixOS/nixpkgs/nixos-23.05?dir=lib";
     nixos-23-05-small.url = "github:NixOS/nixpkgs/nixos-23.05-small";
     darwin-23-05.url = "github:NixOS/nixpkgs/nixpkgs-23.05-darwin";
     darwin-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable"; # darwin-unstable for now (https://github.com/NixOS/nixpkgs/issues/107466)
@@ -40,6 +41,11 @@
       url = "github:numtide/flake-utils";
     };
 
+    devshell = {
+      url = "github:numtide/devshell";
+      inputs.nixpkgs.follows = "nixos-23-05"; # TODO try to remove
+    };
+
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixos-23-05"; # FIXME used only for the lib
@@ -58,6 +64,8 @@
     nix-alien = {
       url = "github:thiagokokada/nix-alien";
       inputs.nixpkgs.follows = "nixos-23-05"; # TODO the overlay is using it, but I would like it to not use it
+      inputs.flake-compat.follows = "flake-compat";
+      inputs.flake-utils.follows = "flake-utils";
     };
 
     nixgl = {
@@ -75,6 +83,16 @@
       url = "github:zhaofengli/colmena";
       inputs.nixpkgs.follows = ""; # optional, not necessary for the module
       inputs.stable.follows = ""; # optional, not necessary for the module
+      inputs.flake-compat.follows = "flake-compat";
+      inputs.flake-utils.follows = "flake-utils";
+    };
+
+    pre-commit-hooks-nix = {
+      url = "github:cachix/pre-commit-hooks.nix";
+      inputs.nixpkgs.follows = "nixos-23-05";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.flake-compat.follows = "flake-compat";
+      inputs.nixpkgs-stable.follows = "nixos-23-05";
     };
 
     nixos-generators = {
@@ -86,6 +104,36 @@
       url = "github:xremap/nix-flake";
       inputs.nixpkgs.follows = "nixos-23-05";
       inputs.home-manager.follows = "home-manager-23-05";
+      inputs.flake-parts.follows = "flake-parts";
+      inputs.devshell.follows = "devshell";
+      inputs.hyprland.follows = ""; # we don't use it
+      inputs.naersk.follows = "naersk";
+    };
+
+    naersk = {
+      url = "github:nmattia/naersk";
+      inputs.nixpkgs.follows = "nixos-23-05";
+    };
+
+    flake-compat = {
+      url = "github:edolstra/flake-compat";
+      flake = false;
+    };
+
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixos-23-05-lib";
+    };
+
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.3.0";
+
+      inputs.nixpkgs.follows = "nixos-23-05";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.rust-overlay.follows = "rust-overlay";
+      inputs.flake-compat.follows = "flake-compat";
+      inputs.flake-parts.follows = "flake-parts";
+      inputs.pre-commit-hooks-nix.follows = "pre-commit-hooks-nix";
     };
   };
 
@@ -685,7 +733,15 @@
           #    name = "0001-Revert-misc-rtsx-judge-ASPM-Mode-to-set-PETXCFG-Reg";
           #  }
           #];
-
+        })
+        # secure boot
+        inputs.lanzaboote.nixosModules.lanzaboote
+        ({lib, ...}:{
+          boot.loader.systemd-boot.enable = lib.mkForce false;
+          boot.lanzaboote = {
+            enable = true;
+            pkiBundle = "/etc/secureboot";
+          };
         })
       ]
       "home-manager-23-05"

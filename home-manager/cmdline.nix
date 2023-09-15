@@ -185,6 +185,9 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
         intel-gpu-tools
       ] ++ lib.optionals (config.home.username == "root") [ # if root and linux
         i7z
+        sbctl # secure boot key manager
+        efibootmgr
+        efitools
       ]
     );
   };
