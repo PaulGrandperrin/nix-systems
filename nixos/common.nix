@@ -64,7 +64,7 @@
       execWheelOnly = true;
     };
     doas = {
-      enable = true;
+      enable = false;
       extraRules = [{
         groups = ["wheel"];
         persist = true;
