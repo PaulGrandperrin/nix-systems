@@ -748,6 +748,10 @@
             enable = true;
             pkiBundle = "/etc/secureboot";
           };
+          boot.kernelParams = [
+            #"tpm_tis.interrupts=0" # sometimes needed to make TPM2 work
+            #"tpm_tis.force=1" # also maybe needed to make TPM2 work
+          ];
         })
       ]
       "home-manager-23-05"
