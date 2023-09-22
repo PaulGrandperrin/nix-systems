@@ -311,6 +311,9 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
         neovim-fuzzy # fuzzy finder through vim
         vim-lastplace # restore cursor position
       ];
+      extraConfig = ''
+        set mouse=
+      '';
     };
     git = {
       enable = true;
