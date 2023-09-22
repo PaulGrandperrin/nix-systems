@@ -219,9 +219,6 @@
     homeConfigurations = {
       paulg-x86_64-linux = inputs.home-manager-23-05.lib.homeManagerConfiguration rec {
         system = "x86_64-linux";
-        homeDirectory = "/home/paulg";
-        username = "paulg";
-        stateVersion = "22.05";
         pkgs = (import inputs.nixos-23-05 {
           # https://github.com/nix-community/home-manager/issues/2954
           # https://github.com/nix-community/home-manager/pull/2720
@@ -229,25 +226,40 @@
           overlays = getOverlays system;
           config.allowUnfree = true;
         });
-        extraSpecialArgs = {inherit system inputs; mainFlake = inputs.home-manager-23-05.inputs.nixpkgs; is_nixos = false;};
-        configuration = { config, pkgs, lib, ... }: {
-          imports = [ ./home-manager/cmdline.nix ./home-manager/desktop.nix];
-        };
+        extraSpecialArgs = {inherit inputs; mainFlake = inputs.home-manager-23-05.inputs.nixpkgs; is_nixos = false;};
+        modules = [ 
+          {
+            home = {
+              username = "paulg";
+              homeDirectory = "/Users/paulg";
+              stateVersion = "22.05";
+            };
+          }
+          ./home-manager/cmdline.nix
+          ./home-manager/desktop.nix
+          ./home-manager/desktop-macos.nix
+        ];
       };
       paulg-aarch64-darwin = inputs.home-manager-23-05.lib.homeManagerConfiguration rec {
         system = "aarch64-darwin";
-        homeDirectory = "/Users/paulg";
-        username = "paulg";
-        stateVersion = "22.05";
         pkgs = (import inputs.nixos-23-05 {
           inherit system;
           overlays = getOverlays system;
           config.allowUnfree = true;
         });
-        extraSpecialArgs = {inherit system inputs; mainFlake = inputs.home-manager-23-05.inputs.nixpkgs; is_nixos = false;};
-        configuration = { config, pkgs, lib, ... }: {
-          imports = [ ./home-manager/cmdline.nix ./home-manager/desktop.nix ./home-manager/desktop-macos.nix];
-        };  
+        extraSpecialArgs = {inherit inputs; mainFlake = inputs.home-manager-23-05.inputs.nixpkgs; is_nixos = false;};
+        modules = [ 
+          {
+            home = {
+              username = "paulg";
+              homeDirectory = "/Users/paulg";
+              stateVersion = "22.05";
+            };
+          }
+          ./home-manager/cmdline.nix
+          ./home-manager/desktop.nix
+          ./home-manager/desktop-macos.nix
+        ];
       };
     };
 
