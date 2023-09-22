@@ -252,6 +252,10 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
     nnn.enable = true;
     noti.enable = true;
     nushell.enable = true;
+    nix-index = {
+      enable = true;
+      enableFishIntegration = true;
+    };
     bottom.enable = true;
     broot.enable = true;
     tmux = {

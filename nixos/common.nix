@@ -365,6 +365,8 @@
     useBabelfish = false;
   };
 
+  programs.command-not-found.enable = false; # disable because it uses channels and we use nix-index instead
+
   users.mutableUsers = false;
 
   sops.secrets.password-root.neededForUsers = true;
