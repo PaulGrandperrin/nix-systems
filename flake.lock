@@ -293,7 +293,9 @@
         "flake-utils": [
           "flake-utils"
         ],
-        "nix-index-database": "nix-index-database",
+        "nix-index-database": [
+          "nix-index-database"
+        ],
         "nixpkgs": [
           "nixos-23-05"
         ]
@@ -359,16 +361,15 @@
     "nix-index-database": {
       "inputs": {
         "nixpkgs": [
-          "nix-alien",
-          "nixpkgs"
+          "nixos-23-05"
         ]
       },
       "locked": {
-        "lastModified": 1691897365,
-        "narHash": "sha256-jvWIU4ht3YAmF8TDVM2Ps2+Gf4MtNGLL1zEWQZdTrzU=",
+        "lastModified": 1694921880,
+        "narHash": "sha256-yU36cs5UdzhTwsM9bUWUz43N//ELzQ1ro69C07pU/8E=",
         "owner": "Mic92",
         "repo": "nix-index-database",
-        "rev": "f4d70d098f066a30c7087144063dca179495f7d6",
+        "rev": "9d2bcc47110b3b6217dfebd6761ba20bc78aedf2",
         "type": "github"
       },
       "original": {
@@ -646,6 +647,7 @@
         "naersk": "naersk",
         "nix-alien": "nix-alien",
         "nix-darwin": "nix-darwin",
+        "nix-index-database": "nix-index-database",
         "nix-on-droid": "nix-on-droid",
         "nixgl": "nixgl",
         "nixos-23-05": "nixos-23-05",

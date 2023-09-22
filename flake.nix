@@ -66,6 +66,7 @@
       inputs.nixpkgs.follows = "nixos-23-05"; # TODO the overlay is using it, but I would like it to not use it
       inputs.flake-compat.follows = "flake-compat";
       inputs.flake-utils.follows = "flake-utils";
+      inputs.nix-index-database.follows = "nix-index-database";
     };
 
     nixgl = {
@@ -93,6 +94,11 @@
       inputs.flake-utils.follows = "flake-utils";
       inputs.flake-compat.follows = "flake-compat";
       inputs.nixpkgs-stable.follows = "nixos-23-05";
+    };
+
+    nix-index-database = {
+      url = "github:Mic92/nix-index-database";
+      inputs.nixpkgs.follows = "nixos-23-05";
     };
 
     nixos-generators = {
