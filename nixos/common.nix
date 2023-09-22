@@ -109,10 +109,20 @@
     #nixos.includeAllModules = true;
   };
 
-  services.envfs.enable = true;
-  programs.nix-ld = {
+  boot.binfmt.registrations.appimage = { # make appImage work seamlessly
+    wrapInterpreterInShell = false;
+    interpreter = "${pkgs.appimage-run}/bin/appimage-run";
+    recognitionType = "magic";
+    offset = 0;
+    mask = ''\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff'';
+    magicOrExtension = ''\x7fELF....AI\x02'';
+  };
+
+  services.envfs.enable = true; # populate /usr/bin for non-nix binaries
+  programs.nix-ld = { # create a link-loader for non-nix binaries
     enable = true;
     libraries = with pkgs; [
+      # from https://github.com/Mic92/dotfiles/blob/main/nixos/modules/nix-ld.nix
       stdenv.cc.cc
       fuse3
       alsa-lib
