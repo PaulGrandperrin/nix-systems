@@ -156,6 +156,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
  
         mold
         bintools
+        distrobox
       ] ++ lib.optionals (config.home.username == "root") [ # if root and linux
         parted
         iftop

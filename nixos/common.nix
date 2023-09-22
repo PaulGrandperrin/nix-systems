@@ -457,7 +457,18 @@
   };
 
   virtualisation = {
-    #podman.enable = true;
+    oci-containers.backend = "podman";
+    podman = {
+      enable = true;
+      autoPrune = {
+        enable = true;
+        dates = "04:30:00";
+        flags = ["--all" "--filter" "until=${builtins.toString (7*24)}h"];
+      };
+      #dockerCompat = true;
+      #defaultNetwork.settings = { dns_enabled = true; };
+      #enableNvidia = true;
+    };
     docker = {
       #enable = true;
       #storageDriver = "overlay2";
