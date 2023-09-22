@@ -164,6 +164,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
         dmidecode
         bcc
         #mkosi # in 23.11
+        tpm2-tools
       ]
     ) ++ lib.optionals (system == "x86_64-linux") (
       [ 
