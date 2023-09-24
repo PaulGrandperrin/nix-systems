@@ -51,6 +51,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
       gzip
       openssh
       rsync
+      unstable.nixd
       socat
       whois
 
@@ -303,6 +304,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
       enable = true;
       ## "backport" neovim from unstable
       #package = pkgs.callPackage (inputs.nixos-unstable.outPath + "/pkgs/applications/editors/neovim") { lua = pkgs.luajit; };
+      #package = pkgs.unstable.neovim;
       viAlias = true;
       vimAlias = true;
       vimdiffAlias = true;
@@ -311,9 +313,48 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
         vim-nix # nix highlight
         neovim-fuzzy # fuzzy finder through vim
         vim-lastplace # restore cursor position
+        # LSP
+        pkgs.unstable.vimPlugins.nvim-lspconfig
+        pkgs.unstable.vimPlugins.lsp-zero-nvim
+        # autocomplete
+        pkgs.unstable.vimPlugins.nvim-cmp
+        pkgs.unstable.vimPlugins.cmp-buffer
+        pkgs.unstable.vimPlugins.cmp-path
+        pkgs.unstable.vimPlugins.cmp_luasnip
+        pkgs.unstable.vimPlugins.cmp-nvim-lsp
+        pkgs.unstable.vimPlugins.cmp-nvim-lua
+        # snippets
+        pkgs.unstable.vimPlugins.luasnip
+        pkgs.unstable.vimPlugins.friendly-snippets
       ];
       extraConfig = ''
         set mouse=
+      '';
+      extraLuaConfig = ''
+        -- reserve space for diagnostic icons
+        vim.opt.signcolumn = 'yes'
+
+        local lsp = require('lsp-zero').preset({
+          name = 'system-lsp',
+          set_lsp_keymaps = true,
+          manage_nvim_cmp = true,
+        })
+
+        lsp.configure('rust_analyzer', {
+        force_setup = true, -- skip checks because it's installed globally
+          on_attach = function(client, bufnr)
+            print('hello rust')
+          end
+        })
+
+        lsp.configure('nixd', {
+        force_setup = true, -- skip checks because it's installed globally
+          on_attach = function(client, bufnr)
+            print('hello nix')
+          end
+        })
+  
+        lsp.setup()
       '';
     };
     git = {
