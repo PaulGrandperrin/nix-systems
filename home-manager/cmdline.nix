@@ -143,6 +143,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
         lsb-release
         usbutils
         usbtop
+        wl-clipboard # used by neovim to yank to clipboard
 
         #nix-alien # or nix-autobahn
         #nix-index
