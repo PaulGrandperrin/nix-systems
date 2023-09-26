@@ -329,6 +329,7 @@
         ./nixos/headless.nix
         ./nixos/modules/observability.nix
         ./nixos/modules/mastodon.nix
+        ./nixos/modules/home-assistant.nix
         ({pkgs, config, lib, ... }:{
           # colmena options
           deployment = {
