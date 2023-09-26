@@ -5,9 +5,9 @@
       volumes = [ "home-assistant:/config" ];
       environment.TZ = "Europe/Paris";
       image = "ghcr.io/home-assistant/home-assistant:stable";
-      ports = ["8123"];
+      #ports = ["8123"];
       extraOptions = [ 
-        #"--network=host" 
+        "--network=host" 
         "--pull=newer"
         #"--device=/dev/ttyACM0:/dev/ttyACM0"
       ];
