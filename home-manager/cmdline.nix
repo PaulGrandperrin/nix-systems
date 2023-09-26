@@ -300,11 +300,9 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
     #  enable = true;
     #  enableFuzzySearch = true;
     #};
-    neovim = {
+    neovim =  {
       enable = true;
-      ## "backport" neovim from unstable
-      #package = pkgs.callPackage (inputs.nixos-unstable.outPath + "/pkgs/applications/editors/neovim") { lua = pkgs.luajit; };
-      #package = pkgs.unstable.neovim;
+      #package = pkgs.unstable.neovim-unwrapped;
       viAlias = true;
       vimAlias = true;
       vimdiffAlias = true;
@@ -315,7 +313,20 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
         vim-lastplace # restore cursor position
         # LSP
         pkgs.unstable.vimPlugins.nvim-lspconfig
-        pkgs.unstable.vimPlugins.lsp-zero-nvim
+        #pkgs.unstable.vimPlugins.lsp-zero-nvim
+        (
+          pkgs.vimUtils.buildVimPluginFrom2Nix {
+            pname = "lsp-zero.nvim";
+            version = "2023-09-23";
+            src = pkgs.fetchFromGitHub {
+              owner = "VonHeikemen";
+              repo = "lsp-zero.nvim";
+              rev = "011edd4afede7030cb17248495063ab8f3bd0e57";
+              sha256 = "sha256-AW9QVBjvnxVcAvS1IUivra+B+8hHBfJyy/vIY1TszQs=";
+            };
+            meta.homepage = "https://github.com/VonHeikemen/lsp-zero.nvim/";
+          }
+        )
         # autocomplete
         pkgs.unstable.vimPlugins.nvim-cmp
         pkgs.unstable.vimPlugins.cmp-buffer
@@ -327,10 +338,10 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
         pkgs.unstable.vimPlugins.luasnip
         pkgs.unstable.vimPlugins.friendly-snippets
       ];
-      extraConfig = ''
-        set mouse=
-      '';
+      #extraConfig = ''
+      #'';
       extraLuaConfig = ''
+        vim.cmd("set mouse=")
         -- reserve space for diagnostic icons
         vim.opt.signcolumn = 'yes'
 
