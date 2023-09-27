@@ -740,19 +740,21 @@
 
           systemd.services.smbios-thermal = {
             script = ''
-              ${pkgs.libsmbios}/bin/smbios-thermal-ctl --set-thermal-mode balanced
+              ${pkgs.libsmbios}/bin/smbios-thermal-ctl --set-thermal-mode quiet
             '';
             wantedBy = [ "multi-user.target" ];
           };
+
+          boot.kernelParams = [
+            "nvme_core.default_ps_max_latency_us=170000" # https://wiki.archlinux.org/title/Dell_XPS_15_(9560)#Enable_NVMe_APST and https://wiki.archlinux.org/title/Solid_state_drive/NVMe#Power_Saving_(APST)
+            "enable_psr=1" "disable_power_well=0" # https://wiki.archlinux.org/title/Dell_XPS_15_(9560)#Enable_power_saving_features_for_the_i915_kernel_module
+          ];
 
           # workaround kernel bug
           boot.blacklistedKernelModules = [
             "rtsx_pci_sdmmc"
             "rtsx_pci"
           ];
-          #boot.kernelParams = [
-          #  "module_blacklist=rtsx_pci_sdmmc,rtsx_pci"
-          #];
           #boot.kernelPatches = [
           #  {
           #    patch = ./nixos/0001-Revert-misc-rtsx-judge-ASPM-Mode-to-set-PETXCFG-Reg.patch;
