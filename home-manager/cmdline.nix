@@ -400,7 +400,10 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
       };
     };
     kitty.enable = true;
-    wezterm.enable = true;
+    wezterm = {
+      enable = true;
+      package = pkgs.unstable.wezterm;
+    };
     fish = {
       enable = true;
       interactiveShellInit = ''
