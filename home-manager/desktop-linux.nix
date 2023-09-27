@@ -125,6 +125,8 @@
     };
     "org/gnome/desktop/media-handling" = {
       autorun-never = true;
+      automount = false;
+      automount-open = false;
     };
     "org/gnome/desktop/peripherals/keyboard" = {
       delay = 500;
