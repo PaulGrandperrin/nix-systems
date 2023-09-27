@@ -764,16 +764,32 @@
         })
         # secure boot
         inputs.lanzaboote.nixosModules.lanzaboote
-        ({lib, ...}:{
+        ({lib, pkgs, ...}:{
           boot.loader.systemd-boot.enable = lib.mkForce false;
           boot.lanzaboote = {
             enable = true;
             pkiBundle = "/etc/secureboot";
           };
-          boot.kernelParams = [
-            #"tpm_tis.interrupts=0" # sometimes needed to make TPM2 work
-            #"tpm_tis.force=1" # also maybe needed to make TPM2 work
-          ];
+          boot.initrd.systemd = let
+            challenge = pkgs.writeText "challenge" "bf239fcf13ad263cb235eaa4aa6709a4cc8c0e843fa921bccbf083e70a3619f3  /sysroot/etc/secureboot/keys/PK/PK.key"; # don't forget to prepend /sysroot
+          in {
+            enable = true;
+            emergencyAccess = "$6$L5luqeVnXrobIl$TyGUOBnB.jvLxdq7t70TFFKkPbfkSqkN.fx8rU3rAomJhZjCBsTZkhC3CIDBFVQjNslcDmExjnGHjDT7TNHIR0";
+
+            storePaths = [ pkgs.coreutils challenge];
+            services.challenge-root = {
+              requires = ["sysroot.mount"];
+              after = ["sysroot.mount"];
+              requiredBy = ["initrd-root-fs.target"];
+              before = ["initrd-root-fs.target"];
+              serviceConfig.Type = "oneshot";
+              description = "Challenging the authenticity of the root FS";
+              script = ''
+                ${pkgs.coreutils}/bin/sha256sum -c ${challenge}
+              '';
+            };
+          };
+
         })
       ]
       "home-manager-23-05"
