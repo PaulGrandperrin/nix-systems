@@ -224,7 +224,6 @@
 
   programs = {
     foot.enable = true;
-    kitty.enable = true; 
     alacritty.enable = true;
     mangohud.enable = true;
     vscode = { # better than plain package which can't install extensions from internet

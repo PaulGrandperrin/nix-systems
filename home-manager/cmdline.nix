@@ -399,6 +399,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
         key = "4AB1353033774DA3";
       };
     };
+    kitty.enable = true;
     fish = {
       enable = true;
       interactiveShellInit = ''
@@ -413,6 +414,10 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
       loginShellInit = ''
         fish_add_path --move --prepend --path $HOME/.nix-profile/bin /run/wrappers/bin /etc/profiles/per-user/$USER/bin /run/current-system/sw/bin /nix/var/nix/profiles/default/bin # https://github.com/LnL7/nix-darwin/issues/122
       '';
+      shellAliases = {
+        icat = "kitty +kitten icat";
+        ssh = "kitty +kitten ssh";
+      };
       shellAbbrs = {
         ssh-keygen-ed25519 = "ssh-keygen -t ed25519";
         nixos-rebuild-gcp = "nixos-rebuild --flake git+file:///etc/nixos#nixos-gcp --use-substitutes --target-host root@paulg.fr";
