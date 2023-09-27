@@ -7,7 +7,7 @@
   system.stateVersion = "22.05";
 
   # always keep a reference to the source flake that generated each generations
-  environment.etc."current-nixos".source = ../.;
+  environment.etc."source-flake".source = ../.;
 
   sops = {
     defaultSopsFile = ../secrets/common.yaml;

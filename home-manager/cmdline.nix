@@ -43,6 +43,9 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
       '';
     };
 
+    # always keep a reference to the source flake that generated each generations
+    file.".source-flake".source = ../.;
+
     packages = with pkgs; [
       config.nix.package
       gnugrep
