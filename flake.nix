@@ -715,7 +715,7 @@
         ./nixos/desktop-i915.nix
         ./nixos/nvidia.nix
         ./nixos/modules/gaming.nix
-        ({config, ...}:{
+        ({config, pkgs, ...}:{
           # colmena options
           deployment = {
             allowLocalDeployment = true;
@@ -737,6 +737,13 @@
 
           services.thermald.enable = false; # should be disabled when throttled is enabled
           services.throttled.enable = true;
+
+          systemd.services.smbios-thermal = {
+            script = ''
+              ${pkgs.libsmbios}/bin/smbios-thermal-ctl --set-thermal-mode balanced
+            '';
+            wantedBy = [ "multi-user.target" ];
+          };
 
           # workaround kernel bug
           boot.blacklistedKernelModules = [
