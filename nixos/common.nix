@@ -9,6 +9,13 @@
   # always keep a reference to the source flake that generated each generations
   environment.etc."source-flake".source = ../.;
 
+  boot.supportedFilesystems = [
+    "ext4"
+    "btrfs"
+    "exfat"
+    "ntfs"
+  ];
+
   sops = {
     defaultSopsFile = ../secrets/common.yaml;
   };

@@ -171,6 +171,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
         bcc
         #mkosi # in 23.11
         tpm2-tools
+        ntfs3g
       ]
     ) ++ lib.optionals (system == "x86_64-linux") (
       [ 
