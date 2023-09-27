@@ -152,8 +152,8 @@
     in [
       unstable-overlay
       inputs.nur.overlay
-      inputs.rust-overlay.overlay
-      inputs.nix-alien.overlay
+      inputs.rust-overlay.overlays.default
+      inputs.nix-alien.overlays.default
     ];
   in {
     colmena = {
