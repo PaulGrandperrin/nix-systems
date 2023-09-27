@@ -174,6 +174,9 @@
     "org/gnome/desktop/datetime" = {
       automatic-timezone = true;
     };
+    "org/gnome/shell/keybindings" = {
+      toggle-message-tray = ["'<Super>m'"]; # by default there's also '<Super>v' which we use to paste
+    };
   };
 
   #xdg.configFile."wireplumber/default-profile".text = ''
