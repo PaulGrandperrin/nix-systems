@@ -113,6 +113,8 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
       man-pages
       man-pages-posix
 
+      # graphics in term
+      viu
 
       #dev
       gnumake
@@ -420,7 +422,6 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
       '';
       shellAliases = {
         icat = "kitty +kitten icat";
-        ssh = "kitty +kitten ssh";
       };
       shellAbbrs = {
         ssh-keygen-ed25519 = "ssh-keygen -t ed25519";
