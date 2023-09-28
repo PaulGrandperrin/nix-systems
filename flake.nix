@@ -779,23 +779,23 @@
           in {
             emergencyAccess = "$6$L5luqeVnXrobIl$TyGUOBnB.jvLxdq7t70TFFKkPbfkSqkN.fx8rU3rAomJhZjCBsTZkhC3CIDBFVQjNslcDmExjnGHjDT7TNHIR0";
 
-            #storePaths = [ pkgs.coreutils challenge];
-            #services.challenge-root-fs = {
-            #  #requires = ["sysroot.mount"];
-            #  #after = ["sysroot.mount"];
-            #  #requiredBy = ["initrd-root-fs.target"];
-            #  #before = ["initrd-root-fs.target"];
-            #  requires = ["initrd-root-fs.target"];
-            #  after = ["initrd-root-fs.target"];
-            #  requiredBy = ["initrd-parse-etc.service"];
-            #  before = ["initrd-parse-etc.service"];
-            #  unitConfig.AssertPathExists = "/etc/initrd-release";
-            #  serviceConfig.Type = "oneshot";
-            #  description = "Challenging the authenticity of the root FS";
-            #  script = ''
-            #    ${pkgs.coreutils}/bin/sha256sum -c ${challenge}
-            #  '';
-            #};
+            storePaths = [ pkgs.coreutils challenge];
+            services.challenge-root-fs = {
+              requires = ["sysroot.mount"];
+              after = ["sysroot.mount"];
+              requiredBy = ["initrd-root-fs.target"];
+              before = ["initrd-root-fs.target"];
+              #requires = ["initrd-root-fs.target"];
+              #after = ["initrd-root-fs.target"];
+              #requiredBy = ["initrd-parse-etc.service"];
+              #before = ["initrd-parse-etc.service"];
+              unitConfig.AssertPathExists = "/etc/initrd-release";
+              serviceConfig.Type = "oneshot";
+              description = "Challenging the authenticity of the root FS";
+              script = ''
+                ${pkgs.coreutils}/bin/sha256sum -c ${challenge}
+              '';
+            };
           };
 
         })
