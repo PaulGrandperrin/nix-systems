@@ -217,8 +217,6 @@
     #"page_alloc.shuffle=1"
   ];
 
-  systemd.services."prepare-kexec".wantedBy = [ "multi-user.target" ]; # otherwise kexec is broken on secure boot, TODO remove in 23.11, see https://github.com/nix-community/lanzaboote/issues/143
-
   #boot.kernelPackages = pkgs.linuxPackages_latest; # breakes ZFS sometimes # nix eval --raw n#linuxPackages.kernel.version
   boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages; # nix eval --raw n#zfs.latestCompatibleLinuxPackages.kernel.version
   # boot.forceImportRoot = false; 
