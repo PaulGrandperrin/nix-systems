@@ -1,5 +1,8 @@
 { config, pkgs, lib, system, inputs, ... }:
 {
+  imports = [
+    ./modules/xremap.nix
+  ];
 
   #nixpkgs.overlays = [
   #  (self: super: {

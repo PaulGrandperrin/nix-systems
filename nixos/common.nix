@@ -2,7 +2,6 @@
 {
   imports = [
     ./mail.nix
-    ./modules/xremap.nix
   ];
   system.stateVersion = "22.05";
 
