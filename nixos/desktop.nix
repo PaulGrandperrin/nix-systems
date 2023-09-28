@@ -70,6 +70,16 @@
   services.gvfs.enable = true;
 
   services.flatpak.enable = true;
+  systemd.services.flatpak-remote-add-flathub = {
+    requires = ["network-online.target"];
+    after = ["network-online.target"];
+    wantedBy = ["multi-user.target"];
+    serviceConfig.Type = "oneshot";
+    description = "Install Flatpak Remote Flathub";
+    script = ''
+      ${pkgs.flatpak}/bin/flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+    '';
+  };
 
   services.system76-scheduler = {
     enable = true;
