@@ -28,13 +28,13 @@
 
     nix-on-droid = {
       url = "github:t184256/nix-on-droid/testing";
-      inputs.nixpkgs.follows = "nixos-23-05"; # TODO try to remove
+      inputs.nixpkgs.follows = "nixos-23-05-lib";
       inputs.home-manager.follows = "home-manager-23-05"; # TODO try to remove
     };
 
     nix-darwin = {
       url = "github:lnl7/nix-darwin/master";
-      inputs.nixpkgs.follows = "darwin-23-05"; # FIXME only used to access lib...
+      inputs.nixpkgs.follows = "nixos-23-05-lib";
     };
 
     flake-utils = {
@@ -43,27 +43,27 @@
 
     devshell = {
       url = "github:numtide/devshell";
-      inputs.nixpkgs.follows = "nixos-23-05"; # TODO try to remove
+      inputs.nixpkgs.follows = "nixos-23-05-lib";
     };
 
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
-      inputs.nixpkgs.follows = "nixos-23-05"; # FIXME used only for the lib
+      inputs.nixpkgs.follows = "nixos-23-05-lib";
       inputs.flake-utils.follows = "flake-utils";
     };
 
     home-manager-23-05 = {
       url = "github:nix-community/home-manager/release-23.05";
-      inputs.nixpkgs.follows = "nixos-23-05"; # not needed by NixOS' module thanks to `home-manager.useGlobalPkgs = true` but needed by the unpriviledged module
+      inputs.nixpkgs.follows = "nixos-23-05-lib"; # not needed by NixOS' module thanks to `home-manager.useGlobalPkgs = true` but needed by the unpriviledged module
     };
     home-manager-master = {
       url = "github:nix-community/home-manager/master";
-      inputs.nixpkgs.follows = "nixos-23-05"; # not needed by NixOS' module thanks to `home-manager.useGlobalPkgs = true` but needed by the unpriviledged module
+      inputs.nixpkgs.follows = "nixos-23-05-lib"; # not needed by NixOS' module thanks to `home-manager.useGlobalPkgs = true` but needed by the unpriviledged module
     };
 
     nix-alien = {
       url = "github:thiagokokada/nix-alien";
-      inputs.nixpkgs.follows = "nixos-23-05"; # TODO the overlay is using it, but I would like it to not use it
+      inputs.nixpkgs.follows = "nixos-23-05-lib";
       inputs.flake-compat.follows = "flake-compat";
       inputs.flake-utils.follows = "flake-utils";
       inputs.nix-index-database.follows = "nix-index-database";
@@ -90,25 +90,25 @@
 
     pre-commit-hooks-nix = {
       url = "github:cachix/pre-commit-hooks.nix";
-      inputs.nixpkgs.follows = "nixos-23-05";
+      inputs.nixpkgs.follows = "nixos-23-05-lib";
       inputs.flake-utils.follows = "flake-utils";
       inputs.flake-compat.follows = "flake-compat";
-      inputs.nixpkgs-stable.follows = "nixos-23-05";
+      inputs.nixpkgs-stable.follows = "nixos-23-05-lib";
     };
 
     nix-index-database = {
       url = "github:Mic92/nix-index-database";
-      inputs.nixpkgs.follows = "nixos-23-05";
+      inputs.nixpkgs.follows = "nixos-unstable"; # NOTE doesn't only use the lib
     };
 
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
-      inputs.nixpkgs.follows = "nixos-23-05";
+      inputs.nixpkgs.follows = "nixos-unstable"; # NOTE doesn't only use the lib
     };
 
     xremap-flake = {
       url = "github:xremap/nix-flake";
-      inputs.nixpkgs.follows = "nixos-23-05";
+      inputs.nixpkgs.follows = "nixos-unstable"; # NOTE doesn't only use the lib
       inputs.home-manager.follows = "home-manager-23-05";
       inputs.flake-parts.follows = "flake-parts";
       inputs.devshell.follows = "devshell";
@@ -118,7 +118,7 @@
 
     naersk = {
       url = "github:nmattia/naersk";
-      inputs.nixpkgs.follows = "nixos-23-05";
+      inputs.nixpkgs.follows = "nixos-23-05-lib";
     };
 
     flake-compat = {
@@ -134,7 +134,7 @@
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.3.0";
 
-      inputs.nixpkgs.follows = "nixos-23-05";
+      inputs.nixpkgs.follows = "nixos-unstable"; # NOTE doesn't only use the lib
       inputs.flake-utils.follows = "flake-utils";
       inputs.rust-overlay.follows = "rust-overlay";
       inputs.flake-compat.follows = "flake-compat";
