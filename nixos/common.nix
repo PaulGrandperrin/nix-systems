@@ -203,9 +203,6 @@
     interval = "07:00:00";
   };
   boot.kernelParams = [
-    "panic=20"
-    "boot.panic_on_fail"
-    "oops=panic"
     #"ipv6.disable=1"
     "nosgx"
     #"iommu=pt"
