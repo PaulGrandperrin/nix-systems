@@ -498,9 +498,15 @@
         boot.kernelParams = [ "mitigations=off" ];
       };
     };
+    "Rescue" = {
+      inheritParentConfig = true; # defaults to true
+      configuration = {
+        boot.plymouth.enable = lib.mkForce false;
+        system.nixos.tags = [ "rescue" ];
+        boot.kernelParams = [ "rd.rescue" ];
+      };
+    };
   };
-
-
 
   systemd.targets.machines.enable = true;
 
