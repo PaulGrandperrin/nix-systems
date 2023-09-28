@@ -146,11 +146,11 @@
 
   outputs = inputs: let 
     getOverlays = system: let # FIXME not sure those are the good channels for darwin
-      pkgs-23-05 = inputs.nixos-23-05.legacyPackages.${system};
-      unstable-pkgs = inputs.nixos-unstable.legacyPackages.${system};
-      unstable-overlay = final: prev: { unstable = unstable-pkgs; };
+      pkgs-stable = inputs.nixos-23-05.legacyPackages.${system};
+      pkgs-unstable = inputs.nixos-unstable.legacyPackages.${system};
+      all-pkgs-overlay = final: prev: { unstable = pkgs-unstable; stable = pkgs-stable;};
     in [
-      unstable-overlay
+      all-pkgs-overlay
       inputs.nur.overlay
       inputs.rust-overlay.overlays.default
       inputs.nix-alien.overlays.default
@@ -801,7 +801,7 @@
         ./home-manager/modules/wine.nix
       ];
 
-      nixos-macbook = mkNixosConf "x86_64" "nixos-23-05" [
+      nixos-macbook = mkNixosConf "x86_64" "nixos-unstable" [
         ./nixos/hosts/nixos-macbook/hardware-configuration.nix
         ./nixos/common.nix
         ./nixos/net.nix
@@ -875,13 +875,13 @@
           };
         })
       ]
-      "home-manager-23-05"
+      "home-manager-master"
       [
         ./home-manager/cmdline.nix
         ./home-manager/desktop.nix
         ./home-manager/desktop-linux.nix
-        ./home-manager/rust-stable.nix
-        ./home-manager/modules/wine.nix
+        #./home-manager/rust-stable.nix
+        #./home-manager/modules/wine.nix
       ];
 
     };
