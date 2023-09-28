@@ -515,6 +515,21 @@
     };
   };
 
+  fileSystems."/".options = [
+    "noatime"
+    "nodiratime"
+  ];
+
+  fileSystems."/boot".options = [
+    "noatime"
+    "nodiratime"
+  ];
+
+  fileSystems."/home".options = [
+    "noatime"
+    "nodiratime"
+  ];
+
   fileSystems."/mnt/nixos-nas/public" = {
     device = "10.42.0.1:/export/public";
     fsType = "nfs";
