@@ -93,7 +93,7 @@
     "devshell": {
       "inputs": {
         "nixpkgs": [
-          "nixos-23-05"
+          "nixos-23-05-lib"
         ],
         "systems": "systems"
       },
@@ -189,7 +189,7 @@
     "home-manager-23-05": {
       "inputs": {
         "nixpkgs": [
-          "nixos-23-05"
+          "nixos-23-05-lib"
         ]
       },
       "locked": {
@@ -210,7 +210,7 @@
     "home-manager-master": {
       "inputs": {
         "nixpkgs": [
-          "nixos-23-05"
+          "nixos-23-05-lib"
         ]
       },
       "locked": {
@@ -241,7 +241,7 @@
           "flake-utils"
         ],
         "nixpkgs": [
-          "nixos-23-05"
+          "nixos-unstable"
         ],
         "pre-commit-hooks-nix": [
           "pre-commit-hooks-nix"
@@ -268,7 +268,7 @@
     "naersk": {
       "inputs": {
         "nixpkgs": [
-          "nixos-23-05"
+          "nixos-23-05-lib"
         ]
       },
       "locked": {
@@ -297,7 +297,7 @@
           "nix-index-database"
         ],
         "nixpkgs": [
-          "nixos-23-05"
+          "nixos-23-05-lib"
         ]
       },
       "locked": {
@@ -317,7 +317,7 @@
     "nix-darwin": {
       "inputs": {
         "nixpkgs": [
-          "darwin-23-05"
+          "nixos-23-05-lib"
         ]
       },
       "locked": {
@@ -361,7 +361,7 @@
     "nix-index-database": {
       "inputs": {
         "nixpkgs": [
-          "nixos-23-05"
+          "nixos-unstable"
         ]
       },
       "locked": {
@@ -385,7 +385,7 @@
         ],
         "nix-formatter-pack": "nix-formatter-pack",
         "nixpkgs": [
-          "nixos-23-05"
+          "nixos-23-05-lib"
         ],
         "nixpkgs-for-bootstrap": "nixpkgs-for-bootstrap",
         "nmd": "nmd_2"
@@ -490,7 +490,7 @@
       "inputs": {
         "nixlib": "nixlib",
         "nixpkgs": [
-          "nixos-23-05"
+          "nixos-unstable"
         ]
       },
       "locked": {
@@ -612,10 +612,10 @@
         ],
         "gitignore": "gitignore",
         "nixpkgs": [
-          "nixos-23-05"
+          "nixos-23-05-lib"
         ],
         "nixpkgs-stable": [
-          "nixos-23-05"
+          "nixos-23-05-lib"
         ]
       },
       "locked": {
@@ -668,7 +668,7 @@
           "flake-utils"
         ],
         "nixpkgs": [
-          "nixos-23-05"
+          "nixos-23-05-lib"
         ]
       },
       "locked": {
@@ -767,7 +767,7 @@
           "naersk"
         ],
         "nixpkgs": [
-          "nixos-23-05"
+          "nixos-unstable"
         ],
         "xremap": "xremap"
       },
