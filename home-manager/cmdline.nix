@@ -57,8 +57,17 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
       unstable.nixd
       socat
       whois
-      parralel
+      parallel
       util-linux # unshare nsenter
+      (symlinkJoin { # create filesystem helpers until https://github.com/NixOS/nixpkgs/issues/258478
+        name = "rclone";
+        paths = [ rclone ];
+        postBuild = ''
+          ln -sf $out/bin/rclone $out/bin/mount.rclone 
+          ln -sf $out/bin/rclone $out/bin/rclonefs
+        '';
+      })
+
 
       trashy
       fd
