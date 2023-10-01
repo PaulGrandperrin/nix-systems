@@ -59,6 +59,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
       whois
       parallel
       util-linux # unshare nsenter
+      sshfs
       (symlinkJoin { # create filesystem helpers until https://github.com/NixOS/nixpkgs/issues/258478
         name = "rclone";
         paths = [ rclone ];
