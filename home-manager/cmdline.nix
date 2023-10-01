@@ -57,6 +57,8 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
       unstable.nixd
       socat
       whois
+      parralel
+      util-linux # unshare nsenter
 
       trashy
       fd
@@ -242,6 +244,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
       enableAliases = true;
     };
     bat.enable = true;
+    helix.enable = true;
     htop.enable = true;
     fzf = {
       enable = true;
