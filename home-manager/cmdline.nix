@@ -405,6 +405,31 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
     wezterm = {
       enable = true;
       package = pkgs.unstable.wezterm;
+      extraConfig = ''
+        local wezterm = require("wezterm")
+        
+        local  c = wezterm.config_builder()
+        c:set_strict_mode(true)
+        
+        local act = wezterm.action
+        c.keys = {
+          {
+            key = "-",
+            mods = "SHIFT|ALT",
+            action = act.SplitVertical({ domain = "CurrentPaneDomain" }),
+          },
+          {
+            key = "=",
+            mods = "SHIFT|ALT",
+            action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }),
+          },
+        }
+
+        --c.color_scheme = 'Catppuccin Mocha'
+        c.color_scheme = 'Darkside'
+        
+        return c
+      '';
     };
     fish = {
       enable = true;
