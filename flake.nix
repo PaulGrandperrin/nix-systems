@@ -16,7 +16,7 @@
 
   inputs = {
     nixos-23-05.url = "github:NixOS/nixpkgs/nixos-23.05";
-    nixos-23-05-lib.url = "github:nix-community/nixpkgs.lib"; # or "github:NixOS/nixpkgs/nixos-23.05?dir=lib"
+    nixos-23-05-lib.url = "github:NixOS/nixpkgs/nixos-23.05?dir=lib";
     nixos-23-05-small.url = "github:NixOS/nixpkgs/nixos-23.05-small";
     darwin-23-05.url = "github:NixOS/nixpkgs/nixpkgs-23.05-darwin";
     darwin-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable"; # darwin-unstable for now (https://github.com/NixOS/nixpkgs/issues/107466)
@@ -154,16 +154,6 @@
       inputs.nur.overlay
       inputs.rust-overlay.overlays.default
       inputs.nix-alien.overlays.default
-      (final: prev: {
-        rclone = (prev.symlinkJoin { # create filesystem helpers until https://github.com/NixOS/nixpkgs/issues/258478
-          name = "rclone";
-          paths = [ prev.rclone ];
-          postBuild = ''
-            ln -sf $out/bin/rclone $out/bin/mount.rclone 
-            ln -sf $out/bin/rclone $out/bin/rclonefs
-          '';
-        });
-      })
     ];
   in {
     colmena = {
