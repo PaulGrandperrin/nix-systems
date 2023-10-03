@@ -154,6 +154,16 @@
       inputs.nur.overlay
       inputs.rust-overlay.overlays.default
       inputs.nix-alien.overlays.default
+      (final: prev: {
+        rclone = (prev.symlinkJoin { # create filesystem helpers until https://github.com/NixOS/nixpkgs/issues/258478
+          name = "rclone";
+          paths = [ prev.rclone ];
+          postBuild = ''
+            ln -sf $out/bin/rclone $out/bin/mount.rclone 
+            ln -sf $out/bin/rclone $out/bin/rclonefs
+          '';
+        });
+      })
     ];
   in {
     colmena = {

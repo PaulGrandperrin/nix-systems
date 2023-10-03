@@ -156,6 +156,14 @@
     ];
   };
 
+  # should be moved to HM
+  sops.secrets."rclone.conf" = {
+    sopsFile = ../secrets/other.yaml;
+    restartUnits = [ "home-manager-paulg.service" ];
+    path = "/home/paulg/.config/rclone/rclone.conf";
+    owner = "paulg";
+  };
+
   sops.secrets."DelPuppo.nmconnection" = {
     restartUnits = [ "NetworkManager.service" ];
     path = "/etc/NetworkManager/system-connections/DelPuppo.nmconnection";
