@@ -16,7 +16,7 @@
 
   inputs = {
     nixos-23-05.url = "github:NixOS/nixpkgs/nixos-23.05";
-    nixos-23-05-lib.url = "github:NixOS/nixpkgs/nixos-23.05?dir=lib";
+    nixos-23-05-lib.url = "github:NixOS/nixpkgs/nixos-23.05?dir=lib"; # "github:nix-community/nixpkgs.lib" doesn't work
     nixos-23-05-small.url = "github:NixOS/nixpkgs/nixos-23.05-small";
     darwin-23-05.url = "github:NixOS/nixpkgs/nixpkgs-23.05-darwin";
     darwin-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable"; # darwin-unstable for now (https://github.com/NixOS/nixpkgs/issues/107466)
