@@ -217,14 +217,18 @@
 
   # see also: https://github.com/rclone/rclone/wiki/Systemd-rclone-mount
   systemd.user.mounts."home-${config.home.username}-Google\\x20Drive" = {
-    Unit.Description = "Mount Google Drive with rclone on fuse";
-    #Install.WantedBy = [ "default.target" ];
+    Unit = {
+      Description = "Mount Google Drive with rclone on fuse";
+      Requires = ["network-online.target"];
+      After = ["network-online.target"];
+    };
+    Install.WantedBy = [ "default.target" ];
     Mount = {
       ExecSearchPath = "${pkgs.rclone}/bin/:/run/wrappers/bin/"; # the wrappers are needed for fusermount3 with suid
       What = "gdrive:";
       Where = "/home/${config.home.username}/Google Drive";
       Type = "fuse.rclonefs";
-      Options = "_netdev,args2env,vfs-cache-mode=full,dir-cache-time=5000h,poll-interval=10s,vfs-cache-max-age=90d,vfs-cache-max-size=5G,transfers=32,checkers=32"; # allow-non-empty
+      Options = "args2env,vfs-cache-mode=full,dir-cache-time=5000h,poll-interval=10s,vfs-cache-max-age=90d,vfs-cache-max-size=5G,transfers=32,checkers=32"; # allow-non-empty
     };
   };
 
