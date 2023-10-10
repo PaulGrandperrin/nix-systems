@@ -246,7 +246,8 @@
             };
           }
           ./home-manager/core.nix
-          ./home-manager/desktop.nix
+          ./home-manager/modules/firefox.nix
+          ./home-manager/modules/chromium.nix
           ./home-manager/desktop-macos.nix
         ];
       };
@@ -267,7 +268,8 @@
             };
           }
           ./home-manager/core.nix
-          ./home-manager/desktop.nix
+          ./home-manager/modules/firefox.nix
+          ./home-manager/modules/chromium.nix
           ./home-manager/desktop-macos.nix
         ];
       };
@@ -294,7 +296,13 @@
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = {inherit system inputs; mainFlake = inputs.nixpkgs; is_nixos = false;};
               home-manager.users.root  = { imports = [./home-manager/core.nix];};
-              home-manager.users.paulg = { imports = [./home-manager/core.nix ./home-manager/desktop.nix ./home-manager/desktop-macos.nix ./home-manager/modules/rust.nix];};
+              home-manager.users.paulg = { imports = [
+                ./home-manager/core.nix
+                ./home-manager/modules/firefox.nix
+                ./home-manager/modules/chromium.nix
+                ./home-manager/desktop-macos.nix
+                ./home-manager/modules/rust.nix
+              ];};
             }
           ];
         };
@@ -809,7 +817,8 @@
       "home-manager-master"
       [
         ./home-manager/core.nix
-        ./home-manager/desktop.nix
+        ./home-manager/modules/firefox.nix
+        ./home-manager/modules/chromium.nix
         ./home-manager/desktop-linux.nix
         ./home-manager/modules/rust.nix
         ./home-manager/modules/wine.nix
@@ -892,7 +901,8 @@
       "home-manager-master"
       [
         ./home-manager/core.nix
-        ./home-manager/desktop.nix
+        ./home-manager/modules/firefox.nix
+        ./home-manager/modules/chromium.nix
         ./home-manager/desktop-linux.nix
         #./home-manager/modules/rust.nix
         #./home-manager/modules/wine.nix
