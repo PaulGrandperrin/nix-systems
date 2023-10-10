@@ -1,6 +1,6 @@
-{
+ {
 
-  description = "Paul Grandperrin NixOS confs";
+  description= "Paul Grandperrin NixOS confs";
 
   nixConfig = { # NOTE: sync with nixos/common.nix
     extra-substituters = [
@@ -820,6 +820,7 @@
         ./home-manager/modules/firefox.nix
         ./home-manager/modules/chromium.nix
         ./home-manager/desktop-linux.nix
+        ./home-manager/modules/gnome.nix
         ./home-manager/modules/rust.nix
         ./home-manager/modules/wine.nix
       ];
@@ -904,6 +905,7 @@
         ./home-manager/modules/firefox.nix
         ./home-manager/modules/chromium.nix
         ./home-manager/desktop-linux.nix
+        ./home-manager/modules/gnome.nix
         #./home-manager/modules/rust.nix
         #./home-manager/modules/wine.nix
       ];
