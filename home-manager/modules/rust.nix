@@ -39,10 +39,21 @@
   #};
   
 in {
-  home.packages = with pkgs; [
+  home = {
+    packages = with pkgs; [
     my-rust
     #my-rust-analyzer
-  ];
+    ];
+
+    file.".cargo/config.toml" = lib.mkIf pkgs.stdenv.isLinux {
+      text = ''
+        [target.x86_64-unknown-linux-gnu]
+        linker = "${pkgs.clang_13}/bin/clang"
+        rustflags = ["-C", "link-arg=--ld-path=${pkgs.mold}/bin/mold"]
+      '';
+    };
+  };
+
   #programs = {
   #  vscode = {
   #    extensions = [

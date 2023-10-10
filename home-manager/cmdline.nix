@@ -35,14 +35,6 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
       NIX_PATH = (lib.concatStringsSep ":" (lib.mapAttrsToList (name: path: "${name}=${path.to.path}") config.nix.registry));
     };
 
-    file.".cargo/config.toml" = lib.mkIf pkgs.stdenv.isLinux {
-      text = ''
-        [target.x86_64-unknown-linux-gnu]
-        linker = "${pkgs.clang_13}/bin/clang"
-        rustflags = ["-C", "link-arg=--ld-path=${pkgs.mold}/bin/mold"]
-      '';
-    };
-
     # always keep a reference to the source flake that generated each generations
     file.".source-flake".source = ../.;
 
