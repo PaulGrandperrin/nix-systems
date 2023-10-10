@@ -294,7 +294,7 @@
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = {inherit system inputs; mainFlake = inputs.nixpkgs; is_nixos = false;};
               home-manager.users.root  = { imports = [./home-manager/cmdline.nix];};
-              home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/desktop.nix ./home-manager/desktop-macos.nix ./home-manager/rust-stable.nix];};
+              home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/desktop.nix ./home-manager/desktop-macos.nix ./home-manager/modules/rust.nix];};
             }
           ];
         };
@@ -716,7 +716,7 @@
       "home-manager-23-05"
       [
         ./home-manager/cmdline.nix
-        ./home-manager/rust-stable.nix
+        ./home-manager/modules/rust.nix
       ];
 
       nixos-xps = mkNixosConf "x86_64" "nixos-unstable" [
@@ -811,7 +811,7 @@
         ./home-manager/cmdline.nix
         ./home-manager/desktop.nix
         ./home-manager/desktop-linux.nix
-        ./home-manager/rust-stable.nix
+        ./home-manager/modules/rust.nix
         ./home-manager/modules/wine.nix
       ];
 
@@ -894,7 +894,7 @@
         ./home-manager/cmdline.nix
         ./home-manager/desktop.nix
         ./home-manager/desktop-linux.nix
-        #./home-manager/rust-stable.nix
+        #./home-manager/modules/rust.nix
         #./home-manager/modules/wine.nix
       ];
 
