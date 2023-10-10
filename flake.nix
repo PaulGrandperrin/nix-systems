@@ -206,7 +206,7 @@
           home-manager = {
             extraSpecialArgs = {inherit system inputs; mainFlake = inputs.nix-on-droid.inputs.nixpkgs; is_nixos = false;};
             config = {pkgs, lib, config, ...}: {
-              imports = [./home-manager/cmdline.nix];
+              imports = [./home-manager/core.nix];
               nixpkgs.overlays = getOverlays system;
               home.activation = {
                 copyFont = let 
@@ -245,7 +245,7 @@
               stateVersion = "22.05";
             };
           }
-          ./home-manager/cmdline.nix
+          ./home-manager/core.nix
           ./home-manager/desktop.nix
           ./home-manager/desktop-macos.nix
         ];
@@ -266,7 +266,7 @@
               stateVersion = "22.05";
             };
           }
-          ./home-manager/cmdline.nix
+          ./home-manager/core.nix
           ./home-manager/desktop.nix
           ./home-manager/desktop-macos.nix
         ];
@@ -293,8 +293,8 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = {inherit system inputs; mainFlake = inputs.nixpkgs; is_nixos = false;};
-              home-manager.users.root  = { imports = [./home-manager/cmdline.nix];};
-              home-manager.users.paulg = { imports = [./home-manager/cmdline.nix ./home-manager/desktop.nix ./home-manager/desktop-macos.nix ./home-manager/modules/rust.nix];};
+              home-manager.users.root  = { imports = [./home-manager/core.nix];};
+              home-manager.users.paulg = { imports = [./home-manager/core.nix ./home-manager/desktop.nix ./home-manager/desktop-macos.nix ./home-manager/modules/rust.nix];};
             }
           ];
         };
@@ -572,7 +572,7 @@
       ]
       "home-manager-23-05"
       [
-        ./home-manager/cmdline.nix
+        ./home-manager/core.nix
       ];
 
       nixos-macmini = mkNixosConf "x86_64" "nixos-23-05" [
@@ -620,7 +620,7 @@
       ]
       "home-manager-23-05"
       [
-        ./home-manager/cmdline.nix
+        ./home-manager/core.nix
       ];
 
       nixos-gcp = mkNixosConf "x86_64" "nixos-23-05" [
@@ -670,7 +670,7 @@
       ]
       "home-manager-23-05"
       [
-        ./home-manager/cmdline.nix
+        ./home-manager/core.nix
       ];
 
       nixos-oci = mkNixosConf "aarch64" "nixos-23-05" [
@@ -715,7 +715,7 @@
       ]
       "home-manager-23-05"
       [
-        ./home-manager/cmdline.nix
+        ./home-manager/core.nix
         ./home-manager/modules/rust.nix
       ];
 
@@ -808,7 +808,7 @@
       ]
       "home-manager-master"
       [
-        ./home-manager/cmdline.nix
+        ./home-manager/core.nix
         ./home-manager/desktop.nix
         ./home-manager/desktop-linux.nix
         ./home-manager/modules/rust.nix
@@ -891,7 +891,7 @@
       ]
       "home-manager-master"
       [
-        ./home-manager/cmdline.nix
+        ./home-manager/core.nix
         ./home-manager/desktop.nix
         ./home-manager/desktop-linux.nix
         #./home-manager/modules/rust.nix

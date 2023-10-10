@@ -1,4 +1,4 @@
-{pkgs, system, inputs, ...}: let 
+{pkgs, system, inputs, lib, ...}: let 
 
   ## Stable
 
