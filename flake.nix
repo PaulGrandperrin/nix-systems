@@ -821,6 +821,7 @@
         ./home-manager/modules/chromium.nix
         ./home-manager/desktop-linux.nix
         ./home-manager/modules/gnome.nix
+        ./home-manager/modules/kodi.nix
         ./home-manager/modules/rust.nix
         ./home-manager/modules/wine.nix
       ];
@@ -906,6 +907,7 @@
         ./home-manager/modules/chromium.nix
         ./home-manager/desktop-linux.nix
         ./home-manager/modules/gnome.nix
+        ./home-manager/modules/kodi.nix
         #./home-manager/modules/rust.nix
         #./home-manager/modules/wine.nix
       ];
