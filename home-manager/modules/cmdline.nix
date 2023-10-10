@@ -88,19 +88,19 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
       (lib.setPrio 20 clang_13)
       rnix-lsp
 
-      ((pkgs.writeShellApplication {
-        name = "git";
-        text = ''
-          pname="$(ps -o comm= $PPID)"
-          if [ "$pname" == "nix" ] && [ "$#" -ge 9 ] && [ "$5" == "add" ] && [ "$6" == "--force" ] && [ "$7" == "--intent-to-add" ] && [ "$8" == "--" ] && [ "$9" == "flake.lock" ]; then
-            exit 0
-          else
-            exec -a "$0" "${pkgs.git}/bin/git" "$@" 
-          fi
-        '';
-      }).overrideAttrs (final: prev: {
-        meta.priority = 1;
-      }))
+      #((pkgs.writeShellApplication { # hack around https://github.com/NixOS/nix/issues/5810
+      #  name = "git";
+      #  text = ''
+      #    pname="$(ps -o comm= $PPID)"
+      #    if [ "$pname" == "nix" ] && [ "$#" -ge 9 ] && [ "$5" == "add" ] && [ "$6" == "--force" ] && [ "$7" == "--intent-to-add" ] && [ "$8" == "--" ] && [ "$9" == "flake.lock" ]; then
+      #      exit 0
+      #    else
+      #      exec -a "$0" "${pkgs.git}/bin/git" "$@" 
+      #    fi
+      #  '';
+      #}).overrideAttrs (final: prev: {
+      #  meta.priority = 1;
+      #}))
     ]
     ++ lib.optionals pkgs.stdenv.isLinux (
       [
