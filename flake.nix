@@ -777,12 +777,6 @@
             "rtsx_pci_sdmmc"
             "rtsx_pci"
           ];
-          #boot.kernelPatches = [
-          #  {
-          #    patch = ./nixos/0001-Revert-misc-rtsx-judge-ASPM-Mode-to-set-PETXCFG-Reg.patch;
-          #    name = "0001-Revert-misc-rtsx-judge-ASPM-Mode-to-set-PETXCFG-Reg";
-          #  }
-          #];
         })
         # secure boot
         inputs.lanzaboote.nixosModules.lanzaboote
