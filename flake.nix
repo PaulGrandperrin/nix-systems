@@ -771,12 +771,6 @@
             "enable_psr=1" "disable_power_well=0" # https://wiki.archlinux.org/title/Dell_XPS_15_(9560)#Enable_power_saving_features_for_the_i915_kernel_module
             #"acpi_rev_override=1" # https://wiki.archlinux.org/title/Dell_XPS_15_(9560)
           ];
-
-          # workaround kernel bug
-          boot.blacklistedKernelModules = [
-            "rtsx_pci_sdmmc"
-            "rtsx_pci"
-          ];
         })
         # secure boot
         inputs.lanzaboote.nixosModules.lanzaboote
