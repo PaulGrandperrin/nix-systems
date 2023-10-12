@@ -101,6 +101,21 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
       #}).overrideAttrs (final: prev: {
       #  meta.priority = 1;
       #}))
+      (buildFHSEnv {
+        name = "fhs-run";
+        targetPkgs = pkgs: (with pkgs; [
+        ]);
+        runScript = writeShellScript "fhs-run" ''
+          run="$1"
+          if [ "$run" = "" ]; then
+            echo "Usage: fhs-run command-to-run args..." >&2
+            exit 1
+          fi
+          shift
+  
+          exec -- "$run" "$@"
+        '';
+      })
     ]
     ++ lib.optionals pkgs.stdenv.isLinux (
       [
