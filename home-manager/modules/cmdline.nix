@@ -333,6 +333,10 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
       signing = {
         key = "4AB1353033774DA3";
       };
+      lfs = {
+        enable = true;
+        skipSmudge = true;
+      };
     };
     kitty.enable = true;
     wezterm = {
