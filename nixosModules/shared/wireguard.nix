@@ -74,7 +74,7 @@ in {
 
     # setup private key
     sops.secrets."wg-private-key" = {
-      sopsFile = ../secrets/${my_hostname}.yaml;
+      sopsFile = ../../secrets/${my_hostname}.yaml;
       group = "systemd-network";
       mode = "0640";
       restartUnits = [ "systemd-networkd.service" ];

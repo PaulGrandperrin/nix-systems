@@ -16,7 +16,7 @@
   ];
 
   sops = {
-    defaultSopsFile = ../secrets/common.yaml;
+    defaultSopsFile = ../../secrets/common.yaml;
   };
 
 

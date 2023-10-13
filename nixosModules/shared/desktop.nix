@@ -1,7 +1,7 @@
 { config, pkgs, lib, system, inputs, ... }:
 {
   imports = [
-    ./modules/xremap.nix
+    ./xremap.nix
   ];
 
   #nixpkgs.overlays = [
@@ -158,7 +158,7 @@
 
   # should be moved to HM
   sops.secrets."rclone.conf" = {
-    sopsFile = ../secrets/other.yaml;
+    sopsFile = ../../secrets/other.yaml;
     restartUnits = [ "home-manager-paulg.service" ];
     path = "/home/paulg/.config/rclone/rclone.conf";
     owner = "paulg";

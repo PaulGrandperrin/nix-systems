@@ -337,17 +337,17 @@
       };
     in { 
       nixos-nas = mkNixosConf "x86_64" "nixos-23-05" [
-        ./nixos/hosts/nas/hardware-configuration.nix
-        ./nixos/common.nix
-        ./nixos/nspawns.nix
-        ./nixos/net.nix
-        ./nixos/modules/web.nix
-        ./nixos/auto-upgrade.nix
-        ./nixos/wireguard.nix
-        ./nixos/headless.nix
-        ./nixos/modules/observability.nix
-        ./nixos/modules/mastodon.nix
-        ./nixos/modules/home-assistant.nix
+        ./nixosModules/hosts/nas/hardware-configuration.nix
+        ./nixosModules/shared/common.nix
+        ./nixosModules/shared/nspawns.nix
+        ./nixosModules/shared/net.nix
+        ./nixosModules/shared/web.nix
+        ./nixosModules/shared/auto-upgrade.nix
+        ./nixosModules/shared/wireguard.nix
+        ./nixosModules/shared/headless.nix
+        ./nixosModules/shared/observability.nix
+        ./nixosModules/shared/mastodon.nix
+        ./nixosModules/shared/home-assistant.nix
         ({pkgs, config, lib, ... }:{
           # colmena options
           deployment = {
@@ -584,13 +584,13 @@
       ];
 
       nixos-macmini = mkNixosConf "x86_64" "nixos-23-05" [
-        ./nixos/hosts/nixos-macmini/hardware-configuration.nix
-        ./nixos/common.nix
-        ./nixos/net.nix
-        ./nixos/nspawns.nix
-        ./nixos/wireguard.nix
-        ./nixos/auto-upgrade.nix
-        ./nixos/headless.nix
+        ./nixosModules/hosts/nixos-macmini/hardware-configuration.nix
+        ./nixosModules/shared/common.nix
+        ./nixosModules/shared/net.nix
+        ./nixosModules/shared/nspawns.nix
+        ./nixosModules/shared/wireguard.nix
+        ./nixosModules/shared/auto-upgrade.nix
+        ./nixosModules/shared/headless.nix
         ({pkgs, config, lib, ... }:{
           # colmena options
           deployment = {
@@ -632,14 +632,14 @@
       ];
 
       nixos-gcp = mkNixosConf "x86_64" "nixos-23-05" [
-        ./nixos/hosts/gcp/hardware-configuration.nix
-        ./nixos/google-compute-config.nix
-        ./nixos/common.nix
-        ./nixos/net.nix
-        ./nixos/wireguard.nix
-        ./nixos/modules/thelounge.nix
-        ./nixos/headless.nix
-        # ./nixos/auto-upgrade.nix # 1G of memory is not enough to evaluate the system's derivation, even with zram...
+        ./nixosModules/hosts/gcp/hardware-configuration.nix
+        ./nixosModules/shared/google-compute-config.nix
+        ./nixosModules/shared/common.nix
+        ./nixosModules/shared/net.nix
+        ./nixosModules/shared/wireguard.nix
+        ./nixosModules/shared/thelounge.nix
+        ./nixosModules/shared/headless.nix
+        # ./nixosModules/shared/auto-upgrade.nix # 1G of memory is not enough to evaluate the system's derivation, even with zram...
         ({pkgs, lib, config, ...}:{
           # colmena options
           deployment = {
@@ -682,13 +682,13 @@
       ];
 
       nixos-oci = mkNixosConf "aarch64" "nixos-23-05" [
-        ./nixos/hosts/nixos-oci/hardware-configuration.nix
-        ./nixos/common.nix
-        ./nixos/containers/web.nix
-        ./nixos/net.nix
-        ./nixos/wireguard.nix
-        ./nixos/auto-upgrade.nix
-        ./nixos/headless.nix
+        ./nixosModules/hosts/nixos-oci/hardware-configuration.nix
+        ./nixosModules/shared/common.nix
+        ./nixosModules/containers/web.nix
+        ./nixosModules/shared/net.nix
+        ./nixosModules/shared/wireguard.nix
+        ./nixosModules/shared/auto-upgrade.nix
+        ./nixosModules/shared/headless.nix
         ({pkgs, lib, config, ...}:{
           # colmena options
           deployment = {
@@ -728,14 +728,14 @@
       ];
 
       nixos-xps = mkNixosConf "x86_64" "nixos-unstable" [
-        ./nixos/hosts/xps/hardware-configuration.nix
-        ./nixos/common.nix
-        ./nixos/net.nix
-        ./nixos/wireguard.nix
-        ./nixos/desktop.nix
-        ./nixos/desktop-i915.nix
-        ./nixos/nvidia.nix
-        ./nixos/modules/gaming.nix
+        ./nixosModules/hosts/xps/hardware-configuration.nix
+        ./nixosModules/shared/common.nix
+        ./nixosModules/shared/net.nix
+        ./nixosModules/shared/wireguard.nix
+        ./nixosModules/shared/desktop.nix
+        ./nixosModules/shared/desktop-i915.nix
+        ./nixosModules/shared/nvidia.nix
+        ./nixosModules/shared/gaming.nix
         ({config, pkgs, ...}:{
           # colmena options
           deployment = {
@@ -815,12 +815,12 @@
       ];
 
       nixos-macbook = mkNixosConf "x86_64" "nixos-unstable" [
-        ./nixos/hosts/nixos-macbook/hardware-configuration.nix
-        ./nixos/common.nix
-        ./nixos/net.nix
-        ./nixos/wireguard.nix
-        ./nixos/desktop.nix
-        ./nixos/desktop-i915.nix
+        ./nixosModules/hosts/nixos-macbook/hardware-configuration.nix
+        ./nixosModules/shared/common.nix
+        ./nixosModules/shared/net.nix
+        ./nixosModules/shared/wireguard.nix
+        ./nixosModules/shared/desktop.nix
+        ./nixosModules/shared/desktop-i915.nix
         ({pkgs, lib, config, ...}:{
           # colmena options
           deployment = {

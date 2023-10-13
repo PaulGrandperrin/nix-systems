@@ -1,6 +1,6 @@
 { config, pkgs, ... }: {
   imports = [
-    ../mail.nix
+    ../shared/mail.nix
   ];
 
   networking.firewall.trustedInterfaces =  [ "ve-web" ];
