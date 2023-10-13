@@ -27,7 +27,7 @@
     #  };
     #};
     config = let hostConfig = config; in { config, pkgs, ... }: {
-      imports = [ ../modules/web.nix ];
+      imports = [ ../shared/web.nix ];
       system.stateVersion = "22.05";
 
       networking.useDHCP = false;
