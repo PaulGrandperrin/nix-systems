@@ -1,6 +1,6 @@
 args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
   imports = [
-    ./modules/cmdline.nix
+    ./cmdline.nix
   ];
   xdg.enable = true; # export XDG vars to ensure the correct directories are used
 

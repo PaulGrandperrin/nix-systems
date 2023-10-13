@@ -206,7 +206,7 @@
           home-manager = {
             extraSpecialArgs = {inherit system inputs; mainFlake = inputs.nix-on-droid.inputs.nixpkgs; is_nixos = false;};
             config = {pkgs, lib, config, ...}: {
-              imports = [./home-manager/core.nix];
+              imports = [./hmModules/shared/core.nix];
               nixpkgs.overlays = getOverlays system;
               home.activation = {
                 copyFont = let 
@@ -230,8 +230,8 @@
       paulg-x86_64-linux = inputs.home-manager-23-05.lib.homeManagerConfiguration rec {
         system = "x86_64-linux";
         pkgs = (import inputs.nixos-23-05 {
-          # https://github.com/nix-community/home-manager/issues/2954
-          # https://github.com/nix-community/home-manager/pull/2720
+          # https://github.com/nix-communit./hmModules/shared/issues/2954
+          # https://github.com/nix-communit./hmModules/shared/pull/2720
           inherit system;
           overlays = getOverlays system;
           config.allowUnfree = true;
@@ -245,10 +245,10 @@
               stateVersion = "22.05";
             };
           }
-          ./home-manager/core.nix
-          ./home-manager/modules/firefox.nix
-          ./home-manager/modules/chromium.nix
-          ./home-manager/desktop-macos.nix
+          ./hmModules/shared/core.nix
+          ./hmModules/shared/firefox.nix
+          ./hmModules/shared/chromium.nix
+          ./hmModules/shared/desktop-macos.nix
         ];
       };
       paulg-aarch64-darwin = inputs.home-manager-23-05.lib.homeManagerConfiguration rec {
@@ -267,10 +267,10 @@
               stateVersion = "22.05";
             };
           }
-          ./home-manager/core.nix
-          ./home-manager/modules/firefox.nix
-          ./home-manager/modules/chromium.nix
-          ./home-manager/desktop-macos.nix
+          ./hmModules/shared/core.nix
+          ./hmModules/shared/firefox.nix
+          ./hmModules/shared/chromium.nix
+          ./hmModules/shared/desktop-macos.nix
         ];
       };
     };
@@ -295,13 +295,13 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = {inherit system inputs; mainFlake = inputs.nixpkgs; is_nixos = false;};
-              home-manager.users.root  = { imports = [./home-manager/core.nix];};
+              home-manager.users.root  = { imports = [./hmModules/shared/core.nix];};
               home-manager.users.paulg = { imports = [
-                ./home-manager/core.nix
-                ./home-manager/modules/firefox.nix
-                ./home-manager/modules/chromium.nix
-                ./home-manager/desktop-macos.nix
-                ./home-manager/modules/rust.nix
+                ./hmModules/shared/core.nix
+                ./hmModules/shared/firefox.nix
+                ./hmModules/shared/chromium.nix
+                ./hmModules/shared/desktop-macos.nix
+                ./hmModules/shared/rust.nix
               ];};
             }
           ];
@@ -341,7 +341,7 @@
       ]
       "home-manager-23-05"
       [
-        ./home-manager/core.nix
+        ./hmModules/nixos-nas.nix
       ];
 
       nixos-macmini = mkNixosConf "x86_64" "nixos-23-05" [
@@ -349,7 +349,7 @@
       ]
       "home-manager-23-05"
       [
-        ./home-manager/core.nix
+        ./hmModules/nixos-macmini.nix
       ];
 
       nixos-gcp = mkNixosConf "x86_64" "nixos-23-05" [
@@ -357,7 +357,7 @@
       ]
       "home-manager-23-05"
       [
-        ./home-manager/core.nix
+        ./hmModules/nixos-gcp.nix
       ];
 
       nixos-oci = mkNixosConf "aarch64" "nixos-23-05" [
@@ -365,8 +365,7 @@
       ]
       "home-manager-23-05"
       [
-        ./home-manager/core.nix
-        ./home-manager/modules/rust.nix
+        ./hmModules/nixos-oci.nix
       ];
 
       nixos-xps = mkNixosConf "x86_64" "nixos-unstable" [
@@ -374,14 +373,7 @@
       ]
       "home-manager-master"
       [
-        ./home-manager/core.nix
-        ./home-manager/modules/firefox.nix
-        ./home-manager/modules/chromium.nix
-        ./home-manager/desktop-linux.nix
-        ./home-manager/modules/gnome.nix
-        ./home-manager/modules/kodi.nix
-        ./home-manager/modules/rust.nix
-        ./home-manager/modules/wine.nix
+        ./hmModules/nixos-xps.nix
       ];
 
       nixos-macbook = mkNixosConf "x86_64" "nixos-unstable" [
@@ -389,14 +381,7 @@
       ]
       "home-manager-master"
       [
-        ./home-manager/core.nix
-        ./home-manager/modules/firefox.nix
-        ./home-manager/modules/chromium.nix
-        ./home-manager/desktop-linux.nix
-        ./home-manager/modules/gnome.nix
-        ./home-manager/modules/kodi.nix
-        #./home-manager/modules/rust.nix
-        #./home-manager/modules/wine.nix
+        ./hmModules/nixos-macbook.nix
       ];
 
     };
