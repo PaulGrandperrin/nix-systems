@@ -1,4 +1,4 @@
-{pkgs, inputs, lib, config, is_nixos, ...}: lib.mkIf (config.home.username != "root") { 
+args @ {pkgs, inputs, lib, config, is_nixos, ...}: lib.mkIf (config.home.username != "root") { 
   programs = {
     firefox = {
       enable = true;
@@ -32,7 +32,7 @@
         });
       in
       pkgs.emptyDirectory // { override = _: # ugly trick to make things work in HM
-        if is_nixos then firefox-bin-wayland else pkgs.emptyDirectory; # trick to allow using HM config without installing nix version of Firefox
+        if (args ? nixosConfig) then firefox-bin-wayland else pkgs.emptyDirectory; # trick to allow using HM config without installing nix version of Firefox
       };
 
       profiles."paulgrandperrin@gmail.com" = {

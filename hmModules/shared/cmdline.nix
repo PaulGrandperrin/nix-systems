@@ -184,7 +184,7 @@ args @ {pkgs, config, inputs, lib, mainFlake, ...}: {
         tpm2-tools
         ntfs3g
       ]
-    ) ++ lib.optionals (config.nixpkgs.system == "x86_64-linux") (
+    ) ++ lib.optionals (pkgs.system == "x86_64-linux") (
       [ 
         cpuid
         cpufrequtils
