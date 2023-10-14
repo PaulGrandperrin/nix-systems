@@ -234,7 +234,6 @@
           # https://github.com/nix-communit./hmModules/shared/pull/2720
           inherit system;
           overlays = getOverlays system;
-          config.allowUnfree = true;
         });
         extraSpecialArgs = {inherit inputs; mainFlake = inputs.home-manager-23-05.inputs.nixpkgs; is_nixos = false;};
         modules = [ 
@@ -256,7 +255,6 @@
         pkgs = (import inputs.nixos-23-05 {
           inherit system;
           overlays = getOverlays system;
-          config.allowUnfree = true;
         });
         extraSpecialArgs = {inherit inputs; mainFlake = inputs.home-manager-23-05.inputs.nixpkgs; is_nixos = false;};
         modules = [ 
@@ -286,7 +284,6 @@
             { 
               nixpkgs = {
                 overlays = getOverlays system;
-                config.allowUnfree = true;
               };
             }
             ./nix-darwin/common.nix
@@ -321,7 +318,6 @@
         modules = [ 
           { nixpkgs = {
               overlays = getOverlays system;
-              config.allowUnfree = true;
             };
           }
           inputs.${hm-channel}.nixosModules.home-manager
