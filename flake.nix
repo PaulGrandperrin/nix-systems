@@ -230,8 +230,8 @@
       paulg-x86_64-linux = inputs.home-manager-23-05.lib.homeManagerConfiguration rec {
         system = "x86_64-linux";
         pkgs = (import inputs.nixos-23-05 {
-          # https://github.com/nix-communit./hmModules/shared/issues/2954
-          # https://github.com/nix-communit./hmModules/shared/pull/2720
+          # https://github.com/nix-community/home-manager/issues/2954
+          # https://github.com/nix-community/home-manager/pull/2720
           inherit system;
           overlays = getOverlays system;
         });
@@ -240,7 +240,7 @@
           {
             home = {
               username = "paulg";
-              homeDirectory = "/Users/paulg";
+              homeDirectory = "/home/paulg";
               stateVersion = "22.05";
             };
           }
