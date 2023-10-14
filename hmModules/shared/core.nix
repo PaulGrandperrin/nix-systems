@@ -1,4 +1,4 @@
-args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
+args @ {pkgs, config, inputs, lib, mainFlake, ...}: {
   imports = [
     ./cmdline.nix
   ];
@@ -8,6 +8,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
   xdg.configFile."nixpkgs/config.nix".text = "{ allowUnfree = true; }"; # works for `nix run/shell`, also needs `--impure`
 
   nix = {
+    package = pkgs.nix;
     settings."experimental-features" = "nix-command flakes repl-flake";
 
     registry = {
@@ -43,7 +44,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
       [
       ] ++ lib.optionals (config.home.username == "root") [ # if root and linux
       ]
-    ) ++ lib.optionals (system == "x86_64-linux") (
+    ) ++ lib.optionals (config.nixpkgs.system == "x86_64-linux") (
       [ 
       ] ++ lib.optionals (config.home.username == "root") [ # if root and linux
       ]

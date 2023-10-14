@@ -1,4 +1,4 @@
-{pkgs, system, inputs, lib, ...}: let 
+{pkgs, inputs, lib, config, ...}: let 
 
   ## Stable
 
@@ -12,7 +12,7 @@
 
   #my-rust-analyzer = (pkgs.symlinkJoin {
   #  name = "rust-analyzer";
-  #  paths = [ inputs.nixos-23-05.legacyPackages.${system}.rust-analyzer ];
+  #  paths = [ inputs.nixos-23-05.legacyPackages.${config.nixpkgs.system}.rust-analyzer ];
   #  buildInputs = [ pkgs.makeWrapper ];
   #  postBuild = ''
   #    wrapProgram $out/bin/rust-analyzer \
@@ -57,7 +57,7 @@ in {
   #programs = {
   #  vscode = {
   #    extensions = [
-  #      (inputs.nixos-23-05.legacyPackages.${system}.vscode-extensions.matklad.rust-analyzer.override {
+  #      (inputs.nixos-23-05.legacyPackages.${config.nixpkgs.system}.vscode-extensions.matklad.rust-analyzer.override {
   #        rust-analyzer = my-rust;
   #      })
   #    ];

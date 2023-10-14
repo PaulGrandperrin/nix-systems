@@ -1,4 +1,4 @@
-args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
+args @ {pkgs, config, inputs, lib, mainFlake, ...}: {
   imports = [
     inputs.nix-index-database.hmModules.nix-index
   ];
@@ -184,7 +184,7 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
         tpm2-tools
         ntfs3g
       ]
-    ) ++ lib.optionals (system == "x86_64-linux") (
+    ) ++ lib.optionals (config.nixpkgs.system == "x86_64-linux") (
       [ 
         cpuid
         cpufrequtils

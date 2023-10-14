@@ -227,15 +227,14 @@
     };
 
     homeConfigurations = {
-      paulg-x86_64-linux = inputs.home-manager-23-05.lib.homeManagerConfiguration rec {
-        system = "x86_64-linux";
-        pkgs = (import inputs.nixos-23-05 {
+      paulg-x86_64-linux = inputs.home-manager-master.lib.homeManagerConfiguration rec {
+        pkgs = (import inputs.nixos-unstable rec {
           # https://github.com/nix-community/home-manager/issues/2954
           # https://github.com/nix-community/home-manager/pull/2720
-          inherit system;
+          system = "x86_64-linux";
           overlays = getOverlays system;
         });
-        extraSpecialArgs = {inherit inputs; mainFlake = inputs.home-manager-23-05.inputs.nixpkgs; is_nixos = false;};
+        extraSpecialArgs = {inherit inputs; mainFlake = inputs.home-manager-master.inputs.nixpkgs; is_nixos = false;};
         modules = [ 
           {
             home = {
@@ -247,16 +246,14 @@
           ./hmModules/shared/core.nix
           ./hmModules/shared/firefox.nix
           ./hmModules/shared/chromium.nix
-          ./hmModules/shared/desktop-macos.nix
         ];
       };
-      paulg-aarch64-darwin = inputs.home-manager-23-05.lib.homeManagerConfiguration rec {
-        system = "aarch64-darwin";
-        pkgs = (import inputs.nixos-23-05 {
-          inherit system;
+      paulg-aarch64-darwin = inputs.home-manager-master.lib.homeManagerConfiguration rec {
+        pkgs = (import inputs.nixos-unstable rec {
+          system = "aarch64-darwin";
           overlays = getOverlays system;
         });
-        extraSpecialArgs = {inherit inputs; mainFlake = inputs.home-manager-23-05.inputs.nixpkgs; is_nixos = false;};
+        extraSpecialArgs = {inherit inputs; mainFlake = inputs.home-manager-master.inputs.nixpkgs; is_nixos = false;};
         modules = [ 
           {
             home = {
