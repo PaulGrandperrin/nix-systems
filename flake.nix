@@ -204,7 +204,7 @@
           user.shell = "${pkgs.fish}/bin/fish";
           nix.package = pkgs.nixFlakes;
           home-manager = {
-            extraSpecialArgs = {inherit system inputs;};
+            extraSpecialArgs = {inherit inputs;};
             config = {pkgs, lib, config, ...}: {
               imports = [./hmModules/shared/core.nix];
               nixpkgs.overlays = getOverlays system;
@@ -276,7 +276,7 @@
         in inputs-patched.darwin.lib.darwinSystem rec {
           system = "${arch}-darwin";
           inputs = inputs-patched; # otherwise it would take this flake's inputs and expect nixpkgs and darwin to be hardcoded
-          specialArgs = { inherit system inputs; }; #  passes inputs to modules
+          specialArgs = { inherit inputs; }; #  passes inputs to modules
           modules = [
             { 
               nixpkgs = {
@@ -288,7 +288,7 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = {inherit system inputs;};
+              home-manager.extraSpecialArgs = {inherit inputs;};
               home-manager.users.root  = { imports = [./hmModules/shared/core.nix];};
               home-manager.users.paulg = { imports = [
                 ./hmModules/shared/core.nix
@@ -321,7 +321,7 @@
           {
             home-manager.useGlobalPkgs = true; # means that pkgs are taken from the nixosSystem and not from home-manager.inputs.nixpkgs
             home-manager.useUserPackages = true; # means that pkgs are installed at /etc/profiles instead of $HOME/.nix-profile
-            home-manager.extraSpecialArgs = {inherit system inputs;};
+            home-manager.extraSpecialArgs = {inherit inputs;};
             home-manager.users.root  = { imports = hm-modules;};
             home-manager.users.paulg = { imports = hm-modules;};
           }
