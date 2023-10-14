@@ -10,11 +10,40 @@ args @ {pkgs, config, inputs, system, lib, mainFlake, ...}: {
 
     packages = with pkgs; [
       config.nix.package
-      gnugrep
+
+      # from https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/config/system-path.nix
+      acl
+      attr
+      bashInteractive # bash with ncurses support
+      bzip2
+      coreutils-full
+      cpio
+      curl
+      diffutils
       findutils
-      which
+      gawk
+      stdenv.cc.libc
+      getent
+      getconf
+      gnugrep
+      gnupatch
+      gnused
+      gnutar
       gzip
-      openssh
+      xz
+      less
+      libcap
+      ncurses
+      netcat
+      openssh # config.programs.ssh.package 
+      mkpasswd
+      procps
+      #su # only useful with suid
+      time
+      util-linux
+      which
+      zstd
+
       rsync
       unstable.nixd
       socat
