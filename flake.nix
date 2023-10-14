@@ -310,7 +310,7 @@
     nixosConfigurations = let
       mkNixosConf = arch: nixos-channel: nixos-modules: hm-channel: hm-modules: inputs.${nixos-channel}.lib.nixosSystem rec {
         system = "${arch}-linux";
-        specialArgs = { inherit system inputs nixos-channel; }; #  passes inputs to modules
+        specialArgs = { inherit inputs; }; #  passes inputs to modules
         extraModules = [ inputs.colmena.nixosModules.deploymentOptions ]; # from https://github.com/zhaofengli/colmena/issues/60#issuecomment-1047199551
         modules = [ 
           { nixpkgs = {

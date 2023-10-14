@@ -1,4 +1,4 @@
-{ config, pkgs, lib, inputs, system, ... }: {
+{ config, pkgs, lib, inputs, ... }: {
   imports = [
     #./shared/auto-upgrade.nix # 1G of memory is not enough to evaluate the system's derivation, even with zram...
     ./hosts/gcp/hardware-configuration.nix

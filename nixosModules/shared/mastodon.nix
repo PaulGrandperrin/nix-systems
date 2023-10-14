@@ -1,6 +1,6 @@
 # We use the Grafana stack, but Uptrace, SigNoz and Jaeger are also interested but not well integrated in NixOS
 
-{ config, pkgs, system, inputs, ... }:
+{ config, pkgs, inputs, ... }:
 {
 
   #nixpkgs.overlays = [(final: prev: { 

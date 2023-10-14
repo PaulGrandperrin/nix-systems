@@ -1,4 +1,4 @@
-{ config, pkgs, lib, inputs, system, ... }: {
+{ config, pkgs, lib, inputs, ... }: {
   imports = [
     ./hosts/xps/hardware-configuration.nix
     ./shared/common.nix

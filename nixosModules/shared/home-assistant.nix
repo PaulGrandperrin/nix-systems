@@ -1,4 +1,4 @@
-{ config, pkgs, system, inputs, ... }:
+{ config, pkgs, inputs, ... }:
 {
   virtualisation.oci-containers = {
     containers.homeassistant = {

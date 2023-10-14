@@ -1,8 +1,8 @@
 # We use the Grafana stack, but Uptrace, SigNoz and Jaeger are also interested but not well integrated in NixOS
 
-{ config, pkgs, system, inputs, ... }:
+{ config, pkgs, inputs, ... }:
 let
-  #pkgs-unstable = inputs.nixos-unstable.legacyPackages.${system};
+  #pkgs-unstable = inputs.nixos-unstable.legacyPackages.${pkgs.system};
 in
 {
   #disabledModules = [

@@ -1,4 +1,4 @@
-{ config, pkgs, lib, system, inputs, ... }:
+{ config, pkgs, lib, inputs, ... }:
 {
   imports = [
     ./xremap.nix
