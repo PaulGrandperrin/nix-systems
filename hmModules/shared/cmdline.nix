@@ -1,4 +1,4 @@
-args @ {pkgs, config, inputs, lib, mainFlake, ...}: {
+args @ {pkgs, config, inputs, lib, ...}: {
   imports = [
     inputs.nix-index-database.hmModules.nix-index
   ];

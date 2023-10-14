@@ -204,7 +204,7 @@
           user.shell = "${pkgs.fish}/bin/fish";
           nix.package = pkgs.nixFlakes;
           home-manager = {
-            extraSpecialArgs = {inherit system inputs; mainFlake = inputs.nix-on-droid.inputs.nixpkgs;};
+            extraSpecialArgs = {inherit system inputs;};
             config = {pkgs, lib, config, ...}: {
               imports = [./hmModules/shared/core.nix];
               nixpkgs.overlays = getOverlays system;
@@ -234,7 +234,7 @@
           system = "x86_64-linux";
           overlays = getOverlays system;
         });
-        extraSpecialArgs = {inherit inputs; mainFlake = inputs.home-manager-master.inputs.nixpkgs;};
+        extraSpecialArgs = {inherit inputs;};
         modules = [ 
           {
             home = {
@@ -253,7 +253,7 @@
           system = "aarch64-darwin";
           overlays = getOverlays system;
         });
-        extraSpecialArgs = {inherit inputs; mainFlake = inputs.home-manager-master.inputs.nixpkgs;};
+        extraSpecialArgs = {inherit inputs;};
         modules = [ 
           {
             home = {
@@ -288,7 +288,7 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = {inherit system inputs; mainFlake = inputs.nixpkgs;};
+              home-manager.extraSpecialArgs = {inherit system inputs;};
               home-manager.users.root  = { imports = [./hmModules/shared/core.nix];};
               home-manager.users.paulg = { imports = [
                 ./hmModules/shared/core.nix
@@ -321,7 +321,7 @@
           {
             home-manager.useGlobalPkgs = true; # means that pkgs are taken from the nixosSystem and not from home-manager.inputs.nixpkgs
             home-manager.useUserPackages = true; # means that pkgs are installed at /etc/profiles instead of $HOME/.nix-profile
-            home-manager.extraSpecialArgs = {inherit system inputs;  mainFlake = inputs.${nixos-channel};};
+            home-manager.extraSpecialArgs = {inherit system inputs;};
             home-manager.users.root  = { imports = hm-modules;};
             home-manager.users.paulg = { imports = hm-modules;};
           }

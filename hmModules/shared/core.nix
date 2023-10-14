@@ -1,4 +1,4 @@
-args @ {pkgs, config, inputs, lib, mainFlake, ...}: {
+args @ {pkgs, config, inputs, lib, ...}: {
   imports = [
     ./cmdline.nix
   ];
@@ -11,7 +11,7 @@ args @ {pkgs, config, inputs, lib, mainFlake, ...}: {
     package = lib.mkDefault pkgs.nix;
     settings."experimental-features" = "nix-command flakes repl-flake";
 
-    registry = {
+    registry = rec {
       #nixos.flake = inputs.nixos;
       #nixos-small.flake = inputs.nixos-small;
       nixos-unstable.flake = inputs.nixos-unstable;
@@ -20,8 +20,11 @@ args @ {pkgs, config, inputs, lib, mainFlake, ...}: {
       #flake-utils.flake = inputs.flake-utils;
       #rust-overlay.flake = inputs.rust-overlay;
       #home-manager.flake = inputs.home-manager;
-      n.flake = mainFlake;
-      nixpkgs.flake = mainFlake;
+      nixpkgs.to = {
+        type = "path";
+        path = (toString pkgs.path);
+      };
+      n = nixpkgs; # shortcut
     };
     #registry = lib.mapAttrs (_: value: { flake = value; }) inputs; # nix.generateRegistryFromInputs in flake-utils-plus
     #nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry; # nix.generateNixPathFromInputs in flake-utils-plus # nix.nixPath is not available in HM
