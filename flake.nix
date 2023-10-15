@@ -309,12 +309,11 @@
     # nixosConfigurations."<hostname>".config.system.build.toplevel must be a derivation
     nixosConfigurations = let
       mkNixosConf = arch: nixos-channel: nixos-modules: hm-channel: hm-modules: inputs.${nixos-channel}.lib.nixosSystem rec {
-        system = "${arch}-linux";
         specialArgs = { inherit inputs; }; #  passes inputs to modules
         extraModules = [ inputs.colmena.nixosModules.deploymentOptions ]; # from https://github.com/zhaofengli/colmena/issues/60#issuecomment-1047199551
         modules = [ 
           { nixpkgs = {
-              overlays = getOverlays system;
+              overlays = getOverlays "${arch}-linux";
             };
           }
           inputs.${hm-channel}.nixosModules.home-manager
