@@ -330,7 +330,7 @@
       };
     in { 
       nixos-nas = mkNixosConf "x86_64" "nixos-23-05" [
-        ./nixosModules/nixos-nas.nix
+        ./nixosModules/nixos-nas/configuration.nix
       ]
       "home-manager-23-05"
       [
@@ -338,7 +338,7 @@
       ];
 
       nixos-macmini = mkNixosConf "x86_64" "nixos-23-05" [
-        ./nixosModules/nixos-macmini.nix
+        ./nixosModules/nixos-macmini/configuration.nix
       ]
       "home-manager-23-05"
       [
@@ -346,7 +346,7 @@
       ];
 
       nixos-gcp = mkNixosConf "x86_64" "nixos-23-05" [
-        ./nixosModules/nixos-gcp.nix
+        ./nixosModules/nixos-gcp/configuration.nix
       ]
       "home-manager-23-05"
       [
@@ -354,7 +354,7 @@
       ];
 
       nixos-oci = mkNixosConf "aarch64" "nixos-23-05" [
-        ./nixosModules/nixos-oci.nix
+        ./nixosModules/nixos-oci/configuration.nix
       ]
       "home-manager-23-05"
       [
@@ -362,7 +362,7 @@
       ];
 
       nixos-xps = mkNixosConf "x86_64" "nixos-unstable" [
-        ./nixosModules/nixos-xps.nix
+        ./nixosModules/nixos-xps/configuration.nix
       ]
       "home-manager-master"
       [
@@ -370,7 +370,7 @@
       ];
 
       nixos-macbook = mkNixosConf "x86_64" "nixos-unstable" [
-        ./nixosModules/nixos-macbook.nix
+        ./nixosModules/nixos-macbook/configuration.nix
       ]
       "home-manager-master"
       [

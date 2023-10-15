@@ -1,16 +1,16 @@
 { config, pkgs, lib, inputs, ... }: {
   imports = [
-    ./hosts/nas/hardware-configuration.nix
-    ./shared/common.nix
-    ./shared/nspawns.nix
-    ./shared/net.nix
-    ./shared/web.nix
-    ./shared/auto-upgrade.nix
-    ./shared/wireguard.nix
-    ./shared/headless.nix
-    ./shared/observability.nix
-    ./shared/mastodon.nix
-    ./shared/home-assistant.nix
+    ./hardware-configuration.nix
+    ../shared/common.nix
+    ../shared/nspawns.nix
+    ../shared/net.nix
+    ../shared/web.nix
+    ../shared/auto-upgrade.nix
+    ../shared/wireguard.nix
+    ../shared/headless.nix
+    ../shared/observability.nix
+    ../shared/mastodon.nix
+    ../shared/home-assistant.nix
   ];
 
   # colmena options

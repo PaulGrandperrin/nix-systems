@@ -1,13 +1,13 @@
 { config, pkgs, lib, inputs, ... }: {
   imports = [
-    ./hosts/xps/hardware-configuration.nix
-    ./shared/common.nix
-    ./shared/net.nix
-    ./shared/wireguard.nix
-    ./shared/desktop.nix
-    ./shared/desktop-i915.nix
-    ./shared/nvidia.nix
-    ./shared/gaming.nix
+    ./hardware-configuration.nix
+    ../shared/common.nix
+    ../shared/net.nix
+    ../shared/wireguard.nix
+    ../shared/desktop.nix
+    ../shared/desktop-i915.nix
+    ../shared/nvidia.nix
+    ../shared/gaming.nix
     inputs.lanzaboote.nixosModules.lanzaboote
   ];
 

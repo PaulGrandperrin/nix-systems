@@ -1,12 +1,12 @@
 { config, pkgs, lib, inputs, ... }: {
   imports = [
-    ./hosts/nixos-macmini/hardware-configuration.nix
-    ./shared/common.nix
-    ./shared/net.nix
-    ./shared/nspawns.nix
-    ./shared/wireguard.nix
-    ./shared/auto-upgrade.nix
-    ./shared/headless.nix
+    ./hardware-configuration.nix
+    ../shared/common.nix
+    ../shared/net.nix
+    ../shared/nspawns.nix
+    ../shared/wireguard.nix
+    ../shared/auto-upgrade.nix
+    ../shared/headless.nix
   ];
 
   # colmena options

@@ -1,13 +1,13 @@
 { config, pkgs, lib, inputs, ... }: {
   imports = [
-    #./shared/auto-upgrade.nix # 1G of memory is not enough to evaluate the system's derivation, even with zram...
-    ./hosts/gcp/hardware-configuration.nix
-    ./shared/google-compute-config.nix
-    ./shared/common.nix
-    ./shared/net.nix
-    ./shared/wireguard.nix
-    ./shared/thelounge.nix
-    ./shared/headless.nix
+    ./hardware-configuration.nix
+    #../shared/auto-upgrade.nix # 1G of memory is not enough to evaluate the system's derivation, even with zram...
+    ../shared/google-compute-config.nix
+    ../shared/common.nix
+    ../shared/net.nix
+    ../shared/wireguard.nix
+    ../shared/thelounge.nix
+    ../shared/headless.nix
   ];
 
   # colmena options

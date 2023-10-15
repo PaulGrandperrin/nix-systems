@@ -1,12 +1,12 @@
 { config, pkgs, lib, inputs, ... }: {
   imports = [
-    ./hosts/nixos-oci/hardware-configuration.nix
-    ./shared/common.nix
-    ./containers/web.nix
-    ./shared/net.nix
-    ./shared/wireguard.nix
-    ./shared/auto-upgrade.nix
-    ./shared/headless.nix
+    ./hardware-configuration.nix
+    ../shared/common.nix
+    ../shared/containers/web.nix
+    ../shared/net.nix
+    ../shared/wireguard.nix
+    ../shared/auto-upgrade.nix
+    ../shared/headless.nix
   ];
 
   # colmena options

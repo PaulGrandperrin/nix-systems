@@ -1,11 +1,11 @@
 { config, pkgs, lib, inputs, ... }: {
   imports = [
-    ./hosts/nixos-macbook/hardware-configuration.nix
-    ./shared/common.nix
-    ./shared/net.nix
-    ./shared/wireguard.nix
-    ./shared/desktop.nix
-    ./shared/desktop-i915.nix
+    ./hardware-configuration.nix
+    ../shared/common.nix
+    ../shared/net.nix
+    ../shared/wireguard.nix
+    ../shared/desktop.nix
+    ../shared/desktop-i915.nix
   ];
 
   # colmena options
