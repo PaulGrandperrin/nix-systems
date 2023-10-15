@@ -432,6 +432,7 @@ args @ {pkgs, config, inputs, lib, ...}: {
       shellAbbrs = {
         ssh-keygen-ed25519 = "ssh-keygen -t ed25519";
         nixos-rebuild-gcp = "nixos-rebuild --flake git+file:///etc/nixos#nixos-gcp --use-substitutes --target-host root@paulg.fr";
+        update-hardware-conf = "nixos-generate-config --show-hardware-config --no-filesystems > /etc/nixos/nixosModules/$(hostname)/hardware-configuration.nix && git -C /etc/nixos/ commit /etc/nixos/nixosModules/$(hostname)/hardware-configuration.nix -m \"$(hostname): update hardware-configuration.nix\"";
       };
       plugins = [ # TODO add fish-done
         {
