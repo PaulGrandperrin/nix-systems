@@ -66,7 +66,7 @@
 
   # web
   sops.secrets."web-nas.paulg.fr" = {
-    sopsFile = ../secrets/nixos-nas.yaml;
+    sopsFile = ../../secrets/nixos-nas.yaml;
     mode = "0440";
     owner = "nginx";
     group = "nginx";
@@ -137,7 +137,7 @@
   };
 
   sops.secrets."cache-nas.paulg.fr-privkey.pem" = {
-    sopsFile = ../secrets/nixos-nas.yaml;
+    sopsFile = ../../secrets/nixos-nas.yaml;
     restartUnits = [ "nix-serve.service" ];
   };
   services.nix-serve = {
@@ -147,7 +147,7 @@
   };
 
   sops.secrets."deluge-auth" = {
-    sopsFile = ../secrets/nixos-nas.yaml;
+    sopsFile = ../../secrets/nixos-nas.yaml;
     owner = "nobody";
     restartUnits = [ "deluged.service" "delugeweb.service" ];
   };
