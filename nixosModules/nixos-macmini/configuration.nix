@@ -17,6 +17,31 @@
     targetHost = "${config.networking.hostName}.wg";
   };
 
+  fileSystems."/" =
+    { device = "zpool/nixos";
+      fsType = "zfs";
+    };
+
+  fileSystems."/home" =
+    { device = "zpool/nixos/home";
+      fsType = "zfs";
+    };
+
+  fileSystems."/nix" =
+    { device = "zpool/nixos/nix";
+      fsType = "zfs";
+    };
+
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/A01A-DC7D";
+      fsType = "vfat";
+    };
+
+  swapDevices =
+    [ { device = "/dev/disk/by-uuid/3574e8dd-b51d-4b2f-9e94-6bb389fd7959"; }
+    ];
+
+
   networking.hostId="aedc67f9";
   networking.hostName = "nixos-macmini";
   services.net = {

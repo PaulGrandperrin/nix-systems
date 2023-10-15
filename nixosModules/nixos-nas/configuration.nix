@@ -20,6 +20,31 @@
     tags = ["nixos" "server" "headless" "deploy"];
     targetHost = "${config.networking.hostName}.wg";
   };
+
+  fileSystems."/" =
+    { device = "flash/nixos";
+      fsType = "zfs";
+    };
+
+  fileSystems."/nix" =
+    { device = "flash/nixstore";
+      fsType = "zfs";
+    };
+
+  fileSystems."/home" =
+    { device = "flash/home";
+      fsType = "zfs";
+    };
+
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/641A-604D";
+      fsType = "vfat";
+    };
+
+  swapDevices =
+    [ { device = "/dev/disk/by-uuid/dc8118ad-555c-48dc-96f7-3ce11823b49f"; }
+    ];
+
   
   networking.hostId="51079489";
   networking.hostName = "nixos-nas";

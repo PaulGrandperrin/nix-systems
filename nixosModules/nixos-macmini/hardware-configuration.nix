@@ -13,30 +13,6 @@
   boot.kernelModules = [ "kvm-intel" "wl" ];
   # boot.extraModulePackages = [ config.boot.kernelPackages.broadcom_sta ]; # FTB on 5.18
 
-  fileSystems."/" =
-    { device = "zpool/nixos";
-      fsType = "zfs";
-    };
-
-  fileSystems."/home" =
-    { device = "zpool/nixos/home";
-      fsType = "zfs";
-    };
-
-  fileSystems."/nix" =
-    { device = "zpool/nixos/nix";
-      fsType = "zfs";
-    };
-
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/A01A-DC7D";
-      fsType = "vfat";
-    };
-
-  swapDevices =
-    [ { device = "/dev/disk/by-uuid/3574e8dd-b51d-4b2f-9e94-6bb389fd7959"; }
-    ];
-
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction

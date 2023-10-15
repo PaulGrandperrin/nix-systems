@@ -19,6 +19,23 @@
     targetHost = "${config.networking.hostName}.wg";
   };
 
+  fileSystems."/" =
+    { device = "ssd/encrypted/nixos";
+      fsType = "zfs";
+    };
+
+  fileSystems."/home" =
+    { device = "ssd/encrypted/nixos/home";
+      fsType = "zfs";
+    };
+
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/ACA7-12F3";
+      fsType = "vfat";
+    };
+
+  swapDevices = [ ];
+
   networking.hostId="7ee1da4a";
   networking.hostName = "nixos-xps";
   services.net = {

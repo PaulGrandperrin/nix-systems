@@ -13,33 +13,6 @@
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    { device = "nixos";
-      fsType = "zfs";
-    };
-
-  fileSystems."/nix" =
-    { device = "nixos/nix";
-      fsType = "zfs";
-    };
-
-  fileSystems."/home" =
-    { device = "nixos/home";
-      fsType = "zfs";
-    };
-
-  fileSystems."/var/lib/machines/ubuntu" =
-    { device = "nixos/ubuntu";
-      fsType = "zfs";
-    };
-
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/17E7-9B0C";
-      fsType = "vfat";
-    };
-
-  swapDevices = [ ];
-
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction

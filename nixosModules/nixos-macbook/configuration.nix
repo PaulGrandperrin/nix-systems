@@ -16,6 +16,24 @@
     targetHost = "${config.networking.hostName}.wg";
   };
 
+  fileSystems."/" =
+    { device = "ssd/encrypted/nixos";
+      fsType = "zfs";
+    };
+
+  fileSystems."/home" =
+    { device = "ssd/encrypted/nixos/home";
+      fsType = "zfs";
+    };
+
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/F196-D7D2";
+      fsType = "vfat";
+    };
+
+  swapDevices = [ ];
+
+
   networking.hostId="f2b2467d";
   # hardware.facetimehd.enable = true; # FIXME broken
   services.mbpfan.enable = true;

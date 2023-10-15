@@ -18,6 +18,34 @@
     targetHost = "${config.networking.hostName}.wg";
   };
 
+  fileSystems."/" =
+    { device = "nixos";
+      fsType = "zfs";
+    };
+
+  fileSystems."/nix" =
+    { device = "nixos/nix";
+      fsType = "zfs";
+    };
+
+  fileSystems."/home" =
+    { device = "nixos/home";
+      fsType = "zfs";
+    };
+
+  fileSystems."/var/lib/machines/ubuntu" =
+    { device = "nixos/ubuntu";
+      fsType = "zfs";
+    };
+
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/17E7-9B0C";
+      fsType = "vfat";
+    };
+
+  swapDevices = [ ];
+
+
   networking.hostId = "1c734661"; # for ZFS
   networking.hostName = "nixos-gcp";
   networking.interfaces.eth0.useDHCP = true;

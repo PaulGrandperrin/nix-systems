@@ -13,23 +13,6 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    { device = "ssd/encrypted/nixos";
-      fsType = "zfs";
-    };
-
-  fileSystems."/home" =
-    { device = "ssd/encrypted/nixos/home";
-      fsType = "zfs";
-    };
-
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/ACA7-12F3";
-      fsType = "vfat";
-    };
-
-  swapDevices = [ ];
-
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

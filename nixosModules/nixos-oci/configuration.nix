@@ -17,6 +17,29 @@
     targetHost = "${config.networking.hostName}.wg";
   };
 
+  fileSystems."/" =
+    { device = "system/nixos";
+      fsType = "zfs";
+    };
+
+  fileSystems."/nix" =
+    { device = "system/nixos/nix";
+      fsType = "zfs";
+    };
+
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/F6D1-7CDB";
+      fsType = "vfat";
+    };
+
+  fileSystems."/home" =
+    { device = "system/nixos/home";
+      fsType = "zfs";
+    };
+
+  swapDevices = [ ];
+
+
   networking.hostId = "ea026662"; # head -c 8 /etc/machine-id
   networking.hostName = "nixos-oci";
   networking.interfaces.eth0.useDHCP = true;
