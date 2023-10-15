@@ -2,7 +2,7 @@
 
 { config, pkgs, inputs, ... }:
 let
-  #pkgs-unstable = inputs.nixos-unstable.legacyPackages.${pkgs.system};
+  #pkgs-unstable = inputs.nixos-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 in
 {
   #disabledModules = [

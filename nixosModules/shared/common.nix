@@ -196,7 +196,7 @@
     '';
    };
 
-  hardware.cpu.intel.updateMicrocode = lib.mkIf (pkgs.system == "x86_64-linux") true;
+  hardware.cpu.intel.updateMicrocode = lib.mkIf (pkgs.stdenv.hostPlatform.system == "x86_64-linux") true;
   services.fstrim = {
     enable = true;
     interval = "07:00:00";
@@ -364,7 +364,7 @@
 
   services.irqbalance.enable = true;
 
-  programs.sysdig.enable = lib.mkIf (pkgs.system == "x86_64-linux") true;
+  programs.sysdig.enable = lib.mkIf (pkgs.stdenv.hostPlatform.system == "x86_64-linux") true;
 
   programs.fish = {
     enable = true;
@@ -442,7 +442,7 @@
   # List services that you want to enable:
 
   services.gpm.enable = false;
-  services.thermald.enable = lib.mkIf (pkgs.system == "x86_64-linux") (lib.mkDefault true); # should be disabled when power-profile-daemon (GNOME or KDE) or throttled is enabled
+  services.thermald.enable = lib.mkIf (pkgs.stdenv.hostPlatform.system == "x86_64-linux") (lib.mkDefault true); # should be disabled when power-profile-daemon (GNOME or KDE) or throttled is enabled
 
   # Enable the OpenSSH daemon.
   services.openssh = {
@@ -485,8 +485,8 @@
   };
 
   boot.binfmt.emulatedSystems = [] # using box64 in place of qemu would be great, but it doesn't work so well at the moment: https://github.com/NixOS/nixpkgs/issues/213197
-    ++ lib.optionals ( pkgs.system != "x86_64-linux" ) [ "x86_64-linux" ]
-    ++ lib.optionals ( pkgs.system != "aarch64-linux" ) [ "aarch64-linux" ]
+    ++ lib.optionals ( pkgs.stdenv.hostPlatform.system != "x86_64-linux" ) [ "x86_64-linux" ]
+    ++ lib.optionals ( pkgs.stdenv.hostPlatform.system != "aarch64-linux" ) [ "aarch64-linux" ]
   ;
 
   specialisation = {

@@ -47,7 +47,7 @@ args @ {pkgs, config, inputs, lib, ...}: {
       [
       ] ++ lib.optionals (config.home.username == "root") [ # if root and linux
       ]
-    ) ++ lib.optionals (pkgs.system == "x86_64-linux") (
+    ) ++ lib.optionals (pkgs.stdenv.hostPlatform.system == "x86_64-linux") (
       [ 
       ] ++ lib.optionals (config.home.username == "root") [ # if root and linux
       ]
