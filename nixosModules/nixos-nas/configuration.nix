@@ -13,14 +13,6 @@
     ../shared/home-assistant.nix
   ];
 
-  # colmena options
-  deployment = {
-    allowLocalDeployment = true;
-    buildOnTarget = true;
-    tags = ["nixos" "server" "headless" "deploy"];
-    targetHost = "${config.networking.hostName}.wg";
-  };
-
   fileSystems."/" =
     { device = "flash/nixos";
       fsType = "zfs";

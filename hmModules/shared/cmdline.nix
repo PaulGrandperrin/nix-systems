@@ -93,7 +93,6 @@ args @ {pkgs, config, inputs, lib, ...}: {
       smartmontools
       wireguard-tools
       dogdns
-      colmena
       wakelan
       pciutils
       lsof

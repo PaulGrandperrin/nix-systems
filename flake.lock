@@ -1,30 +1,5 @@
 {
   "nodes": {
-    "colmena": {
-      "inputs": {
-        "flake-compat": [
-          "flake-compat"
-        ],
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [],
-        "stable": []
-      },
-      "locked": {
-        "lastModified": 1695926452,
-        "narHash": "sha256-ILZQx5NwLRekMHkIcKXqUqPP4di8VAOGurErzjq39bY=",
-        "owner": "zhaofengli",
-        "repo": "colmena",
-        "rev": "4e9b52bdbc920a55feac78369f0efd6122fdb88a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "zhaofengli",
-        "repo": "colmena",
-        "type": "github"
-      }
-    },
     "crane": {
       "inputs": {
         "flake-compat": [
@@ -634,7 +609,6 @@
     },
     "root": {
       "inputs": {
-        "colmena": "colmena",
         "darwin-23-05": "darwin-23-05",
         "darwin-unstable": "darwin-unstable",
         "devshell": "devshell",

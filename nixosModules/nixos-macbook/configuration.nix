@@ -8,14 +8,6 @@
     ../shared/desktop-i915.nix
   ];
 
-  # colmena options
-  deployment = {
-    allowLocalDeployment = true;
-    buildOnTarget = true;
-    tags = ["nixos" "laptop" "desktop" "deploy"];
-    targetHost = "${config.networking.hostName}.wg";
-  };
-
   fileSystems."/" =
     { device = "ssd/encrypted/nixos";
       fsType = "zfs";

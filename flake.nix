@@ -80,14 +80,6 @@
       inputs.nixpkgs-stable.follows = ""; # optional, not necessary for the module
     };
 
-    colmena = {
-      url = "github:zhaofengli/colmena";
-      inputs.nixpkgs.follows = ""; # optional, not necessary for the module
-      inputs.stable.follows = ""; # optional, not necessary for the module
-      inputs.flake-compat.follows = "flake-compat";
-      inputs.flake-utils.follows = "flake-utils";
-    };
-
     pre-commit-hooks-nix = {
       url = "github:cachix/pre-commit-hooks.nix";
       inputs.nixpkgs.follows = "nixos-23-05-lib";
@@ -166,13 +158,6 @@
       })
     ];
   in {
-    colmena = {
-      meta.nixpkgs = inputs.nixos-23-05.legacyPackages.x86_64-linux;
-    } // builtins.mapAttrs (name: value: { # from https://github.com/zhaofengli/colmena/issues/60#issuecomment-1047199551
-        nixpkgs.system = value.config.nixpkgs.system;
-        imports = value._module.args.modules;
-      }) (inputs.self.nixosConfigurations);
-
     packages.x86_64-linux.vcv-rack = inputs.nixos-23-05.legacyPackages.x86_64-linux.callPackage ./pkgs/vcv-rack {};
 
     #packages.x86_64-linux = {
@@ -310,7 +295,6 @@
     nixosConfigurations = let
       mkNixosConf = arch: nixos-channel: nixos-modules: hm-channel: hm-modules: inputs.${nixos-channel}.lib.nixosSystem rec {
         specialArgs = { inherit inputs; }; #  passes inputs to modules
-        extraModules = [ inputs.colmena.nixosModules.deploymentOptions ]; # from https://github.com/zhaofengli/colmena/issues/60#issuecomment-1047199551
         modules = [ 
           { nixpkgs = {
               overlays = getOverlays "${arch}-linux";

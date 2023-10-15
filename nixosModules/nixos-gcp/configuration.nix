@@ -10,14 +10,6 @@
     ../shared/headless.nix
   ];
 
-  # colmena options
-  deployment = {
-    allowLocalDeployment = false;
-    buildOnTarget = false;
-    tags = ["nixos" "server" "headless" "web"];
-    targetHost = "${config.networking.hostName}.wg";
-  };
-
   fileSystems."/" =
     { device = "nixos";
       fsType = "zfs";
