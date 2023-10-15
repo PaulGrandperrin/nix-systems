@@ -137,10 +137,11 @@
 
 
   outputs = inputs: let 
-    getOverlays = system: let # FIXME not sure those are the good channels for darwin
-      pkgs-stable = inputs.nixos-23-05.legacyPackages.${system};
-      pkgs-unstable = inputs.nixos-unstable.legacyPackages.${system};
-      all-pkgs-overlay = final: prev: { unstable = pkgs-unstable; stable = pkgs-stable;};
+    getOverlays = let # FIXME not sure those are the good channels for darwin
+      all-pkgs-overlay = final: prev: {
+        stable = inputs.nixos-23-05.legacyPackages.${prev.stdenv.hostPlatform.system};
+        unstable = inputs.nixos-unstable.legacyPackages.${prev.stdenv.hostPlatform.system};
+      };
     in [
       all-pkgs-overlay
       inputs.nur.overlay
@@ -192,7 +193,7 @@
             extraSpecialArgs = {inherit inputs;};
             config = {pkgs, lib, config, ...}: {
               imports = [./hmModules/shared/core.nix];
-              nixpkgs.overlays = getOverlays system;
+              nixpkgs.overlays = getOverlays;
               home.activation = {
                 copyFont = let 
                     font_src = "${pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; }}/share/fonts/truetype/NerdFonts/Fira Code Regular Nerd Font Complete Mono.ttf";
@@ -217,7 +218,7 @@
           # https://github.com/nix-community/home-manager/issues/2954
           # https://github.com/nix-community/home-manager/pull/2720
           system = "x86_64-linux";
-          overlays = getOverlays system;
+          overlays = getOverlays;
         });
         extraSpecialArgs = {inherit inputs;};
         modules = [ 
@@ -236,7 +237,7 @@
       paulg-aarch64-darwin = inputs.home-manager-master.lib.homeManagerConfiguration rec {
         pkgs = (import inputs.nixos-unstable rec {
           system = "aarch64-darwin";
-          overlays = getOverlays system;
+          overlays = getOverlays;
         });
         extraSpecialArgs = {inherit inputs;};
         modules = [ 
@@ -265,7 +266,7 @@
           modules = [
             { 
               nixpkgs = {
-                overlays = getOverlays system;
+                overlays = getOverlays;
               };
             }
             ./nix-darwin/common.nix
@@ -297,7 +298,7 @@
         specialArgs = { inherit inputs; }; #  passes inputs to modules
         modules = [ 
           ({pkgs, ...}:{ nixpkgs = {
-              overlays = getOverlays pkgs.stdenv.hostPlatform.system;
+              overlays = getOverlays;
             };
           })
           inputs.${hm-channel}.nixosModules.home-manager
