@@ -297,10 +297,10 @@
       mkNixosConf = arch: nixos-channel: nixos-modules: hm-channel: hm-modules: inputs.${nixos-channel}.lib.nixosSystem rec {
         specialArgs = { inherit inputs; }; #  passes inputs to modules
         modules = [ 
-          ({pkgs, ...}:{ nixpkgs = {
+          { nixpkgs = {
               overlays = getOverlays;
             };
-          })
+          }
           inputs.${hm-channel}.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true; # means that pkgs are taken from the nixosSystem and not from home-manager.inputs.nixpkgs
