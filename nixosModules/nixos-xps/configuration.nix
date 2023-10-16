@@ -11,6 +11,9 @@
     inputs.lanzaboote.nixosModules.lanzaboote
   ];
 
+  home-manager.users.root  = ../../hmModules/nixos-xps.nix;
+  home-manager.users.paulg = ../../hmModules/nixos-xps.nix;
+
   fileSystems."/" =
     { device = "ssd/encrypted/nixos";
       fsType = "zfs";

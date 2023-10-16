@@ -8,6 +8,9 @@
     ../shared/desktop-i915.nix
   ];
 
+  home-manager.users.root  = ../../hmModules/nixos-macbook.nix;
+  home-manager.users.paulg = ../../hmModules/nixos-macbook.nix;
+
   fileSystems."/" =
     { device = "ssd/encrypted/nixos";
       fsType = "zfs";

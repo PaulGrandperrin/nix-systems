@@ -10,6 +10,9 @@
     ../shared/headless.nix
   ];
 
+  home-manager.users.root  = ../../hmModules/nixos-gcp.nix;
+  home-manager.users.paulg = ../../hmModules/nixos-gcp.nix;
+
   fileSystems."/" =
     { device = "nixos";
       fsType = "zfs";

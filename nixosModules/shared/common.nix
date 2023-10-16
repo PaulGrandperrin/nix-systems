@@ -1,10 +1,16 @@
-{ config, pkgs, lib, inputs, ... }:
+{ config, pkgs, lib, inputs, home-manager-flake, ... }:
 {
   imports = [
+    inputs.sops-nix.nixosModules.sops
+    home-manager-flake.nixosModules.home-manager
     ./mail.nix
   ];
   system.stateVersion = "22.05";
 
+  home-manager.useGlobalPkgs = true; # means that pkgs are taken from the nixosSystem and not from home-manager.inputs.nixpkgs
+  home-manager.useUserPackages = true; # means that pkgs are installed at /etc/profiles instead of $HOME/.nix-profile
+  home-manager.extraSpecialArgs = config._module.specialArgs;
+  
   # always keep a reference to the source flake that generated each generations
   environment.etc."source-flake".source = ../.;
 

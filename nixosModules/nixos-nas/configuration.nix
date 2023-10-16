@@ -13,6 +13,9 @@
     ../shared/home-assistant.nix
   ];
 
+  home-manager.users.root  = ../../hmModules/nixos-nas.nix;
+  home-manager.users.paulg = ../../hmModules/nixos-nas.nix;
+
   fileSystems."/" =
     { device = "flash/nixos";
       fsType = "zfs";

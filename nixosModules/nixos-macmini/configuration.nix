@@ -9,6 +9,9 @@
     ../shared/headless.nix
   ];
 
+  home-manager.users.root  = ../../hmModules/nixos-macmini.nix;
+  home-manager.users.paulg = ../../hmModules/nixos-macmini.nix;
+
   fileSystems."/" =
     { device = "zpool/nixos";
       fsType = "zfs";

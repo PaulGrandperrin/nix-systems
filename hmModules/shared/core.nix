@@ -1,4 +1,4 @@
-args @ {pkgs, config, inputs, lib, ...}: {
+args @ {pkgs, config, inputs, lib, nixos-flake, home-manager-flake, ...}: {
   imports = [
     ./cmdline.nix
   ];
@@ -12,14 +12,14 @@ args @ {pkgs, config, inputs, lib, ...}: {
     settings."experimental-features" = "nix-command flakes repl-flake";
 
     registry = rec {
-      #nixos.flake = inputs.nixos;
+      nixos.flake = nixos-flake;
       #nixos-small.flake = inputs.nixos-small;
       nixos-unstable.flake = inputs.nixos-unstable;
       #nixpkgs-darwin.flake = inputs.nixpkgs-darwin;
       #nur.flake = inputs.nur;
       #flake-utils.flake = inputs.flake-utils;
       #rust-overlay.flake = inputs.rust-overlay;
-      #home-manager.flake = inputs.home-manager;
+      home-manager.flake = home-manager-flake;
       nixpkgs.to = {
         type = "path";
         path = (toString pkgs.path);
