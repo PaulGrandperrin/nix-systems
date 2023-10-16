@@ -293,75 +293,7 @@
 
     # Used with `nixos-rebuild --flake .#<hostname>`
     # nixosConfigurations."<hostname>".config.system.build.toplevel must be a derivation
-    nixosConfigurations = let
-      mkNixosConf = arch: nixos-channel: nixos-modules: hm-channel: hm-modules: inputs.${nixos-channel}.lib.nixosSystem rec {
-        specialArgs = { inherit inputs; }; #  passes inputs to modules
-        modules = [ 
-          { nixpkgs = {
-              overlays = getOverlays;
-            };
-          }
-          inputs.${hm-channel}.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true; # means that pkgs are taken from the nixosSystem and not from home-manager.inputs.nixpkgs
-            home-manager.useUserPackages = true; # means that pkgs are installed at /etc/profiles instead of $HOME/.nix-profile
-            home-manager.extraSpecialArgs = {inherit inputs;};
-            home-manager.users.root  = { imports = hm-modules;};
-            home-manager.users.paulg = { imports = hm-modules;};
-          }
-          inputs.sops-nix.nixosModules.sops
-        ] ++ nixos-modules;
-      };
-    in { 
-      nixos-nas = mkNixosConf "x86_64" "nixos-23-05" [
-        ./nixosModules/nixos-nas/configuration.nix
-      ]
-      "home-manager-23-05"
-      [
-        ./hmModules/nixos-nas.nix
-      ];
-
-      nixos-macmini = mkNixosConf "x86_64" "nixos-23-05" [
-        ./nixosModules/nixos-macmini/configuration.nix
-      ]
-      "home-manager-23-05"
-      [
-        ./hmModules/nixos-macmini.nix
-      ];
-
-      nixos-gcp = mkNixosConf "x86_64" "nixos-23-05" [
-        ./nixosModules/nixos-gcp/configuration.nix
-      ]
-      "home-manager-23-05"
-      [
-        ./hmModules/nixos-gcp.nix
-      ];
-
-      nixos-oci = mkNixosConf "aarch64" "nixos-23-05" [
-        ./nixosModules/nixos-oci/configuration.nix
-      ]
-      "home-manager-23-05"
-      [
-        ./hmModules/nixos-oci.nix
-      ];
-
-      nixos-xps = mkNixosConf "x86_64" "nixos-unstable" [
-        ./nixosModules/nixos-xps/configuration.nix
-      ]
-      "home-manager-master"
-      [
-        ./hmModules/nixos-xps.nix
-      ];
-
-      nixos-macbook = mkNixosConf "x86_64" "nixos-unstable" [
-        ./nixosModules/nixos-macbook/configuration.nix
-      ]
-      "home-manager-master"
-      [
-        ./hmModules/nixos-macbook.nix
-      ];
-
-    };
+    nixosConfigurations = import ./nixosConfigurations.nix inputs getOverlays;
   };
 }
 
