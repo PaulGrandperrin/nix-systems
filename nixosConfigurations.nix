@@ -6,11 +6,8 @@ inputs: getOverlays: let
   in
   nixos-flake.lib.nixosSystem rec {
     specialArgs = { inherit inputs nixos-flake home-manager-flake;}; #  passes inputs and main flakes to modules
-    modules = [ 
-      { nixpkgs = {
-          overlays = getOverlays;
-        };
-      }
+    modules = [
+      { nixpkgs.overlays = getOverlays; }
       module
     ];
   };
