@@ -208,7 +208,7 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = {inherit inputs;};
+              home-manager.extraSpecialArgs = {inherit inputs; nixos-flake = inputs.nixos-23-05;home-manager-flake = inputs.home-manager-23-05; };
               home-manager.users.root  = { imports = [./homeModules/shared/core.nix];};
               home-manager.users.paulg = { imports = [
                 ./homeModules/shared/core.nix
