@@ -95,7 +95,6 @@ args @ {pkgs, config, inputs, lib, ...}: {
       wakelan
       pciutils
       lsof
-      e2fsprogs
       nmap
       iperf
 
@@ -143,6 +142,7 @@ args @ {pkgs, config, inputs, lib, ...}: {
         usbtop
         wl-clipboard # used by neovim to yank to clipboard
         trashy
+        e2fsprogs
 
         (buildFHSEnv {
           name = "fhs-run";
