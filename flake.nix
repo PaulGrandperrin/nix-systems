@@ -190,44 +190,9 @@
       };
     };
 
-    homeConfigurations = import ./homeConfigurations.nix inputs;
-
-    darwinConfigurations = let
-      mkDarwinConf = arch: let
-          inputs-patched = inputs // {nixpkgs = inputs.darwin-23-05; darwin = inputs.nix-darwin;};
-        in inputs-patched.darwin.lib.darwinSystem rec {
-          system = "${arch}-darwin";
-          inputs = inputs-patched; # otherwise it would take this flake's inputs and expect nixpkgs and darwin to be hardcoded
-          specialArgs = { inherit inputs; }; #  passes inputs to modules
-          modules = [
-            { 
-              nixpkgs = { overlays = import ./overlays inputs; config.allowUnfree = true;};
-            }
-            ./nix-darwin/common.nix
-            inputs.home-manager-23-05.darwinModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = {inherit inputs; nixos-flake = inputs.nixos-23-05;home-manager-flake = inputs.home-manager-23-05; };
-              home-manager.users.root  = { imports = [./homeModules/shared/core.nix];};
-              home-manager.users.paulg = { imports = [
-                ./homeModules/shared/core.nix
-                ./homeModules/shared/firefox.nix
-                ./homeModules/shared/chromium.nix
-                ./homeModules/shared/desktop-macos.nix
-                ./homeModules/shared/rust.nix
-              ];};
-            }
-          ];
-        };
-    in {
-      "MacBookPaul" = mkDarwinConf "x86_64";
-      "MacMiniPaul" = mkDarwinConf "x86_64";
-    };
-
-    # Used with `nixos-rebuild --flake .#<hostname>`
-    # nixosConfigurations."<hostname>".config.system.build.toplevel must be a derivation
-    nixosConfigurations = import ./nixosConfigurations.nix inputs;
+    homeConfigurations   = import ./homeConfigurations.nix   inputs;
+    darwinConfigurations = import ./darwinConfigurations.nix inputs;
+    nixosConfigurations  = import ./nixosConfigurations.nix  inputs;
   };
 }
 
