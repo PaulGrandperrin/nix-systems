@@ -4,9 +4,6 @@ args @ {pkgs, config, inputs, lib, nixos-flake, home-manager-flake, ...}: {
   ];
   xdg.enable = true; # export XDG vars to ensure the correct directories are used
 
-  nixpkgs.config.allowUnfree = true; # only works inside HM
-  xdg.configFile."nixpkgs/config.nix".text = "{ allowUnfree = true; }"; # works for `nix run/shell`, also needs `--impure`
-
   nix = {
     package = lib.mkDefault pkgs.nix;
     settings."experimental-features" = "nix-command flakes repl-flake";

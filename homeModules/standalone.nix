@@ -5,7 +5,10 @@
     #./shared/chromium.nix
   ];
 
-  nixpkgs.overlays = import ../overlays inputs;
+  nixpkgs = {
+    config.allowUnfree = true;
+    overlays = import ../overlays inputs;
+  };
 
   home = {
     # mandatory when HM is used as a standalone
