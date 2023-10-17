@@ -12,8 +12,8 @@ args @ {pkgs, config, inputs, lib, ...}: {
       config.nix.package
 
       # from https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/config/system-path.nix
-      acl
-      attr
+      # acl # linux only
+      # attr # linux only
       bashInteractive # bash with ncurses support
       bzip2
       coreutils-full
@@ -32,7 +32,7 @@ args @ {pkgs, config, inputs, lib, ...}: {
       gzip
       xz
       less
-      libcap
+      # libcap # linux only
       ncurses
       netcat
       openssh # config.programs.ssh.package 
@@ -53,7 +53,6 @@ args @ {pkgs, config, inputs, lib, ...}: {
       sshfs
       rclone
 
-      trashy
       fd
       tree
       ncdu
@@ -129,21 +128,6 @@ args @ {pkgs, config, inputs, lib, ...}: {
       #}).overrideAttrs (final: prev: {
       #  meta.priority = 1;
       #}))
-      (buildFHSEnv {
-        name = "fhs-run";
-        targetPkgs = pkgs: (with pkgs; [
-        ]);
-        runScript = writeShellScript "fhs-run" ''
-          run="$1"
-          if [ "$run" = "" ]; then
-            echo "Usage: fhs-run command-to-run args..." >&2
-            exit 1
-          fi
-          shift
-  
-          exec -- "$run" "$@"
-        '';
-      })
     ]
     ++ lib.optionals pkgs.stdenv.isLinux (
       [
@@ -158,6 +142,23 @@ args @ {pkgs, config, inputs, lib, ...}: {
         usbutils
         usbtop
         wl-clipboard # used by neovim to yank to clipboard
+        trashy
+
+        (buildFHSEnv {
+          name = "fhs-run";
+          targetPkgs = pkgs: (with pkgs; [
+          ]);
+          runScript = writeShellScript "fhs-run" ''
+            run="$1"
+            if [ "$run" = "" ]; then
+              echo "Usage: fhs-run command-to-run args..." >&2
+              exit 1
+            fi
+            shift
+  
+            exec -- "$run" "$@"
+          '';
+        })
 
         #nix-alien # or nix-autobahn
         #nix-index
