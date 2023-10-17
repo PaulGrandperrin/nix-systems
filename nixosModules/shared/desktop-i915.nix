@@ -12,9 +12,9 @@
 
   # TODO why /dev/dri/by-path/pci-0000:00:02.0-render and not /dev/dri/renderD128 ? udev ? needed for ffmpeg
 
-  nixpkgs.config.packageOverrides = pkgs: {
-    vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; }; # allows the use of old "i965 VA driver"
-  };
+  #nixpkgs.config.packageOverrides = pkgs: {
+  #  vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; }; # allows the use of old "i965 VA driver"
+  #};
 
 
   boot.extraModprobeConfig = '' # not included in stage1: https://github.com/NixOS/nixpkgs/pull/145013

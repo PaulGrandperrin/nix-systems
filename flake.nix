@@ -137,27 +137,8 @@
 
 
   outputs = inputs: let 
-    getOverlays = let # FIXME not sure those are the good channels for darwin
-      all-pkgs-overlay = final: prev: {
-        stable = inputs.nixos-23-05.legacyPackages.${prev.stdenv.hostPlatform.system};
-        unstable = inputs.nixos-unstable.legacyPackages.${prev.stdenv.hostPlatform.system};
-      };
-    in [
-      all-pkgs-overlay
-      inputs.nur.overlay
-      inputs.rust-overlay.overlays.default
-      inputs.nix-alien.overlays.default
-      (final: prev: {
-        rclone = (prev.symlinkJoin { # create filesystem helpers until https://github.com/NixOS/nixpkgs/issues/258478
-          name = "rclone";
-          paths = [ prev.rclone ];
-          postBuild = ''
-            ln -sf $out/bin/rclone $out/bin/mount.rclone 
-            ln -sf $out/bin/rclone $out/bin/rclonefs
-          '';
-        });
-      })
-    ];
+    overlays = import ./overlays inputs; 
+    pkgs = system: import inputs.nixos-unstable {inherit system overlays; config = {allowUnfree = true;};};
   in {
     packages.x86_64-linux.vcv-rack = inputs.nixos-23-05.legacyPackages.x86_64-linux.callPackage ./pkgs/vcv-rack {};
 
@@ -192,8 +173,8 @@
           home-manager = {
             extraSpecialArgs = {inherit inputs;};
             config = {pkgs, lib, config, ...}: {
-              imports = [./hmModules/shared/core.nix];
-              nixpkgs.overlays = getOverlays;
+              imports = [./homeModules/shared/core.nix];
+              nixpkgs = { inherit overlays;};
               home.activation = {
                 copyFont = let 
                     font_src = "${pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; }}/share/fonts/truetype/NerdFonts/Fira Code Regular Nerd Font Complete Mono.ttf";
@@ -212,49 +193,7 @@
       };
     };
 
-    homeConfigurations = {
-      paulg-x86_64-linux = inputs.home-manager-master.lib.homeManagerConfiguration rec {
-        pkgs = (import inputs.nixos-unstable rec {
-          # https://github.com/nix-community/home-manager/issues/2954
-          # https://github.com/nix-community/home-manager/pull/2720
-          system = "x86_64-linux";
-          overlays = getOverlays;
-        });
-        extraSpecialArgs = {inherit inputs;};
-        modules = [ 
-          {
-            home = {
-              username = "paulg";
-              homeDirectory = "/home/paulg";
-              stateVersion = "22.05";
-            };
-          }
-          ./hmModules/shared/core.nix
-          ./hmModules/shared/firefox.nix
-          ./hmModules/shared/chromium.nix
-        ];
-      };
-      paulg-aarch64-darwin = inputs.home-manager-master.lib.homeManagerConfiguration rec {
-        pkgs = (import inputs.nixos-unstable rec {
-          system = "aarch64-darwin";
-          overlays = getOverlays;
-        });
-        extraSpecialArgs = {inherit inputs;};
-        modules = [ 
-          {
-            home = {
-              username = "paulg";
-              homeDirectory = "/Users/paulg";
-              stateVersion = "22.05";
-            };
-          }
-          ./hmModules/shared/core.nix
-          ./hmModules/shared/firefox.nix
-          ./hmModules/shared/chromium.nix
-          ./hmModules/shared/desktop-macos.nix
-        ];
-      };
-    };
+    homeConfigurations = import ./homeConfigurations.nix inputs overlays;
 
     darwinConfigurations = let
       mkDarwinConf = arch: let
@@ -265,9 +204,7 @@
           specialArgs = { inherit inputs; }; #  passes inputs to modules
           modules = [
             { 
-              nixpkgs = {
-                overlays = getOverlays;
-              };
+              nixpkgs = { inherit overlays; config.allowUnfree = true;};
             }
             ./nix-darwin/common.nix
             inputs.home-manager-23-05.darwinModules.home-manager
@@ -275,13 +212,13 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = {inherit inputs;};
-              home-manager.users.root  = { imports = [./hmModules/shared/core.nix];};
+              home-manager.users.root  = { imports = [./homeModules/shared/core.nix];};
               home-manager.users.paulg = { imports = [
-                ./hmModules/shared/core.nix
-                ./hmModules/shared/firefox.nix
-                ./hmModules/shared/chromium.nix
-                ./hmModules/shared/desktop-macos.nix
-                ./hmModules/shared/rust.nix
+                ./homeModules/shared/core.nix
+                ./homeModules/shared/firefox.nix
+                ./homeModules/shared/chromium.nix
+                ./homeModules/shared/desktop-macos.nix
+                ./homeModules/shared/rust.nix
               ];};
             }
           ];
@@ -293,7 +230,7 @@
 
     # Used with `nixos-rebuild --flake .#<hostname>`
     # nixosConfigurations."<hostname>".config.system.build.toplevel must be a derivation
-    nixosConfigurations = import ./nixosConfigurations.nix inputs getOverlays;
+    nixosConfigurations = import ./nixosConfigurations.nix inputs overlays;
   };
 }
 

@@ -276,7 +276,11 @@
   #  })
   #];
 
-
+  # use stable ZFS from nixos-unstable
+  # NOTE: this also pulls the latest ZFS compatible linux from nixos-unstable
+  #nixpkgs.config.packageOverrides = _pkgs: {
+  #  zfsStable = pkgs.unstable.zfsStable;
+  #};
 
   services.zfs = {
     zed.settings = {
@@ -344,8 +348,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.initrd.systemd.enable = true;
-
-  nixpkgs.config.allowUnfree = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Paris";

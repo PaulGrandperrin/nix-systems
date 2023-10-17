@@ -1,4 +1,4 @@
-inputs: getOverlays: let
+inputs: overlays: let
   mkNixosConf = stability: module: let
     selectFlake = stable: unstable: { inherit stable unstable; }.${stability}; 
     nixos-flake = selectFlake inputs.nixos-23-05 inputs.nixos-unstable;
@@ -7,7 +7,13 @@ inputs: getOverlays: let
   nixos-flake.lib.nixosSystem rec {
     specialArgs = { inherit inputs nixos-flake home-manager-flake;}; #  passes inputs and main flakes to modules
     modules = [
-      { nixpkgs.overlays = getOverlays; }
+      ({config, nixos-flake, ...}: let 
+        pkgs = import nixos-flake {system="x86_64-linux"; inherit overlays; config = {allowUnfree = true;};};
+      in { 
+        #nixpkgs.overlays = getOverlays;
+        #nixpkgs.pkgs = pkgs.appendOverlays getOverlays; 
+        nixpkgs.pkgs = pkgs; 
+      })
       module
     ];
   };

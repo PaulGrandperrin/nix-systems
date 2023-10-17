@@ -9,8 +9,8 @@
     ../shared/headless.nix
   ];
 
-  home-manager.users.root  = ../../hmModules/nixos-oci.nix;
-  home-manager.users.paulg = ../../hmModules/nixos-oci.nix;
+  home-manager.users.root  = ../../homeModules/nixos-oci.nix;
+  home-manager.users.paulg = ../../homeModules/nixos-oci.nix;
 
   fileSystems."/" =
     { device = "system/nixos";

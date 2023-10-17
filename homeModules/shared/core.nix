@@ -76,7 +76,7 @@ args @ {pkgs, config, inputs, lib, nixos-flake, home-manager-flake, ...}: {
     copySshAuthorizedKeys = lib.hm.dag.entryAfter ["writeBoundary"] ''
      $DRY_RUN_CMD install $VERBOSE_ARG -m700 -d ${config.home.homeDirectory}/.ssh
      $DRY_RUN_CMD install $VERBOSE_ARG -m600 ${ssh-authorized-keys} ${config.home.homeDirectory}/.ssh/authorized_keys
-   '';
+    '';
   });
 
   services.gpg-agent = lib.mkIf pkgs.stdenv.isLinux {

@@ -8,8 +8,8 @@
     ../shared/desktop-i915.nix
   ];
 
-  home-manager.users.root  = ../../hmModules/nixos-macbook.nix;
-  home-manager.users.paulg = ../../hmModules/nixos-macbook.nix;
+  home-manager.users.root  = ../../homeModules/nixos-macbook.nix;
+  home-manager.users.paulg = ../../homeModules/nixos-macbook.nix;
 
   fileSystems."/" =
     { device = "ssd/encrypted/nixos";
@@ -35,12 +35,6 @@
 
   services.my-wg = {
     enable = true;
-  };
-
-  # use stable ZFS from nixos-unstable
-  # NOTE: this also pulls the latest ZFS compatible linux from nixos-unstable
-  nixpkgs.config.packageOverrides = _pkgs: {
-    zfsStable = pkgs.unstable.zfsStable;
   };
 
   powerManagement = {
