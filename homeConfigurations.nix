@@ -1,4 +1,4 @@
-inputs: overlays: let 
+inputs: let 
   mkHomeConf = stability: system: username: module: let 
     selectFlake = stable: unstable: { inherit stable unstable; }.${stability};
     nixos-flake = selectFlake inputs.nixos-23-05 inputs.nixos-unstable;

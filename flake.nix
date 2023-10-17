@@ -137,8 +137,6 @@
 
 
   outputs = inputs: let 
-    overlays = import ./overlays inputs; 
-    pkgs = system: import inputs.nixos-unstable {inherit system overlays; config = {allowUnfree = true;};};
   in {
     packages.x86_64-linux.vcv-rack = inputs.nixos-23-05.legacyPackages.x86_64-linux.callPackage ./pkgs/vcv-rack {};
 
@@ -174,7 +172,7 @@
             extraSpecialArgs = {inherit inputs;};
             config = {pkgs, lib, config, ...}: {
               imports = [./homeModules/shared/core.nix];
-              nixpkgs = { inherit overlays;};
+              nixpkgs.overlays = import ./overlays inputs;
               home.activation = {
                 copyFont = let 
                     font_src = "${pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; }}/share/fonts/truetype/NerdFonts/Fira Code Regular Nerd Font Complete Mono.ttf";
@@ -193,7 +191,7 @@
       };
     };
 
-    homeConfigurations = import ./homeConfigurations.nix inputs overlays;
+    homeConfigurations = import ./homeConfigurations.nix inputs;
 
     darwinConfigurations = let
       mkDarwinConf = arch: let
@@ -204,7 +202,7 @@
           specialArgs = { inherit inputs; }; #  passes inputs to modules
           modules = [
             { 
-              nixpkgs = { inherit overlays; config.allowUnfree = true;};
+              nixpkgs = { overlays = import ./overlays inputs; config.allowUnfree = true;};
             }
             ./nix-darwin/common.nix
             inputs.home-manager-23-05.darwinModules.home-manager
@@ -230,7 +228,7 @@
 
     # Used with `nixos-rebuild --flake .#<hostname>`
     # nixosConfigurations."<hostname>".config.system.build.toplevel must be a derivation
-    nixosConfigurations = import ./nixosConfigurations.nix inputs overlays;
+    nixosConfigurations = import ./nixosConfigurations.nix inputs;
   };
 }
 

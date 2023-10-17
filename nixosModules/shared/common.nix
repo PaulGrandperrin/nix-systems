@@ -7,6 +7,11 @@
   ];
   system.stateVersion = "22.05";
 
+  nixpkgs = {
+    config.allowUnfree = true;
+    overlays = import ../../overlays inputs;
+  };
+
   home-manager.useGlobalPkgs = true; # means that pkgs are taken from the nixosSystem and not from home-manager.inputs.nixpkgs
   home-manager.useUserPackages = true; # means that pkgs are installed at /etc/profiles instead of $HOME/.nix-profile
   home-manager.extraSpecialArgs = config._module.specialArgs;
