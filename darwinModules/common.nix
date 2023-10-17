@@ -22,14 +22,14 @@
   home-manager.useUserPackages = true;
   home-manager.extraSpecialArgs = {inherit inputs; nixos-flake = inputs.nixos-23-05;home-manager-flake = inputs.home-manager-23-05; };
   home-manager.users.root  = { imports = [
-    ./homeModules/shared/core.nix
+    ../homeModules/shared/core.nix
   ];};
   home-manager.users.paulg = { imports = [
-    ./homeModules/shared/core.nix
-    ./homeModules/shared/firefox.nix
-    ./homeModules/shared/chromium.nix
-    ./homeModules/shared/desktop-macos.nix
-    ./homeModules/shared/rust.nix
+    ../homeModules/shared/core.nix
+    ../homeModules/shared/firefox.nix
+    ../homeModules/shared/chromium.nix
+    ../homeModules/shared/desktop-macos.nix
+    ../homeModules/shared/rust.nix
   ];};
 
   # nix-darwin doesn't change the shells so we do it here
