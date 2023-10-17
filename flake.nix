@@ -136,8 +136,7 @@
   };
 
 
-  outputs = inputs: let 
-  in {
+  outputs = inputs: {
     packages.x86_64-linux.vcv-rack = inputs.nixos-23-05.legacyPackages.x86_64-linux.callPackage ./pkgs/vcv-rack {};
 
     #packages.x86_64-linux = {
