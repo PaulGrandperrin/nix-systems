@@ -4,7 +4,11 @@ in lib.listToAttrs (
   map
     (system: {
       name = system;
-      value = inputs.nixpkgs.legacyPackages.${system}.extend (import ./overlays.nix inputs).default;
+      value = (import inputs.nixpkgs {
+        inherit system;
+        overlays = [ (import ./overlays.nix inputs).default ];
+        config.allowUnfree = true;
+      });
     })
     lib.systems.flakeExposed
 )
