@@ -48,7 +48,7 @@ in {
     file.".cargo/config.toml" = lib.mkIf pkgs.stdenv.isLinux {
       text = ''
         [target.x86_64-unknown-linux-gnu]
-        linker = "${pkgs.clang_13}/bin/clang"
+        linker = "${pkgs.clang_16}/bin/clang"
         rustflags = ["-C", "link-arg=--ld-path=${pkgs.mold}/bin/mold"]
       '';
     };

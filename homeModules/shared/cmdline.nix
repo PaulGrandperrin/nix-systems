@@ -111,7 +111,7 @@ args @ {pkgs, config, inputs, lib, ...}: {
       #dev
       gnumake
       gcc11
-      (lib.setPrio 20 clang_13)
+      (lib.setPrio 20 clang_16)
       rnix-lsp
 
       #((pkgs.writeShellApplication { # hack around https://github.com/NixOS/nix/issues/5810
