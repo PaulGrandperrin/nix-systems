@@ -15,6 +15,12 @@
   };
 
   inputs = {
+
+    nixpkgs = {
+      type = "indirect"; # take it from the registry
+      id   = "nixpkgs";
+    };
+
     nixos-23-05.url = "github:NixOS/nixpkgs/nixos-23.05";
     nixos-23-05-lib.url = "github:NixOS/nixpkgs/nixos-23.05?dir=lib"; # "github:nix-community/nixpkgs.lib" doesn't work
     nixos-23-05-small.url = "github:NixOS/nixpkgs/nixos-23.05-small";
@@ -135,7 +141,6 @@
     };
   };
 
-
   outputs = inputs: {
     packages.x86_64-linux.vcv-rack = inputs.nixos-23-05.legacyPackages.x86_64-linux.callPackage ./pkgs/vcv-rack {};
 
@@ -163,7 +168,8 @@
 
     inherit inputs; # useful to debug and inspect
 
-    overlays                 = import ./overlays.nix                 inputs;
+    overlays                 = import ./overlays.nix                 inputs; # overlays.default is the sum of all the overlays
+    legacyPackages           = import ./legacyPackages.nix           inputs; # applies overlays.default to nixpkgs.legacyPackages
     nixOnDroidConfigurations = import ./nixOnDroidConfigurations.nix inputs;
     darwinConfigurations     = import ./darwinConfigurations.nix     inputs;
     nixosConfigurations      = import ./nixosConfigurations.nix      inputs;

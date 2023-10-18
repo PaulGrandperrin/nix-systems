@@ -498,6 +498,18 @@
         "type": "github"
       }
     },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 0,
+        "narHash": "sha256-roiSnrqb5r+ehnKCauPLugoU8S36KgmWraHgRqVYndo=",
+        "path": "/nix/store/4smdp3v5a9bcg1hpdhl2hs70rq385ykq-source",
+        "type": "path"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "type": "indirect"
+      }
+    },
     "nixpkgs-for-bootstrap": {
       "locked": {
         "lastModified": 1669834992,
@@ -629,6 +641,7 @@
         "nixos-23-05-small": "nixos-23-05-small",
         "nixos-generators": "nixos-generators",
         "nixos-unstable": "nixos-unstable",
+        "nixpkgs": "nixpkgs",
         "nur": "nur",
         "pre-commit-hooks-nix": "pre-commit-hooks-nix",
         "rust-overlay": "rust-overlay",
