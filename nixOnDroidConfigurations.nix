@@ -22,6 +22,7 @@ inputs: let
           home-manager = {
             useGlobalPkgs = true;
             useUserPackages = true;
+            extraSpecialArgs = config._module.specialArgs;
             config = {config, lib, ...}: {
               imports = [
                 ./homeModules/shared/core.nix
