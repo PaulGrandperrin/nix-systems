@@ -161,81 +161,10 @@
     #  }
     #;
 
-    nixOnDroidConfigurations = let 
-      stability = "stable";
-      system = "aarch64-linux";
-
-      selectFlake = stable: unstable: { inherit stable unstable; }.${stability}; 
-      nixos-flake = selectFlake inputs.nixos-23-05 inputs.nixos-unstable;
-      home-manager-flake = selectFlake inputs.home-manager-23-05 inputs.home-manager-master;
-    in {
-      default = inputs.nix-on-droid.lib.nixOnDroidConfiguration {
-        pkgs = nixos-flake.legacyPackages.${system}; # set overlays here?
-        extraSpecialArgs = { inherit inputs nixos-flake home-manager-flake;}; # passes inputs and main flakes to modules
-        home-manager-path = home-manager-flake.outPath; # remove outPath?
-        modules = [
-          ({pkgs, ...}: {
-            system.stateVersion = "23.05";
-            user.shell = "${pkgs.fish}/bin/fish";
-            home-manager = {
-              useGlobalPkgs = true;
-              config = {config, lib, ...}: {
-                imports = [
-                  ./homeModules/shared/core.nix
-                ];
-
-                nixpkgs = {
-                  overlays = import ./overlays inputs;
-                  config.allowUnfree = true;
-                };
-
-                home.activation = {
-                  copyFont = let 
-                      font_src = "${pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; }}/share/fonts/truetype/NerdFonts/Fira Code Regular Nerd Font Complete Mono.ttf";
-                      font_dst = "${config.home.homeDirectory}/.termux/font.ttf";
-                    in lib.hm.dag.entryAfter ["writeBoundary"] ''
-                      ( test ! -e "${font_dst}" || test $(sha1sum "${font_src}"|cut -d' ' -f1 ) != $(sha1sum "${font_dst}" |cut -d' ' -f1)) && $DRY_RUN_CMD install $VERBOSE_ARG -D "${font_src}" "${font_dst}"
-                  '';
-                };
-                home.packages = [
-                  (pkgs.writeShellScriptBin "start_sshd" ''${pkgs.openssh}/bin/sshd -f ${config.home.homeDirectory}/sshd/sshd_config'')
-                ];
-              };
-            };
-          })
-        ];
-      };
-      #pixel7pro = inputs.nix-on-droid.lib.nixOnDroidConfiguration rec {
-      #  system = "aarch64-linux";
-      #  config = {pkgs, ...}: {
-      #    user.shell = "${pkgs.fish}/bin/fish";
-      #    nix.package = pkgs.nixFlakes;
-      #    home-manager = {
-      #      extraSpecialArgs = {inherit inputs;};
-      #      config = {pkgs, lib, config, ...}: {
-      #        imports = [./homeModules/shared/core.nix];
-      #        nixpkgs.overlays = import ./overlays inputs;
-      #        home.activation = {
-      #          copyFont = let 
-      #              font_src = "${pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; }}/share/fonts/truetype/NerdFonts/Fira Code Regular Nerd Font Complete Mono.ttf";
-      #              font_dst = "${config.home.homeDirectory}/.termux/font.ttf";
-      #            in lib.hm.dag.entryAfter ["writeBoundary"] ''
-      #              ( test ! -e "${font_dst}" || test $(sha1sum "${font_src}"|cut -d' ' -f1 ) != $(sha1sum "${font_dst}" |cut -d' ' -f1)) && $DRY_RUN_CMD install $VERBOSE_ARG -D "${font_src}" "${font_dst}"
-      #          '';
-      #        };
-      #        home.packages = [
-      #          (pkgs.writeShellScriptBin "start_sshd" ''${pkgs.openssh}/bin/sshd -f ${config.home.homeDirectory}/sshd/sshd_config'')
-      #        ];
-      #      };
-      #    };
-      #  };
-      #  extraModules = [];
-      #};
-    };
-
-    homeConfigurations   = import ./homeConfigurations.nix   inputs;
-    darwinConfigurations = import ./darwinConfigurations.nix inputs;
-    nixosConfigurations  = import ./nixosConfigurations.nix  inputs;
+    nixOnDroidConfigurations = import ./nixOnDroidConfigurations.nix inputs;
+    homeConfigurations       = import ./homeConfigurations.nix       inputs;
+    darwinConfigurations     = import ./darwinConfigurations.nix     inputs;
+    nixosConfigurations      = import ./nixosConfigurations.nix      inputs;
   };
 }
 
