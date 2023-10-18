@@ -142,28 +142,15 @@
   };
 
   outputs = inputs: {
-    #devShell.x86_64-linux = stable-pkgs.mkShell {
-    #    buildInputs = with stable-pkgs; [
-    #      cowsay
-    #      fish
-    #    ];
-
-    #    shellHook = ''
-    #      cowsay "Welcome"
-    #    '';
-    #  }
-    #;
-
     inherit inputs; # useful to debug and inspect
-
+    devshells                = import ./devShells.nix                inputs;
     overlays                 = import ./overlays.nix                 inputs; # overlays.default is the sum of all the overlays
     legacyPackages           = import ./legacyPackages.nix           inputs; # applies overlays.default to nixpkgs.legacyPackages
     packages                 = import ./packages.nix                 inputs; # custom packages built against nixpkgs
     nixOnDroidConfigurations = import ./nixOnDroidConfigurations.nix inputs;
     darwinConfigurations     = import ./darwinConfigurations.nix     inputs;
     nixosConfigurations      = import ./nixosConfigurations.nix      inputs;
-    homeConfigurations       = import ./homeConfigurations.nix       inputs;
-    # nix --extra-experimental-features "nix-command flakes" run home-manager/master -- --extra-experimental-features "nix-command flakes" switch --flake github:PaulGrandperrin/nix-systems#stable-x86_64-linux-paulg
+    homeConfigurations       = import ./homeConfigurations.nix       inputs; # nix --extra-experimental-features "nix-command flakes" run home-manager/master -- --extra-experimental-features "nix-command flakes" switch --flake github:PaulGrandperrin/nix-systems#stable-x86_64-linux-paulg
     
   };
 }
