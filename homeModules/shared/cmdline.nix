@@ -16,7 +16,7 @@ args @ {pkgs, config, inputs, lib, ...}: {
       # attr # linux only
       bashInteractive # bash with ncurses support
       bzip2
-      coreutils-full
+      (lib.hiPrio coreutils-full)
       cpio
       curl
       diffutils
