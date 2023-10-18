@@ -9,7 +9,7 @@
     extraSpecialArgs = config._module.specialArgs;
     config = {config, lib, ...}: {
       imports = [
-        ./homeModules/shared/core.nix
+        ../homeModules/shared/core.nix
       ];
 
       home.packages = [
