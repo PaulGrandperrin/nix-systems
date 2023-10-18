@@ -13,7 +13,7 @@
       ];
 
       home.packages = [
-        (pkgs.writeShellScriptBin "start_sshd" ''${pkgs.openssh}/bin/sshd -f ${config.home.homeDirectory}/sshd/config'')
+        (pkgs.writeShellScriptBin "start_sshd" ''${pkgs.openssh}/bin/sshd -f ${config.home.homeDirectory}/.sshd/config'')
       ];
     };
   };
