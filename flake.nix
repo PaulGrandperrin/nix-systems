@@ -161,6 +161,9 @@
     #  }
     #;
 
+    inherit inputs; # useful to debug and inspect
+
+    overlays                 = import ./overlays.nix                 inputs;
     nixOnDroidConfigurations = import ./nixOnDroidConfigurations.nix inputs;
     darwinConfigurations     = import ./darwinConfigurations.nix     inputs;
     nixosConfigurations      = import ./nixosConfigurations.nix      inputs;

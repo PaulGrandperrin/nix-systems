@@ -9,7 +9,9 @@
 
   nixpkgs = {
     config.allowUnfree = true;
-    overlays = import ../../overlays inputs;
+    overlays = [
+      (import ../../overlays.nix inputs).default
+    ];
   };
 
   home-manager.useGlobalPkgs = true; # means that pkgs are taken from the nixosSystem and not from home-manager.inputs.nixpkgs

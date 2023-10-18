@@ -5,7 +5,9 @@
   ];
 
   nixpkgs = {
-    overlays = import ../../overlays inputs;
+    overlays = [
+      (import ../../overlays.nix inputs).default
+    ];
     config.allowUnfree = true;
   };
 

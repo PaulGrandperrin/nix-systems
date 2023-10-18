@@ -7,7 +7,10 @@ inputs: let
     inputs.nix-on-droid.lib.nixOnDroidConfiguration {
       pkgs = import nixos-flake {
         inherit system;
-        overlays = (import ./overlays inputs) ++ [ inputs.nix-on-droid.overlays.default ];
+        overlays = [
+          (import ./overlays.nix inputs).default
+          inputs.nix-on-droid.overlays.default
+        ];
         config.allowUnfree = true;
       };
       extraSpecialArgs = { inherit inputs nixos-flake home-manager-flake;};

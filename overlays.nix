@@ -1,14 +1,9 @@
-inputs: let # FIXME not sure those are the good channels for darwin
-  all-pkgs-overlay = final: prev: {
+inputs: rec {
+  all-channels = final: prev: {
     stable = inputs.nixos-23-05.legacyPackages.${prev.stdenv.hostPlatform.system};
     unstable = inputs.nixos-unstable.legacyPackages.${prev.stdenv.hostPlatform.system};
   };
-in [
-  all-pkgs-overlay
-  inputs.nur.overlay
-  inputs.rust-overlay.overlays.default
-  inputs.nix-alien.overlays.default
-  (final: prev: {
+  rclonefs = (final: prev: {
     rclone = (prev.symlinkJoin { # create filesystem helpers until https://github.com/NixOS/nixpkgs/issues/258478
       name = "rclone";
       paths = [ prev.rclone ];
@@ -17,5 +12,13 @@ in [
         ln -sf $out/bin/rclone $out/bin/rclonefs
       '';
     });
-  })
-]
+  });
+  default = inputs.nixos-23-05-lib.lib.composeManyExtensions [
+    all-channels
+    rclonefs
+
+    inputs.nur.overlay
+    inputs.rust-overlay.overlays.default
+    inputs.nix-alien.overlays.default
+  ];
+}
