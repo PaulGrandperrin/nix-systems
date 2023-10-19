@@ -27,7 +27,7 @@ in
     map 
       ({stability, system, username}: {
         name = "${stability}-${system}-${username}";
-        value = true; #mkHomeConf stability system username ./homeModules/standalone.nix;
+        value = mkHomeConf stability system username ./homeModules/standalone.nix;
       }) 
       (lib.cartesianProductOfSets {
         stability = ["stable" "unstable"];
