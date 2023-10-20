@@ -22,6 +22,10 @@ args @ {pkgs, config, inputs, lib, nixos-flake, home-manager-flake, ...}: {
         path = (toString pkgs.path);
       };
       n = nixpkgs; # shortcut
+      paulg.to = {
+        type = "path";
+        path = (toString ../..);
+      };
     };
     #registry = lib.mapAttrs (_: value: { flake = value; }) inputs; # nix.generateRegistryFromInputs in flake-utils-plus
     #nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry; # nix.generateNixPathFromInputs in flake-utils-plus # nix.nixPath is not available in HM
