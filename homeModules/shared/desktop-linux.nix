@@ -83,8 +83,6 @@
   systemd.user.mounts."home-${config.home.username}-Google\\x20Drive" = {
     Unit = {
       Description = "Mount Google Drive with rclone on fuse";
-      Requires = ["network-online.target"];
-      After = ["network-online.target"];
     };
     Install.WantedBy = [ "default.target" ];
     Mount = {
@@ -92,7 +90,7 @@
       What = "gdrive:";
       Where = "/home/${config.home.username}/Google Drive";
       Type = "fuse.rclonefs";
-      Options = "args2env,vfs-cache-mode=full,dir-cache-time=5000h,poll-interval=10s,vfs-cache-max-age=90d,vfs-cache-max-size=5G,transfers=32,checkers=32"; # allow-non-empty
+      Options = "_netdev,args2env,vfs-cache-mode=full,dir-cache-time=5000h,poll-interval=10s,vfs-cache-max-age=90d,vfs-cache-max-size=5G,transfers=32,checkers=32"; # allow-non-empty
     };
   };
 
