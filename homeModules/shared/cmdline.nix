@@ -44,6 +44,14 @@ args @ {pkgs, config, inputs, lib, ...}: {
       which
       zstd
 
+      # vim distros from my overlay
+      ksvim
+      lzvim
+      nvchad
+      aovim
+      lnvim
+      spvim
+
       rsync
       unstable.nixd
       socat

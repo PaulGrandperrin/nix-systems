@@ -3,6 +3,7 @@ inputs: rec {
     stable = inputs.nixos-23-05.legacyPackages.${prev.stdenv.hostPlatform.system};
     unstable = inputs.nixos-unstable.legacyPackages.${prev.stdenv.hostPlatform.system};
   };
+  local-packages = (final: prev: import ./packages prev);
   rclonefs = (final: prev: {
     rclone = (prev.symlinkJoin { # create filesystem helpers until https://github.com/NixOS/nixpkgs/issues/258478
       name = "rclone";
@@ -15,6 +16,7 @@ inputs: rec {
   });
   default = inputs.nixos-23-05-lib.lib.composeManyExtensions [
     all-channels
+    local-packages
     rclonefs
 
     inputs.nur.overlay
