@@ -1,8 +1,8 @@
  {
 
-  description= "Paul Grandperrin NixOS confs";
+  description= "Paul Grandperrin Nix confs";
 
-  nixConfig = { # NOTE: sync with nixos/common.nix
+  nixConfig = {
     extra-substituters = [
       "http://nixos-nas.wg:5000"
       "https://nix-community.cachix.org"
