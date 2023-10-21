@@ -32,6 +32,8 @@
       helvum
       popcorntime
 
+      #gnome.gnome-boxes libvirt # doesn't work, but flatpak version does
+
       #(callPackage ../pkgs/vcv-rack {})
 
       # I want protonvpn from unstable but I don't want to pull its dependencies from unstable

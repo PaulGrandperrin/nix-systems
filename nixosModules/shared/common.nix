@@ -406,7 +406,8 @@
       "wheel"
       "networkmanager" # no need for password
       "audio" # used by JACK for realtime, otherwise not needed on systemd
-      "kvm"
+      #"kvm" # access to /dev/kvm but doesn't seem to be needed. thanks to uaccess? 
+      # "libvirtd" # doesn't seem to be necessary
     ];
     uid = 1000;
     useDefaultShell = true;
@@ -476,6 +477,7 @@
   };
 
   virtualisation = {
+    #libvirtd.enable = true;
     oci-containers.backend = "podman";
     podman = {
       enable = true;
