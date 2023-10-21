@@ -61,6 +61,9 @@ args @ {pkgs, config, inputs, lib, ...}: {
       sshfs
       rclone
 
+      gdb
+      elfutils
+
       fd
       tree
       ncdu

@@ -155,6 +155,23 @@
         pre-commit-hooks-nix.follows = "pre-commit-hooks-nix";
       };
     };
+
+    nix = {
+      url = "github:NixOS/nix";
+
+      inputs = {
+        nixpkgs.follows = "nixos-unstable";
+        flake-compat.follows = "flake-compat";
+      };
+    };
+    
+    dwarffs = {
+      url = "github:edolstra/dwarffs";
+      inputs = {
+        nixpkgs.follows = "nixos-unstable";
+        nix.follows = "nix";
+      };
+    };
   };
 
   outputs = inputs: {

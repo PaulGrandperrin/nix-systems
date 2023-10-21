@@ -3,6 +3,7 @@
   imports = [
     inputs.sops-nix.nixosModules.sops
     home-manager-flake.nixosModules.home-manager
+    inputs.dwarffs.nixosModules.dwarffs
     ./mail.nix
   ];
   system.stateVersion = "22.05";
