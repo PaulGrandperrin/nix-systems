@@ -8,8 +8,23 @@
     ../shared/desktop-i915.nix
   ];
 
-  home-manager.users.root  = ../../homeModules/nixos-macbook.nix;
-  home-manager.users.paulg = ../../homeModules/nixos-macbook.nix;
+  home-manager.users = let 
+    homeModule = {
+      imports = [
+        ../../homeModules/shared/core.nix
+        ../../homeModules/shared/firefox.nix
+        ../../homeModules/shared/chromium.nix
+        ../../homeModules/shared/desktop-linux.nix
+        ../../homeModules/shared/gnome.nix
+        ../../homeModules/shared/kodi.nix
+        #../../homeModules/shared/rust.nix
+        #../../homeModules/shared/wine.nix
+      ];
+    };
+  in {
+    root  = homeModule;
+    paulg = homeModule;
+  };
 
   fileSystems."/" =
     { device = "ssd/encrypted/nixos";

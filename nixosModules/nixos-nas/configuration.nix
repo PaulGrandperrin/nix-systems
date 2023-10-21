@@ -13,8 +13,16 @@
     ../shared/home-assistant.nix
   ];
 
-  home-manager.users.root  = ../../homeModules/nixos-nas.nix;
-  home-manager.users.paulg = ../../homeModules/nixos-nas.nix;
+  home-manager.users = let 
+    homeModule = {
+      imports = [
+        ../../homeModules/shared/core.nix
+      ];
+    };
+  in {
+    root  = homeModule;
+    paulg = homeModule;
+  };
 
   fileSystems."/" =
     { device = "flash/nixos";

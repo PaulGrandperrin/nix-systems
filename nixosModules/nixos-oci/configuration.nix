@@ -9,8 +9,16 @@
     ../shared/headless.nix
   ];
 
-  home-manager.users.root  = ../../homeModules/nixos-oci.nix;
-  home-manager.users.paulg = ../../homeModules/nixos-oci.nix;
+  home-manager.users = let 
+    homeModule = {
+      imports = [
+        ../../homeModules/shared/core.nix
+      ];
+    };
+  in {
+    root  = homeModule;
+    paulg = homeModule;
+  };
 
   fileSystems."/" =
     { device = "system/nixos";
