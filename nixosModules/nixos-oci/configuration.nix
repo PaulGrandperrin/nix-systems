@@ -5,6 +5,7 @@
     ../shared/containers/web.nix
     ../shared/net.nix
     ../shared/wireguard.nix
+    ../shared/wg-mounts.nix
     ../shared/auto-upgrade.nix
     ../shared/headless.nix
   ];
@@ -20,25 +21,41 @@
     paulg = homeModule;
   };
 
-  fileSystems."/" =
-    { device = "system/nixos";
-      fsType = "zfs";
-    };
+  fileSystems."/" = {
+    device = "system/nixos";
+    fsType = "zfs";
+    options = [
+      "noatime"
+      "nodiratime"
+    ];
+  };
 
-  fileSystems."/nix" =
-    { device = "system/nixos/nix";
-      fsType = "zfs";
-    };
+  fileSystems."/nix" = {
+    device = "system/nixos/nix";
+    fsType = "zfs";
+    options = [
+      "noatime"
+      "nodiratime"
+    ];
+  };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/F6D1-7CDB";
-      fsType = "vfat";
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/F6D1-7CDB";
+    fsType = "vfat";
+    options = [
+      "noatime"
+      "nodiratime"
+    ];
+  };
 
-  fileSystems."/home" =
-    { device = "system/nixos/home";
-      fsType = "zfs";
-    };
+  fileSystems."/home" = {
+    device = "system/nixos/home";
+    fsType = "zfs";
+    options = [
+      "noatime"
+      "nodiratime"
+    ];
+  };
 
   swapDevices = [ ];
 

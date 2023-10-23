@@ -15,9 +15,11 @@
     ];
   };
 
-  home-manager.useGlobalPkgs = true; # means that pkgs are taken from the nixosSystem and not from home-manager.inputs.nixpkgs
-  home-manager.useUserPackages = true; # means that pkgs are installed at /etc/profiles instead of $HOME/.nix-profile
-  home-manager.extraSpecialArgs = config._module.specialArgs;
+  home-manager = {
+    useGlobalPkgs = true; # means that pkgs are taken from the nixosSystem and not from home-manager.inputs.nixpkgs
+    useUserPackages = true; # means that pkgs are installed at /etc/profiles instead of $HOME/.nix-profile
+    extraSpecialArgs = config._module.specialArgs;
+  };
   
   # always keep a reference to the source flake that generated each generations
   environment.etc."source-flake".source = ../.;
@@ -483,24 +485,6 @@
     ++ lib.optionals ( pkgs.stdenv.hostPlatform.system != "aarch64-linux" ) [ "aarch64-linux" ]
   ;
 
-  specialisation = {
-    "Mitigations_Off" = {
-      inheritParentConfig = true; # defaults to true
-      configuration = {
-        system.nixos.tags = [ "mitigations_off" ];
-        boot.kernelParams = [ "mitigations=off" ];
-      };
-    };
-    "Rescue" = {
-      inheritParentConfig = true; # defaults to true
-      configuration = {
-        boot.plymouth.enable = lib.mkForce false;
-        system.nixos.tags = [ "rescue" ];
-        boot.kernelParams = [ "rd.rescue" ];
-      };
-    };
-  };
-
   systemd.targets.machines.enable = true;
 
   services.udisks2.settings = { # fix NTFS mount, from https://wiki.archlinux.org/title/NTFS#udisks_support
@@ -511,60 +495,5 @@
     };
   };
 
-  fileSystems."/".options = [
-    "noatime"
-    "nodiratime"
-  ];
-
-  fileSystems."/boot".options = [
-    "noatime"
-    "nodiratime"
-  ];
-
-  fileSystems."/home".options = [
-    "noatime"
-    "nodiratime"
-  ];
-
-  fileSystems."/mnt/nixos-nas/public" = {
-    device = "10.42.0.1:/export/public";
-    fsType = "nfs";
-    #options = [ "nfsvers=4.2" ];
-    options = [
-      "proto=tcp"
-      "mountproto=tcp" # NFSv3 only
-      "soft" # return errors to client when access is lost, instead of waiting indefinitely
-      "softreval" # use cache even when access is lost
-      "timeo=100"
-      "noatime"
-      "nodiratime"
-      "noauto" # don't mount until needed
-      #"x-systemd.requires=example.service"
-      "x-systemd.automount" # mount when accessed
-      "_netdev" # wait for network
-      "x-systemd.mount-timeout=5"
-      "x-systemd.idle-timeout=3600"
-    ];
-  };
-  fileSystems."/mnt/nixos-nas/encrypted" = {
-    device = "10.42.0.1:/export/encrypted";
-    fsType = "nfs";
-    #options = [ "nfsvers=4.2" ];
-    options = [
-      "proto=tcp"
-      "mountproto=tcp" # NFSv3 only
-      "soft" # return errors to client when access is lost, instead of waiting indefinitely
-      "softreval" # use cache even when access is lost
-      "timeo=100"
-      "noatime"
-      "nodiratime"
-      "noauto" # don't mount until needed
-      #"x-systemd.requires=example.service"
-      "x-systemd.automount" # mount when accessed
-      "_netdev" # wait for network
-      "x-systemd.mount-timeout=5"
-      "x-systemd.idle-timeout=3600"
-    ];
-  };
 }
 

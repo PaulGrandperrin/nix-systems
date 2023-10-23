@@ -4,6 +4,7 @@
     ../shared/common.nix
     ../shared/net.nix
     ../shared/wireguard.nix
+    ../shared/wg-mounts.nix
     ../shared/desktop.nix
     ../shared/desktop-i915.nix
   ];
@@ -26,20 +27,32 @@
     paulg = homeModule;
   };
 
-  fileSystems."/" =
-    { device = "ssd/encrypted/nixos";
-      fsType = "zfs";
-    };
+  fileSystems."/" = {
+    device = "ssd/encrypted/nixos";
+    fsType = "zfs";
+    options = [
+      "noatime"
+      "nodiratime"
+    ];
+  };
 
-  fileSystems."/home" =
-    { device = "ssd/encrypted/nixos/home";
-      fsType = "zfs";
-    };
+  fileSystems."/home" = {
+    device = "ssd/encrypted/nixos/home";
+    fsType = "zfs";
+    options = [
+      "noatime"
+      "nodiratime"
+    ];
+  };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/F196-D7D2";
-      fsType = "vfat";
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/F196-D7D2";
+    fsType = "vfat";
+    options = [
+      "noatime"
+      "nodiratime"
+    ];
+  };
 
   swapDevices = [ ];
 

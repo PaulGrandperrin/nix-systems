@@ -6,6 +6,7 @@
     ../shared/common.nix
     ../shared/net.nix
     ../shared/wireguard.nix
+    ../shared/wg-mounts.nix
     ../shared/thelounge.nix
     ../shared/headless.nix
   ];
@@ -21,30 +22,50 @@
     paulg = homeModule;
   };
 
-  fileSystems."/" =
-    { device = "nixos";
-      fsType = "zfs";
-    };
+  fileSystems."/" = {
+    device = "nixos";
+    fsType = "zfs";
+    options = [
+      "noatime"
+      "nodiratime"
+    ];
+  };
 
-  fileSystems."/nix" =
-    { device = "nixos/nix";
-      fsType = "zfs";
-    };
+  fileSystems."/nix" = {
+    device = "nixos/nix";
+    fsType = "zfs";
+    options = [
+      "noatime"
+      "nodiratime"
+    ];
+  };
 
-  fileSystems."/home" =
-    { device = "nixos/home";
-      fsType = "zfs";
-    };
+  fileSystems."/home" = {
+    device = "nixos/home";
+    fsType = "zfs";
+    options = [
+      "noatime"
+      "nodiratime"
+    ];
+  };
 
-  fileSystems."/var/lib/machines/ubuntu" =
-    { device = "nixos/ubuntu";
-      fsType = "zfs";
-    };
+  fileSystems."/var/lib/machines/ubuntu" = {
+    device = "nixos/ubuntu";
+    fsType = "zfs";
+    options = [
+      "noatime"
+      "nodiratime"
+    ];
+  };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/17E7-9B0C";
-      fsType = "vfat";
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/17E7-9B0C";
+    fsType = "vfat";
+    options = [
+      "noatime"
+      "nodiratime"
+    ];
+  };
 
   swapDevices = [ ];
 

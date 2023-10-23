@@ -7,6 +7,7 @@
     ../shared/web.nix
     ../shared/auto-upgrade.nix
     ../shared/wireguard.nix
+    ../shared/wg-mounts.nix
     ../shared/headless.nix
     ../shared/observability.nix
     ../shared/mastodon.nix
@@ -24,25 +25,41 @@
     paulg = homeModule;
   };
 
-  fileSystems."/" =
-    { device = "flash/nixos";
-      fsType = "zfs";
-    };
+  fileSystems."/" = {
+    device = "flash/nixos";
+    fsType = "zfs";
+    options = [
+      "noatime"
+      "nodiratime"
+    ];
+  };
 
-  fileSystems."/nix" =
-    { device = "flash/nixstore";
-      fsType = "zfs";
-    };
+  fileSystems."/nix" = {
+    device = "flash/nixstore";
+    fsType = "zfs";
+    options = [
+      "noatime"
+      "nodiratime"
+    ];
+  };
 
-  fileSystems."/home" =
-    { device = "flash/home";
-      fsType = "zfs";
-    };
+  fileSystems."/home" = {
+    device = "flash/home";
+    fsType = "zfs";
+    options = [
+      "noatime"
+      "nodiratime"
+    ];
+  };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/641A-604D";
-      fsType = "vfat";
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/641A-604D";
+    fsType = "vfat";
+    options = [
+      "noatime"
+      "nodiratime"
+    ];
+  };
 
   swapDevices =
     [ { device = "/dev/disk/by-uuid/dc8118ad-555c-48dc-96f7-3ce11823b49f"; }
