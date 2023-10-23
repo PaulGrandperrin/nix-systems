@@ -194,7 +194,7 @@
     overlays                 = import ./overlays.nix                 inputs; # overlays.default is the sum of all the overlays
     legacyPackages           = import ./legacyPackages.nix           inputs; # applies overlays.default to nixpkgs.legacyPackages
     packages                 = import ./packages.nix                 inputs; # custom packages built against nixpkgs
-    nixOnDroidConfigurations = import ./nixOnDroidConfigurations.nix inputs;
+    nixOnDroidConfigurations = import ./nixOnDroidConfigurations.nix inputs; # nix-on-droid switch --flake github:PaulGrandperrin/nix-systems
     darwinConfigurations     = import ./darwinConfigurations.nix     inputs;
     nixosConfigurations      = import ./nixosConfigurations.nix      inputs;
     homeConfigurations       = import ./homeConfigurations.nix       inputs; # nix --extra-experimental-features "nix-command flakes" run home-manager/master -- --extra-experimental-features "nix-command flakes" switch --flake github:PaulGrandperrin/nix-systems#stable-x86_64-linux-paulg
