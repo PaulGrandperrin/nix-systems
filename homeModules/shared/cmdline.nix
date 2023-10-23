@@ -333,9 +333,13 @@ args @ {pkgs, config, inputs, lib, ...}: {
         pkgs.unstable.vimPlugins.luasnip
         pkgs.unstable.vimPlugins.friendly-snippets
       ];
-      #extraConfig = ''
-      #'';
+      extraConfig = ''
+      '';
       extraLuaConfig = ''
+        vim.opt.undofile = true -- saves to $XDG_STATE_HOME/nvim/undo
+        -- set.undolevels = 1000
+        -- set.undoreload = 10000
+
         vim.cmd("set mouse=")
         -- reserve space for diagnostic icons
         vim.opt.signcolumn = 'yes'
@@ -356,7 +360,6 @@ args @ {pkgs, config, inputs, lib, ...}: {
         lsp.configure('nixd', {
         force_setup = true, -- skip checks because it's installed globally
           on_attach = function(client, bufnr)
-            print('hello nix')
           end
         })
   
