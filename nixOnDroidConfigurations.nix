@@ -21,4 +21,4 @@ inputs: let
 in {
   default = mkDroidConf "stable" "aarch64-linux" ./nixOnDroidModules/default.nix;
 }
-  
+

@@ -63,11 +63,7 @@
   security.acme.defaults.email = "paul.grandperrin@gmail.com";
 
   nix = {
-    settings = {
-      allowed-users = [ "@wheel" "nix-serve" ];
-      auto-optimise-store = true;
-      #trusted-users = ["@wheel"];
-    };
+    settings = import ../../nix/nix.nix;
     gc = {
       automatic = true;
       persistent = true;
@@ -202,14 +198,6 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMK/GnaGGlU7pl4po31XP6K5VpodTu67J+D1/3d74R57" # root@nixos-macbook
   ];
 
-  # Flakes
-  nix = {
-    #package = pkgs.nixFlakes;
-    extraOptions = ''
-      experimental-features = nix-command flakes repl-flake
-    '';
-   };
-
   hardware.cpu.intel.updateMicrocode = lib.mkIf (pkgs.stdenv.hostPlatform.system == "x86_64-linux") true;
   services.fstrim = {
     enable = true;
@@ -339,18 +327,6 @@
   #    FORTIFY_SOURCE y
   #  '';
   #}];
-
-  nix.settings = { # NOTE: sync with flake.nix
-    extra-substituters = [
-      "http://nixos-nas.wg:5000"
-      "https://nix-community.cachix.org"
-      "https://cache.nixos.org"
-    ];
-    extra-trusted-public-keys = [
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      "nas.paulg.fr:QwhwNrClkzxCvdA0z3idUyl76Lmho6JTJLWplKtC2ig="
-    ];
-  };
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;

@@ -6,7 +6,7 @@ args @ {pkgs, config, inputs, lib, nixos-flake, home-manager-flake, ...}: {
 
   nix = {
     package = lib.mkDefault pkgs.nix;
-    settings."experimental-features" = "nix-command flakes repl-flake";
+    settings = import ../../nix/nix.nix;
 
     registry = rec {
       nixos.flake = nixos-flake;
