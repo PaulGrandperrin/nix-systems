@@ -5,6 +5,7 @@
 
       # nix run --impure --expr '(builtins.getFlake "n").legacyPackages.x86_64-linux.blender.override {cudaSupport = true;}'
 
+      qemu_kvm
       glxinfo
       vulkan-tools
       libva-utils # vainfo
