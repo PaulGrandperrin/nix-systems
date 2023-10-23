@@ -172,6 +172,11 @@
         nix.follows = "nix";
       };
     };
+
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "";
+    };
   };
 
   outputs = inputs: {
