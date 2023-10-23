@@ -177,6 +177,13 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "";
     };
+
+    android-nixpkgs = {
+      url = "github:tadfisher/android-nixpkgs";
+      inputs.nixpkgs.follows = "nixos-unstable";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.devshell.follows = "devshell";
+    };
   };
 
   outputs = inputs: {
