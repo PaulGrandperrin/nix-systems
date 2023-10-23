@@ -65,6 +65,12 @@
   environment.sessionVariables = {
     #XDG_SESSION_TYPE = "wayland"; # absolutly force wayland
     #QT_QPA_PLATFORM = "wayland";
+
+    # desynchronize mouse mouvement from desktop composition
+    # MUTTER_DEBUG_FORCE_KMS_MODE = "simple";
+
+    # sacrifice a few milliseconds latency in order to gain a smoother frame rate
+    #CLUTTER_PAINT = "disable-dynamic-max-render-time";
   };
 
   services.xserver.desktopManager.gnome.enable = true;
