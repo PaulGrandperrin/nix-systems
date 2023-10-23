@@ -7,7 +7,7 @@ in lib.listToAttrs (
       value = (import inputs.nixpkgs {
         inherit system;
         overlays = [ (import ./overlays.nix inputs).default ];
-        config.allowUnfree = true;
+        config = import ./nixpkgs/config.nix;
       });
     })
     lib.systems.flakeExposed

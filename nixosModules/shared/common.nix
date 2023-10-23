@@ -9,7 +9,7 @@
   system.stateVersion = "22.05";
 
   nixpkgs = {
-    config.allowUnfree = true;
+    config = import ../../nixpkgs/config.nix;
     overlays = [
       (import ../../overlays.nix inputs).default
     ];

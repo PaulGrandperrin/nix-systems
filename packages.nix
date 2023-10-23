@@ -4,7 +4,7 @@ in {
   x86_64-linux = let 
     pkgs = import inputs.nixpkgs {
       system = "x86_64-linux";
-      config.allowUnfree = true;
+      config = import ./nixpkgs/config.nix;
     };
   in
     (import ./packages pkgs);

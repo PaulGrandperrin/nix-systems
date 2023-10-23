@@ -11,7 +11,7 @@ inputs: let
           (import ./overlays.nix inputs).default
           inputs.nix-on-droid.overlays.default
         ];
-        config.allowUnfree = true;
+        config = import ./nixpkgs/config.nix;
       };
       extraSpecialArgs = { inherit inputs nixos-flake home-manager-flake;};
       home-manager-path = home-manager-flake;
