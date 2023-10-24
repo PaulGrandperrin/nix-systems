@@ -1,3 +1,8 @@
+# to use on Debian
+# sudo apt install nix-bin nix-setup-systemd
+# sudo adduser paulg nix-users
+
+
 {config, pkgs, inputs, ...}: {
   imports = [
     ./shared/core.nix
