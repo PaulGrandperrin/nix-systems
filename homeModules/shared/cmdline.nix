@@ -455,9 +455,9 @@ args @ {pkgs, config, inputs, lib, ...}: {
            src = pkgs.fetchFromGitHub {
              owner = "oh-my-fish";
              repo = "theme-bobthefish";
-             rev = "14a6f2b317661e959e13a23870cf89274f867f12";
+             rev = "c2c47dc964a257131b3df2a127c2631b4760f3ec";
              #sha256 = pkgs.lib.fakeSha256;
-             sha256 = "sha256-kl6XR6IFk5J5Bw7/0/wER4+TnQfC18GKxYbt9C+YHJ0=";
+             sha256 = "sha256-LB4g+EA3C7OxTuHfcxfgl8IVBe5NufFc+5z9VcS0Bt0=";
            };
         }
         #{ 
