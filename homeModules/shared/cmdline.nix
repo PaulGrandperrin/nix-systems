@@ -231,10 +231,18 @@ args @ {pkgs, config, inputs, lib, ...}: {
     bat.enable = true;
     helix.enable = true;
     htop.enable = true;
-    fzf = {
-      enable = true;
-      tmux.enableShellIntegration = true;
-    };
+    #fzf = {
+    #  enable = true;
+    #  tmux.enableShellIntegration = true;
+    #  package = pkgs.fzf.overrideAttrs (final: prev: {
+    #    postInstall = (prev.postInstall or "") + ''
+    #      cat << EOF > $out/share/fish/vendor_conf.d/load-fzf-key-bindings.fish
+    #        status is-interactive; or exit 0
+    #        fzf_key_bindings
+    #      EOF
+    #    '';
+    #  });
+    #};
     gh.enable = true;
     nnn.enable = true;
     noti.enable = true;
@@ -284,7 +292,7 @@ args @ {pkgs, config, inputs, lib, ...}: {
     };
     zoxide.enable = true;
     #powerline-go.enable = true;
-    #starship = {
+    #starship = { # async prompt: https://gist.github.com/duament/bac0181935953b97ca71640727c9c029
     #  enable = true;
     #};
     man = {
@@ -429,6 +437,7 @@ args @ {pkgs, config, inputs, lib, ...}: {
     fish = {
       enable = true;
       interactiveShellInit = ''
+        set -g theme_nerd_fonts yes
         ${pkgs.any-nix-shell}/bin/any-nix-shell fish --info-right | source # use fish in nix run and nix-shell
         source ${
           pkgs.fetchurl {
@@ -436,6 +445,8 @@ args @ {pkgs, config, inputs, lib, ...}: {
             sha256 = "sha256-l7KdmiJlbGy/ozC+l5rrmEebA8kZgV7quYG5I/MHDOI=";
           }
         }
+        tide configure --auto --style=Classic --prompt_colors='True color' --classic_prompt_color=Darkest --show_time='24-hour format' --classic_prompt_separators=Angled --powerline_prompt_heads=Sharp --powerline_prompt_tails=Flat --powerline_prompt_style='One line' --prompt_spacing=Compact --icons='Many icons' --transient=No
+        tide reload
       '';
       loginShellInit = ''
         fish_add_path --move --prepend --path $HOME/.nix-profile/bin /run/wrappers/bin /etc/profiles/per-user/$USER/bin /run/current-system/sw/bin /nix/var/nix/profiles/default/bin # https://github.com/LnL7/nix-darwin/issues/122
@@ -449,36 +460,50 @@ args @ {pkgs, config, inputs, lib, ...}: {
         update-hardware-conf = "nixos-generate-config --show-hardware-config --no-filesystems > /etc/nixos/nixosModules/$(hostname)/hardware-configuration.nix && git -C /etc/nixos/ commit /etc/nixos/nixosModules/$(hostname)/hardware-configuration.nix -m \"$(hostname): update hardware-configuration.nix\"";
         update-nixos-flake = "pushd /etc/nixos && nix flake update && git commit -m \"nix flake update\" flake.lock && git push && popd";
       };
-      plugins = [ # TODO add fish-done
+      plugins = with pkgs.fishPlugins; [
+
+        ### PROMPTS
+
         {
-           name = "bobthefish";
-           src = pkgs.fetchFromGitHub {
-             owner = "oh-my-fish";
-             repo = "theme-bobthefish";
-             rev = "c2c47dc964a257131b3df2a127c2631b4760f3ec";
-             #sha256 = pkgs.lib.fakeSha256;
-             sha256 = "sha256-LB4g+EA3C7OxTuHfcxfgl8IVBe5NufFc+5z9VcS0Bt0=";
-           };
+          name = "tide"; # natively async
+          #src = tide.src; # 5.6 on 23.11
+          src = pkgs.fetchFromGitHub {
+            owner = "IlanCosman";
+            repo = "tide";
+            rev = "v6.0.1";
+            sha256 = "sha256-oLD7gYFCIeIzBeAW1j62z5FnzWAp3xSfxxe7kBtTLgA=";
+          };
         }
-        #{ 
-        #  name = "tide";
-        #  src = pkgs.fetchFromGitHub {
-        #    owner = "IlanCosman";
-        #    repo = "tide";
-        #    rev = "v5.2.2";
-        #    #sha256 = pkgs.lib.fakeSha256;
-        #    sha256 = "sha256-yj6Oh7gxjrzc4N8WdCGRDImdOLHqI+cFIg1VF3nx33g=";
-        #  };
+        #{
+        #  name = "bobthefish"; # need async-prompt to be async
+        #  src = bobthefish.src;
         #}
-        #{ 
-        #  name = "fish-async-prompt";
-        #  src = pkgs.fetchFromGitHub {
-        #    owner = "acomagu";
-        #    repo = "fish-async-prompt";
-        #    rev = "v1.2.0";
-        #    #sha256 = pkgs.lib.fakeSha256;
-        #    sha256 = "sha256-B7Ze0a5Zp+5JVsQUOv97mKHh5wiv3ejsDhJMrK7YOx4=";
-        #  };
+        #{
+        #  name = "hydro"; # natively async
+        #  src = hydro.src;
+        #}
+        #{
+        #  name = "pure"; # need async-prompt to be async
+        #  src = pure.src;
+        #}
+
+        ### PLUGINS
+
+        {
+          name = "puffer"; # adds "...", "!!" and "!$"
+          src = puffer.src;
+        }
+        {
+          name = "pisces"; # pisces # auto pairing of ([{"'
+          src = pisces.src;
+        }
+        #{
+        #  name = "done"; # doesn't work on wayland
+        #  src = done.src;
+        #}
+        #{
+        #  name = "async-prompt"; # pisces # auto pairing of ([{"'
+        #  src = async-prompt.src;
         #}
       ];
     };
