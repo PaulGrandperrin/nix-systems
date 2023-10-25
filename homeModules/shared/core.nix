@@ -1,8 +1,9 @@
-args @ {pkgs, config, inputs, lib, nixos-flake, home-manager-flake, ...}: {
+args @ {pkgs, config, osConfig ? null, inputs, lib, nixos-flake, home-manager-flake, ...}: {
   imports = [
     ./cmdline.nix
   ];
   xdg.enable = true; # export XDG vars to ensure the correct directories are used
+  targets.genericLinux.enable = pkgs.stdenv.isLinux && builtins.isNull osConfig;
 
   nix = {
     package = lib.mkDefault pkgs.nix;

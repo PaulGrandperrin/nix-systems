@@ -1,5 +1,4 @@
 {pkgs, inputs, lib, config, ...}: lib.mkIf (config.home.username != "root") {
-  targets.genericLinux.enable = true;
   home = {
     packages = with pkgs; [
 
