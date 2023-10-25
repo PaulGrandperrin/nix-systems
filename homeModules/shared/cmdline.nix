@@ -508,6 +508,10 @@ args @ {pkgs, config, osConfig ? null, inputs, lib, ...}: {
           name = "pisces"; # pisces # auto pairing of ([{"'
           src = pisces.src;
         }
+        {
+          name = "plugin-git"; # git abbrs
+          src = plugin-git.src;
+        }
         #{
         #  name = "done"; # doesn't work on wayland
         #  src = done.src;
