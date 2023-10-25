@@ -1,4 +1,4 @@
-args @ {pkgs, config, inputs, lib, ...}: {
+args @ {pkgs, config, osConfig, inputs, lib, ...}: {
   imports = [
     inputs.nix-index-database.hmModules.nix-index
   ];
@@ -448,8 +448,16 @@ args @ {pkgs, config, inputs, lib, ...}: {
         tide configure --auto --style=Classic --prompt_colors='True color' --classic_prompt_color=Darkest --show_time='24-hour format' --classic_prompt_separators=Angled --powerline_prompt_heads=Sharp --powerline_prompt_tails=Flat --powerline_prompt_style='One line' --prompt_spacing=Compact --icons='Many icons' --transient=No
         tide reload
       '';
-      loginShellInit = ''
-        fish_add_path --move --prepend --path $HOME/.nix-profile/bin /run/wrappers/bin /etc/profiles/per-user/$USER/bin /run/current-system/sw/bin /nix/var/nix/profiles/default/bin # https://github.com/LnL7/nix-darwin/issues/122
+      loginShellInit = let
+        # fish path: https://github.com/LnL7/nix-darwin/issues/122#issuecomment-1659465635
+
+        # add quotes and remove brackets '${XDG}/foo' => '"$XDG/foo"' 
+        dquote = str: "\"" + (builtins.replaceStrings ["{" "}"] ["" ""] str) + "\"";
+
+        makeBinPathList = map (path: path + "/bin");
+      in ''
+        fish_add_path --move --prepend --path ${lib.concatMapStringsSep " " dquote (makeBinPathList osConfig.environment.profiles)}
+        set fish_user_paths $fish_user_paths
       '';
       shellAliases = {
         icat = "kitty +kitten icat";
