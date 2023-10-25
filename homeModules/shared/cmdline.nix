@@ -1,4 +1,4 @@
-args @ {pkgs, config, osConfig, inputs, lib, ...}: {
+args @ {pkgs, config, osConfig ? null, inputs, lib, ...}: {
   imports = [
     inputs.nix-index-database.hmModules.nix-index
   ];
@@ -449,7 +449,9 @@ args @ {pkgs, config, osConfig, inputs, lib, ...}: {
         tide configure --auto --style=Classic --prompt_colors='True color' --classic_prompt_color=Darkest --show_time='24-hour format' --classic_prompt_separators=Angled --powerline_prompt_heads=Sharp --powerline_prompt_tails=Flat --powerline_prompt_style='One line' --prompt_spacing=Compact --icons='Many icons' --transient=No
         tide reload
       '';
-      loginShellInit = let
+      loginShellInit = ''
+      ''
+      + lib.optionalString (pkgs.stdenv.isDarwin && ! builtins.isNull osConfig) (let
         # fish path: https://github.com/LnL7/nix-darwin/issues/122#issuecomment-1659465635
 
         # add quotes and remove brackets '${XDG}/foo' => '"$XDG/foo"' 
@@ -459,7 +461,7 @@ args @ {pkgs, config, osConfig, inputs, lib, ...}: {
       in ''
         fish_add_path --move --prepend --path ${lib.concatMapStringsSep " " dquote (makeBinPathList osConfig.environment.profiles)}
         set fish_user_paths $fish_user_paths
-      '';
+      '');
       shellAliases = {
         icat = "kitty +kitten icat";
       };
