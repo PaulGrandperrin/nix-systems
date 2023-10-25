@@ -438,6 +438,7 @@ args @ {pkgs, config, osConfig, inputs, lib, ...}: {
       enable = true;
       interactiveShellInit = ''
         set -g theme_nerd_fonts yes
+        set -g fish_greeting
         ${pkgs.any-nix-shell}/bin/any-nix-shell fish --info-right | source # use fish in nix run and nix-shell
         source ${
           pkgs.fetchurl {
