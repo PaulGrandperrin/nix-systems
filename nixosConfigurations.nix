@@ -17,6 +17,7 @@ in {
   nixos-oci     = mkNixosConf "stable"   ./nixosModules/nixos-oci/configuration.nix;
   nixos-xps     = mkNixosConf "unstable" ./nixosModules/nixos-xps/configuration.nix;
   nixos-macbook = mkNixosConf "unstable" ./nixosModules/nixos-macbook/configuration.nix;
+  nixos-testvm  = mkNixosConf "unstable" ./nixosModules/nixos-testvm/configuration.nix;
 }
 
 

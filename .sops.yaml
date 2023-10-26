@@ -5,6 +5,7 @@ keys: # ssh-to-age -i /etc/ssh/ssh_host_ed25519_key.pub
   - &nixos-macbook age1q2tee5p4ffxu6g4g90gfcykcwttr9u5p4sqg4n494uelt2cqhefsleexuy
   - &nixos-nas age1aedtqphdcvyaz2vhxysy9xx5l47vckp8xy0fngmwgg36wmt3zftq7yjqkc 
   - &nixos-oci age1s9tauh069l9esyzwmudfkz7t226kkattp6qvze36p4950en3xqysduf4xg 
+  - &nixos-testvm age1pjq3zvaug8mxzht4y50y3njyqlcmpa2g309zdmvz4ery996nxseq36uj3n
   - &recovery age14u76z7ch37cx6hesffvr3kazmjjyxhnsvja2xspznt8683xn79ksxg8f4r # just in case
 creation_rules:
   - path_regex: ^secrets/common\.yaml$
@@ -16,6 +17,7 @@ creation_rules:
       - *nixos-macbook
       - *nixos-nas
       - *nixos-oci
+      - *nixos-testvm
       - *recovery
   - path_regex: ^secrets/nixos-nas\.yaml$
     key_groups:
