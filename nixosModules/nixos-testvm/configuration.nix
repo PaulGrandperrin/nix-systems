@@ -19,6 +19,7 @@
   };
 
   networking.hostName = "nixos-testvm";
+  networking.hostId = "333b699e";
 
   #services.net = {
   #  enable = true;
