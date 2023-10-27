@@ -77,8 +77,6 @@
 
   boot.zfs.requestEncryptionCredentials = false; # don't ask for password when the machine is headless
 
-  services.smartd.enable = lib.mkForce false;
-
   environment.systemPackages = with pkgs; [
   ];
 }

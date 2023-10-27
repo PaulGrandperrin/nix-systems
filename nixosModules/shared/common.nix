@@ -305,6 +305,7 @@
 
   services.smartd = {
     enable = true;
+    extraOptions = [ "-q errors,nodev0" ]; # Exit sucessfully if there are no devices to monitor and unsucessfully if any errors are found in the configuration file
     notifications.mail.enable = true;
     defaults.monitored = 
         "-a " # monitor all attributes

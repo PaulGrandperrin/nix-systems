@@ -90,8 +90,6 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF5s0Fe3Y2kX5bxhipkD/OGePPRew40fElqzgacdavuY" # root@nixos-nas
   ];
   
-  services.smartd.enable = lib.mkForce false;
-  
   environment.systemPackages = with pkgs; [
     google-cloud-sdk-gce
   ];
