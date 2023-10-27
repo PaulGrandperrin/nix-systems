@@ -47,6 +47,7 @@
             mountpoint = "/";
             mountOptions = ["noatime" "nodiratime"];
             options = {
+              #encryption = "aes-128-gcm"; # upgrade to 256 when quantum computing is really a thing
               mountpoint = "legacy";
               "com.sun:auto-snapshot" = "true";
             };
