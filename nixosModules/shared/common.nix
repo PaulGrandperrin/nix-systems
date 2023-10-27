@@ -24,7 +24,8 @@
   # always keep a reference to the source flake that generated each generations
   environment.etc."source-flake".source = ../.;
 
-  boot.zfs.devNodes = "/dev/disk/by-uuid"; # /dev/disk/by-id doesn't get populated with virtio disks. see https://github.com/NixOS/nixpkgs/pull/263662
+  boot.zfs.devNodes = "/dev/disk/by-path"; # /dev/disk/by-id doesn't get populated with virtio disks. see https://github.com/NixOS/nixpkgs/pull/263662
+
   boot.initrd.systemd.emergencyAccess = lib.mkDefault true;
 
   boot.supportedFilesystems = [

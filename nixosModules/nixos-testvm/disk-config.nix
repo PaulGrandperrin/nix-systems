@@ -38,6 +38,7 @@
           atime = "off";
           acltype = "posixacl"; # check compat with podman
           xattr = "sa"; # check compat with podman
+          dnodesize = "auto"; # default is "legacy" to be compatible with ZFS without large_dnode feature
           "com.sun:auto-snapshot" = "false";
         };
         datasets = {
