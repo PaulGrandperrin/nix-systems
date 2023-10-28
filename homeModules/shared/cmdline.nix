@@ -52,6 +52,7 @@ args @ {pkgs, config, osConfig ? null, inputs, lib, ...}: {
       lnvim
       spvim
 
+      procs
       rsync
       unstable.nixd
       socat
