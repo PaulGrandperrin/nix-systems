@@ -3,10 +3,31 @@ args @ {pkgs, config, osConfig ? null, inputs, lib, ...}: {
     inputs.nix-index-database.hmModules.nix-index
   ];
 
+  xdg.configFile."fish/functions/_tide_item_nix_shell.fish".text = ''
+    # mostly a babelfish conversion of nix-shell-info from any-nix-shell
+    # relies on the nix wrapper from any-nix-shell
+
+    function _tide_item_nix_shell
+      if set -q IN_NIX_SHELL || set -q IN_NIX_RUN
+        set output (echo $ANY_NIX_SHELL_PKGS | xargs | string collect; or echo)
+        if test -n "$name" && test "$name" != 'shell'
+          set -a output ' '"$name"
+        end
+        if test -n "$output"
+          set output (echo $output $additional_pkgs | tr ' ' '\\n' | sort -u | tr '\\n' ' ' | xargs | string collect; or echo)
+          _tide_print_item nix_shell $tide_nix_shell_icon' ' $output
+        else
+          _tide_print_item nix_shell $tide_nix_shell_icon' [unknown environment]' 
+        end
+      end
+    end
+  '';
+
   home = {
     sessionVariables = { # only works for interactive shells, pam works for all kind of sessions
       EDITOR = "vim";
     };
+
 
     packages = with pkgs; [
       config.nix.package
