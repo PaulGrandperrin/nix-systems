@@ -26,6 +26,8 @@
     ];
   };
 
+  programs.home-manager.enable = true;
+
   home = {
     # mandatory when HM is used as a standalone
     homeDirectory = if pkgs.stdenv.hostPlatform.isDarwin then # we assume that the username is set elsewhere

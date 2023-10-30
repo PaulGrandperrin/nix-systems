@@ -18,6 +18,7 @@
     homeModule = {
       imports = [
         ../../homeModules/shared/core.nix
+        ../../homeModules/shared/cmdline-extra.nix
       ];
     };
   in {

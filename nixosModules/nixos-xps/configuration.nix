@@ -16,6 +16,7 @@
     homeModule = {
       imports = [
         ../../homeModules/shared/core.nix
+        ../../homeModules/shared/cmdline-extra.nix
         ../../homeModules/shared/firefox.nix
         ../../homeModules/shared/chromium.nix
         ../../homeModules/shared/desktop-linux.nix

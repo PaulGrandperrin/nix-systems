@@ -25,9 +25,11 @@
   home-manager.extraSpecialArgs = {inherit inputs; nixos-flake = inputs.nixos-23-05;home-manager-flake = inputs.home-manager-23-05; };
   home-manager.users.root  = { imports = [
     ../../homeModules/shared/core.nix
+    ../../homeModules/shared/cmdline-extra.nix
   ];};
   home-manager.users.paulg = { imports = [
     ../../homeModules/shared/core.nix
+    ../../homeModules/shared/cmdline-extra.nix
     ../../homeModules/shared/firefox.nix
     ../../homeModules/shared/chromium.nix
     ../../homeModules/shared/desktop-macos.nix
