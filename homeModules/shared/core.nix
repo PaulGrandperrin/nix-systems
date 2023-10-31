@@ -1,4 +1,4 @@
-args @ {pkgs, config, osConfig ? null, inputs, lib, nixos-flake, home-manager-flake, ...}: {
+{pkgs, config, osConfig ? null, inputs, lib, nixos-flake, home-manager-flake, ...}: {
   imports = [
     ./cmdline.nix
   ];
