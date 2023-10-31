@@ -1,4 +1,4 @@
-{pkgs, lib, osConfig, ...}: {
+{pkgs, lib, osConfig ? null, ...}: {
 
   # displays nix shell env on the right of the prompt
   xdg.configFile."fish/functions/_tide_item_nix_shell.fish".text = ''
