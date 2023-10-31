@@ -1,4 +1,4 @@
-{pkgs, config, osConfig ? null, inputs, lib, ...}: {
+{pkgs, config, inputs, lib, ...}: {
   imports = [
     inputs.nix-index-database.hmModules.nix-index
     ./fish.nix

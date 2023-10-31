@@ -1,4 +1,4 @@
-{pkgs, lib, osConfig ? null, ...}: {
+args @ {pkgs, lib, ...}: {
 
   # displays nix shell env on the right of the prompt
   xdg.configFile."fish/functions/_tide_item_nix_shell.fish".text = ''
@@ -189,7 +189,7 @@
     '';
     loginShellInit = ''
     ''
-    + lib.optionalString (pkgs.stdenv.isDarwin && ! builtins.isNull osConfig) (let
+    + lib.optionalString (args ? darwinConfig) (let
       # fish path: https://github.com/LnL7/nix-darwin/issues/122#issuecomment-1659465635
 
       # add quotes and remove brackets '${XDG}/foo' => '"$XDG/foo"' 
@@ -197,7 +197,7 @@
 
       makeBinPathList = map (path: path + "/bin");
     in ''
-      fish_add_path --move --prepend --path ${lib.concatMapStringsSep " " dquote (makeBinPathList osConfig.environment.profiles)}
+      fish_add_path --move --prepend --path ${lib.concatMapStringsSep " " dquote (makeBinPathList args.darwinConfig.environment.profiles)}
       set fish_user_paths $fish_user_paths
     '');
     shellAliases = {
