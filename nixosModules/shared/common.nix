@@ -6,7 +6,7 @@
     inputs.dwarffs.nixosModules.dwarffs
     ./mail.nix
   ];
-  system.stateVersion = "22.05";
+  system.stateVersion = "23.05";
 
   nixpkgs = {
     config = import ../../nixpkgs/config.nix;
