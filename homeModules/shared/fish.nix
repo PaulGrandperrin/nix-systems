@@ -24,6 +24,7 @@ args @ {pkgs, lib, ...}: {
   programs.fish = {
     enable = true;
     interactiveShellInit = ''
+      ${lib.optionalString (!args ? osConfig) "source ${pkgs.nix}/etc/profile.d/nix-daemon.fish"}
       set -g theme_nerd_fonts yes
       set -g fish_greeting
       ${pkgs.any-nix-shell}/bin/any-nix-shell fish --info-right | source # use fish in nix run and nix-shell
