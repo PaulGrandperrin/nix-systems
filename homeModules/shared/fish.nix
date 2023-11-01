@@ -1,30 +1,32 @@
 args @ {pkgs, lib, ...}: {
 
-  # displays nix shell env on the right of the prompt
-  xdg.configFile."fish/functions/_tide_item_nix_shell.fish".text = ''
-    # mostly a babelfish conversion of nix-shell-info from any-nix-shell
-    # relies on the nix wrapper from any-nix-shell
-
-    function _tide_item_nix_shell
-      if set -q IN_NIX_SHELL || set -q IN_NIX_RUN
-        set output (echo $ANY_NIX_SHELL_PKGS | xargs | string collect; or echo)
-        if test -n "$name" && test "$name" != 'shell'
-          set -a output ' '"$name"
-        end
-        if test -n "$output"
-          set output (echo $output $additional_pkgs | tr ' ' '\\n' | sort -u | tr '\\n' ' ' | xargs | string collect; or echo)
-          _tide_print_item nix_shell $tide_nix_shell_icon' ' $output
-        else
-          _tide_print_item nix_shell $tide_nix_shell_icon' [unknown environment]' 
-        end
-      end
-    end
-  '';
-
   programs.fish = {
     enable = true;
-    interactiveShellInit = ''
+    functions = {
+      _tide_item_nix_shell = { # displays nix shell env on the right of the prompt
+        body = ''
+          # mostly a babelfish conversion of nix-shell-info from any-nix-shell
+          # relies on the nix wrapper from any-nix-shell
+
+          if set -q IN_NIX_SHELL || set -q IN_NIX_RUN
+            set output (echo $ANY_NIX_SHELL_PKGS | xargs | string collect; or echo)
+            if test -n "$name" && test "$name" != 'shell'
+              set -a output ' '"$name"
+            end
+            if test -n "$output"
+              set output (echo $output $additional_pkgs | tr ' ' '\\n' | sort -u | tr '\\n' ' ' | xargs | string collect; or echo)
+              _tide_print_item nix_shell $tide_nix_shell_icon' ' $output
+            else
+              _tide_print_item nix_shell $tide_nix_shell_icon' [unknown environment]' 
+            end
+          end
+        '';
+      };
+    };
+    shellInit = ''
       ${lib.optionalString (!args ? osConfig) "source ${pkgs.nix}/etc/profile.d/nix-daemon.fish"}
+    '';
+    interactiveShellInit = ''
       set -g theme_nerd_fonts yes
       set -g fish_greeting
       ${pkgs.any-nix-shell}/bin/any-nix-shell fish --info-right | source # use fish in nix run and nix-shell
