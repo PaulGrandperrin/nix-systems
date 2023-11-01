@@ -14,7 +14,7 @@ inputs: let
             inherit username;
           };
         }
-        ./homeModules/standalone.nix
+        module
       ];
     };
 in 
@@ -25,14 +25,15 @@ in
   # }
   builtins.listToAttrs (
     map 
-      ({stability, system, username}: {
-        name = "${stability}-${system}-${username}";
-        value = mkHomeConf stability system username ./homeModules/standalone.nix;
+      ({stability, system, username, extra}: {
+        name = "${stability}-${system}-${username}${lib.optionalString extra "-extra"}";
+        value = mkHomeConf stability system username (if extra then ./homeModules/standalone-extra.nix else ./homeModules/standalone.nix);
       }) 
       (lib.cartesianProductOfSets {
         stability = ["stable" "unstable"];
         system    = lib.systems.flakeExposed;
         username  = ["root" "paulg"];
+        extra     = [false true];
       })
   )
   
