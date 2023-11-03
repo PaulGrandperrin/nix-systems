@@ -78,8 +78,11 @@
   
   security = {
     sudo = {
-      enable = true; # TODO: remove when we are sure doas work properly
+      enable = true;
       execWheelOnly = true;
+    };
+    please = {
+      enable = true;
     };
   };
 
