@@ -14,10 +14,14 @@ inputs: rec {
       '';
     });
   });
+  devenv = (final: prev: {
+    devenv = inputs.devenv.packages.${prev.stdenv.hostPlatform.system}.devenv;
+  });
   default = inputs.nixos-23-05-lib.lib.composeManyExtensions [
     all-channels
     local-packages
     rclonefs
+    devenv
 
     inputs.nur.overlay
     inputs.rust-overlay.overlays.default

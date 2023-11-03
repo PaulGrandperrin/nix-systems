@@ -1,4 +1,4 @@
-{pkgs, config, ...}: {
+{pkgs, config, inputs, ...}: {
   imports = [
     ./cmdline.nix
   ];
@@ -51,6 +51,7 @@
       gcc11
       (lib.setPrio 20 clang_16)
       rnix-lsp
+      devenv
 
       # doc
       tealdeer # tldr
