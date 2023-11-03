@@ -81,38 +81,6 @@
       enable = true; # TODO: remove when we are sure doas work properly
       execWheelOnly = true;
     };
-    doas = {
-      enable = false;
-      extraRules = [{
-        groups = ["wheel"];
-        persist = true;
-        setEnv = with lib; let # because of https://github.com/Duncaen/OpenDoas/issues/2 we need to add here all variables that should have been read from PAM_env
-          # code inspired from https://github.com/NixOS/nixpkgs/blob/nixos-21.11/nixos/modules/config/system-environment.nix#L69
-          suffixedVariables = 
-            flip mapAttrs config.environment.profileRelativeSessionVariables (envVar: suffixes:
-              flip concatMap config.environment.profiles (profile:
-                map (suffix: "${profile}${suffix}") suffixes
-              )
-            );
-          suffixedVariablesWithWrappers = (zipAttrsWith (n: concatLists)
-            [
-              # Make sure security wrappers are prioritized without polluting
-              # shell environments with an extra entry. Sessions which depend on
-              # pam for its environment will otherwise have eg. broken sudo. In
-              # particular Gnome Shell sometimes fails to source a proper
-              # environment from a shell.
-              { PATH = [ config.security.wrapperDir ]; }
-              
-              (mapAttrs (n: toList) config.environment.sessionVariables)
-              suffixedVariables
-            ]
-            );
-          replaceEnvVars = replaceStrings ["$HOME" "$USER"] ["/root" "root"];
-          doasVariable = k: v: ''${k}=${concatStringsSep ":" (map replaceEnvVars (toList v))}'';
-
-        in mapAttrsToList doasVariable suffixedVariablesWithWrappers;
-      }];
-    };
   };
 
   hardware.enableAllFirmware = true;
