@@ -64,6 +64,7 @@
       choose
       dogdns
       wakelan
+      zellij
     ] ++ lib.optionals pkgs.stdenv.isLinux [
       lsb-release
     ];
