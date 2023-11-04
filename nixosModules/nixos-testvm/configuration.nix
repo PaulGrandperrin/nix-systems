@@ -1,6 +1,5 @@
 { config, pkgs, lib, inputs, modulesPath, ... }: {
   imports = [
-    inputs.disko.nixosModules.disko
     ./hardware-configuration.nix
     ./disk-config.nix
     ../shared/common.nix

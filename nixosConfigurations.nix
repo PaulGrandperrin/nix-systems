@@ -11,13 +11,14 @@ inputs: let
       ];
     };
 in { 
-  nixos-nas     = mkNixosConf "stable"   ./nixosModules/nixos-nas/configuration.nix;
-  nixos-macmini = mkNixosConf "stable"   ./nixosModules/nixos-macmini/configuration.nix;
-  nixos-gcp     = mkNixosConf "stable"   ./nixosModules/nixos-gcp/configuration.nix;
-  nixos-oci     = mkNixosConf "stable"   ./nixosModules/nixos-oci/configuration.nix;
-  nixos-xps     = mkNixosConf "unstable" ./nixosModules/nixos-xps/configuration.nix;
-  nixos-macbook = mkNixosConf "unstable" ./nixosModules/nixos-macbook/configuration.nix;
-  nixos-testvm  = mkNixosConf "unstable" ./nixosModules/nixos-testvm/configuration.nix;
+  nixos-nas       = mkNixosConf "stable"   ./nixosModules/nixos-nas/configuration.nix;
+  nixos-macmini   = mkNixosConf "stable"   ./nixosModules/nixos-macmini/configuration.nix;
+  nixos-gcp       = mkNixosConf "stable"   ./nixosModules/nixos-gcp/configuration.nix;
+  nixos-oci       = mkNixosConf "stable"   ./nixosModules/nixos-oci/configuration.nix;
+  nixos-xps       = mkNixosConf "unstable" ./nixosModules/nixos-xps/configuration.nix;
+  nixos-macbook   = mkNixosConf "unstable" ./nixosModules/nixos-macbook/configuration.nix;
+  nixos-testvm    = mkNixosConf "unstable" ./nixosModules/nixos-testvm/configuration.nix;
+  nixos-chromebox = mkNixosConf "unstable" ./nixosModules/nixos-chromebox/configuration.nix;
 }
 
 

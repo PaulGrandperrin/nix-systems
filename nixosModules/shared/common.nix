@@ -1,6 +1,7 @@
 { config, pkgs, lib, inputs, home-manager-flake, ... }:
 {
   imports = [
+    inputs.disko.nixosModules.disko
     inputs.sops-nix.nixosModules.sops
     home-manager-flake.nixosModules.home-manager
     inputs.dwarffs.nixosModules.dwarffs
