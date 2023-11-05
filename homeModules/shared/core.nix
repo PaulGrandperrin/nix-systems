@@ -5,6 +5,8 @@ args @ {pkgs, config, inputs, lib, nixos-flake, home-manager-flake, ...}: {
   xdg.enable = true; # export XDG vars to ensure the correct directories are used
   targets.genericLinux.enable = pkgs.stdenv.isLinux && ! args ? nixosConfig;
 
+  xdg.configFile."nixpkgs/config.nix".source = ../../nixpkgs/config.nix; # read by "nix-shell", "nix shell --impure" etc
+  
   nix = {
     package = lib.mkDefault pkgs.nix;
     settings = import ../../nix/nix.nix;
