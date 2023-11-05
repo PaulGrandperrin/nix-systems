@@ -27,7 +27,7 @@
       parallel
       jq yq fq
       hyperfine
-      unzip p7zip
+      zip unzip p7zip
       pv
       sd
       httpie curlie xh
