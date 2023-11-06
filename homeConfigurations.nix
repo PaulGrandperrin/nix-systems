@@ -35,6 +35,10 @@ in
         username  = ["root" "paulg"];
         extra     = [false true];
       })
-  )
+  ) // {
+    "root@debian"       = mkHomeConf "stable" "x86_86-linux"   "root"  ./homeModules/standalone.nix;     
+    "paulg@debian"      = mkHomeConf "stable" "x86_86-linux"   "paulg" ./homeModules/standalone.nix;     
+    "paulg@MacBookPhil" = mkHomeConf "stable" "aarch64-darwin" "paulg" ./homeModules/standalone-extra.nix;     
+  }
   
 
