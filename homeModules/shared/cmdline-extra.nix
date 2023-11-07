@@ -14,6 +14,7 @@
       lsof
       nmap
       iperf
+      bandwhich
 
       # file management
       rsync
