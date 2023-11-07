@@ -79,7 +79,7 @@
     htop.enable = true;
     zellij = {
       enable = true;
-      enableFishIntegration = true;
+      #enableFishIntegration = true;
       settings = {
         pane_frames = false;
       };
