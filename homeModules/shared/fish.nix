@@ -251,7 +251,13 @@ args @ {pkgs, lib, ...}: {
       }
       {
         name = "plugin-git"; # git abbrs
-        src = plugin-git.src;
+        #src = plugin-git.src;
+        src = pkgs.fetchFromGitHub { # https://github.com/jhillyerd/plugin-git/pull/103 
+          owner = "hexclover";
+          repo = "plugin-git";
+          rev = "master";
+          sha256 = "sha256-efKPbsXxjHm1wVWPJCV8teG4DgZN5dshEzX8PWuhKo4";
+        };
       }
       #{
       #  name = "done"; # doesn't work on wayland
