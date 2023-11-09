@@ -168,6 +168,7 @@
   };
 
   # should be moved to HM
+  # FIXME: when .config/rclone doesn't exist yet, they'll be created as root and create problems
   sops.secrets."rclone.conf" = {
     sopsFile = ../../secrets/other.yaml;
     restartUnits = [ "home-manager-paulg.service" ];
