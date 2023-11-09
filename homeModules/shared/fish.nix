@@ -246,10 +246,10 @@ args @ {pkgs, lib, ...}: {
         name = "puffer"; # adds "...", "!!" and "!$"
         src = puffer.src;
       }
-      {
-        name = "pisces"; # pisces # auto pairing of ([{"'
-        src = pisces.src;
-      }
+      #{
+      #  name = "pisces"; # pisces # auto pairing of ([{"'
+      #  src = pisces.src;
+      #}
       {
         name = "plugin-git"; # git abbrs
         #src = plugin-git.src;
