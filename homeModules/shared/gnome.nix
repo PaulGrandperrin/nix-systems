@@ -46,6 +46,7 @@
     };
     "org/gnome/mutter" = {
       experimental-features = [ "scale-monitor-framebuffer" "rt-scheduler" ];
+      edge-tiling = true;
     };
     "org/gnome/desktop/privacy" = {
       remember-recent-files = true;
