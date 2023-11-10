@@ -189,6 +189,15 @@
         pre-commit-hooks.follows = "pre-commit-hooks-nix";
       };
     };
+
+    android-nixpkgs = {
+      url = "github:tadfisher/android-nixpkgs/stable";
+      inputs = {
+        nixpkgs.follows = "nixos-unstable";
+        devshell.follows = "devshell";
+        flake-utils.follows = "flake-utils";
+      };
+    };
   };
 
   outputs = inputs: {

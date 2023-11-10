@@ -15,4 +15,10 @@ in lib.genAttrs
         ./devenvModules/default.nix
       ];
     };
+    flutter = inputs.devenv.lib.mkShell {
+      inherit inputs pkgs;
+      modules = [
+        ./devenvModules/flutter.nix
+      ];
+    };
   })
