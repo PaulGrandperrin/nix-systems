@@ -1,4 +1,4 @@
-{pkgs, inputs, ...}: let
+{config, pkgs, inputs, ...}: let
   
   # flutter 1.13 needs platforms = 33 and build-tools = 30.0.3
   # platform: sdk
@@ -7,13 +7,13 @@
   # cmdline-tools: avdmanager, sdkmanager
   # tools: deprecated, replaced by cmdline-tools
 
-  #androidSdk = pkgs.androidenv.composeAndroidPackages {
+  #androidSdk = (pkgs.androidenv.composeAndroidPackages {
   #  platformVersions = [ "33" ];
   #  buildToolsVersions = ["30.0.3"];
   #  #platformToolsVersion = "33.0.3";
   #  #abiVersions = [ "x86_64" ];
-  #}.androidsdk;
-  #ANDROID_HOME = "${androidSdk}/libexec/android-sdk/";
+  #}).androidsdk;
+  #androidSdkSubPath="lib-exec/android-sdk";
 
   androidSdk = inputs.android-nixpkgs.sdk.${pkgs.stdenv.hostPlatform.system} (sdkPkgs: with sdkPkgs; [
     platforms-android-33
@@ -22,7 +22,7 @@
     platform-tools
     #emulator
   ]);
-  ANDROID_HOME = "${androidSdk}/share/android-sdk";
+  androidSdkSubPath="share/android-sdk";
 
 in {
   packages = with pkgs; [
@@ -31,25 +31,31 @@ in {
 
     androidStudioPackages.stable
     #google-chrome
-
-    ## flutter linux deps:
-    #cmake
-    #ninja
-    #pkg-config
   ];
 
   languages.java = {
-    enable = true;
+    enable = true; # also sets JAVA_HOME for flutter cmdline
     #gradle.enable = true;
     jdk.package = pkgs.jdk17;
   };
 
-  env = {
-    inherit ANDROID_HOME;
+  env = rec {
+    ANDROID_HOME = "${androidSdk}/${androidSdkSubPath}"; # for flutter cmdline
     ANDROID_SDK_ROOT = ANDROID_HOME; # deprecated
     #CHROME_EXECUTABLE = "${pkgs.google-chrome}/bin/google-chrome-stable";
-
-    #GRADLE_OPTS="-Dorg.gradle.project.android.aapt2FromMavenOverride=${ANDROID_HOME}/build-tools/33.0.2/aapt2"; # old aapt2 from 30.0.3 might be buggy?
-    #GRADLE_OPTS="-Dorg.gradle.project.android.aapt2FromMavenOverride=${pkgs.aapt}/bin/aapt2"; # old aapt2 from 30.0.3 might be buggy?
   };
+
+  enterShell = ''
+    echo
+    echo "Stable SDK paths (for android-studio which doesn't use env vars):"
+    echo "android: $(pwd)/.devenv/profile/${androidSdkSubPath}"
+    echo "flutter: $(pwd)/.devenv/profile"
+    echo "java:    $(pwd)/.devenv/profile/lib/openjdk"
+    echo
+  
+    ## also add gcroots?
+    #ln -s ${androidSdk} .android-sdk
+    #ln -s ${pkgs.flutter} .flutter-sdk
+    #ln -s ${config.languages.java.jdk.package} .java-sdk
+  '';
 }
