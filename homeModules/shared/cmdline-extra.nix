@@ -22,7 +22,7 @@
       rclone
       nix-du graphviz-nox # nix-du --root /nix/store/*-mutter-git-41.2/|  tred | dot -Tsvg > store.svg
       #nvd # nix store diff-closures
-      ranger
+      yazi # ranger
 
       # tools
       parallel
