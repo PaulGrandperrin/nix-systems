@@ -52,6 +52,8 @@ in {
     echo "flutter: $(pwd)/.devenv/profile"
     echo "java:    $(pwd)/.devenv/profile/lib/openjdk"
     echo
+    echo "delete `android/gradlew` if `Oops; flutter has exited unexpectedly: "ProcessException: No such file or directory`"
+    echo
   
     ## also add gcroots?
     #ln -s ${androidSdk} .android-sdk
