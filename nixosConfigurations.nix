@@ -11,8 +11,8 @@ inputs: let
 in { 
   nixos-nas            = mkNixosConf "stable"   [ ./nixosModules/nixos-nas/configuration.nix                                         ];
   nixos-nas-lean       = mkNixosConf "stable"   [ ./nixosModules/nixos-nas/configuration.nix       ./nixosModules/shared/leanify.nix ];
-  nixos-macmini        = mkNixosConf "stable"   [ ./nixosModules/nixos-macmini/configuration.nix                                     ];
-  nixos-macmini-lean   = mkNixosConf "stable"   [ ./nixosModules/nixos-macmini/configuration.nix   ./nixosModules/shared/leanify.nix ];
+  nixos-macmini        = mkNixosConf "unstable" [ ./nixosModules/nixos-macmini/configuration.nix                                     ];
+  nixos-macmini-lean   = mkNixosConf "unstable" [ ./nixosModules/nixos-macmini/configuration.nix   ./nixosModules/shared/leanify.nix ];
   nixos-gcp            = mkNixosConf "stable"   [ ./nixosModules/nixos-gcp/configuration.nix                                         ];
   nixos-gcp-lean       = mkNixosConf "stable"   [ ./nixosModules/nixos-gcp/configuration.nix       ./nixosModules/shared/leanify.nix ];
   nixos-oci            = mkNixosConf "stable"   [ ./nixosModules/nixos-oci/configuration.nix                                         ];
