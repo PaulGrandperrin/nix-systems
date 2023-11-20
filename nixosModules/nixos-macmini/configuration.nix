@@ -76,12 +76,12 @@
     enable = true;
   };
 
-  services.my-nspawn = {
-    enable = true;
-    name = "tidb-macmini";
-    net-id = 2;
-    id = 1;
-  };
+  #services.my-nspawn = {
+  #  enable = true;
+  #  name = "tidb-macmini";
+  #  net-id = 2;
+  #  id = 1;
+  #};
 
   boot.zfs.requestEncryptionCredentials = false; # don't ask for password when the machine is headless
 
