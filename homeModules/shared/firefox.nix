@@ -4,8 +4,8 @@ args @ {pkgs, inputs, lib, config, is_nixos, ...}: lib.mkIf (config.home.usernam
       enable = true;
       package = let 
 
-        # build firefox-bin version from nixos-23-05 but with current dependencies
-        path = inputs.nixos-23-05.outPath;
+        # build firefox-bin version from nixos-unstable but with current dependencies
+        path = inputs.nixos-unstable.outPath;
         firefox-bin-unwrapped = pkgs.callPackage ( # taken from pkgs/top-level/all-packages.nix
           path + "/pkgs/applications/networking/browsers/firefox-bin"
         ) {
