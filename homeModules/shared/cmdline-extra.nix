@@ -139,7 +139,7 @@
       [ 
         cpuid
         cpufrequtils
-        zenith
+        #zenith
         intel-gpu-tools
       ] ++ lib.optionals (config.home.username == "root") [ # if root and linux
         i7z

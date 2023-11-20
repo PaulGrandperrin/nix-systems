@@ -16,8 +16,6 @@ let
       id = 2;
       hostname = "nixos-macmini";
       publicKey = "mcM+NQQuwuTlKAMxrxZnyZxHMXa5RHENq1pDAIw49zQ=";
-      endPoint.host = "nas.paulg.fr";
-      endPoint.port = 51821;
       natToInternet = true;
     } {
       id = 3;

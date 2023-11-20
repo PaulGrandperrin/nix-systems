@@ -11,7 +11,6 @@
     ../shared/headless.nix
     ../shared/observability.nix
     ../shared/mastodon.nix
-    ../shared/home-assistant.nix
   ];
 
   home-manager.users = let 
