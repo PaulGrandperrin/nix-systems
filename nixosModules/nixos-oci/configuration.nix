@@ -4,6 +4,7 @@
     ../shared/common.nix
     ../shared/containers/web.nix
     ../shared/net.nix
+    ../shared/web.nix # for home-assistant forward proxy
     ../shared/wireguard.nix
     ../shared/wg-mounts.nix
     ../shared/auto-upgrade.nix
@@ -80,5 +81,14 @@
 
   environment.systemPackages = with pkgs; [
   ];
+
+  services.nginx.virtualHosts."phil.grandperrin.fr" = {
+    enableACME = true;
+    forceSSL = true;
+    locations."/" = {
+        proxyPass = "http://10.42.0.2:8123/";
+        proxyWebsockets = true;
+    };
+  };
 }
 

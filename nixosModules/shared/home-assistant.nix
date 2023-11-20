@@ -8,10 +8,6 @@
   #     - 127.0.0.1
   #     - 10.88.0.1
 
-  imports = [
-    ./web.nix
-  ];
-
   virtualisation.oci-containers = {
     containers.homeassistant = {
       volumes = [ "home-assistant:/config" ];
@@ -23,14 +19,6 @@
         "--pull=newer"
         "--device=/dev/ttyACM0:/dev/ttyACM0"
       ];
-    };
-  };
-  services.nginx.virtualHosts."phil.grandperrin.fr" = {
-    enableACME = true;
-    forceSSL = true;
-    locations."/" = {
-        proxyPass = "http://localhost:8123/";
-        proxyWebsockets = true;
     };
   };
 }
