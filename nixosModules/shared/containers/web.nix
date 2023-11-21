@@ -11,12 +11,7 @@
     forwardPorts = [
       {
         containerPort = 80;
-        hostPort = 80;
-        protocol = "tcp";
-      }
-      {
-        containerPort = 443;
-        hostPort = 443;
+        hostPort = 10080;
         protocol = "tcp";
       }
     ];
@@ -27,7 +22,7 @@
     #  };
     #};
     config = let hostConfig = config; in { config, pkgs, ... }: {
-      imports = [ ../web.nix ];
+      #imports = [ ../web.nix ];
       system.stateVersion = "23.05";
 
       networking.useDHCP = false;
@@ -35,7 +30,7 @@
       networking.enableIPv6 = hostConfig.networking.enableIPv6;
       services.resolved.enable = true;
       networking.useHostResolvConf = false; # must be explicitly disabled because in conflict with resolved
-      networking.firewall.allowedTCPPorts = [ 80 443 ];
+      networking.firewall.allowedTCPPorts = [ 80 ];
       #systemd.network.networks.eth0.gateway = ["10.42.0.1"];
       #systemd.network.networks.eth0.address = ["10.42.0.2/24"];
       #systemd.network.networks.eth0.name = "eth0";
@@ -56,10 +51,9 @@
       #services.wordpress."louis.grandperrin.fr".package = pkgs.unstable.wordpress;
     
       services.nginx = {
+        enable = true;
         additionalModules = [ pkgs.nginxModules.brotli ];
         virtualHosts."paulg.fr" = {
-          enableACME = true;
-          forceSSL = true;
           default = true;
           root = "/var/www/paulg.fr";
           locations."/" = {
@@ -67,8 +61,6 @@
           };
          };
         virtualHosts."louis.grandperrin.fr" = {
-          enableACME = true;
-          forceSSL = true;
           #extraConfig = ''
           #  # Enable CSP for your services.
           #  add_header Content-Security-Policy "default-src 'none'; connect-src 'self'; font-src 'self' data: https://*.wp.com https://fonts.gstatic.com; form-action 'self'; frame-src 'self' https://louis.grandperrin.fr https://*.wp.com https://wp-themes.com https://www.youtube.com; img-src 'self' data: https://*.wp.com https://*.w.org https://secure.gravatar.com; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://*.wp.com; style-src 'self' 'unsafe-inline' https://code.jquery.com https://fonts.googleapis.com https://*.wp.com;" always;
