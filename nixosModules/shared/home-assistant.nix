@@ -7,6 +7,7 @@
   #   trusted_proxies:
   #     - 127.0.0.1
   #     - 10.88.0.1
+  #     - 10.42.0.7 # nixos-oci
 
   virtualisation.oci-containers = {
     containers.homeassistant = {
