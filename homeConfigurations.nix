@@ -1,9 +1,9 @@
 inputs: let 
-  lib = inputs.nixos-23-05-lib.lib;
+  lib = inputs.nixos-stable.lib;
   mkHomeConf = stability: system: username: module: let 
     selectFlake = stable: unstable: { inherit stable unstable; }.${stability};
-    nixos-flake = selectFlake inputs.nixos-23-05 inputs.nixos-unstable;
-    home-manager-flake = selectFlake inputs.home-manager-23-05 inputs.home-manager-master;
+    nixos-flake = selectFlake inputs.nixos-stable inputs.nixos-unstable;
+    home-manager-flake = selectFlake inputs.home-manager-stable inputs.home-manager-unstable;
   in
     home-manager-flake.lib.homeManagerConfiguration {
       pkgs = nixos-flake.legacyPackages.${system};

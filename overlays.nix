@@ -1,6 +1,6 @@
 inputs: rec {
   all-channels = final: prev: {
-    stable = inputs.nixos-23-05.legacyPackages.${prev.stdenv.hostPlatform.system};
+    stable = inputs.nixos-stable.legacyPackages.${prev.stdenv.hostPlatform.system};
     unstable = inputs.nixos-unstable.legacyPackages.${prev.stdenv.hostPlatform.system};
   };
   local-packages = (final: prev: import ./packages prev);
@@ -17,7 +17,7 @@ inputs: rec {
   devenv = (final: prev: {
     devenv = inputs.devenv.packages.${prev.stdenv.hostPlatform.system}.devenv;
   });
-  default = inputs.nixos-23-05-lib.lib.composeManyExtensions [
+  default = inputs.nixos-stable.lib.composeManyExtensions [
     all-channels
     local-packages
     rclonefs

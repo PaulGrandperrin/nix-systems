@@ -25,10 +25,10 @@
       id   = "nixpkgs";
     };
 
-    nixos-23-05.url           = "github:NixOS/nixpkgs/nixos-23.05";
-    nixos-23-05-lib.url       = "github:NixOS/nixpkgs/nixos-23.05?dir=lib"; # "github:nix-community/nixpkgs.lib" doesn't work
-    nixos-23-05-small.url     = "github:NixOS/nixpkgs/nixos-23.05-small";
-    darwin-23-05.url          = "github:NixOS/nixpkgs/nixpkgs-23.05-darwin";
+    nixos-stable.url           = "github:NixOS/nixpkgs/nixos-23.11";
+    nixos-stable-lib.url       = "github:NixOS/nixpkgs/nixos-23.11?dir=lib"; # "github:nix-community/nixpkgs.lib" doesn't work
+    nixos-stable-small.url     = "github:NixOS/nixpkgs/nixos-23.11-small";
+    darwin-stable.url          = "github:NixOS/nixpkgs/nixpkgs-23.11-darwin";
     darwin-unstable.url       = "github:NixOS/nixpkgs/nixpkgs-unstable"; # darwin-unstable for now (https://github.com/NixOS/nixpkgs/issues/107466)
     nixos-unstable.url        = "github:NixOS/nixpkgs/nixos-unstable";
     #nixos-unstable-small.url = "github:NixOS/nixpkgs/nixos-unstable-small";
@@ -39,42 +39,42 @@
     nix-on-droid = {
       url = "github:t184256/nix-on-droid/testing";
       inputs = {
-        nixpkgs.follows = "nixos-23-05-lib";
-        home-manager.follows = "home-manager-23-05"; # TODO try to remove
+        nixpkgs.follows = "nixos-stable-lib";
+        home-manager.follows = "home-manager-stable"; # TODO try to remove
       };
     };
 
     nix-darwin = {
       url = "github:lnl7/nix-darwin/master";
-      inputs.nixpkgs.follows = "nixos-23-05-lib";
+      inputs.nixpkgs.follows = "nixos-stable-lib";
     };
 
     devshell = {
       url = "github:numtide/devshell";
-      inputs.nixpkgs.follows = "nixos-23-05-lib";
+      inputs.nixpkgs.follows = "nixos-stable-lib";
     };
 
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
       inputs = {
-        nixpkgs.follows = "nixos-23-05-lib";
+        nixpkgs.follows = "nixos-stable-lib";
         flake-utils.follows = "flake-utils";
       };
     };
 
-    home-manager-23-05 = {
-      url = "github:nix-community/home-manager/release-23.05";
-      inputs.nixpkgs.follows = "nixos-23-05-lib"; # not needed by NixOS' module thanks to `home-manager.useGlobalPkgs = true` but needed by the unpriviledged module
+    home-manager-stable = {
+      url = "github:nix-community/home-manager/master"; # TODO change to release-23.11
+      inputs.nixpkgs.follows = "nixos-stable-lib"; # not needed by NixOS' module thanks to `home-manager.useGlobalPkgs = true` but needed by the unpriviledged module
     };
-    home-manager-master = {
+    home-manager-unstable = {
       url = "github:nix-community/home-manager/master";
-      inputs.nixpkgs.follows = "nixos-23-05-lib"; # not needed by NixOS' module thanks to `home-manager.useGlobalPkgs = true` but needed by the unpriviledged module
+      inputs.nixpkgs.follows = "nixos-stable-lib"; # not needed by NixOS' module thanks to `home-manager.useGlobalPkgs = true` but needed by the unpriviledged module
     };
 
     nix-alien = {
       url = "github:thiagokokada/nix-alien";
       inputs = {
-        nixpkgs.follows = "nixos-23-05-lib";
+        nixpkgs.follows = "nixos-stable-lib";
         flake-compat.follows = "flake-compat";
         flake-utils.follows = "flake-utils";
         nix-index-database.follows = "nix-index-database";
@@ -97,10 +97,10 @@
     pre-commit-hooks-nix = {
       url = "github:cachix/pre-commit-hooks.nix";
       inputs = {
-        nixpkgs.follows = "nixos-23-05-lib";
+        nixpkgs.follows = "nixos-stable-lib";
         flake-utils.follows = "flake-utils";
         flake-compat.follows = "flake-compat";
-        nixpkgs-stable.follows = "nixos-23-05-lib";
+        nixpkgs-stable.follows = "nixos-stable-lib";
       };  
     };
 
@@ -118,7 +118,7 @@
       url = "github:xremap/nix-flake";
       inputs = {
         nixpkgs.follows = "nixos-unstable"; # NOTE doesn't only use the lib
-        home-manager.follows = "home-manager-23-05";
+        home-manager.follows = "home-manager-stable";
         flake-parts.follows = "flake-parts";
         devshell.follows = "devshell";
         hyprland.follows = ""; # we don't use it
@@ -128,7 +128,7 @@
 
     naersk = {
       url = "github:nmattia/naersk";
-      inputs.nixpkgs.follows = "nixos-23-05-lib";
+      inputs.nixpkgs.follows = "nixos-stable-lib";
     };
 
     flake-utils = {
@@ -142,7 +142,7 @@
 
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
-      inputs.nixpkgs-lib.follows = "nixos-23-05-lib";
+      inputs.nixpkgs-lib.follows = "nixos-stable-lib";
     };
 
     lanzaboote = {

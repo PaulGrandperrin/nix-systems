@@ -21,7 +21,7 @@
       gnomeExtensions.appindicator
       gnomeExtensions.bluetooth-battery
       gnomeExtensions.task-widget
-      stable.gnomeExtensions.focus-indicator
+      #gnomeExtensions.focus-indicator # not anymore in 23.11
       #gnomeExtensions.desktop-cube
       #gnomeExtensions.pop-shell
 
@@ -45,7 +45,7 @@
       clock-show-weekday = true;
     };
     "org/gnome/mutter" = {
-      experimental-features = [ "scale-monitor-framebuffer" "rt-scheduler" ];
+      #experimental-features = [ "scale-monitor-framebuffer" "rt-scheduler" ]; # crash X11 and the session
       edge-tiling = true;
     };
     "org/gnome/desktop/privacy" = {

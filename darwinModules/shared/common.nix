@@ -22,7 +22,7 @@
 
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
-  home-manager.extraSpecialArgs = {inherit inputs; nixos-flake = inputs.nixos-23-05;home-manager-flake = inputs.home-manager-23-05; };
+  home-manager.extraSpecialArgs = config._module.specialArgs;
   home-manager.users.root  = { imports = [
     ../../homeModules/shared/core.nix
     ../../homeModules/shared/cmdline-extra.nix

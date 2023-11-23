@@ -20,7 +20,7 @@
     lutris
     stockfish
 
-    gnomeExtensions.gamemode
+    # gnomeExtensions.gamemode # not anymore in 23.11
   ];
 }
 
