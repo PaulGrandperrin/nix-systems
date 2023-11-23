@@ -22,7 +22,7 @@
       rclone
       nix-du graphviz-nox # nix-du --root /nix/store/*-mutter-git-41.2/|  tred | dot -Tsvg > store.svg
       #nvd # nix store diff-closures
-      #yazi # ranger
+      yazi # ranger
 
       # tools
       parallel
@@ -157,7 +157,7 @@
       };
     };
     emacs.enable = true;
-    exa = {
+    eza = {
       enable = true;
       enableAliases = false;
     };
@@ -203,7 +203,6 @@
     kitty.enable = true;
     wezterm = {
       enable = true;
-      package = pkgs.unstable.wezterm;
       extraConfig = ''
         local wezterm = require("wezterm")
         

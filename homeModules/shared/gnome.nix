@@ -25,7 +25,7 @@
       #gnomeExtensions.desktop-cube
       #gnomeExtensions.pop-shell
 
-      unstable.gnomeExtensions.system76-scheduler
+      gnomeExtensions.system76-scheduler
       #wintile?
 
       gnome.dconf-editor

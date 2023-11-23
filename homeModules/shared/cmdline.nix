@@ -112,7 +112,7 @@
       enable = true;
       defaultEditor = true;
       extraPackages = with pkgs; [
-        unstable.nixd
+        nixd
       ];
 
       #package = pkgs.unstable.neovim-unwrapped;
@@ -125,31 +125,31 @@
         neovim-fuzzy # fuzzy finder through vim
         vim-lastplace # restore cursor position
         # LSP
-        pkgs.unstable.vimPlugins.nvim-lspconfig
-        #pkgs.unstable.vimPlugins.lsp-zero-nvim
-        (
-          pkgs.vimUtils.buildVimPluginFrom2Nix {
-            pname = "lsp-zero.nvim";
-            version = "2023-09-23";
-            src = pkgs.fetchFromGitHub {
-              owner = "VonHeikemen";
-              repo = "lsp-zero.nvim";
-              rev = "011edd4afede7030cb17248495063ab8f3bd0e57";
-              sha256 = "sha256-AW9QVBjvnxVcAvS1IUivra+B+8hHBfJyy/vIY1TszQs=";
-            };
-            meta.homepage = "https://github.com/VonHeikemen/lsp-zero.nvim/";
-          }
-        )
+        nvim-lspconfig
+        lsp-zero-nvim
+        #(
+        #  pkgs.vimUtils.buildVimPlugin {
+        #    pname = "lsp-zero.nvim";
+        #    version = "2023-09-23";
+        #    src = pkgs.fetchFromGitHub {
+        #      owner = "VonHeikemen";
+        #      repo = "lsp-zero.nvim";
+        #      rev = "011edd4afede7030cb17248495063ab8f3bd0e57";
+        #      sha256 = "sha256-AW9QVBjvnxVcAvS1IUivra+B+8hHBfJyy/vIY1TszQs=";
+        #    };
+        #    meta.homepage = "https://github.com/VonHeikemen/lsp-zero.nvim/";
+        #  }
+        #)
         # autocomplete
-        pkgs.unstable.vimPlugins.nvim-cmp
-        pkgs.unstable.vimPlugins.cmp-buffer
-        pkgs.unstable.vimPlugins.cmp-path
-        pkgs.unstable.vimPlugins.cmp_luasnip
-        pkgs.unstable.vimPlugins.cmp-nvim-lsp
-        pkgs.unstable.vimPlugins.cmp-nvim-lua
+        nvim-cmp
+        cmp-buffer
+        cmp-path
+        cmp_luasnip
+        cmp-nvim-lsp
+        cmp-nvim-lua
         # snippets
-        pkgs.unstable.vimPlugins.luasnip
-        pkgs.unstable.vimPlugins.friendly-snippets
+        luasnip
+        friendly-snippets
       ];
       extraConfig = ''
       '';

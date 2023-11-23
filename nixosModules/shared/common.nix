@@ -343,14 +343,14 @@
   sops.secrets.password-paulg.neededForUsers = true;
 
   users.users.root = {
-    passwordFile = config.sops.secrets.password-root.path;
+    hashedPasswordFile = config.sops.secrets.password-root.path;
     shell = pkgs.fish;
   };
 
   users.users.paulg = {
     isNormalUser = true;
     description = "Paul Grandperrin";
-    passwordFile = config.sops.secrets.password-paulg.path;
+    hashedPasswordFile = config.sops.secrets.password-paulg.path;
     extraGroups = [
       "wheel"
       "networkmanager" # no need for password
