@@ -9,6 +9,7 @@
 
   services.mastodon = {
     enable = true;
+    streamingProcesses = 1;
     localDomain = "social.paulg.fr";
     configureNginx = true;
     smtp = {
