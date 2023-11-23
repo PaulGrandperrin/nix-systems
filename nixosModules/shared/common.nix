@@ -184,6 +184,7 @@
     #"init_on_alloc=1"
     #"init_on_free=1"
     #"page_alloc.shuffle=1"
+    "systemd.gpt_auto=no" # fails on OCI otherwise
   ];
 
   #boot.kernelPackages = pkgs.linuxPackages_latest; # breakes ZFS sometimes # nix eval --raw n#linuxPackages.kernel.version
