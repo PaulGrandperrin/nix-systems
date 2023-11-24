@@ -1,7 +1,7 @@
 { disks ? ["/dev/vda"], ...}: {
   disko.devices = {
     disk.disk1 = {
-      device = "/dev/vda"; # builtins.elemAt disks 0;
+      device = builtins.elemAt disks 0;
       type = "disk";
       content = {
         type = "gpt";
@@ -48,6 +48,7 @@
             mountOptions = ["noatime" "nodiratime"];
             options = {
               #encryption = "aes-128-gcm"; # upgrade to 256 when quantum computing is really a thing
+              #keyformat = "passphrase";
               mountpoint = "legacy";
               "com.sun:auto-snapshot" = "true";
             };
