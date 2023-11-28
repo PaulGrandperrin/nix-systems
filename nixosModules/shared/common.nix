@@ -329,7 +329,7 @@
 
   services.irqbalance.enable = true;
 
-  programs.sysdig.enable = lib.mkIf (pkgs.stdenv.hostPlatform.system == "x86_64-linux") true;
+  #programs.sysdig.enable = lib.mkIf (pkgs.stdenv.hostPlatform.system == "x86_64-linux") true;
 
   programs.fish = {
     enable = true;
