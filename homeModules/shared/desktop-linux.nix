@@ -76,6 +76,8 @@
     '';
   };
 
+  home.activation.copySshAuthorizedKeys = lib.mkForce ""; # don't trust servers to connect to desktops
+
   systemd.user.sessionVariables = {
   };
 
