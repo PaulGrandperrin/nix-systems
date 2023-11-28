@@ -63,7 +63,7 @@
     };
 
     home-manager-stable = {
-      url = "github:nix-community/home-manager/master"; # TODO change to release-23.11
+      url = "github:nix-community/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixos-stable-lib"; # not needed by NixOS' module thanks to `home-manager.useGlobalPkgs = true` but needed by the unpriviledged module
     };
     home-manager-unstable = {
