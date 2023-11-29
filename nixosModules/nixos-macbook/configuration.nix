@@ -74,6 +74,7 @@
       # https://bugzilla.kernel.org/show_bug.cgi?id=101681#c116.
       # Also brcmfmac could randomly crash on resume from sleep.
       # And also, brcmfac prevents suspending
+      ${pkgs.kmod}/bin/rmmod brcmfmac_wcc
       ${pkgs.kmod}/bin/rmmod brcmfmac
       #echo disabled > /sys/bus/pci/devices/0000:03:00.0/power/wakeup # ARPT in /proc/acpi/wakeup, wifi adapter always wakes up the machine, already disabled by rmmod
 
