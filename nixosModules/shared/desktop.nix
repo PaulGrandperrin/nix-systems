@@ -134,6 +134,8 @@
     };
   };
 
+  services.gnome.gnome-browser-connector.enable = true;
+
 
   networking.firewall.allowedUDPPorts = [
     6970 # RTP for VLC

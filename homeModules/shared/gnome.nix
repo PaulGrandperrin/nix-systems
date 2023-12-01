@@ -133,5 +133,7 @@
     };
   };
 
+  programs.firefox.enableGnomeExtensions = true;
+
 }
 
