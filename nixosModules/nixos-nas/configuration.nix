@@ -73,6 +73,12 @@
     mainInt = "enp3s0";
   }; 
 
+  boot.extraModulePackages = [(
+    pkgs.kernel-module-ath-patched.overrideAttrs (old: {
+      kernel = config.boot.kernelPackages.kernel;
+    })
+  )];
+
   services.my-wg = {
     enable = true;
   };
