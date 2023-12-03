@@ -2,16 +2,22 @@
 with lib;                      
 let
   cfg = config.services.net;
+  finalMainInt = if cfg.bridged then "br0" else cfg.mainInt;
 in {
   options.services.net = {
-    enable = mkEnableOption "bridged networking";
+    enable = mkEnableOption "networking";
     mainInt = mkOption {
       type = types.str;
+    };
+    bridged = mkEnableOption "bridged networking";
+    extraBridgesInterfaces = mkOption {
+      type = types.listOf types.str;
+      default = [];
     };
   };
 
   config = mkIf cfg.enable {
-    networking.interfaces.${cfg.mainInt}.useDHCP = true; # TODO use networkd
+    networking.interfaces.${finalMainInt}.useDHCP = true;
     networking.firewall.allowPing = true;
     networking.enableIPv6 = false; # TODO later? never?
 
@@ -34,7 +40,9 @@ in {
     };
 
     networking.useNetworkd = true;
-    networking.useDHCP = false; # TODO use networkd
+    networking.useDHCP = false;
+
+    systemd.services.systemd-networkd-wait-online.enable = lib.mkForce false; # I just can't deal with this anymore... I don't even understand WHY!?
 
     networking.nameservers = ["9.9.9.11#dns11.quad9.net" "149.112.112.11#dns11.quad9.net" "2620:fe::11#dns11.quad9.net" "2620:fe::fe:11#dns11.quad9.net"]; # Malware blocking, DNSSEC Validation, ECS enabled
     #networking.nameservers = ["9.9.9.9#dns.quad9.net" "149.112.112.112#dns.quad9.net" "2620:fe::fe#dns.quad9.net" "2620:fe::9#dns.quad9.net"]; # Malware Blocking, DNSSEC Validation
@@ -84,28 +92,20 @@ in {
         "DNS" = "9.9.9.11 149.112.112.11"; # don't use GCP's link-local DNS
       };
     };
-
   
-    systemd.network.networks."40-${cfg.mainInt}" = { # merge in mDNS conf into already existing network file (instead of replacing it)
-      matchConfig.Name = cfg.mainInt;
-      networkConfig= {
-        MulticastDNS = true; # mDNS and DNS-SD 
-      };
-    };
-
-     networking.firewall.allowedUDPPorts = [
-       5353 # mdns
-     ];
-
+    networking.firewall.allowedUDPPorts = [
+      5353 # mdns
+    ];
 
     #networking.firewall.enable =  false;
     
-    #systemd.network.networks."40-br0" = { # allows networkd to configure bridge even without a carrier
-    #  name = "br0";
-    #  networkConfig = {
-    #    "ConfigureWithoutCarrier"= "yes";
-    #  };
-    #};
+    systemd.network.networks."40-${finalMainInt}" = { # allows networkd to configure bridge even without a carrier
+      name = finalMainInt;
+      networkConfig = {
+        "ConfigureWithoutCarrier"= "yes";
+        MulticastDNS = true; # mDNS and DNS-SD 
+      };
+    };
 
     #systemd.network.networks."10-zone" = {
     #  name = "vz-nat";
@@ -119,8 +119,7 @@ in {
     #};
 
 
-    #networking.bridges.br0.interfaces = [  ];
-    #networking.interfaces.br0.ipv4.addresses = [{ address = "10.42.0.1"; prefixLength = 24; }];
+    networking.bridges.br0 = mkIf cfg.bridged { interfaces = [ cfg.mainInt ] ++ cfg.extraBridgesInterfaces;};
     #boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
   };
 }
