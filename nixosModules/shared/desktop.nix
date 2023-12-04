@@ -178,14 +178,19 @@
     owner = "paulg";
   };
 
-  sops.secrets."DelPuppo.nmconnection" = {
+  sops.secrets."DelPuppo Guest.nmconnection" = {
     restartUnits = [ "NetworkManager.service" ];
-    path = "/etc/NetworkManager/system-connections/DelPuppo.nmconnection";
+    path = "/etc/NetworkManager/system-connections/DelPuppo Guest.nmconnection";
   };
 
   sops.secrets."DelPuppo Private.nmconnection" = {
     restartUnits = [ "NetworkManager.service" ];
     path = "/etc/NetworkManager/system-connections/DelPuppo Private.nmconnection";
+  };
+
+  sops.secrets."DelPuppo 5GHz.nmconnection" = {
+    restartUnits = [ "NetworkManager.service" ];
+    path = "/etc/NetworkManager/system-connections/DelPuppo 5GHz.nmconnection";
   };
 
   sops.secrets."Pixel 7 Pro.nmconnection" = {

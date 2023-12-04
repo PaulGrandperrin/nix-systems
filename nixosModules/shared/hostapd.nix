@@ -63,7 +63,7 @@
         vht_oper_centr_freq_seg0_idx = 42; # needed by wifi 5 80Mhz
       };
       networks.wlp1s0 = {
-        ssid = "DelPuppo Private";
+        ssid = "DelPuppo 5GHz";
         authentication = {
           mode = "wpa3-sae-transition"; # WPA2+3
           wpaPasswordFile = config.sops.secrets."hostapd-password".path; # WPA2 password
