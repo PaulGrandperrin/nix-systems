@@ -31,6 +31,8 @@ pkgs.stdenv.mkDerivation {
     chmod +w .config
 
     echo "CONFIG_ATH_USER_REGD=y" >> .config
+    echo "CONFIG_ATH_REG_DYNAMIC_USER_REG_HINTS=y" >> .config
+    echo "CONFIG_ATH_REG_DYNAMIC_USER_CERT_TESTING=y" >> .config
 
     cp $kernel_dev/vmlinux          .
 
