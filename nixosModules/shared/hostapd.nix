@@ -62,8 +62,9 @@
       networks.wlp1s0 = {
         ssid = "paulg";
         authentication = {
-          mode = "wpa3-sae";
-          saePasswords = [{password = "0123456789";}];
+          mode = "wpa3-sae-transition"; # WPA2+3
+          wpaPassword = "0123456789"; # WPA2 password
+          saePasswords = [{password = "0123456789";}]; # WPA3 password
           enableRecommendedPairwiseCiphers = false; # unsupported 
         };
       };
