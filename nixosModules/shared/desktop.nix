@@ -183,9 +183,14 @@
     path = "/etc/NetworkManager/system-connections/DelPuppo.nmconnection";
   };
 
-  sops.secrets."Pixel 6 Pro.nmconnection" = {
+  sops.secrets."DelPuppo Private.nmconnection" = {
     restartUnits = [ "NetworkManager.service" ];
-    path = "/etc/NetworkManager/system-connections/Pixel 6 Pro.nmconnection";
+    path = "/etc/NetworkManager/system-connections/DelPuppo Private.nmconnection";
+  };
+
+  sops.secrets."Pixel 7 Pro.nmconnection" = {
+    restartUnits = [ "NetworkManager.service" ];
+    path = "/etc/NetworkManager/system-connections/Pixel 7 Pro.nmconnection";
   };
 
   sops.secrets."Eero.nmconnection" = {
