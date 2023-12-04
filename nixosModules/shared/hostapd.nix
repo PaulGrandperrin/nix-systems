@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{pkgs, config, ...}: {
   #networking.wireless = {
   #  enable = true;
   #  userControlled.enable = true;
@@ -14,6 +14,9 @@
   #  linkConfig.ActivationPolicy = "manual";
   #};
 
+  sops.secrets."hostapd-password" = {
+    restartUnits = [ "hostapd.service" ];
+  };
 
   services.hostapd = {
     enable = true;
@@ -60,11 +63,11 @@
         vht_oper_centr_freq_seg0_idx = 42; # needed by wifi 5 80Mhz
       };
       networks.wlp1s0 = {
-        ssid = "paulg";
+        ssid = "Grandperrin";
         authentication = {
           mode = "wpa3-sae-transition"; # WPA2+3
-          wpaPassword = "0123456789"; # WPA2 password
-          saePasswords = [{password = "0123456789";}]; # WPA3 password
+          wpaPasswordFile = config.sops.secrets."hostapd-password".path; # WPA2 password
+          saePasswordsFile = config.sops.secrets."hostapd-password".path; # WPA3 password
           enableRecommendedPairwiseCiphers = false; # unsupported 
         };
       };
