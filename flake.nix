@@ -4,7 +4,7 @@
 
   nixConfig = {
     extra-substituters = [
-      "http://nixos-nas.wg:5000"
+      #"http://nixos-nas.wg:5000"
       "https://nix-community.cachix.org"
       "https://cache.nixos.org"
       "https://devenv.cachix.org"
