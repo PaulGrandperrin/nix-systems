@@ -122,7 +122,7 @@
     "org/gnome/shell/extensions/dash-to-dock" = {
       multi-monitor = true;
     };
-    "/org/gnome/desktop/wm/preferences" = {
+    "org/gnome/desktop/wm/preferences" = {
       focus-mode = "sloppy"; # focus on hover
     };
   };
