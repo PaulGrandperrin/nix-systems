@@ -1,8 +1,5 @@
 {pkgs, config, ...}: {
-  #networking.wireless = {
-  #  enable = true;
-  #  userControlled.enable = true;
-  #};
+  environment.systemPackages = [ pkgs.iw ];
 
   services.net = {
     bridged = true;
