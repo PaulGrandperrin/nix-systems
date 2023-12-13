@@ -15,6 +15,8 @@
     restartUnits = [ "hostapd.service" ];
   };
 
+  # networking.wireless.athUserRegulatoryDomain = true;
+
   services.hostapd = {
     enable = true;
     radios."wlp1s0" = {
