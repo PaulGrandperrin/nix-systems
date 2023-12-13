@@ -10,7 +10,7 @@
       #gnomeExtensions.pixel-saver # incomp
       #gnomeExtensions.floating-dock # incomp
       gnomeExtensions.emoji-selector
-      gnomeExtensions.clipboard-indicator
+      gnomeExtensions.pano #gnomeExtensions.clipboard-indicator
       #gnomeExtensions.drop-down-terminal # incomp
       #gnomeExtensions.ddterm
       #gnomeExtensions.coverflow-alt-tab
