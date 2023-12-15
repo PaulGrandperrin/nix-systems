@@ -4,6 +4,10 @@
     videoDrivers = ["nvidia" ];
   };
 
+  environment.systemPackages = with pkgs; [
+    nvtop-nvidia
+  ];
+
   hardware.nvidia = {
     #package = config.boot.kernelPackages.nvidiaPackages.beta;
     powerManagement = {
