@@ -136,7 +136,5 @@
     };
   };
 
-  programs.firefox.enableGnomeExtensions = true;
-
 }
 
