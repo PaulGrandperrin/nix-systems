@@ -12,6 +12,7 @@ args @ {pkgs, inputs, lib, config, is_nixos, ...}: lib.mkIf (config.home.usernam
           inherit (pkgs.gnome) adwaita-icon-theme;
           channel = "release";
           generated = import ( path + "/pkgs/applications/networking/browsers/firefox-bin/release_sources.nix");
+          autoPatchelfHook = pkgs.unstable.autoPatchelfHook;
         };
         firefox-bin = pkgs.wrapFirefox firefox-bin-unwrapped { # taken from pkgs/top-level/all-packages.nix
           applicationName = "firefox";
