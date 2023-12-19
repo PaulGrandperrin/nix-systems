@@ -122,13 +122,8 @@
         flake-parts.follows = "flake-parts";
         devshell.follows = "devshell";
         hyprland.follows = ""; # we don't use it
-        naersk.follows = "naersk";
+        #crane.follows = "crane";
       };
-    };
-
-    naersk = {
-      url = "github:nmattia/naersk";
-      inputs.nixpkgs.follows = "nixos-stable-lib";
     };
 
     flake-utils = {
