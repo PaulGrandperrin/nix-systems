@@ -327,6 +327,8 @@
    #"vm.dirty_ratio" = 40; # default 20, maximum ratio, block process when reached
   };
 
+  boot.tmp.cleanOnBoot = true;
+
   services.irqbalance.enable = true;
 
   #programs.sysdig.enable = lib.mkIf (pkgs.stdenv.hostPlatform.system == "x86_64-linux") true;
