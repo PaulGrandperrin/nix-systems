@@ -31,6 +31,7 @@
       libreoffice
       helvum
       popcorntime
+      swappy
 
       #gnome.gnome-boxes libvirt # doesn't work, but flatpak version does
 
