@@ -41,6 +41,7 @@
       sops
       ssh-to-age
       grex
+      yt-dlp
 
       # dev
       gdb
