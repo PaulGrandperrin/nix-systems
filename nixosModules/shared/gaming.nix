@@ -19,6 +19,9 @@
     protonup-ng
     lutris
     stockfish
+    dolphin-emu
+    pcsx2
+    yuzu
 
     # gnomeExtensions.gamemode # not anymore in 23.11
   ];
