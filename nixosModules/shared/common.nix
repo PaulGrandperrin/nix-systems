@@ -358,6 +358,7 @@
       "wheel"
       "networkmanager" # no need for password
       "audio" # used by JACK for realtime, otherwise not needed on systemd
+      "input" # manage controllers
       #"kvm" # access to /dev/kvm but doesn't seem to be needed. thanks to uaccess? 
       # "libvirtd" # doesn't seem to be necessary
     ];
