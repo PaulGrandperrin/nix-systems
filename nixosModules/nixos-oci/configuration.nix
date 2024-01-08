@@ -9,6 +9,7 @@
     ../shared/wg-mounts.nix
     ../shared/auto-upgrade.nix
     ../shared/headless.nix
+    ../shared/yuzu.nix
   ];
 
   home-manager.users = let 
