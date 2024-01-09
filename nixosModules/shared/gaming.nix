@@ -21,7 +21,7 @@
     stockfish
     dolphin-emu
     pcsx2
-    yuzu
+    unstable.yuzu
 
     # gnomeExtensions.gamemode # not anymore in 23.11
   ];
