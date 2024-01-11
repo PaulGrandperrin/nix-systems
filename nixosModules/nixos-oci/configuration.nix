@@ -69,6 +69,10 @@
 
   boot.kernelParams = [ "net.ifnames=0" ]; # so that network is always eth0
 
+  services.yuzu = {
+    enable = true;
+  };
+
   services.net = {
     enable = true;
     mainInt = "eth0";

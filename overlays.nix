@@ -32,12 +32,18 @@ inputs: rec {
       ];
     });
   });
+  my-yuzu = (final: prev: {
+    my-yuzu = (prev.callPackage (final.unstable.path + "/pkgs/applications/emulators/yuzu") {}).mainline.overrideAttrs (_: {
+      meta.platforms = prev.lib.platforms.linux;
+    });
+  });
   default = inputs.nixos-stable.lib.composeManyExtensions [
     all-channels
     local-packages
     rclonefs
     devenv
     #hostapd
+    my-yuzu
 
     inputs.nur.overlay
     inputs.rust-overlay.overlays.default
