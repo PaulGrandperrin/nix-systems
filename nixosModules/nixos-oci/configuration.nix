@@ -69,8 +69,19 @@
 
   boot.kernelParams = [ "net.ifnames=0" ]; # so that network is always eth0
 
+  sops.secrets."yuzu-multiplayer" = {
+    restartUnits = [ "yuzu-multiplayer.service" ];
+  };
+
   services.yuzu = {
     enable = true;
+    package = pkgs.my-yuzu;
+    openFirewall = true;
+    secretsFile = config.sops.secrets."yuzu-multiplayer".path;
+    settings = {
+      roomName = "A la Bonne Auberge";
+      preferredGame = "Candy Crush";
+    };
   };
 
   services.net = {
