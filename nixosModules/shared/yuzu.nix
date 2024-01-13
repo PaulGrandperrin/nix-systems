@@ -152,6 +152,7 @@ in {
       serviceConfig = {
         Restart = "always";
         DynamicUser = true;
+        EnvironmentFile = mkIf (! isNull cfg.secretsFile) cfg.secretsFile;
         ExecStart = let
           # if the option is set, create a line that sets a default value to its corresponding environment vriable. At runtime, this env var might already be set by `secretsFile`
           f = o: ev: lib.optional (! isNull cfg.settings.${o}) ": \${${ev}:=\"${toString cfg.settings.${o}}\"}";
@@ -169,8 +170,6 @@ in {
             ++ f "enableYuzuMods"  "ENABLE_YUZU_MODS"
         ;
         in pkgs.writeShellScript "exec-script" ''
-
-          ${if (! isNull cfg.secretsFile) then "source \"${cfg.secretsFile}\"" else ""}
 
           ${lib.concatStringsSep "\n" options_as_env_vars}
 
