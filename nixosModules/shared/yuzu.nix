@@ -146,25 +146,29 @@ in {
       serviceConfig = {
         Restart = "always";
         DynamicUser = true;
-        EnvironmentFile = mkIf (! isNull cfg.secretsFile) cfg.secretsFile; # values defined in EnvironmentFile override values from Environment
-        Environment = let
-          f = o: ev: lib.optional (! isNull cfg.settings.${o}) ''"${ev}=${toString cfg.settings.${o}}"''; # set the environment variable when a non-null value is set
-        in []
-          ++ f "roomName"        "ROOM_NAME"
-          ++ f "roomDescription" "ROOM_DESCRIPTION"
-          ++ f "bindAddress"     "BIND_ADDRESS"
-          ++ f "port"            "PORT"
-          ++ f "maxMembers"      "MAX_MEMBERS"
-          ++ f "password"        "PASSWORD"
-          ++ f "preferredGame"   "PREFERRED_GAME"
-          ++ f "preferredGameId" "PREFERRED_GAME_ID"
-          ++ f "token"           "token"
-          ++ f "webApiUrl"       "WEB_API_URL"
-          ++ f "enableYuzuMods"  "ENABLE_YUZU_MODS"
+        ExecStart = let
+          # if the option is set, create a line that sets a default value to its corresponding environment vriable. At runtime, this env var might already be set by `secretsFile`
+          f = o: ev: lib.optional (! isNull cfg.settings.${o}) "\"\${${ev}:=${toString cfg.settings.${o}}}\"";
+          options_as_env_vars = []
+            ++ f "roomName"        "ROOM_NAME"
+            ++ f "roomDescription" "ROOM_DESCRIPTION"
+            ++ f "bindAddress"     "BIND_ADDRESS"
+            ++ f "port"            "PORT"
+            ++ f "maxMembers"      "MAX_MEMBERS"
+            ++ f "password"        "PASSWORD"
+            ++ f "preferredGame"   "PREFERRED_GAME"
+            ++ f "preferredGameId" "PREFERRED_GAME_ID"
+            ++ f "token"           "token"
+            ++ f "webApiUrl"       "WEB_API_URL"
+            ++ f "enableYuzuMods"  "ENABLE_YUZU_MODS"
         ;
-        ExecStart = pkgs.writeShellScript "exec-script" ''
-          ARGS=()
+        in pkgs.writeShellScript "exec-script" ''
 
+          ${if (! isNull cfg.secretsFile) then "source \"${cfg.secretsFile}\"" else ""}
+
+          ${lib.concatStringsSep "\n" options_as_env_vars}
+
+          ARGS=()
           [[ -n $ROOM_NAME ]]         && ARGS+=("--room-name=$ROOM_NAME")
           [[ -n $ROOM_DESCRIPTION ]]  && ARGS+=("--room-description=$ROOM_DESCRIPTION")
           [[ -n $BIND_ADDRESS ]]      && ARGS+=("--bind-address=$BIND_ADDRESS")
