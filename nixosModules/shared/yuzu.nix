@@ -104,7 +104,7 @@ in {
           type = types.nullOr types.str;
           default = null;
           description = mdDoc ''
-            The preferred game-id for this room. Required.
+            The preferred game-id for this room.
           '';
         };
 
@@ -136,6 +136,12 @@ in {
     };
   };
   config = mkIf cfg.enable {
+    assertions = [
+      { assertion = !(isNull cfg.settings.roomName || isNull cfg.settings.preferredGame);
+        message = "'services.yuzu.settings.roomName' and 'services.yuzu.settings.preferredGame' are required";
+      }
+    ];
+
     networking.firewall.allowedUDPPorts = optional cfg.openFirewall cfg.settings.port;
 
     systemd.services.yuzu-multiplayer = {
@@ -148,7 +154,7 @@ in {
         DynamicUser = true;
         ExecStart = let
           # if the option is set, create a line that sets a default value to its corresponding environment vriable. At runtime, this env var might already be set by `secretsFile`
-          f = o: ev: lib.optional (! isNull cfg.settings.${o}) "\"\${${ev}:=${toString cfg.settings.${o}}}\"";
+          f = o: ev: lib.optional (! isNull cfg.settings.${o}) ": \${${ev}:=\"${toString cfg.settings.${o}}\"}";
           options_as_env_vars = []
             ++ f "roomName"        "ROOM_NAME"
             ++ f "roomDescription" "ROOM_DESCRIPTION"
@@ -158,7 +164,7 @@ in {
             ++ f "password"        "PASSWORD"
             ++ f "preferredGame"   "PREFERRED_GAME"
             ++ f "preferredGameId" "PREFERRED_GAME_ID"
-            ++ f "token"           "token"
+            ++ f "token"           "TOKEN"
             ++ f "webApiUrl"       "WEB_API_URL"
             ++ f "enableYuzuMods"  "ENABLE_YUZU_MODS"
         ;
