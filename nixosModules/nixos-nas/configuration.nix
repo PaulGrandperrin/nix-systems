@@ -254,6 +254,21 @@
     111 4100 4101 4102 20048 # nfs v3
   ];
 
+  sops.secrets."yuzu-multiplayer" = {
+    restartUnits = [ "yuzu-multiplayer.service" ];
+  };
+
+  services.yuzu = {
+    enable = true;
+    package = pkgs.my-yuzu;
+    openFirewall = true;
+    secretsFile = config.sops.secrets."yuzu-multiplayer".path;
+    settings = {
+      roomName = "A la Bonne Auberge de Grenoble";
+      preferredGame = "SSX";
+    };
+  };
+
   services.samba-wsdd.enable = true; # make shares visible for windows 10 clients
 
   services.samba = {

@@ -79,7 +79,7 @@
     openFirewall = true;
     secretsFile = config.sops.secrets."yuzu-multiplayer".path;
     settings = {
-      roomName = "A la Bonne Auberge";
+      roomName = "A la Bonne Auberge de Paris";
       preferredGame = "Candy Crush";
     };
   };
