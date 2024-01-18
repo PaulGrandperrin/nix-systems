@@ -3,7 +3,7 @@
     ./hardware-configuration.nix
     ./disk-config.nix
     ../shared/common.nix
-    ../shared/zfs.nix
+    ../shared/bcachefs.nix
     #../shared/net.nix
   ];
 
