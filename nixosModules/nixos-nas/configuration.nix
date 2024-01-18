@@ -2,6 +2,7 @@
   imports = [
     ./hardware-configuration.nix
     ../shared/common.nix
+    ../shared/zfs.nix
     ../shared/nspawns.nix
     ../shared/net.nix
     ../shared/web.nix

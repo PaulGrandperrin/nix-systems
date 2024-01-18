@@ -3,6 +3,7 @@
     ./hardware-configuration.nix
     ./disk-config.nix
     ../shared/common.nix
+    ../shared/zfs.nix
     ../shared/net.nix
     ../shared/auto-upgrade.nix
     ../shared/headless.nix

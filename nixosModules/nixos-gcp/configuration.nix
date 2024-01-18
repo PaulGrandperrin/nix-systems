@@ -4,6 +4,7 @@
     #../shared/auto-upgrade.nix # 1G of memory is not enough to evaluate the system's derivation, even with zram...
     ../shared/google-compute-config.nix
     ../shared/common.nix
+    ../shared/zfs.nix
     ../shared/net.nix
     ../shared/wireguard.nix
     ../shared/wg-mounts.nix
