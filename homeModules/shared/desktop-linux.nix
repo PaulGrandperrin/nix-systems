@@ -124,7 +124,7 @@
         };
       in
       vscode-wayland(ps: with ps; [
-        rnix-lsp
+        nixd
         bintools
         # jdk17_headless rustup # for Prusti
       ]); # vscodium version can't use synchronization. FHS version works better with internet's extensions
