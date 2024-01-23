@@ -2,38 +2,8 @@ args @ {pkgs, inputs, lib, config, is_nixos, ...}: lib.mkIf (config.home.usernam
   programs = {
     firefox = {
       enable = true;
-      package = let 
-
-        # build firefox-bin version from nixos-unstable but with current dependencies
-        path = inputs.nixos-unstable.outPath;
-        firefox-bin-unwrapped = pkgs.callPackage ( # taken from pkgs/top-level/all-packages.nix
-          path + "/pkgs/applications/networking/browsers/firefox-bin"
-        ) {
-          inherit (pkgs.gnome) adwaita-icon-theme;
-          channel = "release";
-          generated = import ( path + "/pkgs/applications/networking/browsers/firefox-bin/release_sources.nix");
-          autoPatchelfHook = pkgs.unstable.autoPatchelfHook;
-        };
-        firefox-bin = pkgs.wrapFirefox firefox-bin-unwrapped { # taken from pkgs/top-level/all-packages.nix
-          applicationName = "firefox";
-          pname = "firefox-bin";
-          desktopName = "Firefox";
-        };
-
-        # wrap it to run with Wayland
-        firefox-bin-wayland = (pkgs.symlinkJoin {
-          name = "firefox-bin-wayland";
-          paths = [ firefox-bin ];
-          buildInputs = [ pkgs.makeWrapper ];
-          postBuild = ''
-            wrapProgram $out/bin/firefox \
-              --set-default "MOZ_ENABLE_WAYLAND" "1" \
-              --set-default "MOZ_USE_XINPUT2" "1"
-          '';
-        });
-      in
-      pkgs.emptyDirectory // { override = _: # ugly trick to make things work in HM
-        if (args ? nixosConfig) then firefox-bin-wayland else pkgs.emptyDirectory; # trick to allow using HM config without installing nix version of Firefox
+      package = pkgs.emptyDirectory // { override = _: # ugly trick to make things work in HM
+        if (args ? nixosConfig) then pkgs.firefox-bin else pkgs.emptyDirectory; # trick to allow using HM config without installing nix version of Firefox
       };
 
       profiles."paulgrandperrin@gmail.com" = {

@@ -11,4 +11,4 @@ in lib.genAttrs
       };
     in
       (import ./packages pkgs)
-)
+  )
