@@ -193,6 +193,13 @@
         flake-utils.follows = "flake-utils";
       };
     };
+
+    nix-cluster = {
+      url = "/home/paulg/Repos/nix-cluster";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
   };
 
   outputs = inputs: {
