@@ -226,6 +226,24 @@
 
         --c.color_scheme = 'Catppuccin Mocha'
         c.color_scheme = 'Darkside'
+
+        # Fix for disapeearing cursor
+        # adapted from https://github.com/wez/wezterm/issues/1742#issuecomment-1075333507
+        local xcursor_size = nil
+        local xcursor_theme = nil
+        
+        local success, stdout, stderr = wezterm.run_child_process({"gsettings", "get", "org.gnome.desktop.interface", "cursor-theme"})
+        if success then
+          xcursor_theme = stdout:gsub("'(.+)'\n", "%1")
+        end
+        
+        local success, stdout, stderr = wezterm.run_child_process({"gsettings", "get", "org.gnome.desktop.interface", "cursor-size"})
+        if success then
+          xcursor_size = tonumber(stdout)
+        end
+
+        c.xcursor_theme = xcursor_theme
+        c.xcursor_size = xcursor_size
         
         return c
       '';
