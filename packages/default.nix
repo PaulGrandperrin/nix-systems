@@ -10,6 +10,7 @@ pkgs: {
   kernel-module-ath-patched = pkgs.callPackage ./kernel-module-ath-patched.nix {};
 
   firefox-bin = pkgs.callPackage ./firefox-bin {};
+  zed-editor = pkgs.callPackage ./zed-editor/package.nix {};
 
   #iso = inputs.nixos-generators.nixosGenerate {
   #  pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
