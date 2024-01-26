@@ -11,7 +11,7 @@
     ../shared/nvidia.nix
     ../shared/gaming.nix
     inputs.lanzaboote.nixosModules.lanzaboote
-    #inputs.nix-cluster.nixosModules.nix-cluster
+    inputs.nix-cluster.nixosModules.nix-cluster
   ];
 
   home-manager.users = let 
@@ -33,7 +33,7 @@
     paulg = homeModule;
   };
 
-  services.nix-cluster.server.enable = true;
+  #services.nixCluster.server.enable = true;
 
   fileSystems."/" = {
     device = "ssd/encrypted/nixos";

@@ -68,11 +68,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1705625727,
-        "narHash": "sha256-naMq6+TNLpEiBBjc0XaCbMLYJxJXWTZz4JGSpYGgIOM=",
+        "lastModified": 1705974079,
+        "narHash": "sha256-HyC3C2esW57j6bG0MKwX4kQi25ltslRnr6z2uvpadJo=",
         "owner": "ipetkov",
         "repo": "crane",
-        "rev": "8f515142e805dc377cf8edb0ff75d14a11307f89",
+        "rev": "0b4e511fe6e346381e31d355e03de52aa43e8cb2",
         "type": "github"
       },
       "original": {
@@ -170,11 +170,11 @@
         "pre-commit-hooks": "pre-commit-hooks"
       },
       "locked": {
-        "lastModified": 1702239828,
-        "narHash": "sha256-H+z5LY1XslLLIlsh0pirHmveD7Eh6QQUT96VNSRJW9w=",
+        "lastModified": 1706018268,
+        "narHash": "sha256-d24+re0t8b6HYGzAPZCIJed85n23RUFXQa2yuHoW0uQ=",
         "owner": "cachix",
         "repo": "devenv",
-        "rev": "895e8403410c3ec14d1e8cae94e88b4e7e2e8c2f",
+        "rev": "ad0ae333b210e31237e1fc4a7ddab71a01785add",
         "type": "github"
       },
       "original": {
@@ -622,10 +622,10 @@
         ]
       },
       "locked": {
-        "dirtyRev": "2b90fc6fb58db18d8982103564f4bcd6b05f9a20-dirty",
-        "dirtyShortRev": "2b90fc6-dirty",
-        "lastModified": 1705935972,
-        "narHash": "sha256-fbjl/uV9d4nW7Yv6TJjN/0ZM+CV4QvML85jBvZoOx/w=",
+        "dirtyRev": "3fcaf76538aa100481efd332cd81fc5b3292da8a-dirty",
+        "dirtyShortRev": "3fcaf76-dirty",
+        "lastModified": 1706268953,
+        "narHash": "sha256-ctFpFh++BpcO80/akiH1A6F7aU+TXJeDsgu9kGaGDDE=",
         "type": "git",
         "url": "file:///home/paulg/Repos/nix-cluster"
       },
@@ -1096,11 +1096,11 @@
         "nixpkgs-stable": "nixpkgs-stable"
       },
       "locked": {
-        "lastModified": 1688056373,
-        "narHash": "sha256-2+SDlNRTKsgo3LBRiMUcoEUb6sDViRNQhzJquZ4koOI=",
+        "lastModified": 1704725188,
+        "narHash": "sha256-qq8NbkhRZF1vVYQFt1s8Mbgo8knj+83+QlL5LBnYGpI=",
         "owner": "cachix",
         "repo": "pre-commit-hooks.nix",
-        "rev": "5843cf069272d92b60c3ed9e55b7a8989c01d4c7",
+        "rev": "ea96f0c05924341c551a797aaba8126334c505d2",
         "type": "github"
       },
       "original": {

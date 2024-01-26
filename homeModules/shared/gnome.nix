@@ -77,7 +77,7 @@
     "org/gnome/shell" = {
       favorite-apps = [
         "firefox.desktop"
-        "terminator.desktop"
+        "org.wezfurlong.wezterm.desktop"
         "org.gnome.Nautilus.desktop"
         "code.desktop"
         "signal-desktop.desktop"

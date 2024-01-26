@@ -227,8 +227,8 @@
         --c.color_scheme = 'Catppuccin Mocha'
         c.color_scheme = 'Darkside'
 
-        # Fix for disapeearing cursor
-        # adapted from https://github.com/wez/wezterm/issues/1742#issuecomment-1075333507
+        -- Fix for disapeearing cursor
+        -- adapted from https://github.com/wez/wezterm/issues/1742#issuecomment-1075333507
         local xcursor_size = nil
         local xcursor_theme = nil
         
