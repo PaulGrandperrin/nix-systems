@@ -33,7 +33,7 @@
     paulg = homeModule;
   };
 
-  #services.nix-cluster.server.enable = true;
+  services.nix-cluster.server.enable = true;
 
   fileSystems."/" = {
     device = "ssd/encrypted/nixos";
