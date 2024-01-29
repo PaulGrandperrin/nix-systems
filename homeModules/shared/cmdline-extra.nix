@@ -226,6 +226,7 @@
 
         --c.color_scheme = 'Catppuccin Mocha'
         c.color_scheme = 'Darkside'
+        c.font_size = 14.0
 
         -- Fix for disapeearing cursor
         -- adapted from https://github.com/wez/wezterm/issues/1742#issuecomment-1075333507
