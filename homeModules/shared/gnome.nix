@@ -10,7 +10,7 @@
       #gnomeExtensions.pixel-saver # incomp
       #gnomeExtensions.floating-dock # incomp
       gnomeExtensions.emoji-selector
-      gnomeExtensions.pano #gnomeExtensions.clipboard-indicator
+      gnomeExtensions.clipboard-indicator #gnomeExtensions.pano
       #gnomeExtensions.drop-down-terminal # incomp
       #gnomeExtensions.ddterm
       #gnomeExtensions.coverflow-alt-tab
@@ -76,11 +76,13 @@
     };
     "org/gnome/shell" = {
       favorite-apps = [
+        "org.gnome.Nautilus.desktop"
         "firefox.desktop"
         "org.wezfurlong.wezterm.desktop"
-        "org.gnome.Nautilus.desktop"
         "code.desktop"
         "signal-desktop.desktop"
+        "discord.desktop"
+        "gnome-calculator.desktop"
       ];
       enabled-extensions = (map (extension: extension.extensionUuid) (builtins.filter (x: x ? extensionUuid) config.home.packages)) ++ [
         "apps-menu@gnome-shell-extensions.gcampax.github.com"

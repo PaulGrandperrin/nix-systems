@@ -30,7 +30,7 @@ args @ {pkgs, inputs, lib, config, is_nixos, ...}: lib.mkIf (config.home.usernam
           stylus
           terms-of-service-didnt-read
           #translate-web-pages
-          tree-style-tab
+          #tree-style-tab # fails
           ublock-origin
           unpaywall
           videospeed

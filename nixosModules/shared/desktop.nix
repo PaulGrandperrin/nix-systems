@@ -26,13 +26,15 @@
   #  })
   #];
 
+  boot.consoleLogLevel = 3;
   boot.kernelParams = [
     "quiet"
-    #"loglevel=3"
-    #"rd.udev.log_level=3"
-    #"systemd.show_status=auto"
-    #"vga=current"
-    #"vt.global_cursor_default=0" 
+    "vga=current" # might help to get a silent boot
+    #"console=tty12" # don't show kernel text
+    #"rd.udev.log_level=3" # disable systemd printing its version number
+    #"systemd.show_status=auto" # only show errors
+    #"systemd.loglevel=0"
+    #"vt.global_cursor_default=0" # remove console cursor blinking
     #"fbcon.nodefer" # don't use vendor logo
   ];
   boot.plymouth.enable = true;
