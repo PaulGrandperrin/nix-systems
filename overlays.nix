@@ -33,7 +33,10 @@ inputs: rec {
     });
   });
   my-yuzu = (final: prev: {
-    my-yuzu = (prev.callPackage (final.unstable.path + "/pkgs/applications/emulators/yuzu") {}).mainline.overrideAttrs (_: {
+    #my-yuzu = (prev.callPackage (final.unstable.path + "/pkgs/applications/emulators/yuzu") {}).mainline.overrideAttrs (_: {
+    #  meta.platforms = prev.lib.platforms.linux;
+    #});
+    my-yuzu = final.unstable.yuzuPackages.mainline.overrideAttrs (_: {
       meta.platforms = prev.lib.platforms.linux;
     });
   });
