@@ -195,7 +195,7 @@
     };
 
     nix-cluster = {
-      url = "/home/paulg/Repos/nix-cluster";
+      url = "git+ssh://git@github.com/PaulGrandperrin/nix-cluster.git";
       inputs = {
         nixpkgs.follows = "nixpkgs";
       };

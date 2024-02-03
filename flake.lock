@@ -622,16 +622,17 @@
         ]
       },
       "locked": {
-        "dirtyRev": "f6daf369839b0a0a74d6d0077c7a910c485b6a37-dirty",
-        "dirtyShortRev": "f6daf36-dirty",
         "lastModified": 1706370816,
-        "narHash": "sha256-nh4/yzOfJauhIifFG8rhOJBxvebSKqXwvDDZo1LYojA=",
+        "narHash": "sha256-6u/ekLiYYZ7X3/7mGFGVMjaJ+KLjJMd8upmJ7/5KKGo=",
+        "ref": "refs/heads/main",
+        "rev": "f6daf369839b0a0a74d6d0077c7a910c485b6a37",
+        "revCount": 37,
         "type": "git",
-        "url": "file:///home/paulg/Repos/nix-cluster"
+        "url": "ssh://git@github.com/PaulGrandperrin/nix-cluster.git"
       },
       "original": {
         "type": "git",
-        "url": "file:///home/paulg/Repos/nix-cluster"
+        "url": "ssh://git@github.com/PaulGrandperrin/nix-cluster.git"
       }
     },
     "nix-darwin": {
