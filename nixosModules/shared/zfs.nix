@@ -3,7 +3,12 @@
   boot.zfs.devNodes = "/dev/disk/by-path"; # /dev/disk/by-id doesn't get populated with virtio disks. see https://github.com/NixOS/nixpkgs/pull/263662
 
   #boot.kernelPackages = pkgs.linuxPackages_latest; # breakes ZFS sometimes # nix eval --raw n#linuxPackages.kernel.version
-  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages; # nix eval --raw n#zfs.latestCompatibleLinuxPackages.kernel.version
+  boot.kernelPackages = (pkgs.zfs.override { # nix eval --raw n#zfs.latestCompatibleLinuxPackages.kernel.version
+    removeLinuxDRM = pkgs.hostPlatform.isAarch64;
+  }).latestCompatibleLinuxPackages;
+
+  boot.zfs.removeLinuxDRM = true; # mandatory for ZFS on aarch64
+
   # boot.forceImportRoot = false; 
 
   # NOTE: not needed, just keeping for futur inspiration
