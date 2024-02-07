@@ -39,6 +39,7 @@
   ];
   boot.plymouth.enable = true;
   boot.plymouth.theme = "spinner";
+  boot.loader.timeout = 0; # hides menu but can be shown by pressing and hilding key at boot
 
   time.timeZone = lib.mkForce null; # allow TZ to be set by desktop user
 
