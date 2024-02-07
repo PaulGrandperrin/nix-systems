@@ -60,7 +60,8 @@
       killall # psmisc, toybox?
       hostname
       neofetch
-      duf gdu dua du-dust # ncdu dutree pdu
+      gdu dua du-dust # ncdu dutree pdu # du alternatives
+      duf lfs # df alternatives
       choose
       dogdns
       wakelan
