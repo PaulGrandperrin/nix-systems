@@ -25,6 +25,7 @@
       #yazi # broken # ranger
 
       # tools
+      jujutsu # git alternative
       parallel
       jq yq fq
       hyperfine
