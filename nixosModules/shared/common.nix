@@ -77,6 +77,10 @@
   
   security = {
     sudo = {
+      #enable = true;
+      execWheelOnly = true;
+    };
+    sudo-rs = {
       enable = true;
       execWheelOnly = true;
     };

@@ -6,6 +6,7 @@
 
   # don't waste time typing password when the user rights already make it possible to read my password manager's memory
   security.sudo.wheelNeedsPassword = false;
+  security.sudo-rs.wheelNeedsPassword = false;
   security.please.wheelNeedsPassword = false;
   nix.settings.trusted-users = ["@wheel"];
 

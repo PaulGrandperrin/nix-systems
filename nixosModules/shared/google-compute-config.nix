@@ -75,6 +75,9 @@ with lib;
   security.sudo.extraRules = mkIf config.users.mutableUsers [
     { groups = [ "google-sudoers" ]; commands = [ { command = "ALL"; options = [ "NOPASSWD" ]; } ]; }
   ];
+  security.sudo-rs.extraRules = mkIf config.users.mutableUsers [
+    { groups = [ "google-sudoers" ]; commands = [ { command = "ALL"; options = [ "NOPASSWD" ]; } ]; }
+  ];
 
   users.groups.google-sudoers = mkIf config.users.mutableUsers { };
 
