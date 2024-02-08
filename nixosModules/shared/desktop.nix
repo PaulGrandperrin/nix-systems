@@ -27,7 +27,7 @@
   #  })
   #];
 
-  boot.consoleLogLevel = 3;
+  boot.consoleLogLevel = 2;
   boot.kernelParams = [
     "quiet"
     "vga=current" # might help to get a silent boot
