@@ -87,6 +87,8 @@
     please = {
       enable = true;
     };
+
+    wrappers.su.source = lib.mkForce "${pkgs.sudo-rs}/bin/su";
   };
 
   hardware.enableAllFirmware = true;
