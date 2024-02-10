@@ -17,6 +17,7 @@
   home-manager.users.paulg.home.packages = with pkgs; [
     # gaming
     protonup-ng
+    protontricks
     lutris
     stockfish
     dolphin-emu
