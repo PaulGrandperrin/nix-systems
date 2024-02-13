@@ -205,6 +205,7 @@
     kitty.enable = true;
     wezterm = {
       enable = true;
+      package = pkgs.unstable.wezterm;
       extraConfig = ''
         local wezterm = require("wezterm")
         
