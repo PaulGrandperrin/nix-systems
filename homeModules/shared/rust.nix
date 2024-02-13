@@ -42,14 +42,16 @@ in {
   home = {
     packages = with pkgs; [
     my-rust
+    tokio-console
     #my-rust-analyzer
     ];
 
     file.".cargo/config.toml" = lib.mkIf pkgs.stdenv.isLinux {
       text = ''
-        [target.x86_64-unknown-linux-gnu]
-        linker = "${pkgs.clang_16}/bin/clang"
+        [build]
         rustflags = ["-C", "link-arg=--ld-path=${pkgs.mold}/bin/mold"]
+        [target.x86_64-unknown-linux-gnu]
+        linker = "${pkgs.clang_17}/bin/clang"
       '';
     };
   };
