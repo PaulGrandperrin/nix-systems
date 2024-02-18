@@ -212,7 +212,7 @@ args @ {pkgs, lib, ...}: {
       update-hardware-conf = "nixos-generate-config --show-hardware-config --no-filesystems > /etc/nixos/nixosModules/$(hostname)/hardware-configuration.nix && git -C /etc/nixos/ commit /etc/nixos/nixosModules/$(hostname)/hardware-configuration.nix -m \"$(hostname): update hardware-configuration.nix\"";
       nixos-update-flake = "pushd /etc/nixos && nix flake update && git commit -m \"nix flake update\" flake.lock && git push && popd";
       nixos-test = "nixos-rebuild test --flake /etc/nixos/#$(hostname)-lean -L";
-      clean-gcroots = "find -L /nix/var/nix/gcroots/per-user/$USER -maxdepth 1 -type l -delete";
+      nix-prune-gcroots = "find -L /nix/var/nix/gcroots/auto/ -maxdepth 1 -xtype l -exec rm -v {} \\;";
     };
     plugins = with pkgs.fishPlugins; [
 
