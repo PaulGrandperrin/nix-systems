@@ -213,6 +213,7 @@ args @ {pkgs, lib, ...}: {
       nixos-update-flake = "pushd /etc/nixos && nix flake update && git commit -m \"nix flake update\" flake.lock && git push && popd";
       nixos-test = "nixos-rebuild test --flake /etc/nixos/#$(hostname)-lean -L";
       nix-prune-gcroots = "find -L /nix/var/nix/gcroots/auto/ -maxdepth 1 -xtype l -exec rm -v {} \\;";
+      zfs-auto-snap-prune = "zfs list -t all|rg '@zfs-auto-snap'|cut -d' ' -f1|xargs -n1 -pr zfs destroy -v";
     };
     plugins = with pkgs.fishPlugins; [
 
