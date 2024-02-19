@@ -29,8 +29,9 @@
     nixos-stable-lib.url       = "github:NixOS/nixpkgs/nixos-23.11?dir=lib"; # "github:nix-community/nixpkgs.lib" doesn't work
     nixos-stable-small.url     = "github:NixOS/nixpkgs/nixos-23.11-small";
     darwin-stable.url          = "github:NixOS/nixpkgs/nixpkgs-23.11-darwin";
-    darwin-unstable.url       = "github:NixOS/nixpkgs/nixpkgs-unstable"; # darwin-unstable for now (https://github.com/NixOS/nixpkgs/issues/107466)
-    nixos-unstable.url        = "github:NixOS/nixpkgs/nixos-unstable";
+    darwin-unstable.url        = "github:NixOS/nixpkgs/nixpkgs-unstable"; # darwin-unstable for now (https://github.com/NixOS/nixpkgs/issues/107466)
+    nixos-unstable.url         = "github:NixOS/nixpkgs/nixos-unstable";
+    nixos-unstable-lib.url     = "github:NixOS/nixpkgs/nixos-unstable?dir=lib";
     #nixos-unstable-small.url = "github:NixOS/nixpkgs/nixos-unstable-small";
     #master.url               = "github:NixOS/nixpkgs/master";
 
@@ -68,7 +69,7 @@
     };
     home-manager-unstable = {
       url = "github:nix-community/home-manager/master";
-      inputs.nixpkgs.follows = "nixos-stable-lib"; # not needed by NixOS' module thanks to `home-manager.useGlobalPkgs = true` but needed by the unpriviledged module
+      inputs.nixpkgs.follows = "nixos-unstable-lib"; # not needed by NixOS' module thanks to `home-manager.useGlobalPkgs = true` but needed by the unpriviledged module
     };
 
     nix-alien = {
@@ -94,7 +95,7 @@
       };
     };
 
-    pre-commit-hooks-nix = {
+    pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
       inputs = {
         nixpkgs.follows = "nixos-stable-lib";
@@ -106,18 +107,18 @@
 
     nix-index-database = {
       url = "github:Mic92/nix-index-database";
-      inputs.nixpkgs.follows = "nixos-unstable"; # NOTE doesn't only use the lib
+      inputs.nixpkgs.follows = "nixos-stable"; # NOTE doesn't only use the lib
     };
 
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
-      inputs.nixpkgs.follows = "nixos-unstable"; # NOTE doesn't only use the lib
+      inputs.nixpkgs.follows = "nixos-stable"; # NOTE doesn't only use the lib
     };
 
     xremap-flake = {
       url = "github:xremap/nix-flake";
       inputs = {
-        nixpkgs.follows = "nixos-unstable"; # NOTE doesn't only use the lib
+        nixpkgs.follows = "nixos-stable"; # NOTE doesn't only use the lib
         home-manager.follows = "home-manager-stable";
         flake-parts.follows = "flake-parts";
         devshell.follows = "devshell";
@@ -144,12 +145,12 @@
       url = "github:nix-community/lanzaboote/v0.3.0";
 
       inputs = {
-        nixpkgs.follows = "nixos-unstable"; # NOTE doesn't only use the lib
+        nixpkgs.follows = "nixos-stable"; # NOTE doesn't only use the lib
         flake-utils.follows = "flake-utils";
         rust-overlay.follows = "rust-overlay";
         flake-compat.follows = "flake-compat";
         flake-parts.follows = "flake-parts";
-        pre-commit-hooks-nix.follows = "pre-commit-hooks-nix";
+        pre-commit-hooks-nix.follows = "pre-commit-hooks";
       };
     };
 
@@ -157,7 +158,7 @@
       url = "github:NixOS/nix";
 
       inputs = {
-        nixpkgs.follows = "nixos-unstable";
+        nixpkgs.follows = "nixos-stable";
         flake-compat.follows = "flake-compat";
       };
     };
@@ -165,7 +166,7 @@
     dwarffs = {
       url = "github:edolstra/dwarffs";
       inputs = {
-        nixpkgs.follows = "nixos-unstable";
+        nixpkgs.follows = "nixos-stable";
         nix.follows = "nix";
       };
     };
@@ -181,23 +182,35 @@
         #nixpkgs.follows = "nixpkgs"; # don't override so that the cache can be used
         flake-compat.follows = "flake-compat";
         #nix.follows = "nix"; # don't override so that the cache can be used
-        pre-commit-hooks.follows = "pre-commit-hooks-nix";
+        pre-commit-hooks.follows = "pre-commit-hooks";
       };
     };
 
     android-nixpkgs = {
       url = "github:tadfisher/android-nixpkgs/stable";
       inputs = {
-        nixpkgs.follows = "nixos-unstable";
+        nixpkgs.follows = "nixos-stable";
         devshell.follows = "devshell";
         flake-utils.follows = "flake-utils";
+      };
+    };
+
+    nixvim = {
+      url = "github:nix-community/nixvim/nixos-23.05";
+      inputs = {
+        nixpkgs.follows = "nixos-stable";
+        home-manager.follows = "home-manager-stable";
+        nix-darwin.follows = "nix-darwin";
+        flake-parts.follows = "flake-parts";
+        flake-compat.follows = "flake-compat";
+        pre-commit-hooks.follows = "pre-commit-hooks";
       };
     };
 
     nix-cluster = {
       url = "git+ssh://git@github.com/PaulGrandperrin/nix-cluster.git";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
+        nixpkgs.follows = "nixos-stable";
       };
     };
   };
