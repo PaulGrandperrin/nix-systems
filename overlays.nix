@@ -3,7 +3,7 @@ inputs: rec {
     stable = inputs.nixos-stable.legacyPackages.${prev.stdenv.hostPlatform.system};
     unstable = inputs.nixos-unstable.legacyPackages.${prev.stdenv.hostPlatform.system};
   };
-  local-packages = (final: prev: import ./packages prev);
+  local-packages = (final: prev: import ./packages {pkgs = prev; inherit inputs;});
   rclonefs = (final: prev: {
     rclone = (prev.symlinkJoin { # create filesystem helpers until https://github.com/NixOS/nixpkgs/issues/258478
       name = "rclone";

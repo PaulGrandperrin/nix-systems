@@ -10,5 +10,5 @@ in lib.genAttrs
         overlays = [ (import ./overlays.nix inputs).default ];
       };
     in
-      (import ./packages pkgs)
+      (import ./packages {inherit pkgs inputs;})
   )

@@ -1,4 +1,4 @@
-pkgs: {
+{pkgs, inputs, ...}: {
   ksvim  =  pkgs.callPackage ./vim-distro { name = "ksvim";  conf-repo-url = "https://github.com/nvim-lua/kickstart.nvim.git"; };
   lzvim  =  pkgs.callPackage ./vim-distro { name = "lzvim";  conf-repo-url = "https://github.com/LazyVim/starter.git"; };
   nvchad =  pkgs.callPackage ./vim-distro { name = "nvchad"; conf-repo-url = "https://github.com/NvChad/NvChad.git"; };
