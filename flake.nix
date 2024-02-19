@@ -196,7 +196,7 @@
     };
 
     nixvim = {
-      url = "github:nix-community/nixvim/nixos-23.05";
+      url = "github:nix-community/nixvim/nixos-23.11";
       inputs = {
         nixpkgs.follows = "nixos-stable";
         home-manager.follows = "home-manager-stable";

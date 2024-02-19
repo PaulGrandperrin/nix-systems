@@ -11,6 +11,14 @@
 
   firefox-bin = pkgs.callPackage ./firefox-bin {};
 
+  myvim = inputs.nixvim.legacyPackages.${pkgs.stdenv.hostPlatform.system}.makeNixvimWithModule {
+    inherit pkgs;
+    module = {};
+    extraSpecialArgs = {
+      inherit inputs;
+    };
+  };
+
   #iso = inputs.nixos-generators.nixosGenerate {
   #  pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
   #  modules = [
