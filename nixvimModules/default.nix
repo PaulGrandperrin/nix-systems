@@ -51,14 +51,14 @@
         ### theme
         
         colorschemes = {
-          #gruvbox = {
-          #  enable = true;
-          #  settings = {
-          #    contrastDark = "hard";
-          #  };
-          #};
+          gruvbox = {
+            enable = true;
+            settings = {
+              contrastDark = "hard";
+            };
+          };
           #ayu.enable = true;
-          base16.colorscheme = "papercolor-dark"; # molokai sonokai
+          #base16.colorscheme = "papercolor-dark"; # molokai sonokai
         };
       };
     })

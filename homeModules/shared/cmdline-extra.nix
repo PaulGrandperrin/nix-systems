@@ -71,6 +71,12 @@
       lnvim
       spvim
 
+      # use nixvim pkg, but only expose the nvim binary as nixvim
+      (pkgs.runCommandNoCC "nixvim" {} ''
+        mkdir -p $out/bin
+        ln -s ${pkgs.nixvim}/bin/nvim $out/bin/nixvim
+      '')
+
       #((pkgs.writeShellApplication { # hack around https://github.com/NixOS/nix/issues/5810
       #  name = "git";
       #  text = ''
