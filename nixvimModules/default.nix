@@ -104,13 +104,19 @@
           relativenumber = true;
 
           signcolumn = "yes"; # reserves space for diagnostic icons
+
+          shiftwidth = 2;
+        };
+        plugins = {
+          treesitter.enable = true; # lang parsing
+          oil.enable = true; # directory browser, intsead of netrw
         };
         extraPlugins = [
           pkgs.vimPlugins.vim-sleuth # detect tabstop and shiftwidth automatically # kickstart
         ];
       };
     })
-    ({ ### LSP
+    ({ ### LSP and autocomplete
       config = {
         options = { # vim.opt.* # vim.o # set
         };
@@ -134,6 +140,16 @@
               };
             };
           };
+          nvim-cmp = {
+            enable = true;
+            autoEnableSources = true;
+            mappingPresets = ["insert"];
+            sources = [
+              {name = "nvim_lsp";}
+              {name = "path";}
+              {name = "buffer";}
+            ];
+          };
         };
       };
     })
@@ -145,7 +161,6 @@
           harpoon = {
             enable = true;
           };
-          treesitter.enable = true;
           telescope = {
             enable = true;
             keymaps."<leader>ff" = "find_files";
