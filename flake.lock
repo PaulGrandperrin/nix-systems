@@ -1244,7 +1244,7 @@
           "flake-utils"
         ],
         "nixpkgs": [
-          "nixos-stable-lib"
+          "nixos-stable"
         ]
       },
       "locked": {

@@ -1,47 +1,8 @@
 {pkgs, inputs, lib, ...}: let 
-
-  ## Stable
-
-  my-rust = pkgs.rust-bin.stable.latest.default.override {
-    extensions = [
-      "rust-src" # needed by rust-analyzer vscode extension when installed through internet
-      "rust-analyzer" 
-    ];
-    targets = ["wasm32-unknown-emscripten"];
-  };
-
-  #my-rust-analyzer = (pkgs.symlinkJoin {
-  #  name = "rust-analyzer";
-  #  paths = [ inputs.nixos-stable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.rust-analyzer ];
-  #  buildInputs = [ pkgs.makeWrapper ];
-  #  postBuild = ''
-  #    wrapProgram $out/bin/rust-analyzer \
-  #      --set-default "RUST_SRC_PATH" "${my-rust}"
-  #  '';
-  #}) ;
-
-  ## Nightly
-
-  #my-rust = pkgs.rust-bin.selectLatestNightlyWith (toolchain: toolchain.default.override {
-  #  extensions = [
-  #    "rust-src" # needed by rust-analyzer vscode extension when installed through internet
-  #    "rust-analyzer-preview"
-  #  ];
-  #  targets = ["wasm32-unknown-emscripten"];
-  #});
-
-  #my-rust = pkgs.rust-bin.nightly."2022-09-28".default.override {
-  #  extensions = [
-  #    "rust-src" # needed by rust-analyzer vscode extension when installed through internet
-  #    "rust-analyzer"
-  #  ];
-  #  targets = ["wasm32-unknown-emscripten"];
-  #};
-  
 in {
   home = {
     packages = with pkgs; [
-    my-rust
+    my-rust-stable
     tokio-console
     #my-rust-analyzer
     ];

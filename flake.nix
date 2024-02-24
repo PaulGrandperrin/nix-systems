@@ -58,7 +58,7 @@
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
       inputs = {
-        nixpkgs.follows = "nixos-stable-lib";
+        nixpkgs.follows = "nixos-stable";
         flake-utils.follows = "flake-utils";
       };
     };

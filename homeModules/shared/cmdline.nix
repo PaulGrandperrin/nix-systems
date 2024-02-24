@@ -125,6 +125,7 @@
         vim-nix # nix highlight
         neovim-fuzzy # fuzzy finder through vim
         vim-lastplace # restore cursor position
+        splitjoin-vim # Switch between single-line and multiline forms of code 
         # LSP
         nvim-lspconfig
         lsp-zero-nvim
