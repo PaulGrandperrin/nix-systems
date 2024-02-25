@@ -8,6 +8,7 @@
 
   home = {
     sessionVariables = { # only works for interactive shells, pam works for all kind of sessions
+      EDITOR = "nvim";
     };
 
     packages = with pkgs; [
@@ -45,6 +46,7 @@
       util-linux
       which
       zstd
+      nixvim
 
 
       socat
@@ -109,83 +111,83 @@
         pinentry-mode = "loopback";
       };
     };
-    neovim =  {
-      enable = true;
-      defaultEditor = true;
-      extraPackages = with pkgs; [
-        nixd
-      ];
+    #neovim =  {
+    #  enable = true;
+    #  defaultEditor = true;
+    #  extraPackages = with pkgs; [
+    #    nixd
+    #  ];
 
-      #package = pkgs.unstable.neovim-unwrapped;
-      viAlias = true;
-      vimAlias = true;
-      vimdiffAlias = true;
-      plugins =  with pkgs.vimPlugins;  [
-        vim-surround # Shortcuts for setting () {} etc.
-        vim-nix # nix highlight
-        neovim-fuzzy # fuzzy finder through vim
-        vim-lastplace # restore cursor position
-        splitjoin-vim # Switch between single-line and multiline forms of code 
-        # LSP
-        nvim-lspconfig
-        lsp-zero-nvim
-        #(
-        #  pkgs.vimUtils.buildVimPlugin {
-        #    pname = "lsp-zero.nvim";
-        #    version = "2023-09-23";
-        #    src = pkgs.fetchFromGitHub {
-        #      owner = "VonHeikemen";
-        #      repo = "lsp-zero.nvim";
-        #      rev = "011edd4afede7030cb17248495063ab8f3bd0e57";
-        #      sha256 = "sha256-AW9QVBjvnxVcAvS1IUivra+B+8hHBfJyy/vIY1TszQs=";
-        #    };
-        #    meta.homepage = "https://github.com/VonHeikemen/lsp-zero.nvim/";
-        #  }
-        #)
-        # autocomplete
-        nvim-cmp
-        cmp-buffer
-        cmp-path
-        cmp_luasnip
-        cmp-nvim-lsp
-        cmp-nvim-lua
-        # snippets
-        luasnip
-        friendly-snippets
-      ];
-      extraConfig = ''
-      '';
-      extraLuaConfig = ''
-        vim.opt.undofile = true -- saves to $XDG_STATE_HOME/nvim/undo
-        -- set.undolevels = 1000
-        -- set.undoreload = 10000
+    #  #package = pkgs.unstable.neovim-unwrapped;
+    #  viAlias = true;
+    #  vimAlias = true;
+    #  vimdiffAlias = true;
+    #  plugins =  with pkgs.vimPlugins;  [
+    #    vim-surround # Shortcuts for setting () {} etc.
+    #    vim-nix # nix highlight
+    #    neovim-fuzzy # fuzzy finder through vim
+    #    vim-lastplace # restore cursor position
+    #    splitjoin-vim # Switch between single-line and multiline forms of code 
+    #    # LSP
+    #    nvim-lspconfig
+    #    lsp-zero-nvim
+    #    #(
+    #    #  pkgs.vimUtils.buildVimPlugin {
+    #    #    pname = "lsp-zero.nvim";
+    #    #    version = "2023-09-23";
+    #    #    src = pkgs.fetchFromGitHub {
+    #    #      owner = "VonHeikemen";
+    #    #      repo = "lsp-zero.nvim";
+    #    #      rev = "011edd4afede7030cb17248495063ab8f3bd0e57";
+    #    #      sha256 = "sha256-AW9QVBjvnxVcAvS1IUivra+B+8hHBfJyy/vIY1TszQs=";
+    #    #    };
+    #    #    meta.homepage = "https://github.com/VonHeikemen/lsp-zero.nvim/";
+    #    #  }
+    #    #)
+    #    # autocomplete
+    #    nvim-cmp
+    #    cmp-buffer
+    #    cmp-path
+    #    cmp_luasnip
+    #    cmp-nvim-lsp
+    #    cmp-nvim-lua
+    #    # snippets
+    #    luasnip
+    #    friendly-snippets
+    #  ];
+    #  extraConfig = ''
+    #  '';
+    #  extraLuaConfig = ''
+    #    vim.opt.undofile = true -- saves to $XDG_STATE_HOME/nvim/undo
+    #    -- set.undolevels = 1000
+    #    -- set.undoreload = 10000
 
-        vim.cmd("set mouse=")
-        -- reserve space for diagnostic icons
-        vim.opt.signcolumn = 'yes'
+    #    vim.cmd("set mouse=")
+    #    -- reserve space for diagnostic icons
+    #    vim.opt.signcolumn = 'yes'
 
-        local lsp = require('lsp-zero').preset({
-          name = 'system-lsp',
-          set_lsp_keymaps = true,
-          manage_nvim_cmp = true,
-        })
+    #    local lsp = require('lsp-zero').preset({
+    #      name = 'system-lsp',
+    #      set_lsp_keymaps = true,
+    #      manage_nvim_cmp = true,
+    #    })
 
-        lsp.configure('rust_analyzer', {
-        force_setup = true, -- skip checks because it's installed globally
-          on_attach = function(client, bufnr)
-            print('hello rust')
-          end
-        })
+    #    lsp.configure('rust_analyzer', {
+    #    force_setup = true, -- skip checks because it's installed globally
+    #      on_attach = function(client, bufnr)
+    #        print('hello rust')
+    #      end
+    #    })
 
-        lsp.configure('nixd', {
-        force_setup = true, -- skip checks because it's installed globally
-          on_attach = function(client, bufnr)
-          end
-        })
+    #    lsp.configure('nixd', {
+    #    force_setup = true, -- skip checks because it's installed globally
+    #      on_attach = function(client, bufnr)
+    #      end
+    #    })
   
-        lsp.setup()
-      '';
-    };
+    #    lsp.setup()
+    #  '';
+    #};
   };
 }
 

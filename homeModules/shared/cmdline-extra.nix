@@ -64,18 +64,18 @@
       viu
 
       # vim distros from my overlay
-      ksvim
-      lzvim
-      nvchad
-      aovim
-      lnvim
-      spvim
+      (lib.lowPrio ksvim)
+      (lib.lowPrio lzvim)
+      (lib.lowPrio nvchad)
+      (lib.lowPrio aovim)
+      (lib.lowPrio lnvim)
+      (lib.lowPrio spvim)
 
-      # use nixvim pkg, but only expose the nvim binary as nixvim
-      (pkgs.runCommandNoCC "nixvim" {} ''
-        mkdir -p $out/bin
-        ln -s ${pkgs.nixvim}/bin/nvim $out/bin/nixvim
-      '')
+      ## use nixvim pkg, but only expose the nvim binary as nixvim
+      #(pkgs.runCommandNoCC "nixvim" {} ''
+      #  mkdir -p $out/bin
+      #  ln -s ${pkgs.nixvim}/bin/nvim $out/bin/nixvim
+      #'')
 
       #((pkgs.writeShellApplication { # hack around https://github.com/NixOS/nix/issues/5810
       #  name = "git";
