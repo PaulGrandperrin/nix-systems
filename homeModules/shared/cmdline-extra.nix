@@ -15,6 +15,7 @@
       nmap
       iperf
       bandwhich
+      unstable.bpftop
 
       # file management
       rsync
