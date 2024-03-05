@@ -3,6 +3,7 @@
   imports = [
     inputs.disko.nixosModules.disko
     inputs.sops-nix.nixosModules.sops
+    inputs.nh.nixosModules.default
     home-manager-flake.nixosModules.home-manager
     #inputs.dwarffs.nixosModules.dwarffs # broken..
     ./mail.nix
@@ -62,11 +63,22 @@
 
   nix = {
     settings = import ../../nix/nix.nix;
-    gc = {
-      automatic = true;
-      persistent = true;
+    #gc = {
+    #  automatic = true;
+    #  persistent = true;
+    #  dates = "05:00:00";
+    #  options = "--delete-older-than 7d";
+    #};
+  };
+
+  nh = {
+    enable = true;
+    package = pkgs.nh;
+    flake = "/etc/nixos/";
+    clean = {
+      enable = true;
       dates = "05:00:00";
-      options = "--delete-older-than 7d";
+      extraArgs = "--keep-since 3d --keep 2";
     };
   };
 

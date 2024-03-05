@@ -210,6 +210,13 @@
       };
     };
 
+    nh = {
+      url = "github:viperML/nh";
+      inputs = {
+        nixpkgs.follows = "nixos-stable";
+      };
+    };
+
     nix-cluster = {
       url = "git+ssh://git@github.com/PaulGrandperrin/nix-cluster.git";
       inputs = {

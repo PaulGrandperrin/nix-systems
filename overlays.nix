@@ -51,5 +51,6 @@ inputs: rec {
     inputs.nur.overlay
     inputs.rust-overlay.overlays.default
     inputs.nix-alien.overlays.default
+    inputs.nh.overlays.default
   ];
 }

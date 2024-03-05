@@ -47,6 +47,7 @@
       which
       zstd
       nixvim
+      nh
 
 
       socat
