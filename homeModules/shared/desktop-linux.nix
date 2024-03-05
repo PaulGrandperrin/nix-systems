@@ -123,7 +123,8 @@
           '';
         };
       in
-      vscode-wayland(ps: with ps; [
+      #vscode-wayland(ps: with ps; [ # buggy
+      vscode-fhsWithPackages(ps: with ps; [
         nixd
         nixpkgs-fmt
         bintools

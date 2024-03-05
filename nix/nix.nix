@@ -8,7 +8,7 @@
   #trusted-users = ["@wheel"];
 
   extra-substituters = [
-    "http://nixos-nas.wg:5000"
+    #"http://nixos-nas.wg:5000" # breaks everything when host is down: https://github.com/NixOS/nix/issues/6901
     "https://nix-community.cachix.org"
     "https://cache.nixos.org"
     "https://devenv.cachix.org"
