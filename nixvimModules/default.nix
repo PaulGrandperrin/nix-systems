@@ -142,15 +142,15 @@
               };
             };
           };
-          nvim-cmp = {
+          nvim-cmp = { # TODO rewrite
             enable = true;
-            autoEnableSources = true;
-            mappingPresets = ["insert"];
-            sources = [
-              {name = "nvim_lsp";}
-              {name = "path";}
-              {name = "buffer";}
-            ];
+            #autoEnableSources = true;
+            #mappingPresets = ["insert"];
+            #settings.sources = [
+            #  {name = "nvim_lsp";}
+            #  {name = "path";}
+            #  {name = "buffer";}
+            #];
           };
         };
       };
