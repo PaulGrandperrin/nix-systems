@@ -62,6 +62,9 @@
     ];
   };
 
+  # audio is broken on 6.7 
+  boot.kernelPackages = lib.mkForce pkgs.linuxPackages_6_6;
+
   swapDevices = [ ];
 
   networking.hostId="7ee1da4a";
