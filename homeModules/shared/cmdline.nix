@@ -48,6 +48,7 @@
       zstd
       nixvim
       nh
+      fh
 
 
       socat
