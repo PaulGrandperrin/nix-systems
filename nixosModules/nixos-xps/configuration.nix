@@ -62,8 +62,13 @@
     ];
   };
 
-  # audio is broken on 6.7 
-  boot.kernelPackages = lib.mkForce pkgs.linuxPackages_6_6;
+  # audio is broken on 6.7
+  # https://bbs.archlinux.org/viewtopic.php?id=292297
+  # https://bbs.archlinux.org/viewtopic.php?pid=2148028#p2148028
+  #boot.kernelPackages = lib.mkForce pkgs.linuxPackages_6_6;
+  boot.blacklistedKernelModules = [
+    "snd_soc_avs"
+  ];
 
   swapDevices = [ ];
 
