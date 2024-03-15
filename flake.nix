@@ -38,7 +38,7 @@
     nur.url = "github:nix-community/NUR";
 
     nix-on-droid = {
-      url = "github:t184256/nix-on-droid/testing";
+      url = "github:nix-community/nix-on-droid/release-23.11";
       inputs = {
         nixpkgs.follows = "nixos-stable-lib";
         home-manager.follows = "home-manager-stable"; # TODO try to remove
