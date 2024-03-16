@@ -790,14 +790,14 @@
       "locked": {
         "lastModified": 1709879753,
         "narHash": "sha256-zEpy3eweBus/cW/oRMBINps6Bnlazpa7TadonwWibHA=",
-        "owner": "t184256",
+        "owner": "nix-community",
         "repo": "nix-on-droid",
         "rev": "7b3cc6e3f9919b2d23003cfafb60c146c3f45793",
         "type": "github"
       },
       "original": {
-        "owner": "t184256",
-        "ref": "testing",
+        "owner": "nix-community",
+        "ref": "release-23.11",
         "repo": "nix-on-droid",
         "type": "github"
       }

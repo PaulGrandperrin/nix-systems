@@ -75,7 +75,7 @@
   };
 
   services.yuzu = {
-    enable = true;
+    #enable = true; # removed from nixpkgs
     package = pkgs.my-yuzu;
     openFirewall = true;
     secretsFile = config.sops.secrets."yuzu-multiplayer".path;
