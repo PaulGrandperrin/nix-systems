@@ -12,6 +12,7 @@
     ../shared/gaming.nix
     inputs.lanzaboote.nixosModules.lanzaboote
     inputs.nix-cluster.nixosModules.nix-cluster
+    inputs.nar-alike-deduper.nixosModules.default
   ];
 
   home-manager.users = let 
@@ -34,6 +35,7 @@
   };
 
   #services.nixCluster.server.enable = true;
+  nar-alike-deduper.enable = true;
 
   fileSystems."/" = {
     device = "ssd/encrypted/nixos";

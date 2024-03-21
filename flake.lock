@@ -29,6 +29,26 @@
     },
     "crane": {
       "inputs": {
+        "nixpkgs": [
+          "nixos-stable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1710819233,
+        "narHash": "sha256-YJsu2BVgUl2qRo0t2ksu5rK4yD59Mudd6BUXGwpC0DE=",
+        "owner": "ipetkov",
+        "repo": "crane",
+        "rev": "fc610a825db14bd8fdc5c7f57450422ae6ff4e7a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ipetkov",
+        "repo": "crane",
+        "type": "github"
+      }
+    },
+    "crane_2": {
+      "inputs": {
         "flake-compat": [
           "lanzaboote",
           "flake-compat"
@@ -60,7 +80,7 @@
         "type": "github"
       }
     },
-    "crane_2": {
+    "crane_3": {
       "inputs": {
         "nixpkgs": [
           "nix-cluster",
@@ -73,27 +93,6 @@
         "owner": "ipetkov",
         "repo": "crane",
         "rev": "81c393c776d5379c030607866afef6406ca1be57",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ipetkov",
-        "repo": "crane",
-        "type": "github"
-      }
-    },
-    "crane_3": {
-      "inputs": {
-        "nixpkgs": [
-          "xremap-flake",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1710003968,
-        "narHash": "sha256-g8+K+mLiNG5uch35Oy9oDQBAmGSkCcqrd0Jjme7xiG0=",
-        "owner": "ipetkov",
-        "repo": "crane",
-        "rev": "10484f86201bb94bd61ecc5335b1496794fedb78",
         "type": "github"
       },
       "original": {
@@ -322,6 +321,27 @@
     "flake-parts_2": {
       "inputs": {
         "nixpkgs-lib": [
+          "nar-alike-deduper",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1709336216,
+        "narHash": "sha256-Dt/wOWeW6Sqm11Yh+2+t0dfEWxoMxGBvv3JpIocFl9E=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "f7b3c975cf067e56e7cda6cb098ebe3fb4d74ca2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "type": "github"
+      }
+    },
+    "flake-parts_3": {
+      "inputs": {
+        "nixpkgs-lib": [
           "nix-cluster",
           "nixpkgs"
         ]
@@ -515,7 +535,7 @@
     },
     "lanzaboote": {
       "inputs": {
-        "crane": "crane",
+        "crane": "crane_2",
         "flake-compat": [
           "flake-compat"
         ],
@@ -598,6 +618,35 @@
         "type": "github"
       }
     },
+    "nar-alike-deduper": {
+      "inputs": {
+        "crane": [
+          "crane"
+        ],
+        "devenv": [
+          "devenv"
+        ],
+        "flake-parts": "flake-parts_2",
+        "nixpkgs": [
+          "nixos-stable"
+        ],
+        "rust-overlay": [
+          "rust-overlay"
+        ]
+      },
+      "locked": {
+        "dirtyRev": "5eaecbc77f9b60361e3e29478affa24538feee8a-dirty",
+        "dirtyShortRev": "5eaecbc-dirty",
+        "lastModified": 1710849292,
+        "narHash": "sha256-eWWUO01EG6u5xjshbKKSn0aqoyqCOb3MhRpfcYlCZCI=",
+        "type": "git",
+        "url": "file:///home/paulg/Repos/nar-alike-deduper"
+      },
+      "original": {
+        "type": "git",
+        "url": "file:///home/paulg/Repos/nar-alike-deduper"
+      }
+    },
     "nh": {
       "inputs": {
         "nixpkgs": [
@@ -674,9 +723,9 @@
     },
     "nix-cluster": {
       "inputs": {
-        "crane": "crane_2",
+        "crane": "crane_3",
         "devenv": "devenv_2",
-        "flake-parts": "flake-parts_2",
+        "flake-parts": "flake-parts_3",
         "nixpkgs": [
           "nixos-stable"
         ]
@@ -1281,6 +1330,7 @@
     "root": {
       "inputs": {
         "android-nixpkgs": "android-nixpkgs",
+        "crane": "crane",
         "darwin-stable": "darwin-stable",
         "darwin-unstable": "darwin-unstable",
         "devenv": "devenv",
@@ -1294,6 +1344,7 @@
         "home-manager-stable": "home-manager-stable",
         "home-manager-unstable": "home-manager-unstable",
         "lanzaboote": "lanzaboote",
+        "nar-alike-deduper": "nar-alike-deduper",
         "nh": "nh",
         "nix": "nix_2",
         "nix-alien": "nix-alien",
@@ -1454,7 +1505,9 @@
     },
     "xremap-flake": {
       "inputs": {
-        "crane": "crane_3",
+        "crane": [
+          "crane"
+        ],
         "devshell": [
           "devshell"
         ],

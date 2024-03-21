@@ -115,6 +115,11 @@
       inputs.nixpkgs.follows = "nixos-stable"; # NOTE doesn't only use the lib
     };
 
+    crane = { # eventually, use dream2nix when it's more stable
+      url = "github:ipetkov/crane";
+      inputs.nixpkgs.follows = "nixos-stable";
+    };
+
     xremap-flake = {
       url = "github:xremap/nix-flake";
       inputs = {
@@ -123,7 +128,7 @@
         flake-parts.follows = "flake-parts";
         devshell.follows = "devshell";
         hyprland.follows = ""; # we don't use it
-        #crane.follows = "crane";
+        crane.follows = "crane";
       };
     };
 
@@ -221,6 +226,17 @@
       url = "git+ssh://git@github.com/PaulGrandperrin/nix-cluster.git";
       inputs = {
         nixpkgs.follows = "nixos-stable";
+      };
+    };
+
+    nar-alike-deduper = {
+      #url = "github:PaulGrandperrin/nar-alike-deduper";
+      url = "/home/paulg/Repos/nar-alike-deduper/";
+      inputs = {
+        nixpkgs.follows = "nixos-stable";
+        devenv.follows = "devenv";
+        rust-overlay.follows = "rust-overlay";
+        crane.follows = "crane";
       };
     };
   };
