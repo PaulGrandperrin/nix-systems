@@ -142,7 +142,7 @@
               };
             };
           };
-          nvim-cmp = { # TODO rewrite
+          cmp = { # TODO rewrite
             enable = true;
             #autoEnableSources = true;
             #mappingPresets = ["insert"];
