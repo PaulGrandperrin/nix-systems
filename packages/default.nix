@@ -19,7 +19,7 @@
     };
   };
 
-  my-rust-stable = (inputs.rust-overlay.overlays.default pkgs pkgs).rust-bin.stable.latest.default.override {
+  my-rust-stable = (pkgs.extend inputs.rust-overlay.overlays.default).rust-bin.stable.latest.default.override {
     extensions = [
       "rust-src" # needed by rust-analyzer vscode extension when installed through internet
       "rust-analyzer" 
@@ -37,7 +37,7 @@
     '';
   }) ;
 
-  my-rust-mightly = (inputs.rust-overlay.overlays.default pkgs pkgs).rust-bin.selectLatestNightlyWith (toolchain: toolchain.default.override {
+  my-rust-mightly = (pkgs.extend inputs.rust-overlay.overlays.default).rust-bin.selectLatestNightlyWith (toolchain: toolchain.default.override {
     extensions = [
       "rust-src" # needed by rust-analyzer vscode extension when installed through internet
       "rust-analyzer-preview"
@@ -45,7 +45,7 @@
     targets = ["wasm32-unknown-emscripten"];
   });
 
-  my-rust-pinned = (inputs.rust-overlay.overlays.default pkgs pkgs).rust-bin.nightly."2022-09-28".default.override {
+  my-rust-pinned = (pkgs.extend inputs.rust-overlay.overlays.default).rust-bin.nightly."2022-09-28".default.override {
     extensions = [
       "rust-src" # needed by rust-analyzer vscode extension when installed through internet
       "rust-analyzer"
