@@ -88,6 +88,12 @@
   services.thermald.enable = false; # should be disabled when throttled is enabled
   services.throttled.enable = true;
 
+  services.ollama = {
+    enable = true;
+    package = pkgs.unstable.ollama;
+    acceleration = "cuda";
+  };
+
   systemd.services.smbios-thermal = {
     script = ''
       ${pkgs.libsmbios}/bin/smbios-thermal-ctl --set-thermal-mode quiet
