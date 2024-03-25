@@ -1,7 +1,15 @@
 inputs: rec {
   all-channels = final: prev: {
-    stable = inputs.nixos-stable.legacyPackages.${prev.stdenv.hostPlatform.system};
-    unstable = inputs.nixos-unstable.legacyPackages.${prev.stdenv.hostPlatform.system};
+    stable = import inputs.nixos-stable {
+      system = prev.stdenv.hostPlatform.system;
+      #overlays = [ ];
+      config = import ./nixpkgs/config.nix;
+    };
+    unstable = import inputs.nixos-unstable {
+      system = prev.stdenv.hostPlatform.system;
+      #overlays = [ ];
+      config = import ./nixpkgs/config.nix;
+    };
   };
   local-packages = (final: prev: import ./packages {pkgs = final; inherit inputs;});
   rclonefs = (final: prev: {
