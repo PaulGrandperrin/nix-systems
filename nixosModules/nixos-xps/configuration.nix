@@ -35,7 +35,7 @@
   };
 
   #services.nixCluster.server.enable = true;
-  nar-alike-deduper.enable = true;
+  #nar-alike-deduper.enable = true;
 
   fileSystems."/" = {
     device = "ssd/encrypted/nixos";
