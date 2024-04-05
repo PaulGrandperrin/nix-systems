@@ -21,11 +21,11 @@
         extraPackages = [];
         extraLuaPackages = [];
 
-        options = { # vim.opt.* # vim.o # set
+        opts = { # vim.opt.* # vim.o # set
         };
-        localOptions = { # vim.opt_local.* # setlocal
+        localOpts = { # vim.opt_local.* # setlocal
         };
-        globalOptions = { # vim.opt_global.* # setglobal
+        globalOpts = { # vim.opt_global.* # setglobal
         };
 
         globals = { # vim.g.*
@@ -76,7 +76,7 @@
 
     ({ ### status line
       config = {
-        options.laststatus = 3; # only one statusline at the bottom
+        opts.laststatus = 3; # only one statusline at the bottom
         #highlightOverride.WinSeparator.guibg = "None"; # fix separators # FIXME doesn't work
         
         plugins = {
@@ -96,7 +96,7 @@
     })
     ({ ### editor
       config = {
-        options = { # vim.opt.* # vim.o # set
+        opts = { # vim.opt.* # vim.o # set
           undofile = true; # saves to $XDG_STATE_HOME/nvim/undo
           # undolevels = 1000;
           # undoreload = 10000;
@@ -120,7 +120,7 @@
     })
     ({ ### LSP and autocomplete
       config = {
-        options = { # vim.opt.* # vim.o # set
+        opts = { # vim.opt.* # vim.o # set
         };
         plugins = {
           #TODO checkout rustaceanvim
@@ -157,7 +157,7 @@
     })
     ({ ### lookup
       config = {
-        options = { # vim.opt.* # vim.o # set
+        opts = { # vim.opt.* # vim.o # set
         };
         plugins = {
           harpoon = {
