@@ -12,7 +12,7 @@
     ../shared/gaming.nix
     inputs.lanzaboote.nixosModules.lanzaboote
     inputs.nix-cluster.nixosModules.nix-cluster
-    inputs.nar-alike-deduper.nixosModules.default
+    #inputs.nar-alike-deduper.nixosModules.default
   ];
 
   home-manager.users = let 

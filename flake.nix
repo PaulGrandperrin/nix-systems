@@ -229,16 +229,16 @@
       };
     };
 
-    nar-alike-deduper = {
-      #url = "github:PaulGrandperrin/nar-alike-deduper";
-      url = "/home/paulg/Repos/nar-alike-deduper/";
-      inputs = {
-        nixpkgs.follows = "nixos-stable";
-        devenv.follows = "devenv";
-        rust-overlay.follows = "rust-overlay";
-        crane.follows = "crane";
-      };
-    };
+    #nar-alike-deduper = {
+    #  #url = "github:PaulGrandperrin/nar-alike-deduper";
+    #  url = "/home/paulg/Repos/nar-alike-deduper/";
+    #  inputs = {
+    #    nixpkgs.follows = "nixos-stable";
+    #    devenv.follows = "devenv";
+    #    rust-overlay.follows = "rust-overlay";
+    #    crane.follows = "crane";
+    #  };
+    #};
   };
 
   outputs = inputs: {
