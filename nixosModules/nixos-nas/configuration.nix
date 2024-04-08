@@ -261,8 +261,8 @@
   };
 
   services.yuzu = {
-    enable = true;
-    package = pkgs.my-yuzu;
+    #enable = true;
+    #package = pkgs.my-yuzu;
     openFirewall = true;
     secretsFile = config.sops.secrets."yuzu-multiplayer".path;
     settings = {
