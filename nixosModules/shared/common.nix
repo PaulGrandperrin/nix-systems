@@ -7,6 +7,7 @@
     home-manager-flake.nixosModules.home-manager
     #inputs.dwarffs.nixosModules.dwarffs # broken..
     ./mail.nix
+    ./sysdig.nix
   ];
   system.stateVersion = "23.11";
 
@@ -296,8 +297,6 @@
   boot.tmp.cleanOnBoot = true;
 
   services.irqbalance.enable = true;
-
-  #programs.sysdig.enable = lib.mkIf (pkgs.stdenv.hostPlatform.system == "x86_64-linux") true;
 
   programs.fish = {
     enable = true;
