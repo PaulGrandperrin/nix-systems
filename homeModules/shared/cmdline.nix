@@ -49,6 +49,7 @@
       nixvim
       nh
       fh
+      zenith
 
 
       socat
