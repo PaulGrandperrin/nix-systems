@@ -109,6 +109,10 @@
 
   hardware.logitech.wireless.enable = true; # includes ltunify
   hardware.logitech.wireless.enableGraphical = true; # includes solaar
+  services.ratbagd.enable = true; # gaming mouse
+  environment.systemPackages = with pkgs; [
+    piper # gtk interface to ratbagd
+  ];
 
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true; # to make realtime scheduling possible in gnome-shell
