@@ -11,7 +11,15 @@
     ../shared/auto-upgrade.nix
     ../shared/headless.nix
     ../shared/yuzu.nix
+    ../shared/nspawns.nix
   ];
+
+  services.my-nspawn = {
+    enable = true;
+    name = "debian";
+    net-id = 1;
+    id = 1;
+  };
 
   home-manager.users = let 
     homeModule = {

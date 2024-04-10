@@ -18,65 +18,61 @@ in {
   config = mkIf cfg.enable {
     networking.firewall.trustedInterfaces =  [ "br-my-nspawn" ]; # when using regular veth: "vb-${cfg.name}"
 
-    # nix run nixpkgs#debootstrap -- --include=systemd-container --components=main,universe jammy /var/lib/machines/ubuntu http://archive.ubuntu.com/ubuntu/
-    # systemctl enable/start systemd-networkd
-    # systemctl enable/start systemd-resolved
-
     systemd.nspawn."${cfg.name}" = {
       enable = true;
-      #wantedBy = [ "multi-user.target" ]; # doesn't work https://github.com/NixOS/nixpkgs/issues/189499
       networkConfig = {
         Bridge = "br-my-nspawn";
-        #Port = [
-        #  "222:22"
-        #  "2379"  # pd
-        #  "20160" # tikv
-        #  "4000"  # tidb
-        #  "9090"  # prometheus
-        #  "3000"  # grafana
-        #];
-      };
-    };
-    # systemd.services."systemd-nspawn@${cfg.name}".restartTriggers = [ config.environment.etc."systemd/nspawn/${cfg.name}.nspawn".source ]; # FIXME breaks the conf because it doesn't understand templates
-    systemd.targets.machines.wants = [ "systemd-nspawn@${cfg.name}.service" ];
-
-    services.kea.dhcp4 = {
-      enable = true;
-      settings = {
-        interfaces-config = {
-          interfaces = [
-            "br-my-nspawn"
-          ];
-        };
-        subnet4 = [
-          {
-            pools = [ { pool = "10.42.${toString cfg.net-id}.100 - 10.42.${toString cfg.net-id}.200"; } ];
-            subnet = "10.42.0.0/16"; # should be a /24, but makes config easier that way with reservations
-            interface = "br-my-nspawn";
-            option-data = [
-              {
-                name = "routers";
-                data = "10.42.${toString cfg.net-id}.254";
-              }
-              {
-                name = "domain-name-servers";
-                data = "9.9.9.11, 149.112.112.11";
-              }
-            ];
-            reservations = [
-              {
-                hw-address = "22:ec:95:92:f5:84";
-                ip-address = "10.42.1.1";
-              }
-              {
-                hw-address = "96:29:82:e8:5b:6a";
-                ip-address = "10.42.2.1";
-              }
-            ];
-          }
+        Port = [
+          "222:22"
         ];
       };
     };
+
+    # `systemd.services."systemd-nspawn@${cfg.name}".restartTriggers` will not work because it would make Nix write a new service file
+    # not derived from the systemd provided template. This new service file will therefore be incomplete but will fully replace the template.
+    # So we write the X-Restart-Triggers in an override file ourself.
+    # `environment.etc."systemd/system/systemd-nspawn@debian.service.d/10-restart-triggers.conf"` won't work either so we create a systemd package instead.
+    systemd.packages = [
+      (pkgs.writeTextDir "etc/systemd/system/systemd-nspawn@debian.service.d/10-restart-triggers.conf" ''
+       [Unit]
+       X-Restart-Triggers=${pkgs.writeText "X-Restart-Triggers-${cfg.name}" (builtins.toJSON [ config.systemd.nspawn.${cfg.name} config.systemd.network.networks."05-br-my-nspawn"])}
+      '')
+    ];
+
+    systemd.services."systemd-nspawn-${cfg.name}-init" = let
+      exec-start-pre = pkgs.writeShellApplication {
+        name = "systemd-nspawn-exec-start-pre";
+        runtimeInputs = [pkgs.debootstrap pkgs.umount];
+        text = ''
+          # exit if machine already exists
+          test -d /var/lib/machines/${cfg.name} && exit 0
+
+          # install Debian
+          debootstrap --include=systemd-container,dbus-broker,systemd-resolved --components=main,contrib,non-free --extra-suites=bookworm-updates bookworm /var/lib/machines/${cfg.name} http://deb.debian.org/debian/
+
+          # debootstrap doesn't properly cleanup its mounts
+          umount -q /var/lib/machines/${cfg.name}/proc
+          umount -q /var/lib/machines/${cfg.name}/sys
+
+          # enable networkd and resolved
+          systemd-nspawn --machine=debian /usr/bin/systemctl enable systemd-networkd.service
+          systemd-nspawn --machine=debian /usr/bin/systemctl enable systemd-resolved.service
+
+          # set hostname
+          echo "${cfg.name}" > /var/lib/machines/${cfg.name}/etc/hostname
+        '';
+      };
+    in {
+      requiredBy = ["systemd-nspawn@${cfg.name}.service"];
+      before = ["systemd-nspawn@${cfg.name}.service"];
+      serviceConfig = {
+        ExecStart = "${exec-start-pre}/bin/systemd-nspawn-exec-start-pre";
+        Type = "oneshot";
+        TimeoutStartSec = "5min";
+      };
+    };
+
+    systemd.targets.machines.wants = [ "systemd-nspawn@${cfg.name}.service" ];
 
     systemd.network.netdevs."05-br-my-nspawn".netdevConfig = {
       Kind = "bridge";
@@ -90,27 +86,28 @@ in {
       };
 
       networkConfig = {
-        Address = "10.42.${toString cfg.net-id}.254/24";
-        LinkLocalAddressing = "yes";
-        #DHCPServer = "yes"; # doesn't work properly. using kea instead. https://github.com/systemd/systemd/issues/21368
+        Address = "10.43.${toString cfg.net-id}.254/24";
+        DHCPServer = "yes";
         IPMasquerade = "ipv4";
-        LLDP = "yes";
-        EmitLLDP = "customer-bridge";
+        #LinkLocalAddressing = "yes";
+        #ConfigureWithoutCarrier=yes
+        #LLDP = "yes";
+        #EmitLLDP = "customer-bridge";
       };
-      linkConfig = {
-        "ActivationPolicy" = "up";
-        "RequiredForOnline" = "no";
-      };
-      #dhcpServerConfig = { # 10.42.${toString cfg.net-id}.${toString cfg.id}
-      #  PoolOffset = 100;
-      #  PoolSize = 200;
+      #linkConfig = {
+      #  "ActivationPolicy" = "up";
+      #  "RequiredForOnline" = "no";
       #};
-      #dhcpServerStaticLeases = [{
-      #  dhcpServerStaticLeaseConfig = {
-      #    MACAddress = "4e:56:49:a0:4f:07";
-      #    Address = "10.42.${toString cfg.net-id}.${toString cfg.id}";
-      #  };
-      #}];
+      dhcpServerConfig = {
+        PoolOffset = 100;
+        PoolSize = 100;
+      };
+      dhcpServerStaticLeases = [{
+        dhcpServerStaticLeaseConfig = {
+          MACAddress = "6e:e0:b3:08:f0:aa"; # debian
+          Address = "10.43.${toString cfg.net-id}.${toString cfg.id}";
+        };
+      }];
 
     };
   };
