@@ -14,13 +14,6 @@
     ../shared/nspawns.nix
   ];
 
-  services.my-nspawn = {
-    enable = true;
-    name = "debian";
-    net-id = 1;
-    id = 1;
-  };
-
   home-manager.users = let 
     homeModule = {
       imports = [
@@ -80,6 +73,19 @@
 
   sops.secrets."yuzu-multiplayer" = {
     restartUnits = [ "yuzu-multiplayer.service" ];
+  };
+
+  virtualisation.my-nspawn = {
+    enable = true;
+    containers = {
+      minecraft = {
+        id = 1;
+        mac = "be:90:a6:62:66:14";
+        ports = [
+          "222:22"
+        ];
+      };
+    };
   };
 
   services.postgresql = {
