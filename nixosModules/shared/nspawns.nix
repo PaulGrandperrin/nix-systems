@@ -18,6 +18,9 @@ in {
           ports = mkOption {
             type = types.listOf types.str;
           };
+          max-mem = mkOption {
+            type = types.str;
+          };
         };
       }));
     };
@@ -119,6 +122,10 @@ in {
         (pkgs.writeTextDir "etc/systemd/system/systemd-nspawn@${name}.service.d/10-restart-triggers.conf" ''
          [Unit]
          X-Restart-Triggers=${pkgs.writeText "X-Restart-Triggers-${name}" (builtins.toJSON triggers)}
+
+         [Service]
+         MemoryMax=${value.max-mem}
+         MemorySwapMax=0
         '')
       ];
 
