@@ -55,14 +55,57 @@ in {
     my_hostname = config.networking.hostName;
     my_conf = head (builtins.filter (e: e.hostname == my_hostname) peers);
   in mkIf cfg.enable {
+    environment.systemPackages = [
+      # install
+      pkgs.wireguard-tools
+
+      # small script to route all traffic through node
+      (pkgs.writeShellApplication {
+        name = "my-vpn";
+        runtimeInputs = with pkgs; [
+          iproute2
+          jq
+          systemd
+          wireguard-tools
+          ripgrep
+        ];
+        text = ''
+          set -e
+
+          test $# -eq 1 || (echo "missing argument" ; exit 1)
+
+          HOST=$1.paulg.fr
+          WG_DEV=wg0
+
+          DEFAULT_GW=$(ip -json route show to default | jq .[0].gateway -r)
+          DEFAULT_DEV=$(ip -json route show to default | jq .[0].dev -r)
+          SERVER_IP=$(resolvectl query "$HOST" |head -n1|cut -d' ' -f2) #https://github.com/systemd/systemd/issues/29755
+          WG_PEER_PK=$(wg showconf "$WG_DEV"|rg -B3 "Endpoint = $SERVER_IP"|rg "PublicKey ="|sed 's/PublicKey = //')
+          WG_PEER_AL_IP=$(wg showconf "$WG_DEV"|rg -B3 "Endpoint = $SERVER_IP"|rg "AllowedIPs ="|sed 's/AllowedIPs = //'|tr -d ' ')
+
+          ip route add "$SERVER_IP" via "$DEFAULT_GW" dev "$DEFAULT_DEV" proto static
+          ip route add default dev "$WG_DEV" proto static
+          wg set wg0 peer "$WG_PEER_PK" allowed-ips 0.0.0.0/0
+
+          echo "VPN connected"
+          echo "press enter to disconnect"
+          read -r
+
+          set +e
+
+          wg set wg0 peer "$WG_PEER_PK" allowed-ips "$WG_PEER_AL_IP"
+          ip route del default dev "$WG_DEV" proto static
+          ip route del "$SERVER_IP" via "$DEFAULT_GW" dev "$DEFAULT_DEV" proto static
+        '';
+      })
+    ];
+
     # add domains in /etc/hosts
     networking.extraHosts = concatStringsSep "\n" (map (p: "10.42.0.${toString p.id} ${p.hostname}.wg") peers);
 
     # allow all connections on this trusted interface
     networking.firewall.trustedInterfaces = [ "wg0" ];
     
-    # install
-    environment.systemPackages = [ pkgs.wireguard-tools ];
     boot.extraModulePackages = optional (versionOlder outside-config.boot.kernelPackages.kernel.version "5.6") outside-config.boot.kernelPackages.wireguard;
 
     # boot.kernel.sysctl."net.ipv4.conf.wg0.forwarding" = mkIf (my_conf.forwardToAll or false) 1; # already done in systemd-network config
