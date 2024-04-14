@@ -147,7 +147,8 @@ in {
     systemd.services.yuzu-multiplayer = {
       description = "Yuzu multiplayer server";
       wantedBy = ["multi-user.target"];
-      after = [ "network.target" "network-online.target"];
+      wants = [ "network-online.target"];
+      after = [ "network-online.target"];
 
       serviceConfig = {
         Restart = "always";

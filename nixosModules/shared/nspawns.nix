@@ -151,6 +151,8 @@ in {
           '';
         };
       in {
+        requires = ["network-online.target"];
+        after = ["network-online.target"];
         requiredBy = ["systemd-nspawn@${name}.service"];
         before = ["systemd-nspawn@${name}.service"];
         serviceConfig = {
