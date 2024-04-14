@@ -18,7 +18,6 @@ in {
 
   config = mkIf cfg.enable {
     networking.interfaces.${finalMainInt}.useDHCP = true;
-    networking.firewall.allowPing = true;
     networking.enableIPv6 = false; # TODO later? never?
 
     systemd.network.links."10-wol" = {
@@ -93,11 +92,19 @@ in {
       };
     };
   
-    networking.firewall.allowedUDPPorts = [
-      5353 # mdns
-    ];
 
-    #networking.firewall.enable =  false;
+    networking = {
+      firewall = {
+        enable =  true;
+        allowPing = true;
+        allowedUDPPorts = [
+          5353 # mdns
+        ];
+      };
+      nftables = {
+        enable = true;
+      };
+    };
     
     systemd.network.networks."40-${finalMainInt}" = { # allows networkd to configure bridge even without a carrier
       name = finalMainInt;
