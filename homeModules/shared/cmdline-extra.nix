@@ -218,6 +218,7 @@
         
         local  c = wezterm.config_builder()
         c:set_strict_mode(true)
+        c.warn_about_missing_glyphs = false
         
         local act = wezterm.action
         c.keys = {
