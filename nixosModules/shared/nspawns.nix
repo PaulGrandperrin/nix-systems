@@ -132,22 +132,27 @@ in {
             # exit if machine already exists
             test -d /var/lib/machines/${name} && exit 0
 
+            # undo any unfinished work
+            umount -q /var/lib/machines/${name}_wip/* || true
+            rm -rf /var/lib/machines/${name}_wip
+
             # install Debian with systemd for containers, kernel dbus, resolved DNS and unattended upgrades
-            debootstrap --include=systemd-container,dbus-broker,systemd-resolved,unattended-upgrades --components=main,contrib,non-free,non-free-firmware --extra-suites=bookworm-updates bookworm /var/lib/machines/${name} http://deb.debian.org/debian/
+            debootstrap --include=systemd-container,dbus-broker,systemd-resolved,unattended-upgrades --components=main,contrib,non-free,non-free-firmware --extra-suites=bookworm-updates bookworm /var/lib/machines/${name}_wip http://deb.debian.org/debian/
 
             # debootstrap doesn't properly cleanup its mounts
-            umount -q /var/lib/machines/${name}/proc
-            umount -q /var/lib/machines/${name}/sys
+            umount -q /var/lib/machines/${name}_wip/* || true
 
             # enable networkd and resolved
-            systemd-nspawn --machine=${name} /usr/bin/systemctl enable systemd-networkd.service
-            systemd-nspawn --machine=${name} /usr/bin/systemctl enable systemd-resolved.service
+            systemd-nspawn -D /var/lib/machines/${name}_wip /usr/bin/systemctl enable systemd-networkd.service
+            systemd-nspawn -D /var/lib/machines/${name}_wip /usr/bin/systemctl enable systemd-resolved.service
 
             # set hostname
-            echo "${name}" > /var/lib/machines/${name}/etc/hostname
+            echo "${name}" > /var/lib/machines/${name}_wip/etc/hostname
 
             # security sources
-            echo "deb http://security.debian.org/ bookworm-security main contrib non-free non-free-firmware" >> /var/lib/machines/${name}/etc/apt/sources.list
+            echo "deb http://security.debian.org/ bookworm-security main contrib non-free non-free-firmware" >> /var/lib/machines/${name}_wip/etc/apt/sources.list
+
+            mv /var/lib/machines/${name}_wip /var/lib/machines/${name}
           '';
         };
       in {
@@ -159,6 +164,9 @@ in {
           ExecStart = "${exec-start-pre}/bin/systemd-nspawn-exec-start-pre";
           Type = "oneshot";
           TimeoutStartSec = "5min";
+          Restart = "on-failure";
+          RestartSec = "5";
+          RestartMode = "direct"; # skip failed state on restarts, don't notify dependents on temporary failures
         };
       };
 
