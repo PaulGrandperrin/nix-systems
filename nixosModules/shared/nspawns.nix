@@ -74,16 +74,9 @@ in {
           Address = "10.43.0.254/24";
           DHCPServer = "yes";
           IPMasquerade = "ipv4";
-          #LinkLocalAddressing = "yes";
-          #ConfigureWithoutCarrier=yes
-          #LLDP = "yes";
-          #EmitLLDP = "customer-bridge";
         };
-        #linkConfig = {
-        #  "ActivationPolicy" = "up";
-        #  "RequiredForOnline" = "no";
-        #};
         dhcpServerConfig = {
+          DNS = "9.9.9.1 149.112.112.112";
           PoolOffset = 100;
           PoolSize = 100;
         };
@@ -115,8 +108,8 @@ in {
         triggers = [
           config.systemd.nspawn.${name}
           config.systemd.network.networks."05-br-nspawn".networkConfig
-          config.systemd.network.networks."05-br-nspawn".dhcpServerConfig
-          config.systemd.network.networks."05-br-nspawn".dhcpServerStaticLeases
+          #config.systemd.network.networks."05-br-nspawn".dhcpServerConfig
+          #config.systemd.network.networks."05-br-nspawn".dhcpServerStaticLeases
         ]; 
       in [
         (pkgs.writeTextDir "etc/systemd/system/systemd-nspawn@${name}.service.d/10-restart-triggers.conf" ''
