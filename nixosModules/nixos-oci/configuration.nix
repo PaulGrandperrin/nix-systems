@@ -77,6 +77,7 @@
 
   virtualisation.my-nspawn = {
     enable = true;
+    wan-if = "eth0";
     containers = {
       minecraft = {
         id = 1;

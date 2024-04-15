@@ -4,6 +4,9 @@ let cfg = config.virtualisation.my-nspawn;
 in {
   options.virtualisation.my-nspawn = {
     enable = mkEnableOption "My NSpawn";
+    wan-if = mkOption {
+      type = types.str;
+    };
     containers = mkOption {
       description = "List of nspawn containers";
       default = {};
@@ -39,8 +42,8 @@ in {
           type filter hook forward priority filter; policy accept;
 
           # drop all traffic not going through the main int
-          iifname "br-nspawn" oifname != "${config.services.net.mainInt}" drop
-          oifname "br-nspawn" iifname != "${config.services.net.mainInt}" drop
+          iifname "br-nspawn" oifname != "${cfg.wan-if}" drop
+          oifname "br-nspawn" iifname != "${cfg.wan-if}" drop
 
           # and drop all ipv6 traffic
           meta nfproto ipv6 iifname "br-nspawn" drop

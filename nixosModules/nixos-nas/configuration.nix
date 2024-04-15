@@ -86,11 +86,17 @@
     enable = true;
   };
 
-  services.my-nspawn = {
+  virtualisation.my-nspawn = {
     enable = true;
-    name = "tidb-nas";
-    net-id = 1;
-    id = 1;
+    wan-if = "br0";
+    containers = {
+      tidb-nas = {
+        id = 1;
+        mac = "22:ec:95:92:f5:84";
+        ports = [];
+        max-mem = "4G";
+      };
+    };
   };
 
   # web
