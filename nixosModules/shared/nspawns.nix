@@ -45,13 +45,15 @@ in {
           iifname "br-nspawn" oifname != "${cfg.wan-if}" drop
           oifname "br-nspawn" iifname != "${cfg.wan-if}" drop
 
-          # and drop all ipv6 traffic
+          # drop all ipv6 traffic
           meta nfproto ipv6 iifname "br-nspawn" drop
           meta nfproto ipv6 oifname "br-nspawn" drop
+
+          # drop all traffic with wrong network
+          iifname "br-nspawn" ip saddr != 10.43.0.0/16 drop
+          oifname "br-nspawn" ip daddr != 10.43.0.0/16 drop
           
-          # and since I don't trust my iptables skills so just to be sure
-          ip saddr 10.43.0.0/16 ip daddr 169.254.169.254 accept # local resolved
-          ip daddr 10.43.0.0/16 ip saddr 169.254.169.254 accept # local resolved
+          # drop all traffic with local, link-local and private networks
           ip saddr 10.43.0.0/16 ip daddr {127.0.0.0/8, 169.254.0.0/16, 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16} drop
           ip daddr 10.43.0.0/16 ip saddr {127.0.0.0/8, 169.254.0.0/16, 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16} drop
         }
