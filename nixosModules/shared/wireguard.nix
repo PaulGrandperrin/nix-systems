@@ -83,19 +83,30 @@ in {
           WG_PEER_PK=$(wg showconf "$WG_DEV"|rg -B3 "Endpoint = $SERVER_IP"|rg "PublicKey ="|sed 's/PublicKey = //')
           WG_PEER_AL_IP=$(wg showconf "$WG_DEV"|rg -B3 "Endpoint = $SERVER_IP"|rg "AllowedIPs ="|sed 's/AllowedIPs = //'|tr -d ' ')
 
-          ip route add "$SERVER_IP" via "$DEFAULT_GW" dev "$DEFAULT_DEV" proto static
-          ip route add default dev "$WG_DEV" proto static
-          wg set wg0 peer "$WG_PEER_PK" allowed-ips 0.0.0.0/0
+          function connect() {
+            echo "connecting..."
+            ip route add "$SERVER_IP" via "$DEFAULT_GW" dev "$DEFAULT_DEV" proto static
+            ip route add default dev "$WG_DEV" proto static
+            wg set wg0 peer "$WG_PEER_PK" allowed-ips 0.0.0.0/0
+            echo "VPN connected"
+          }
 
-          echo "VPN connected"
+          function disconnect() {
+            echo "disconnecting..."
+            set +e
+            wg set wg0 peer "$WG_PEER_PK" allowed-ips "$WG_PEER_AL_IP"
+            ip route del default dev "$WG_DEV" proto static
+            ip route del "$SERVER_IP" via "$DEFAULT_GW" dev "$DEFAULT_DEV" proto static
+            echo "VPN disconnected"
+          }
+
+          trap disconnect EXIT
+          connect
+
           echo "press enter to disconnect"
           read -r
 
-          set +e
-
-          wg set wg0 peer "$WG_PEER_PK" allowed-ips "$WG_PEER_AL_IP"
-          ip route del default dev "$WG_DEV" proto static
-          ip route del "$SERVER_IP" via "$DEFAULT_GW" dev "$DEFAULT_DEV" proto static
+          # triggers the trap to disconnect on exiting
         '';
       })
     ];
