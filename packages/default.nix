@@ -9,6 +9,8 @@
 
   kernel-module-ath-patched = pkgs.callPackage ./kernel-module-ath-patched.nix {};
 
+  nix-inspect = inputs.nix-inspect.packages.${pkgs.stdenv.hostPlatform.system}.default;
+
   #firefox-bin = pkgs.callPackage ./firefox-bin {};
 
   nixvim = inputs.nixvim.legacyPackages.${pkgs.stdenv.hostPlatform.system}.makeNixvimWithModule {

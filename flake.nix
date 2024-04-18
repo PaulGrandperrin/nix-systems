@@ -215,6 +215,14 @@
       };
     };
 
+    nix-inspect = {
+      url = "github:bluskript/nix-inspect";
+      inputs = {
+        #nixpkgs.follows = "nixos-stable";
+        #parts.follows = "flake-parts";
+      };
+    };
+
     nix-cluster = {
       url = "git+ssh://git@github.com/PaulGrandperrin/nix-cluster.git";
       inputs = {

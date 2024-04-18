@@ -44,6 +44,7 @@
       ssh-to-age
       grex
       yt-dlp
+      nix-inspect
 
       # dev
       gdb
