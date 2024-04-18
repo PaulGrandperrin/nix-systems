@@ -761,26 +761,6 @@
         "type": "github"
       }
     },
-    "nh": {
-      "inputs": {
-        "nixpkgs": [
-          "nixos-stable"
-        ]
-      },
-      "locked": {
-        "lastModified": 1713422373,
-        "narHash": "sha256-PuGzau2Wj0T8MC3V8a41rc/sXT0DrNz1Ow/ApR6a87s=",
-        "owner": "viperML",
-        "repo": "nh",
-        "rev": "c9cb03418dc782701ada556a49a9e8de0b415fbc",
-        "type": "github"
-      },
-      "original": {
-        "owner": "viperML",
-        "repo": "nh",
-        "type": "github"
-      }
-    },
     "nix": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -1688,7 +1668,6 @@
         "home-manager-stable": "home-manager-stable",
         "home-manager-unstable": "home-manager-unstable",
         "lanzaboote": "lanzaboote",
-        "nh": "nh",
         "nix": "nix_3",
         "nix-alien": "nix-alien",
         "nix-cluster": "nix-cluster",

@@ -3,7 +3,7 @@
   imports = [
     inputs.disko.nixosModules.disko
     inputs.sops-nix.nixosModules.sops
-    inputs.nh.nixosModules.default
+    (inputs.nixos-unstable + "/nixos/modules/programs/nh.nix")
     home-manager-flake.nixosModules.home-manager
     #inputs.dwarffs.nixosModules.dwarffs # broken..
     ./mail.nix
@@ -72,9 +72,9 @@
     #};
   };
 
-  nh = {
+  programs.nh = {
     enable = true;
-    package = pkgs.nh;
+    package = pkgs.unstable.nh;
     flake = "/etc/nixos/";
     clean = {
       enable = true;
