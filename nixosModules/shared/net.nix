@@ -41,7 +41,8 @@ in {
     networking.useNetworkd = true;
     networking.useDHCP = false;
 
-    systemd.services.systemd-networkd-wait-online.enable = lib.mkForce false; # I just can't deal with this anymore... I don't even understand WHY!?
+    #systemd.services.systemd-networkd-wait-online.enable = lib.mkForce false; # I just can't deal with this anymore... I don't even understand WHY!?
+    systemd.network.wait-online.enable = false;
 
     networking.nameservers = ["9.9.9.11#dns11.quad9.net" "149.112.112.11#dns11.quad9.net" "2620:fe::11#dns11.quad9.net" "2620:fe::fe:11#dns11.quad9.net"]; # Malware blocking, DNSSEC Validation, ECS enabled
     #networking.nameservers = ["9.9.9.9#dns.quad9.net" "149.112.112.112#dns.quad9.net" "2620:fe::fe#dns.quad9.net" "2620:fe::9#dns.quad9.net"]; # Malware Blocking, DNSSEC Validation
