@@ -24,8 +24,12 @@
     extraSpecialArgs = config._module.specialArgs;
   };
   
-  # always keep a reference to the source flake that generated each generations
-  environment.etc."source-flake".source = ../.;
+  environment.etc = {
+    "nix/source-flake".source = ../../.; # always keep a reference to the source flake that generated each generations
+  } // (lib.mapAttrs' # keep inputs too, from flake-utils-plus
+    (name: value: { name = "nix/inputs/${name}"; value = { source = value.outPath; }; })
+    inputs
+  );
 
   boot.initrd.systemd.emergencyAccess = lib.mkDefault true;
 
