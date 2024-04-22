@@ -24,6 +24,9 @@ in {
           max-mem = mkOption {
             type = types.str;
           };
+          os = mkOption {
+            type = types.str;
+          };
         };
       }));
     };
@@ -127,33 +130,127 @@ in {
       services."systemd-nspawn-${name}-init" = let
         exec-start-pre = pkgs.writeShellApplication {
           name = "systemd-nspawn-exec-start-pre";
-          runtimeInputs = [pkgs.debootstrap pkgs.umount];
-          text = ''
-            # exit if machine already exists
-            test -d /var/lib/machines/${name} && exit 0
+          runtimeInputs = with pkgs; [debootstrap umount util-linux nixos-install-tools nix];
+          text = ({
+            debian = ''
+              # exit if machine already exists
+              test -d /var/lib/machines/${name} && exit 0
 
-            # undo any unfinished work
-            umount -q /var/lib/machines/${name}_wip/* || true
-            rm -rf /var/lib/machines/${name}_wip
+              # undo any unfinished work
+              umount -q /var/lib/machines/${name}_wip/* || true
+              rm -rf /var/lib/machines/${name}_wip
 
-            # install Debian with systemd for containers, kernel dbus, resolved DNS and unattended upgrades
-            debootstrap --include=systemd-container,dbus-broker,systemd-resolved,unattended-upgrades --components=main,contrib,non-free,non-free-firmware --extra-suites=bookworm-updates bookworm /var/lib/machines/${name}_wip http://deb.debian.org/debian/
+              # install debian with systemd for containers, kernel dbus, resolved dns and unattended upgrades
+              debootstrap --include=systemd-container,dbus-broker,systemd-resolved,unattended-upgrades --components=main,contrib,non-free,non-free-firmware --extra-suites=bookworm-updates bookworm /var/lib/machines/${name}_wip http://deb.debian.org/debian/
 
-            # debootstrap doesn't properly cleanup its mounts
-            umount -q /var/lib/machines/${name}_wip/* || true
+              # debootstrap doesn't properly cleanup its mounts
+              umount -q /var/lib/machines/${name}_wip/* || true
 
-            # enable networkd and resolved
-            systemd-nspawn -D /var/lib/machines/${name}_wip /usr/bin/systemctl enable systemd-networkd.service
-            systemd-nspawn -D /var/lib/machines/${name}_wip /usr/bin/systemctl enable systemd-resolved.service
+              # enable networkd and resolved
+              systemd-nspawn -d /var/lib/machines/${name}_wip /usr/bin/systemctl enable systemd-networkd.service
+              systemd-nspawn -d /var/lib/machines/${name}_wip /usr/bin/systemctl enable systemd-resolved.service
 
-            # set hostname
-            echo "${name}" > /var/lib/machines/${name}_wip/etc/hostname
+              # set hostname
+              echo "${name}" > /var/lib/machines/${name}_wip/etc/hostname
 
-            # security sources
-            echo "deb http://security.debian.org/ bookworm-security main contrib non-free non-free-firmware" >> /var/lib/machines/${name}_wip/etc/apt/sources.list
+              # security sources
+              echo "deb http://security.debian.org/ bookworm-security main contrib non-free non-free-firmware" >> /var/lib/machines/${name}_wip/etc/apt/sources.list
 
-            mv /var/lib/machines/${name}_wip /var/lib/machines/${name}
-          '';
+              mv /var/lib/machines/${name}_wip /var/lib/machines/${name}
+            '' ;
+            nixos = ''
+              # exit if machine already exists
+              test -d /var/lib/machines/${name} && exit 0
+
+              # undo any unfinished work
+              rm -rf /var/lib/machines/${name}_wip
+
+              mkdir -p /var/lib/machines/${name}_wip/etc/nixos
+
+              cat >/var/lib/machines/${name}_wip/etc/nixos/flake.nix <<EOF
+              {
+                inputs = {
+                  nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+                };
+              
+                outputs = { self, nixpkgs, ... } @ inputs: let
+                  system = "x86_64-linux";
+                  pkgs = nixpkgs.legacyPackages.\''${system};
+                  nixpkgs-patched-drv = pkgs.applyPatches { # see https://discourse.nixos.org/t/proper-way-of-applying-patch-to-system-managed-via-flake/21073/26 , https://github.com/NixOS/nix/issues/3920 and https://github.com/NixOS/nix/pull/6530
+                    name = "nixpkgs-patched";
+                    src = nixpkgs;
+                    patches = [
+                      (pkgs.fetchpatch2 { # use fetchurl if includes renames: https://github.com/NixOS/nixpkgs/issues/32084
+                        url = "https://github.com/NixOS/nixpkgs/pull/301915.patch"; # allows disabling FSs
+                        hash = "sha256-iqwsFpTamojyOGO40FMx+vi4SHb4mQSMQvrNFY3wZUA=";
+                      })
+                    ];
+                  };
+                  nixpkgs-patched = (import "\''${nixpkgs-patched-drv}/flake.nix").outputs { self = inputs.self; }; # TODO maybe use fix: https://discourse.nixos.org/t/how-to-override-let-variables/23741 and https://discourse.nixos.org/t/trying-to-understand-lib-fix/29667
+              
+                in {
+                  nixosConfigurations.${name} = nixpkgs-patched.lib.nixosSystem rec {
+                    modules = [
+                      ({ config, lib, pkgs, modulesPath, ... }: {
+                        imports = [
+                        ];
+              
+                        # disabled mounts already handled by the host
+                        boot.specialFileSystems."/dev".enable = false;
+                        boot.specialFileSystems."/dev/pts".enable = false;
+                        boot.specialFileSystems."/dev/shm".enable = false;
+                        boot.specialFileSystems."/run".enable = false;
+              
+                        boot.loader.initScript.enable = true; # creates /sbin/init which is needed by nspawn
+              
+                        boot.isContainer = true;
+                        # override some options set by isContainer
+                        services.udev.enable = lib.mkForce true; # maybe we just need systemd.additionalUpstreamSystemUnits = ["systemd-udev-trigger.service"];
+                        nix.optimise.automatic = lib.mkOverride 999 true;
+                        documentation.nixos.enable = lib.mkOverride 999 true;
+                        environment.variables.NIX_REMOTE = lib.mkForce "";
+              
+                        nix.settings = {
+                          sandbox = false; # unpriviledged containers can't create namespaces
+                          experimental-features = [ "nix-command" "flakes" ];
+                        };
+              
+                        networking.hostName = "${name}";
+                        networking.useNetworkd = true;
+                        networking.enableIPv6 = false;
+              
+                        services.resolved.enable = true;
+                        networking.useHostResolvConf = false; # mandatory to enabled resolved
+              
+                        networking.useDHCP = lib.mkDefault true;
+                        networking.interfaces.host0.useDHCP = lib.mkDefault true;
+              
+                        environment.systemPackages = with pkgs; [
+                          vim
+                          wget
+                        ];
+              
+                        system.stateVersion = "23.11";
+                        nixpkgs.hostPlatform = lib.mkDefault system;
+                      })
+                    ];
+                  };
+                };
+              }
+              EOF
+
+              unshare -m /bin/sh -exc "mount -o bind /var/lib/machines/${name}_wip /mnt; nixos-install --no-channel-copy --no-bootloader --no-root-password --flake /mnt/etc/nixos#${name} "
+
+              systemd-nspawn -D /var/lib/machines/${name}_wip -- /nix/var/nix/profiles/system/activate
+
+              mkdir -p /var/lib/machines/${name}_wip/sbin
+              
+              ln -s /nix/var/nix/profiles/system/init /var/lib/machines/${name}_wip/sbin/init
+
+              mv /var/lib/machines/${name}_wip /var/lib/machines/${name}
+
+            '';
+          }.${value.os});
         };
       in {
         requires = ["network-online.target"];

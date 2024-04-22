@@ -95,6 +95,7 @@
         mac = "22:ec:95:92:f5:84";
         ports = [];
         max-mem = "4G";
+        os = "debian";
       };
     };
   };
