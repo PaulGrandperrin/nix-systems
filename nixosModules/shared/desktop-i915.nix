@@ -17,7 +17,8 @@
   #};
 
 
-  boot.extraModprobeConfig = '' # not included in stage1: https://github.com/NixOS/nixpkgs/pull/145013
+  boot.extraModprobeConfig = ''
+    # not included in stage1: https://github.com/NixOS/nixpkgs/pull/145013
     # necessary for AVC/HEVC/VP9 low power encoding bitrate control: https://github.com/intel/media-driver#known-issues-and-limitations, check with sudo cat /sys/module/i915/parameters/enable_guc
     options i915 enable_guc=2
   '';
