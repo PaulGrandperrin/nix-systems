@@ -57,6 +57,7 @@
     options = [
       "noatime"
       "nodiratime"
+      "nofail"
     ];
   };
 
