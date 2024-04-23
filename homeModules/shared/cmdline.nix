@@ -47,7 +47,7 @@
       which
       zstd
       nixvim
-      unstable.nh
+      nh
       fh
       zenith
 
