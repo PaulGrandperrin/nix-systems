@@ -129,7 +129,7 @@ in {
 
       services."systemd-nspawn-${name}-init" = let
         exec-start-pre = pkgs.writeShellApplication {
-          name = "systemd-nspawn-exec-start-pre";
+          name = "systemd-nspawn-${name}-init";
           runtimeInputs = with pkgs; [debootstrap umount util-linux nixos-install-tools nix];
           text = ({
             debian = ''
@@ -147,8 +147,8 @@ in {
               umount -q /var/lib/machines/${name}_wip/* || true
 
               # enable networkd and resolved
-              systemd-nspawn -d /var/lib/machines/${name}_wip /usr/bin/systemctl enable systemd-networkd.service
-              systemd-nspawn -d /var/lib/machines/${name}_wip /usr/bin/systemctl enable systemd-resolved.service
+              systemd-nspawn -D /var/lib/machines/${name}_wip /usr/bin/systemctl enable systemd-networkd.service
+              systemd-nspawn -D /var/lib/machines/${name}_wip /usr/bin/systemctl enable systemd-resolved.service
 
               # set hostname
               echo "${name}" > /var/lib/machines/${name}_wip/etc/hostname
@@ -258,7 +258,7 @@ in {
         requiredBy = ["systemd-nspawn@${name}.service"];
         before = ["systemd-nspawn@${name}.service"];
         serviceConfig = {
-          ExecStart = "${exec-start-pre}/bin/systemd-nspawn-exec-start-pre";
+          ExecStart = "${exec-start-pre}/bin/systemd-nspawn-${name}-init";
           Type = "oneshot";
           TimeoutStartSec = "5min";
           Restart = "on-failure";
