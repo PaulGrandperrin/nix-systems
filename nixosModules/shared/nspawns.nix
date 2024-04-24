@@ -117,7 +117,7 @@ in {
           #config.systemd.network.networks."05-br-nspawn".dhcpServerStaticLeases
         ]; 
       in [
-        (pkgs.writeTextDir "etc/systemd/system/systemd-nspawn@${name}.service.d/10-restart-triggers.conf" ''
+        (pkgs.writeTextDir "etc/systemd/system/systemd-nspawn@${name}.service.d/10-restart-triggers-${name}.conf" ''
          [Unit]
          X-Restart-Triggers=${pkgs.writeText "X-Restart-Triggers-${name}" (builtins.toJSON triggers)}
 
