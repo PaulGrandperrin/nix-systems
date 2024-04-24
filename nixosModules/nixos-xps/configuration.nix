@@ -57,7 +57,8 @@
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/ACA7-12F3";
+    #device = "/dev/disk/by-uuid/1189-72D1";
+    device = "/dev/disk/by-partlabel/boot1";
     fsType = "vfat";
     options = [
       "noatime"
