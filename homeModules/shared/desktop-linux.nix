@@ -30,7 +30,7 @@
       rawtherapee
       libreoffice
       helvum
-      popcorntime
+      unstable.popcorntime
       swappy
 
       #gnome.gnome-boxes libvirt # doesn't work, but flatpak version does
