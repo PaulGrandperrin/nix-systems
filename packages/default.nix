@@ -54,7 +54,8 @@
     ];
     targets = ["wasm32-unknown-emscripten"];
   };
-  
+
+  pd = pkgs.callPackage ./pd {};
 
   #iso = inputs.nixos-generators.nixosGenerate {
   #  pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
