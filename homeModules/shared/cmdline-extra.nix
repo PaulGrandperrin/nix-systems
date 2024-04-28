@@ -45,6 +45,7 @@
       grex
       yt-dlp
       nix-inspect
+      nixpkgs-update
 
       # dev
       gdb

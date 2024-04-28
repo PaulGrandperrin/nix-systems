@@ -223,6 +223,13 @@
       };
     };
 
+    nixpkgs-update = {
+      url = "github:ryantm/nixpkgs-update";
+      inputs = {
+        # nixpkgs.follows = "nixos-stable"; # don't override so that we can use the cache
+      };
+    };
+
     nix-cluster = {
       url = "git+ssh://git@github.com/PaulGrandperrin/nix-cluster.git";
       inputs = {

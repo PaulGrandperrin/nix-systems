@@ -12,6 +12,7 @@ inputs: rec {
     };
   };
   local-packages = (final: prev: import ./packages {pkgs = final; inherit inputs;});
+  nixpkgs-update = (final: prev: inputs.nixpkgs-update.packages.${prev.stdenv.hostPlatform.system} or {});
   rclonefs = (final: prev: {
     rclone = (prev.symlinkJoin { # create filesystem helpers until https://github.com/NixOS/nixpkgs/issues/258478
       name = "rclone";
@@ -62,6 +63,7 @@ inputs: rec {
     all-channels
     local-packages
     rclonefs
+    nixpkgs-update
     devenv
     #hostapd
     nh
