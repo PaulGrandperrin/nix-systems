@@ -1,4 +1,6 @@
-{ lib
+{ romID ? "ntsc-final"
+
+, lib
 
 , fetchFromGitHub
 , stdenv_32bit
@@ -7,7 +9,23 @@
 
 , pkg-config
 , python3
-}: stdenv_32bit.mkDerivation rec {
+}: let
+  roms = {
+    "ntsc-final" = {
+      binName = "pd";
+    };
+    "pal-final" = {
+      binName = "pd.pal";
+    };
+    "jpn-final" = {
+      binName = "pd.jpn";
+    };
+  };
+  binName = roms.${romID}.binName;
+in
+  assert lib.assertOneOf "romID" romID (builtins.attrNames roms);
+
+  stdenv_32bit.mkDerivation rec {
   pname = "pd";
   version = "0-unstable-2024-04-25";
 
@@ -42,6 +60,8 @@
 
   makeFlags = [
     "TARGET_PLATFORM=i686-linux" # the project is 32-bit only for now
+    "ROMID=${romID}"
+    "GCC_OPT_LVL=" # "-Og" is explicitly set as default in pd, we remove it to use stdenv's settings instead (defaults to "-O2")
   ];
 
   makefile = "Makefile.port";
@@ -54,15 +74,28 @@
     runHook preInstall
 
     mkdir -p $out/bin
-    mv build/ntsc-final-port/pd.exe $out/bin/pd
+    mv build/${romID}-port/${binName}.exe $out/bin/${binName}
 
     runHook postInstall
   '';
 
   meta = with lib; {
     homepage = "https://github.com/fgsfdsfgs/perfect_dark";
-    description = "A PC port of Perfect Dark based on the decompilation of the Nintendo 64 game";
-    mainProgram = "pd";
+    description = "A PC port of Perfect Dark based on the decompilation of the Nintendo 64 game (${romID})";
+    longDescription = ''
+      A PC port of Perfect Dark based on the decompilation of the Nintendo 64 game (${romID}).
+
+      You'll need to provide a copy of the ROM at $HOME/.local/share/perfectdark/data/pd.${romID}.z64 to launch to game.
+
+      You can also change the ROM variant of this game with an expression like this:
+
+      `pd.override { romID = "jpn-final" }`
+
+      Supported romIDs are `${lib.generators.toPretty {} roms}`.
+
+      `ntsc-final` the default as it is the only recommended one by upstream.
+    '';
+    mainProgram = binName;
     platforms = [ "i686-linux" "x86_64-linux" ];
     maintainers = with maintainers; [ PaulGrandperrin ];
     license = with licenses; [
