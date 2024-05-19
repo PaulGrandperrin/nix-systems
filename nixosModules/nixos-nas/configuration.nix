@@ -75,7 +75,9 @@
   services.net = {
     enable = true;
     mainInt = "enp3s0";
-  }; 
+  };
+
+  boot.kernelPackages = lib.mkForce pkgs.linuxPackages_6_6; # 6.8.10 is broken
 
   #boot.extraModulePackages = [(
   #  pkgs.kernel-module-ath-patched.overrideAttrs (old: {
