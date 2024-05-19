@@ -45,7 +45,6 @@
       grex
       yt-dlp
       nix-inspect
-      nixpkgs-update
 
       # dev
       gdb
@@ -152,6 +151,8 @@
         cpufrequtils
         #zenith
         intel-gpu-tools
+
+        nixpkgs-update
       ] ++ lib.optionals (config.home.username == "root") [ # if root and linux
         i7z
         sbctl # secure boot key manager
