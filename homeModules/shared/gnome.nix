@@ -9,7 +9,7 @@
       gnomeExtensions.blur-my-shell
       #gnomeExtensions.pixel-saver # incomp
       #gnomeExtensions.floating-dock # incomp
-      gnomeExtensions.emoji-selector
+      #gnomeExtensions.emoji-selector
       gnomeExtensions.clipboard-indicator #gnomeExtensions.pano
       #gnomeExtensions.drop-down-terminal # incomp
       #gnomeExtensions.ddterm
@@ -131,7 +131,7 @@
 
   qt = {
     enable = true;
-    platformTheme = "gnome";
+    platformTheme.name = "adwaita";
     style = {
       package = pkgs.adwaita-qt;
       name = "adwaita";

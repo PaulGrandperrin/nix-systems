@@ -25,10 +25,10 @@
       id   = "nixpkgs";
     };
 
-    nixos-stable.url           = "github:NixOS/nixpkgs/nixos-23.11";
-    nixos-stable-lib.url       = "github:NixOS/nixpkgs/nixos-23.11?dir=lib"; # "github:nix-community/nixpkgs.lib" doesn't work
-    nixos-stable-small.url     = "github:NixOS/nixpkgs/nixos-23.11-small";
-    darwin-stable.url          = "github:NixOS/nixpkgs/nixpkgs-23.11-darwin";
+    nixos-stable.url           = "github:NixOS/nixpkgs/nixos-24.05";
+    nixos-stable-lib.url       = "github:NixOS/nixpkgs/nixos-24.05?dir=lib"; # "github:nix-community/nixpkgs.lib" doesn't work
+    nixos-stable-small.url     = "github:NixOS/nixpkgs/nixos-24.05-small";
+    darwin-stable.url          = "github:NixOS/nixpkgs/nixpkgs-24.05-darwin";
     darwin-unstable.url        = "github:NixOS/nixpkgs/nixpkgs-unstable"; # darwin-unstable for now (https://github.com/NixOS/nixpkgs/issues/107466)
     nixos-unstable.url         = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-unstable-lib.url     = "github:NixOS/nixpkgs/nixos-unstable?dir=lib";
@@ -38,7 +38,8 @@
     nur.url = "github:nix-community/NUR";
 
     nix-on-droid = {
-      url = "github:nix-community/nix-on-droid/release-23.11";
+      url = "github:nix-community/nix-on-droid/master";
+      #url = "github:nix-community/nix-on-droid/release-24.05";
       inputs = {
         nixpkgs.follows = "nixos-stable-lib";
         home-manager.follows = "home-manager-stable"; # TODO try to remove
@@ -64,7 +65,7 @@
     };
 
     home-manager-stable = {
-      url = "github:nix-community/home-manager/release-23.11";
+      url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixos-stable-lib"; # not needed by NixOS' module thanks to `home-manager.useGlobalPkgs = true` but needed by the unpriviledged module
     };
     home-manager-unstable = {
@@ -202,12 +203,10 @@
 
     nixvim = {
       url = "github:nix-community/nixvim/main";
-      #url = "github:nix-community/nixvim/nixos-23.11";
+      #url = "github:nix-community/nixvim/nixos-24.05";
       inputs = {
-        #nixpkgs.follows = "nixos-stable";
-        nixpkgs.follows = "nixos-unstable";
-        #home-manager.follows = "home-manager-stable";
-        home-manager.follows = "home-manager-unstable";
+        nixpkgs.follows = "nixos-stable";
+        home-manager.follows = "home-manager-stable";
         nix-darwin.follows = "nix-darwin";
         flake-parts.follows = "flake-parts";
         flake-compat.follows = "flake-compat";
@@ -230,12 +229,18 @@
       };
     };
 
-    nix-cluster = {
-      url = "git+ssh://git@github.com/PaulGrandperrin/nix-cluster.git";
-      inputs = {
-        nixpkgs.follows = "nixos-stable";
-      };
+    #nix-cluster = {
+    #  url = "git+ssh://git@github.com/PaulGrandperrin/nix-cluster.git";
+    #  inputs = {
+    #    nixpkgs.follows = "nixos-stable";
+    #  };
+    #};
+
+    nixos-cosmic = {
+      url = "github:lilyinstarlight/nixos-cosmic";
+      inputs.nixpkgs.follows = "nixos-stable";
     };
+
 
     #nar-alike-deduper = {
     #  #url = "github:PaulGrandperrin/nar-alike-deduper";

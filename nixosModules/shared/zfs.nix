@@ -30,7 +30,6 @@
       # enable email notifications
       ZED_EMAIL_ADDR = [ "root" ];
       ZED_NOTIFY_VERBOSE = true;
-      ZED_EMAIL_PROG = "${pkgs.mailutils}/bin/mail";
     };
 
     trim = {

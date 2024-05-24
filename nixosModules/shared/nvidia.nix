@@ -5,7 +5,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    nvtop-nvidia
+    nvtopPackages.nvidia
   ];
 
   hardware.nvidia = {
@@ -29,7 +29,7 @@
     #forceFullCompositionPipeline = true;
   };
 
-  virtualisation.docker.enableNvidia = true;
+  virtualisation.containers.cdi.dynamic.nvidia.enable = true;
 
 }
 

@@ -3,7 +3,7 @@
   imports = [
     inputs.disko.nixosModules.disko
     inputs.sops-nix.nixosModules.sops
-    (inputs.nixos-unstable + "/nixos/modules/programs/nh.nix")
+    #(inputs.nixos-unstable + "/nixos/modules/programs/nh.nix")
     home-manager-flake.nixosModules.home-manager
     #inputs.dwarffs.nixosModules.dwarffs # broken..
     ./mail.nix
@@ -33,12 +33,12 @@
 
   boot.initrd.systemd.emergencyAccess = lib.mkDefault true;
 
-  boot.supportedFilesystems = [
-    "ext4"
-    "btrfs"
-    "exfat"
-    "ntfs"
-  ];
+  boot.supportedFilesystems = {
+    ext4 = true;
+    btrfs = true;
+    exfat = true;
+    ntfs = true;
+  };
 
   sops = {
     defaultSopsFile = ../../secrets/common.yaml;
@@ -410,7 +410,6 @@
       };
       dockerCompat = true;
       #defaultNetwork.settings = { dns_enabled = true; };
-      #enableNvidia = true;
     };
     docker = {
       #enable = true;
@@ -429,6 +428,9 @@
   ;
 
   systemd.targets.machines.enable = true;
+
+  # systemd.sysusers.enable = true; # experimental in 24.05
+  # systemd.etc.overlay.enable = true; # experimental in 24.05
 
   services.udisks2.settings = { # fix NTFS mount, from https://wiki.archlinux.org/title/NTFS#udisks_support
     "mount_options.conf" = {

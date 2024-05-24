@@ -46,18 +46,19 @@
 
   services.thermald.enable = false; # should be disabled when power-profile-daemon (GNOME or KDE)
 
-
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
   # HACK fixes autologin when on wayland https://github.com/NixOS/nixpkgs/issues/103746
   #systemd.services."getty@tty1".enable = false;
   #systemd.services."autovt@tty1".enable = false;
 
-  services.xserver.displayManager = {
-    gdm = { # impossible to make it work with prime.sync, use lightdm for that
+  # one must be choosen otherwise we get a conflict of default vealues when selecting multiple desktops
+  programs.ssh.askPassword = "${pkgs.gnome.seahorse}/libexec/seahorse/ssh-askpass";
+
+  services.systemd-lock-handler.enable = true; # TODO maybe run some housekeeping tasks
+
+  services.displayManager = {
+    sddm = { # gdm, lightdm, cosmic-greeter
       enable = true;
-      wayland = true;
+      wayland.enable = true;
       #debug = true;
     };
     #lightdm = { # does not work with gnome-shell's lock screen but works with prime.sync
@@ -81,11 +82,6 @@
     # sacrifice a few milliseconds latency in order to gain a smoother frame rate
     #CLUTTER_PAINT = "disable-dynamic-max-render-time";
   };
-
-  services.xserver.desktopManager.gnome.enable = true;
-  environment.gnome.excludePackages = [
-  ];
-  services.gvfs.enable = true;
 
   services.flatpak.enable = true;
   systemd.services.flatpak-remote-add-flathub = {
@@ -142,14 +138,11 @@
     };
   };
 
-  services.gnome.gnome-browser-connector.enable = true;
-
-
   networking.firewall.allowedUDPPorts = [
     6970 # RTP for VLC
   ];
 
-  home-manager.users.paulg.home.file.".config/vlc/vlcrc".text = ''
+  home-manager.users.paulg.xdg.configFile."vlc/vlcrc".text = ''
     [core]
     metadata-network-access=1
 
@@ -177,14 +170,14 @@
     ];
   };
 
-  # should be moved to HM
-  # FIXME: when .config/rclone doesn't exist yet, they'll be created as root and create problems
   sops.secrets."rclone.conf" = {
     sopsFile = ../../secrets/other.yaml;
     restartUnits = [ "home-manager-paulg.service" ];
-    path = "/home/paulg/.config/rclone/rclone.conf";
     owner = "paulg";
+    # we don't define the final path here because if the parent directory doesn't exist yet ($HOME/.config), it'll create it with root ownership, breaking the session.
   };
+  # HM will create $HOME.config with the correct owner
+  home-manager.users.paulg.xdg.configFile."rclone/rclone.conf".source = config.home-manager.users.paulg.lib.file.mkOutOfStoreSymlink config.sops.secrets."rclone.conf".path;
 
   sops.secrets."DelPuppo Guest.nmconnection" = {
     restartUnits = [ "NetworkManager.service" ];
@@ -215,10 +208,7 @@
     wifi.scanRandMacAddress = true; # default is true
     wifi.macAddress = "stable"; # default is "preverve"
     ethernet.macAddress = "stable"; # default is "preserve"
-    extraConfig = ''
-      [connectivity]
-      uri=http://nmcheck.gnome.org/check_network_status.txt
-    '';
+    settings.connectivity.uri = "http://nmcheck.gnome.org/check_network_status.txt";
   };
 
   systemd.network.wait-online = {

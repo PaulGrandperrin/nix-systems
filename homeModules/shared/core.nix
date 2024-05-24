@@ -20,7 +20,7 @@ args @ {pkgs, config, inputs, lib, nixos-flake, home-manager-flake, ...}: {
       #flake-utils.flake = inputs.flake-utils;
       #rust-overlay.flake = inputs.rust-overlay;
       home-manager.flake = home-manager-flake;
-      nixpkgs.to = {
+      nixpkgs.to = { # already set by default for NixOS with nixpkgs.flake.setFlakeRegistry
         type = "path";
         path = (toString pkgs.path);
       };
