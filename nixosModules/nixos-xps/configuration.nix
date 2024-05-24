@@ -7,12 +7,13 @@
     ../shared/wireguard.nix
     ../shared/wg-mounts.nix
     ../shared/desktop.nix
+    ../shared/gnome.nix
     ../shared/desktop-i915.nix
     ../shared/nvidia.nix
     ../shared/gaming.nix
     ../shared/nspawns.nix
     inputs.lanzaboote.nixosModules.lanzaboote
-    inputs.nix-cluster.nixosModules.nix-cluster
+    #inputs.nix-cluster.nixosModules.nix-cluster
     #inputs.nar-alike-deduper.nixosModules.default
   ];
 

@@ -55,10 +55,11 @@
 
   services.systemd-lock-handler.enable = true; # TODO maybe run some housekeeping tasks
 
-  services.displayManager = {
-    sddm = { # gdm, lightdm, cosmic-greeter
+  services.xserver.displayManager = {
+    gdm = { # gdm, ssdm, lightdm, cosmic-greeter
       enable = true;
-      wayland.enable = true;
+      wayland = true;
+      #wayland.enable = true;
       #debug = true;
     };
     #lightdm = { # does not work with gnome-shell's lock screen but works with prime.sync
@@ -83,17 +84,23 @@
     #CLUTTER_PAINT = "disable-dynamic-max-render-time";
   };
 
-  services.flatpak.enable = true;
-  systemd.services.flatpak-remote-add-flathub = {
-    requires = ["network-online.target"];
-    after = ["network-online.target"];
-    wantedBy = ["multi-user.target"];
-    serviceConfig.Type = "oneshot";
-    description = "Install Flatpak Remote Flathub";
-    script = ''
-      ${pkgs.flatpak}/bin/flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-    '';
-  };
+  #services.flatpak.enable = true;
+  #xdg.portal = {
+  #  enable = true; # required for flatpak
+  #  extraPortals = with pkgs; [
+  #    xdg-desktop-portal-gtk
+  #  ];
+  #};
+  #systemd.services.flatpak-remote-add-flathub = {
+  #  requires = ["network-online.target"];
+  #  after = ["network-online.target"];
+  #  wantedBy = ["multi-user.target"];
+  #  serviceConfig.Type = "oneshot";
+  #  description = "Install Flatpak Remote Flathub";
+  #  script = ''
+  #    ${pkgs.flatpak}/bin/flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+  #  '';
+  #};
 
   services.system76-scheduler = {
     enable = true;
