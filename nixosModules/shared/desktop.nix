@@ -124,10 +124,8 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    jack.enable = true;
+    #jack.enable = true;
   };
-
-  systemd.user.services.pipewire-pulse.path = [ pkgs.pulseaudio ]; # HACK waiting for #165125
 
   hardware.bluetooth.package = pkgs.bluez5-experimental;
 

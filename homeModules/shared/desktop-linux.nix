@@ -53,29 +53,29 @@
   #'';
 
 
-  xdg.configFile = {
-    "wireplumber/bluetooth.lua.d/51-bluez-config.lua".text = ''
-      bluez_monitor.properties = {
-        ["bluez5.enable-sbc-xq"] = true,
-        ["bluez5.enable-msbc"] = true,
-        ["bluez5.enable-hw-volume"] = true,
-        ["bluez5.headset-roles"] = "[ hsp_hs hsp_ag hfp_hf hfp_ag ]",
-      }
-    '';
-    "wireplumber/bluetooth.lua.d/51-bluez-bose700-sbc_xq.lua".text = ''
-      rule = {
-        matches = {
-          {
-            { "node.name", "equals", "bluez_output.60_AB_D2_23_56_13.a2dp-sink" },
-          },
-        },                                                                                                                                                                                   
-        apply_properties = {
-          ["api.bluez5.codec"] = "sbc_xq", -- force SBC_XQ or else AAC is choosen
-        },
-      }
-      table.insert(bluez_monitor.rules,rule)
-    '';
-  };
+  #xdg.configFile = {
+  #  "wireplumber/bluetooth.lua.d/51-bluez-config.lua".text = ''
+  #    bluez_monitor.properties = {
+  #      ["bluez5.enable-sbc-xq"] = true,
+  #      ["bluez5.enable-msbc"] = true,
+  #      ["bluez5.enable-hw-volume"] = true,
+  #      ["bluez5.headset-roles"] = "[ hsp_hs hsp_ag hfp_hf hfp_ag ]",
+  #    }
+  #  '';
+  #  "wireplumber/bluetooth.lua.d/51-bluez-bose700-sbc_xq.lua".text = ''
+  #    rule = {
+  #      matches = {
+  #        {
+  #          { "node.name", "equals", "bluez_output.60_AB_D2_23_56_13.a2dp-sink" },
+  #        },
+  #      },                                                                                                                                                                                   
+  #      apply_properties = {
+  #        ["api.bluez5.codec"] = "sbc_xq", -- force SBC_XQ or else AAC is choosen
+  #      },
+  #    }
+  #    table.insert(bluez_monitor.rules,rule)
+  #  '';
+  #};
 
   home.activation.copySshAuthorizedKeys = lib.mkForce ""; # don't trust servers to connect to desktops
 
