@@ -89,6 +89,10 @@
     enable = true;
   };
 
+  #services.resolved.extraConfig = ''
+  #  DNSStubListenerExtra=192.168.1.1
+  #'';
+
   virtualisation.my-nspawn = {
     enable = true;
     wan-if = "br0";
