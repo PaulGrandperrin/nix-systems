@@ -8,6 +8,7 @@
     ../shared/wg-mounts.nix
     ../shared/desktop.nix
     ../shared/gnome.nix
+    ../shared/cosmic.nix
     ../shared/desktop-i915.nix
     ../shared/nvidia.nix
     ../shared/gaming.nix
