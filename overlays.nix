@@ -59,6 +59,16 @@ inputs: rec {
       meta.platforms = prev.lib.platforms.linux;
     });
   });
+  wireplumber = (final: prev: {
+    wireplumber = prev.wireplumber.overrideAttrs (oldAttrs: {
+      patches =  [
+        (prev.fetchpatch2 {
+          url = "https://gitlab.freedesktop.org/pipewire/wireplumber/-/commit/e3e8c9cdcb876081a2fae37d2c1011d6d6568758.diff";
+          hash = "sha256-4hWlvb1aboRNqTLXPoQZ9C0FeCTi2qOdUDk50+qnb5I=";
+        })
+      ];
+    });
+  });
   default = inputs.nixos-stable.lib.composeManyExtensions [
     all-channels
     local-packages
@@ -68,6 +78,7 @@ inputs: rec {
     #hostapd
     nh
     my-yuzu
+    wireplumber
 
     inputs.nur.overlay
     inputs.rust-overlay.overlays.default
