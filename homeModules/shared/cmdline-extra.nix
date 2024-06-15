@@ -45,6 +45,7 @@
       grex
       yt-dlp
       nix-inspect
+      libtree
 
       # dev
       gdb
