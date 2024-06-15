@@ -13,6 +13,7 @@
     ../shared/nvidia.nix
     ../shared/gaming.nix
     ../shared/nspawns.nix
+    ../shared/guix.nix
     inputs.lanzaboote.nixosModules.lanzaboote
     #inputs.nix-cluster.nixosModules.nix-cluster
     #inputs.nar-alike-deduper.nixosModules.default
