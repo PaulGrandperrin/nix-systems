@@ -32,6 +32,7 @@
       helvum
       unstable.popcorntime
       swappy
+      speechd # for spd-say
 
       #gnome.gnome-boxes libvirt # doesn't work, but flatpak version does
 
