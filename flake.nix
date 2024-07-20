@@ -236,8 +236,7 @@
     #};
 
     nixos-cosmic = {
-      #url = "github:lilyinstarlight/nixos-cosmic"; # https://github.com/lilyinstarlight/nixos-cosmic/issues/17
-      url = "github:drakon64/nixos-cosmic";
+      url = "github:lilyinstarlight/nixos-cosmic";
       inputs = {
         nixpkgs.follows = "nixos-cosmic/nixpkgs-stable"; # ensures we use the same version of nixos-stable use for building the cache
       };
