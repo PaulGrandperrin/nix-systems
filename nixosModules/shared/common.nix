@@ -133,6 +133,8 @@
   programs.nix-ld = { # create a link-loader for non-nix binaries
     enable = true;
     libraries = with pkgs; [
+      libpng libbsd # android emulator
+
       # from https://github.com/Mic92/dotfiles/blob/main/nixos/modules/nix-ld.nix
       stdenv.cc.cc
       fuse3
@@ -328,7 +330,7 @@
       "networkmanager" # no need for password
       "audio" # used by JACK for realtime, otherwise not needed on systemd
       "input" # manage controllers
-      #"kvm" # access to /dev/kvm but doesn't seem to be needed. thanks to uaccess? 
+      "kvm" # access to /dev/kvm but doesn't seem to be needed. thanks to uaccess? but maybe it's need for android emulator
       # "libvirtd" # doesn't seem to be necessary
     ];
     uid = 1000;
