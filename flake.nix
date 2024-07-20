@@ -228,6 +228,15 @@
       };
     };
 
+    #lix = { # too long to build
+    #  url = "git+https://git.lix.systems/lix-project/lix.git";
+    #  inputs = {
+    #    nixpkgs.follows = "nixos-stable";
+    #    pre-commit-hooks.follows = "pre-commit-hooks";
+    #    flake-compat.follows = "flake-compat";
+    #  };
+    #};
+
     #nix-cluster = {
     #  url = "git+ssh://git@github.com/PaulGrandperrin/nix-cluster.git";
     #  inputs = {
