@@ -38,7 +38,7 @@
       tmate
       wireguard-tools
       cachix
-      youtube-dl
+      yt-dlp # replaces youtube-dl
       ffmpeg
       sops
       ssh-to-age
