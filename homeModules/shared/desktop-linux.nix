@@ -33,6 +33,7 @@
       unstable.popcorntime
       swappy
       speechd # for spd-say
+      unstable.zed-editor
 
       #gnome.gnome-boxes libvirt # doesn't work, but flatpak version does
 
