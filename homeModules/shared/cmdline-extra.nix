@@ -68,8 +68,7 @@
 
       # data recovery
       ddrescue
-      testdisk
-      photorec
+      testdisk # includes photorec
 
       # vim distros from my overlay
       (lib.lowPrio ksvim)
