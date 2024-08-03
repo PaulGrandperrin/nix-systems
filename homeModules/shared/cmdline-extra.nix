@@ -46,6 +46,7 @@
       yt-dlp
       nix-inspect
       libtree
+      hdparm
 
       # dev
       gdb
@@ -64,6 +65,11 @@
 
       # graphics in term
       viu
+
+      # data recovery
+      ddrescue
+      testdisk
+      photorec
 
       # vim distros from my overlay
       (lib.lowPrio ksvim)
