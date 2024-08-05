@@ -130,7 +130,7 @@
     wantedBy = [ "multi-user.target" ];
   };
 
-  zramSwap.enable = lib.mkForce false;
+  zramSwap.enable = lib.mkForce true;
 
   boot.kernelParams = [
     "nvme_core.default_ps_max_latency_us=170000" # https://wiki.archlinux.org/title/Dell_XPS_15_(9560)#Enable_NVMe_APST and https://wiki.archlinux.org/title/Solid_state_drive/NVMe#Power_Saving_(APST)
