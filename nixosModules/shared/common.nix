@@ -295,8 +295,8 @@
    "kernel.sysrq" = 1; # magic keyboard shortcuts
    "vm.nr_hugepages" = lib.mkDefault "0"; # disabled is better for DBs
    #"vm.overcommit_memory" = "1";
-   "vm.swappiness" = 5; # default 60, between 0 to 100. 0 means try to not swap
-   #"vm.vfs_cache_pressure" = 100; # default 100, recommended between 50 to 500. This variable controls the tendency of the kernel to reclaim the memory which is used for caching of VFS caches, versus pagecache and swap. Increasing this value increases the rate at which VFS caches are reclaimed.
+   "vm.swappiness" = 0; # default 60, between 0 to 100. 0 means try to not swap
+   "vm.vfs_cache_pressure" = 500; # default 100, recommended between 50 to 500. This variable controls the tendency of the kernel to reclaim the memory which is used for caching of VFS caches, versus pagecache and swap. Increasing this value increases the rate at which VFS caches are reclaimed.
    #"vm.dirty_background_ratio" = 10; # default 10, start writting dirty pages at this ratio
    #"vm.dirty_ratio" = 40; # default 20, maximum ratio, block process when reached
   };

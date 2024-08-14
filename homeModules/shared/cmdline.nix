@@ -60,9 +60,8 @@
       tree
       wget
       ripgrep
-      pstree
       file
-      killall # psmisc, toybox?
+      psmisc # pstree killall
       hostname
       neofetch
       gdu dua du-dust # ncdu dutree pdu # du alternatives

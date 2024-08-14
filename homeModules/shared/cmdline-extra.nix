@@ -47,7 +47,6 @@
       nix-inspect
       libtree
       hdparm
-      psmisc
 
       # dev
       gdb
