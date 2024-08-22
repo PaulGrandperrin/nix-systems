@@ -132,21 +132,37 @@
   environment.systemPackages = with pkgs; [
   ];
 
+  sops.secrets."web-amadou.paulg.fr" = {
+    sopsFile = ../../secrets/nixos-oci.yaml;
+    mode = "0440";
+    owner = "nginx";
+    group = "nginx";
+    restartUnits = [ "nginx.service" ];
+  };
   services.nginx.virtualHosts = {
     "phil.grandperrin.fr" = {
       enableACME = true;
       forceSSL = true;
       locations."/" = {
-          proxyPass = "http://10.42.0.2:8123/";
-          proxyWebsockets = true;
+        proxyPass = "http://10.42.0.2:8123/";
+        proxyWebsockets = true;
       };
     };
     "paulg.fr" = {
       enableACME = true;
       forceSSL = true;
       locations."/" = {
-          proxyPass = "http://10.42.0.7:10080/";
-          proxyWebsockets = true;
+        proxyPass = "http://10.42.0.7:10080/";
+        proxyWebsockets = true;
+      };
+    };
+    "amadou.paulg.fr" = {
+      enableACME = true;
+      forceSSL = true;
+      locations."/" = {
+        basicAuthFile = config.sops.secrets."web-amadou.paulg.fr".path;
+        proxyPass = "http://10.42.0.7:10080/";
+        proxyWebsockets = true;
       };
     };
     "louis.grandperrin.fr" = {
@@ -156,14 +172,14 @@
         proxy_redirect off;
       '';
       locations."/" = {
-          proxyPass = "http://10.42.0.7:10080/";
-          proxyWebsockets = true;
-          extraConfig = ''
-            #proxy_set_header Host $host:$server_port;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header X-Forwarded-Proto $scheme;
-          '';
+        proxyPass = "http://10.42.0.7:10080/";
+        proxyWebsockets = true;
+        extraConfig = ''
+          #proxy_set_header Host $host:$server_port;
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto $scheme;
+        '';
       };
     };
   };

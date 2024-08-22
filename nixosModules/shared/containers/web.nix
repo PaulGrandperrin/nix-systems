@@ -53,35 +53,46 @@
       services.nginx = {
         enable = true;
         additionalModules = [ pkgs.nginxModules.brotli ];
-        virtualHosts."paulg.fr" = {
-          default = true;
-          root = "/var/www/paulg.fr";
-          locations."/" = {
-            index = "index.html";
-          };
-         };
-        virtualHosts."louis.grandperrin.fr" = {
-          #extraConfig = ''
-          #  # Enable CSP for your services.
-          #  add_header Content-Security-Policy "default-src 'none'; connect-src 'self'; font-src 'self' data: https://*.wp.com https://fonts.gstatic.com; form-action 'self'; frame-src 'self' https://louis.grandperrin.fr https://*.wp.com https://wp-themes.com https://www.youtube.com; img-src 'self' data: https://*.wp.com https://*.w.org https://secure.gravatar.com; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://*.wp.com; style-src 'self' 'unsafe-inline' https://code.jquery.com https://fonts.googleapis.com https://*.wp.com;" always;
-          #'';
-          root = "/var/www/louis.grandperrin.fr";
-          locations."/" = {
-            tryFiles = "$uri $uri/ /index.php?$args";
-            index = "index.php";
-          };
-          locations."~ \.php$" = {
+        virtualHosts = {
+          "paulg.fr" = {
+            default = true;
+            root = "/var/www/paulg.fr";
+            locations."/" = {
+              index = "index.html";
+            };
+           };
+          "amadou.paulg.fr" = {
+            root = "/var/www/amadou.paulg.fr";
+            locations."/" = {
+              tryFiles = "$uri $uri/ /index.html";
+            };
             extraConfig = ''
-              fastcgi_index index.php;
-              fastcgi_split_path_info ^(.+\.php)(/.+)$;
-              fastcgi_pass unix:${config.services.phpfpm.pools.mypool.socket};
-              fastcgi_intercept_errors on;
-              include ${pkgs.nginx}/conf/fastcgi_params;
-              include ${pkgs.nginx}/conf/fastcgi.conf;
+              add_header Cross-Origin-Embedder-Policy "require-corp"; # credentialless / require-corp
+              add_header Cross-Origin-Opener-Policy "same-origin";
             '';
            };
-         };
-    
+          "louis.grandperrin.fr" = {
+            #extraConfig = ''
+            #  # Enable CSP for your services.
+            #  add_header Content-Security-Policy "default-src 'none'; connect-src 'self'; font-src 'self' data: https://*.wp.com https://fonts.gstatic.com; form-action 'self'; frame-src 'self' https://louis.grandperrin.fr https://*.wp.com https://wp-themes.com https://www.youtube.com; img-src 'self' data: https://*.wp.com https://*.w.org https://secure.gravatar.com; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://*.wp.com; style-src 'self' 'unsafe-inline' https://code.jquery.com https://fonts.googleapis.com https://*.wp.com;" always;
+            #'';
+            root = "/var/www/louis.grandperrin.fr";
+            locations."/" = {
+              tryFiles = "$uri $uri/ /index.php?$args";
+              index = "index.php";
+            };
+            locations."~ \.php$" = {
+              extraConfig = ''
+                fastcgi_index index.php;
+                fastcgi_split_path_info ^(.+\.php)(/.+)$;
+                fastcgi_pass unix:${config.services.phpfpm.pools.mypool.socket};
+                fastcgi_intercept_errors on;
+                include ${pkgs.nginx}/conf/fastcgi_params;
+                include ${pkgs.nginx}/conf/fastcgi.conf;
+              '';
+             };
+           };
+        };
       };
       services.mysql = {
         enable = true;
