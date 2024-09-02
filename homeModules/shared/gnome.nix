@@ -47,6 +47,7 @@
     "org/gnome/mutter" = {
       #experimental-features = [ "scale-monitor-framebuffer" "rt-scheduler" ]; # crash X11 and the session
       edge-tiling = true;
+      check-alive-timeout = 0; # remove those "... is not responding" popups
     };
     "org/gnome/desktop/privacy" = {
       remember-recent-files = true;
