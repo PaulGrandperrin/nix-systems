@@ -8,7 +8,7 @@
     #../shared/wg-mounts.nix
     ../shared/kde.nix
     #../shared/gnome.nix
-    #../shared/cosmic.nix
+    ../shared/cosmic.nix
     ../shared/desktop-i915.nix
     ../shared/nvidia.nix
     ../shared/gaming.nix
@@ -91,6 +91,8 @@
 
   services.thermald.enable = false; # should be disabled when throttled is enabled
   services.throttled.enable = true;
+
+  hardware.nvidia.open = false; # no supported on Pascal microarch
 
   #services.ollama = {
   #  enable = true;

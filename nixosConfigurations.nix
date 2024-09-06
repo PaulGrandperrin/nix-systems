@@ -19,8 +19,8 @@ in {
   nixos-oci-lean       = mkNixosConf "stable"   [ ./nixosModules/nixos-oci/configuration.nix       ./nixosModules/shared/leanify.nix ];
   nixos-xps            = mkNixosConf "stable"   [ ./nixosModules/nixos-xps/configuration.nix                                         ];
   nixos-xps-lean       = mkNixosConf "stable"   [ ./nixosModules/nixos-xps/configuration.nix       ./nixosModules/shared/leanify.nix ];
-  nixos-xps2           = mkNixosConf "stable"   [ ./nixosModules/nixos-xps2/configuration.nix                                        ];
-  nixos-xps2-lean      = mkNixosConf "stable"   [ ./nixosModules/nixos-xps2/configuration.nix      ./nixosModules/shared/leanify.nix ];
+  nixos-xps2           = mkNixosConf "unstable" [ ./nixosModules/nixos-xps2/configuration.nix                                        ];
+  nixos-xps2-lean      = mkNixosConf "unstable" [ ./nixosModules/nixos-xps2/configuration.nix      ./nixosModules/shared/leanify.nix ];
   nixos-macbook        = mkNixosConf "stable"   [ ./nixosModules/nixos-macbook/configuration.nix                                     ];
   nixos-macbook-lean   = mkNixosConf "stable"   [ ./nixosModules/nixos-macbook/configuration.nix   ./nixosModules/shared/leanify.nix ];
   nixos-testvm         = mkNixosConf "stable"   [ ./nixosModules/nixos-testvm/configuration.nix                                      ];

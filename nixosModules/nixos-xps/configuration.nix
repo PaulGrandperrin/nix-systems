@@ -94,6 +94,8 @@
   services.thermald.enable = false; # should be disabled when throttled is enabled
   services.throttled.enable = true;
 
+  hardware.nvidia.open = false; # no supported on Pascal microarch
+
   services.ollama = {
     enable = true;
     package = pkgs.unstable.ollama;
