@@ -262,6 +262,8 @@
 
         c.xcursor_theme = xcursor_theme
         c.xcursor_size = xcursor_size
+
+        c.front_end = "WebGpu"
         
         return c
       '';
