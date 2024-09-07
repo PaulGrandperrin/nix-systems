@@ -23,7 +23,7 @@
     dolphin-emu
     pcsx2
     #unstable.yuzu
-    pd
+    perfect_dark
 
     # gnomeExtensions.gamemode # not anymore in 23.11
   ];
