@@ -41,16 +41,6 @@ inputs: rec {
       ];
     });
   });
-  nh = (final: prev: {
-    nh = prev.unstable.nh.overrideAttrs (oldAttrs: {
-      patches = oldAttrs.patches ++ [
-        (prev.fetchpatch2 {
-          url = "https://github.com/PaulGrandperrin/nh-root/commit/bea0ce26e4b1a260e285164c49456d70d346c924.patch"; # don't bail when non-root
-          hash = "sha256-w8/nfMkk/CeOaLW2XIUvKs7//bGm11Cj6ifyTYzlqjo=";
-        })
-      ];
-    });
-  });
   my-yuzu = (final: prev: {
     #my-yuzu = (prev.callPackage (final.unstable.path + "/pkgs/applications/emulators/yuzu") {}).mainline.overrideAttrs (_: {
     #  meta.platforms = prev.lib.platforms.linux;
@@ -66,7 +56,6 @@ inputs: rec {
     nixpkgs-update
     devenv
     #hostapd
-    nh
     my-yuzu
 
     inputs.nur.overlay
