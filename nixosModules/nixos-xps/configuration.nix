@@ -96,6 +96,8 @@
 
   hardware.nvidia.open = false; # no supported on Pascal microarch
 
+  boot.kernelPackages = lib.mkForce pkgs.unstable.zfs.latestCompatibleLinuxPackages; # select kernel from unstable so that it also pulls nvidia driver from unstable, otherwise it'll FTBFS: https://github.com/NixOS/nixpkgs/issues/341844
+
   services.ollama = {
     enable = true;
     package = pkgs.unstable.ollama;
