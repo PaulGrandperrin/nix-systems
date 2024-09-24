@@ -1941,6 +1941,7 @@
         "pre-commit-hooks": "pre-commit-hooks_2",
         "rust-overlay": "rust-overlay_3",
         "sops-nix": "sops-nix",
+        "srvos": "srvos",
         "xremap-flake": "xremap-flake"
       }
     },
@@ -2073,6 +2074,26 @@
       "original": {
         "owner": "Mic92",
         "repo": "sops-nix",
+        "type": "github"
+      }
+    },
+    "srvos": {
+      "inputs": {
+        "nixpkgs": [
+          "nixos-stable-lib"
+        ]
+      },
+      "locked": {
+        "lastModified": 1727078420,
+        "narHash": "sha256-zAj2AdZ24bcRyDc5B4LqlepodHFLzAboPPm1tiiWyts=",
+        "owner": "nix-community",
+        "repo": "srvos",
+        "rev": "63ea710b10c88f2158251d49eec7cc286cefbd68",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "srvos",
         "type": "github"
       }
     },

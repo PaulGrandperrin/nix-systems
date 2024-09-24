@@ -19,6 +19,10 @@
     #inputs.nar-alike-deduper.nixosModules.default
   ];
 
+  # use latest ZFS compatible linux kernel from unstable
+  # manually evaluate `latest-zfs-kernel` to set its `pkgs` to `pkgs.unstable`
+  boot.kernelPackages = ((import "${inputs.srvos}/nixos/mixins/latest-zfs-kernel.nix") {inherit lib config; pkgs= pkgs.unstable;}).boot.kernelPackages;
+
   home-manager.users = let 
     homeModule = {
       imports = [
@@ -94,7 +98,7 @@
   services.thermald.enable = false; # should be disabled when throttled is enabled
   services.throttled.enable = true;
 
-  hardware.nvidia.open = false; # no supported on Pascal microarch
+  hardware.nvidia.open = false; # not supported on Pascal microarch
 
   services.ollama = {
     enable = true;

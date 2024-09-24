@@ -262,6 +262,14 @@
     #    crane.follows = "crane";
     #  };
     #};
+
+    srvos = {
+      url = "github:nix-community/srvos";
+      inputs = {
+        nixpkgs.follows = "nixos-stable-lib";
+      };
+    };
+
   };
 
   outputs = inputs: {
