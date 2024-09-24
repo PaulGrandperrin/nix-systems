@@ -270,6 +270,18 @@
       };
     };
 
+    system-manager = {
+      url = "github:numtide/system-manager";
+      inputs = {
+        nixpkgs.follows = "nixos-stable";
+        flake-utils.follows = "flake-utils";
+        devshell.follows = "devshell";
+        pre-commit-hooks-nix.follows = "pre-commit-hooks";
+        rust-overlay.follows = "rust-overlay";
+        crane.follows = "crane";
+      };
+    };
+
   };
 
   outputs = inputs: {
@@ -284,6 +296,7 @@
     darwinConfigurations     = import ./darwinConfigurations.nix     inputs;
     nixosConfigurations      = import ./nixosConfigurations.nix      inputs;
     homeConfigurations       = import ./homeConfigurations.nix       inputs;     
+    systemConfigs            = import ./systemConfigs.nix            inputs;
   };
 }
 
