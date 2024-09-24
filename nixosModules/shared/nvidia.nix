@@ -8,6 +8,9 @@
     nvtopPackages.nvidia
   ];
 
+  # nixos stable doesn't always up-to-date nvidia drivers, so use the kernel packages from unstable
+  boot.kernelPackages = lib.mkForce pkgs.unstable.linuxPackages;
+
   hardware.nvidia = {
     #package = config.boot.kernelPackages.nvidiaPackages.beta;
     powerManagement = {

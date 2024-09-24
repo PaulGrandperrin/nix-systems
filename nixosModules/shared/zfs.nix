@@ -2,8 +2,6 @@
 {
   boot.zfs.devNodes = "/dev/disk/by-path"; # /dev/disk/by-id doesn't get populated with virtio disks. see https://github.com/NixOS/nixpkgs/pull/263662
 
-  #boot.kernelPackages = pkgs.linuxPackages_latest; # breakes ZFS sometimes # nix eval --raw n#linuxPackages.kernel.version
-  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages; # nix eval --raw n#zfs.latestCompatibleLinuxPackages.kernel.version
   # boot.forceImportRoot = false; 
 
   # NOTE: not needed, just keeping for futur inspiration
@@ -19,11 +17,7 @@
   #  });
   #})]; 
 
-  # use stable ZFS from nixos-unstable
-  # NOTE: this also pulls the latest ZFS compatible linux from nixos-unstable
-  #nixpkgs.config.packageOverrides = _pkgs: {
-  #  zfsStable = pkgs.unstable.zfsStable;
-  #};
+  boot.zfs.package = pkgs.unstable.zfs;
 
   services.zfs = {
     zed.settings = {
