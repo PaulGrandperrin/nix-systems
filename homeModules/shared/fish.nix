@@ -208,7 +208,7 @@ args @ {pkgs, lib, ...}: {
     };
     shellAbbrs = {
       ssh-keygen-ed25519 = "ssh-keygen -t ed25519";
-      nixos-rebuild-gcp = "nixos-rebuild --flake git+file:///etc/nixos#nixos-gcp --use-substitutes --target-host root@paulg.fr";
+      nixos-rebuild-gcp = "nixos-rebuild --flake git+file:///etc/nixos#nixos-gcp --use-substitutes --target-host root@gcp.grandperrin.fr";
       update-hardware-conf = "nixos-generate-config --show-hardware-config --no-filesystems > /etc/nixos/nixosModules/$(hostname)/hardware-configuration.nix && git -C /etc/nixos/ commit /etc/nixos/nixosModules/$(hostname)/hardware-configuration.nix -m \"$(hostname): update hardware-configuration.nix\"";
       nixos-update-flake = "pushd /etc/nixos && nix flake update && git commit -m \"nix flake update\" flake.lock && git push && popd";
       nixos-test = "nixos-rebuild test --flake /etc/nixos/#$(hostname)-lean -L";

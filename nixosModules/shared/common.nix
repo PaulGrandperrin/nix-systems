@@ -365,7 +365,7 @@
     (writeShellApplication {
       name = "wakelan-nas";
       text = ''
-        ${wakelan}/bin/wakelan -p9 -b nas.paulg.fr -m "$(cat ${config.sops.secrets.hwmac-nas.path})"
+        ${wakelan}/bin/wakelan -p9 -b nas.grandperrin.fr -m "$(cat ${config.sops.secrets.hwmac-nas.path})"
         # also send locally because sending on the internet from the same network doesn't work
         ${wakelan}/bin/wakelan -p9 -m "$(cat ${config.sops.secrets.hwmac-nas.path})"
       '';

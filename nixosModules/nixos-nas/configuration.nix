@@ -106,7 +106,7 @@
   };
 
   # web
-  sops.secrets."web-nas.paulg.fr" = {
+  sops.secrets."web-nas.grandperrin.fr" = {
     sopsFile = ../../secrets/nixos-nas.yaml;
     mode = "0440";
     owner = "nginx";
@@ -116,14 +116,14 @@
   services.nginx = {
     #package = pkgs.nginxQuic;
     additionalModules = [ pkgs.nginxModules.fancyindex ];
-    virtualHosts."nas.paulg.fr" = {
+    virtualHosts."nas.grandperrin.fr" = {
       enableACME = true;
       forceSSL = true;
       #quic = true;
       default = true;
       root = "/export/public/movies";
       locations."/" = {
-        basicAuthFile = config.sops.secrets."web-nas.paulg.fr".path;
+        basicAuthFile = config.sops.secrets."web-nas.grandperrin.fr".path;
         extraConfig = ''
           #autoindex on;
           fancyindex on;              # Enable fancy indexes.
@@ -177,13 +177,13 @@
     };
   };
 
-  sops.secrets."cache-nas.paulg.fr-privkey.pem" = {
+  sops.secrets."cache-nas.grandperrin.fr-privkey.pem" = {
     sopsFile = ../../secrets/nixos-nas.yaml;
     restartUnits = [ "nix-serve.service" ];
   };
   services.nix-serve = {
     enable = true;
-    secretKeyFile = config.sops.secrets."cache-nas.paulg.fr-privkey.pem".path;
+    secretKeyFile = config.sops.secrets."cache-nas.grandperrin.fr-privkey.pem".path;
     openFirewall = false;
   };
 

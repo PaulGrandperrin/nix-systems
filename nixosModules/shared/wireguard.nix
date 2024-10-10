@@ -9,7 +9,7 @@ let
       id = 1;
       hostname = "nixos-nas";
       publicKey = "naS+n7Tj8/Oq+svcRqw71ZQrXjC93byT3poFeLB2t3E=";
-      endPoint.host = "nas.paulg.fr";
+      endPoint.host = "nas.grandperrin.fr";
       endPoint.port = 51820;
       natToInternet = true;
     } {
@@ -21,7 +21,7 @@ let
       id = 3;
       hostname = "nixos-gcp";
       publicKey = "GCp+nDutIu0Ei+f1j1ZB5Opr50S3DiN/wY4usMC08zM=";
-      endPoint.host = "gcp.paulg.fr";
+      endPoint.host = "gcp.grandperrin.fr";
       endPoint.port = 51820;
       natToInternet = true;
     } {
@@ -40,7 +40,7 @@ let
       id = 7;
       hostname = "nixos-oci";
       publicKey = "Oci+nA4cbcCjmK5sfG413Jh+wUqBuK4qHnLdvghsGy0=";
-      endPoint.host = "oci.paulg.fr";
+      endPoint.host = "oci.grandperrin.fr";
       endPoint.port = 51820;
       natToInternet = true;
       forwardToAll = true; # Only one
@@ -74,7 +74,7 @@ in {
 
           test $# -eq 1 || (echo "missing argument" ; exit 1)
 
-          HOST=$1.paulg.fr
+          HOST=$1.grandperrin.fr
           WG_DEV=wg0
 
           DEFAULT_GW=$(ip -json route show to default | jq .[0].gateway -r)

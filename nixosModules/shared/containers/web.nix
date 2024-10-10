@@ -54,15 +54,15 @@
         enable = true;
         additionalModules = [ pkgs.nginxModules.brotli ];
         virtualHosts = {
-          "paulg.fr" = {
+          "paul.grandperrin.fr" = {
             default = true;
-            root = "/var/www/paulg.fr";
+            root = "/var/www/paul.grandperrin.fr";
             locations."/" = {
               index = "index.html";
             };
            };
-          "amadou.paulg.fr" = {
-            root = "/var/www/amadou.paulg.fr";
+          "amadou.grandperrin.fr" = {
+            root = "/var/www/amadou.grandperrin.fr";
             locations."/" = {
               tryFiles = "$uri $uri/ /index.html";
             };

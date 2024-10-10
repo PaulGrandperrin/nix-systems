@@ -17,7 +17,7 @@
     };
   };
 
-  services.nginx.virtualHosts."thelounge.paulg.fr" = {
+  services.nginx.virtualHosts."thelounge.grandperrin.fr" = {
     enableACME = true;
     forceSSL = true;
     locations."/" = {

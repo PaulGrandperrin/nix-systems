@@ -132,7 +132,7 @@
   environment.systemPackages = with pkgs; [
   ];
 
-  sops.secrets."web-amadou.paulg.fr" = {
+  sops.secrets."web-amadou.grandperrin.fr" = {
     sopsFile = ../../secrets/nixos-oci.yaml;
     mode = "0440";
     owner = "nginx";

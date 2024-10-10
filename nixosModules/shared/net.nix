@@ -56,7 +56,6 @@ in {
       domains = [
         "~."
         "grandperrin.fr"
-        "paulg.fr"
       ];
       extraConfig = ''
         FallbackDNS=
