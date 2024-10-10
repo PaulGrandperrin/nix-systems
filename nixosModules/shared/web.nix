@@ -3,6 +3,8 @@
   
   services.nginx = {
     enable = true;
+
+    defaultMimeTypes = "${pkgs.unstable.mailcap}/etc/nginx/mime.types"; # the version of 24.05 doesn't know the "mjs" extension used by flutter web
   
     # https://observatory.mozilla.org/
     # https://www.ssllabs.com/ssltest/index.html
@@ -49,6 +51,9 @@
       add_header Permissions-Policy "camera=(), microphone=(), display-capture=(), geolocation=(), payment=()" always;
   
       add_header Expect-CT "max-age=86400, enforce" always;
+
+      add_header Cross-Origin-Embedder-Policy "credentialless"; # credentialless / require-corp # needed by flutter web wasm
+      add_header Cross-Origin-Opener-Policy "same-origin"; # needed by flutter web wasm
   
       #add_header Access-Control-Allow-Origin "null" always; # breaks things on mastodon
   

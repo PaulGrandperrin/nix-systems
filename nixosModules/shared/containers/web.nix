@@ -21,9 +21,13 @@
     #    isReadOnly = true;
     #  };
     #};
-    config = let hostConfig = config; in { config, pkgs, ... }: {
-      #imports = [ ../web.nix ];
+    config = let
+      hostConfig = config;
+      hostPkgs = pkgs;
+    in { config, pkgs, ... }: {
+      imports = [ ../web.nix ];
       system.stateVersion = "23.11";
+      nixpkgs.pkgs = hostPkgs; # reuse host pkgs for overlays and evaluation speed
 
       networking.useDHCP = false;
       networking.useNetworkd = true;
@@ -66,10 +70,6 @@
             locations."/" = {
               tryFiles = "$uri $uri/ /index.html";
             };
-            extraConfig = ''
-              add_header Cross-Origin-Embedder-Policy "require-corp"; # credentialless / require-corp
-              add_header Cross-Origin-Opener-Policy "same-origin";
-            '';
            };
           "louis.grandperrin.fr" = {
             #extraConfig = ''
