@@ -148,7 +148,7 @@
         proxyWebsockets = true;
       };
     };
-    "paulg.fr" = {
+    "paul.grandperrin.fr" = {
       enableACME = true;
       forceSSL = true;
       locations."/" = {
@@ -156,11 +156,11 @@
         proxyWebsockets = true;
       };
     };
-    "amadou.paulg.fr" = {
+    "amadou.grandperrin.fr" = {
       enableACME = true;
       forceSSL = true;
       locations."/" = {
-        basicAuthFile = config.sops.secrets."web-amadou.paulg.fr".path;
+        basicAuthFile = config.sops.secrets."web-amadou.grandperrin.fr".path;
         proxyPass = "http://10.42.0.7:10080/";
         proxyWebsockets = true;
       };
