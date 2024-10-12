@@ -264,6 +264,8 @@
         c.xcursor_size = xcursor_size
 
         c.front_end = "WebGpu"
+
+        c.enable_wayland = false -- work around https://github.com/wez/wezterm/issues/4483
         
         return c
       '';

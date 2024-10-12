@@ -12,7 +12,7 @@
 
   #nixpkgs.overlays = [
   #  (self: super: {
-  #    gnome = super.gnome.overrideScope' (gself: gsuper: {
+  #    gnome = super.gnome.overrideScope (gself: gsuper: {
   #      mutter = gsuper.mutter.overrideAttrs (old: rec {
   #        version = "41.99";
   #        src = super.fetchFromGitHub {
