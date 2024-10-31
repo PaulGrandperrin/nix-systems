@@ -104,6 +104,20 @@
 
   services.system76-scheduler = {
     enable = true;
+    exceptions = [
+      "include descends=\"schedtool\""
+      "schedtool"
+    ];
+    assignments = {
+      nix-builds = {
+        nice = 15;
+        class = "batch";
+        ioClass = "idle";
+        matchers = [
+          "nix-daemon"
+        ];
+      };
+    };
   };
 
   # android
