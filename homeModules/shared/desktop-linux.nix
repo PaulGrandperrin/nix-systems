@@ -25,6 +25,7 @@
         '';
       })
       discord
+      element-desktop-wayland
       (nerdfonts.override { fonts = [ "FiraCode" ]; })
       deluge
       rawtherapee
