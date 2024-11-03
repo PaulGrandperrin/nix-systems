@@ -127,6 +127,12 @@
     enable = true;
   };
 
+  services.ollama = {
+    enable = true;
+    package = pkgs.unstable.ollama;
+    #acceleration = "cuda";
+  };
+
   boot.zfs.requestEncryptionCredentials = false; # don't ask for password when the machine is headless
 
   environment.systemPackages = with pkgs; [
