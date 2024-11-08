@@ -332,6 +332,7 @@
       "audio" # used by JACK for realtime, otherwise not needed on systemd
       "input" # manage controllers
       "kvm" # access to /dev/kvm but doesn't seem to be needed. thanks to uaccess? but maybe it's need for android emulator
+      "podman" # allow access to docker socket
       # "libvirtd" # doesn't seem to be necessary
     ];
     uid = 1000;
@@ -412,6 +413,7 @@
         flags = ["--all" "--filter" "until=${builtins.toString (7*24)}h"];
       };
       dockerCompat = true;
+      dockerSocket.enable = true;
       #defaultNetwork.settings = { dns_enabled = true; };
     };
     docker = {
