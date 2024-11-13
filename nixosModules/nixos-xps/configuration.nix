@@ -32,7 +32,7 @@
         ../../homeModules/shared/chromium.nix
         ../../homeModules/shared/desktop-linux.nix
         ../../homeModules/shared/gnome.nix
-        ../../homeModules/shared/kodi.nix
+        #../../homeModules/shared/kodi.nix
         ../../homeModules/shared/rust.nix
         ../../homeModules/shared/wine.nix
       ];
