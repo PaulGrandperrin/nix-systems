@@ -7,7 +7,8 @@
     ../shared/nspawns.nix
     ../shared/wireguard.nix
     ../shared/wg-mounts.nix
-    ../shared/auto-upgrade.nix
+    ../shared/web.nix
+    #../shared/auto-upgrade.nix
     ../shared/headless.nix
     ../shared/home-assistant.nix
   ];
@@ -91,6 +92,25 @@
     settings.provider."default@duckdns.org" = {
       hostname = "philgdpr.duckdns.org";
       include = config.sops.secrets."duckdns-token".path;
+    };
+  };
+
+  services.nginx.virtualHosts = {
+    "phil.grandperrin.fr" = {
+      enableACME = true;
+      forceSSL = true;
+      locations."/" = {
+        proxyPass = "http://localhost:8123/";
+        proxyWebsockets = true;
+      };
+    };
+    "philgdpr.duckdns.org" = {
+      enableACME = true;
+      forceSSL = true;
+      locations."/" = {
+        proxyPass = "http://localhost:8123/";
+        proxyWebsockets = true;
+      };
     };
   };
 
