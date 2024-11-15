@@ -78,6 +78,22 @@
     enable = true;
   };
 
+  sops.secrets."duckdns-token" = {
+    sopsFile = ../../secrets/nixos-macmini.yaml;
+    mode = "0440";
+    owner = "inadyn";
+    group = "inadyn";
+    restartUnits = [ "inadyn.service" ]; # not really useful because triggered by timer
+  };
+
+  services.inadyn = {
+    enable = true;
+    settings.provider."default@duckdns.org" = {
+      hostname = "philgdpr.duckdns.org";
+      include = config.sops.secrets."duckdns-token".path;
+    };
+  };
+
   #services.my-nspawn = {
   #  enable = true;
   #  name = "tidb-macmini";
