@@ -146,7 +146,7 @@
     restartUnits = [ "nginx.service" ];
   };
   services.nginx.virtualHosts = {
-    "phil.grandperrin.fr" = {
+    "phil2.grandperrin.fr" = {
       enableACME = true;
       forceSSL = true;
       locations."/" = {
