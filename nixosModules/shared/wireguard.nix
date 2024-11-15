@@ -16,6 +16,7 @@ let
       id = 2;
       hostname = "nixos-macmini";
       publicKey = "mcM+NQQuwuTlKAMxrxZnyZxHMXa5RHENq1pDAIw49zQ=";
+      endPoint.port = 51820;
       natToInternet = true;
     } {
       id = 3;
@@ -122,7 +123,7 @@ in {
     # boot.kernel.sysctl."net.ipv4.conf.wg0.forwarding" = mkIf (my_conf.forwardToAll or false) 1; # already done in systemd-network config
 
     # open port in firewall if we expose an endPoint
-    networking.firewall.allowedUDPPorts = mkIf (my_conf ? endPoint) [ my_conf.endPoint.port ];
+    networking.firewall.allowedUDPPorts = mkIf (my_conf ? endPoint.port) [ my_conf.endPoint.port ];
 
     # setup private key
     sops.secrets."wg-private-key" = {
@@ -142,7 +143,7 @@ in {
           };
           wireguardConfig = { 
             PrivateKeyFile = outside-config.sops.secrets.wg-private-key.path;
-            ListenPort = mkIf (my_conf ? endPoint) my_conf.endPoint.port; # if we are an endPoint
+            ListenPort = mkIf (my_conf ? endPoint.port) my_conf.endPoint.port; # if we are an endPoint
           };
 
           wireguardPeers =
@@ -150,8 +151,8 @@ in {
               wireguardPeerConfig = {
                 PublicKey = e.publicKey;
                 AllowedIPs = if (e.forwardToAll or false) then [ "10.42.0.0/16" ] else [ "10.42.0.${toString e.id}/32" "10.42.${toString e.id}.0/24" ];
-                Endpoint = mkIf (e ? endPoint) "${e.endPoint.host}:${toString e.endPoint.port}";
-                PersistentKeepalive = mkIf (! my_conf ? endPoint) 25; # to keep NAT connections open if I'm not an endPoint
+                Endpoint = mkIf (e ? endPoint.host) "${e.endPoint.host}:${toString e.endPoint.port}";
+                PersistentKeepalive = mkIf (! my_conf ? endPoint.host) 25; # to keep NAT connections open if I'm not an endPoint
               };
             }) (builtins.filter (e: e.hostname != my_hostname && (my_conf ? endPoint || e ? endPoint)) peers) # filter peers that are not myself and where one of us is not an endPoint
           ;
