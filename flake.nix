@@ -151,7 +151,7 @@
     };
 
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.3.0";
+      url = "github:nix-community/lanzaboote/v0.4.1";
 
       inputs = {
         nixpkgs.follows = "nixos-stable"; # NOTE doesn't only use the lib
