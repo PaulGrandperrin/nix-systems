@@ -12,9 +12,9 @@
   #boot.kernelPackages = lib.mkDefault pkgs.unstable.linuxPackages;
 
   hardware.nvidia = {
-    #package = config.boot.kernelPackages.nvidiaPackages.beta;
+    package = config.boot.kernelPackages.nvidiaPackages.beta; # workaround https://github.com/NixOS/nixpkgs/issues/353990
     powerManagement = {
-      enable = true;
+      #enable = true; # cause restart loop https://github.com/NixOS/nixpkgs/issues/336723
       finegrained = true;
     };
     modesetting.enable = true; # prime.offload already does it and prime.sync needs it

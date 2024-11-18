@@ -49,7 +49,7 @@
 
   };
 
-  # nixgl or hardware.opengl.setLdLibraryPath = true;
+  # nixgl or hardware.graphics.setLdLibraryPath = true;
 
   #xdg.configFile."wireplumber/default-profile".text = ''
   #  [default-profile]

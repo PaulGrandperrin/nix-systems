@@ -51,7 +51,7 @@
   #systemd.services."autovt@tty1".enable = false;
 
   # one must be choosen otherwise we get a conflict of default vealues when selecting multiple desktops
-  programs.ssh.askPassword = "${pkgs.gnome.seahorse}/libexec/seahorse/ssh-askpass";
+  programs.ssh.askPassword = "${pkgs.seahorse}/libexec/seahorse/ssh-askpass";
 
   services.systemd-lock-handler.enable = true; # TODO maybe run some housekeeping tasks
 

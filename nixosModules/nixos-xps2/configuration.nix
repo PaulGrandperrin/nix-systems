@@ -6,9 +6,9 @@
     ../shared/net.nix
     #../shared/wireguard.nix
     #../shared/wg-mounts.nix
-    ../shared/kde.nix
-    #../shared/gnome.nix
-    ../shared/cosmic.nix
+    #../shared/kde.nix
+    ../shared/gnome.nix
+    #../shared/cosmic.nix
     ../shared/desktop-i915.nix
     ../shared/nvidia.nix
     ../shared/gaming.nix
