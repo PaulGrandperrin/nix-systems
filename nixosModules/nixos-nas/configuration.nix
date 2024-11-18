@@ -11,7 +11,7 @@
     ../shared/wg-mounts.nix
     ../shared/headless.nix
     #../shared/observability.nix
-    ../shared/mastodon.nix
+    #../shared/mastodon.nix
     ../shared/hostapd.nix
     ../shared/yuzu.nix
   ];
