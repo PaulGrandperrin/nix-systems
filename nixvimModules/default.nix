@@ -19,7 +19,7 @@
         '';
 
         extraPackages = [];
-        extraLuaPackages = [];
+        #extraLuaPackages = [];
 
         opts = { # vim.opt.* # vim.o # set
         };

@@ -148,12 +148,10 @@ in {
 
           wireguardPeers =
             map (e: {
-              wireguardPeerConfig = {
-                PublicKey = e.publicKey;
-                AllowedIPs = if (e.forwardToAll or false) then [ "10.42.0.0/16" ] else [ "10.42.0.${toString e.id}/32" "10.42.${toString e.id}.0/24" ];
-                Endpoint = mkIf (e ? endPoint.host) "${e.endPoint.host}:${toString e.endPoint.port}";
-                PersistentKeepalive = mkIf (! my_conf ? endPoint.host) 25; # to keep NAT connections open if I'm not an endPoint
-              };
+              PublicKey = e.publicKey;
+              AllowedIPs = if (e.forwardToAll or false) then [ "10.42.0.0/16" ] else [ "10.42.0.${toString e.id}/32" "10.42.${toString e.id}.0/24" ];
+              Endpoint = mkIf (e ? endPoint.host) "${e.endPoint.host}:${toString e.endPoint.port}";
+              PersistentKeepalive = mkIf (! my_conf ? endPoint.host) 25; # to keep NAT connections open if I'm not an endPoint
             }) (builtins.filter (e: e.hostname != my_hostname && (my_conf ? endPoint || e ? endPoint)) peers) # filter peers that are not myself and where one of us is not an endPoint
           ;
         };
@@ -163,7 +161,7 @@ in {
           matchConfig.Name = "wg0";
           networkConfig = {
             Address = "10.42.0.${toString my_conf.id}/24"; # dont set /16 here because then IPMasquerade would be enabled for all those addresses, i.e. including those on the 10.42.X.0/24 networks.
-            IPForward = mkIf (my_conf.forwardToAll or false) "ipv4";
+            IPv4Forwarding = mkIf (my_conf.forwardToAll or false) true;
             IPMasquerade = mkIf (my_conf.natToInternet or false) "ipv4";
           };
           linkConfig = {
