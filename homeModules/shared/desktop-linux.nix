@@ -25,6 +25,7 @@
         '';
       })
       discord
+      unstable.telegram-desktop # stable is not kept up to date
       element-desktop-wayland
       (nerdfonts.override { fonts = [ "FiraCode" ]; })
       deluge

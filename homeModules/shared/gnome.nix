@@ -83,6 +83,7 @@
         "code.desktop"
         "signal-desktop.desktop"
         "discord.desktop"
+        "org.telegram.desktop.desktop"
         "gnome-calculator.desktop"
       ];
       enabled-extensions = (map (extension: extension.extensionUuid) (builtins.filter (x: x ? extensionUuid) config.home.packages)) ++ [
