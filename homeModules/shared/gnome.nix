@@ -1,7 +1,7 @@
 {pkgs, inputs, lib, config, ...}: lib.mkIf (config.home.username != "root") {
   home = {
     packages = with pkgs; [
-      gnome.gnome-tweaks
+      gnome-tweaks
 
       #gnomeExtensions.sound-output-device-chooser # incomp
       gnomeExtensions.bluetooth-quick-connect
@@ -24,11 +24,9 @@
       #gnomeExtensions.focus-indicator # not anymore in 23.11
       #gnomeExtensions.desktop-cube
       #gnomeExtensions.pop-shell
-
-      gnomeExtensions.system76-scheduler
       #wintile?
 
-      gnome.dconf-editor
+      dconf-editor
       gnome-console
     ];
   };

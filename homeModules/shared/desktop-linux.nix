@@ -35,7 +35,7 @@
       unstable.popcorntime
       swappy
       speechd # for spd-say
-      unstable.zed-editor
+      #unstable.zed-editor # 2024-11 not in binary cache
       unstable.lapce
 
       #gnome.gnome-boxes libvirt # doesn't work, but flatpak version does

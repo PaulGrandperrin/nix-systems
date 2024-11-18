@@ -180,7 +180,7 @@
       gutenprint
       gutenprintBin
       hplip
-      samsung-unified-linux-driver
+      #samsung-unified-linux-driver #  2024-11 fails to build
       splix
       brlaser
       brgenml1lpr

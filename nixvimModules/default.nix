@@ -110,7 +110,7 @@
         plugins = {
           treesitter.enable = true; # lang parsing
           oil.enable = true; # directory browser, intsead of netrw
-          surround.enable = true; # Shortcuts for setting () {} etc.
+          vim-surround.enable = true; # Shortcuts for setting () {} etc.
           lastplace.enable = true; # restore cursor position
         };
         extraPlugins = [
@@ -130,7 +130,7 @@
             servers = {
               #nil_ls.enable = true; # TODO use none_ls
               nixd.enable = true;
-              rust-analyzer = let 
+              rust_analyzer = let 
                 my-rust = inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.my-rust-stable;
               in {
                 enable = true;
@@ -175,6 +175,7 @@
               };
             };
           };
+          web-devicons.enable = true; # needed by telescope
         };
       };
     })
