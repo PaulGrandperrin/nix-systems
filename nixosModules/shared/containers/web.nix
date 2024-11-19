@@ -7,6 +7,11 @@
   containers.web = {
     autoStart = true;
     privateNetwork = true;
+    # enableTun = true; # NOTE doesn't work https://github.com/NixOS/nixpkgs/pull/357276
+    allowedDevices = [{ # what enableTun should do
+      modifier = "rwm";
+      node = "/dev/net/tun";
+    }];
     extraFlags = [ "-U" "--no-new-privileges=true" "--network-veth"];
     forwardPorts = [
       {
