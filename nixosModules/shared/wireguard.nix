@@ -169,10 +169,8 @@ in {
             "RequiredForOnline" = "no";
           };
           routes = [{
-            routeConfig = {
-              Destination = "10.42.0.0/16";
-              Source = "10.42.0.${toString my_conf.id}";
-            };
+            Destination = "10.42.0.0/16";
+            Source = "10.42.0.${toString my_conf.id}";
           }];
         };
       };

@@ -90,10 +90,8 @@ in {
     }] ++ (lib.mapAttrsToList ( name: value: {
       network.networks."05-br-nspawn" = {
         dhcpServerStaticLeases = [{
-          dhcpServerStaticLeaseConfig = {
-            MACAddress = value.mac;
-            Address = "10.43.0.${toString value.id}";
-          };
+          MACAddress = value.mac;
+          Address = "10.43.0.${toString value.id}";
         }];
       };
 
