@@ -8,7 +8,7 @@
     [ (modulesPath + "/profiles/qemu-guest.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "virtio_pci" "virtio_scsi" "usbhid" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "virtio_scsi" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
@@ -18,7 +18,9 @@
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
+  # networking.interfaces.br-nspawn.useDHCP = lib.mkDefault true;
   # networking.interfaces.eth0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.vb-minecraft.useDHCP = lib.mkDefault true;
   # networking.interfaces.ve-web.useDHCP = lib.mkDefault true;
   # networking.interfaces.wg0.useDHCP = lib.mkDefault true;
 
