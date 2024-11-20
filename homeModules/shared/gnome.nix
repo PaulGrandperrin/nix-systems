@@ -44,6 +44,7 @@
     };
     "org/gnome/mutter" = {
       #experimental-features = [ "scale-monitor-framebuffer" "rt-scheduler" ]; # crash X11 and the session
+      experimental-features = [ "scale-monitor-framebuffer" "xwayland-native-scaling"];
       edge-tiling = true;
       check-alive-timeout = 0; # remove those "... is not responding" popups
     };

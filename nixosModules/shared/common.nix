@@ -9,7 +9,9 @@
     ./mail.nix
     ./sysdig.nix
   ];
-  system.stateVersion = "23.11";
+  system.stateVersion = "24.11";
+
+  #systemd.enableStrictShellChecks = true; # TODO
 
   nixpkgs = {
     config = import ../../nixpkgs/config.nix;
