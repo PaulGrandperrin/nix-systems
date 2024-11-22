@@ -86,6 +86,12 @@
     enable = true;
   };
 
+  # don't add nixpkgs to system closure
+  nixpkgs.flake = {
+    setNixPath = false;
+    setFlakeRegistry = false;
+  };
+
   boot.zfs.requestEncryptionCredentials = false; # don't ask for password when the machine is headless
   
   # useful to build and deploy closures from nixos-nas which a lot beefier than nixos-gcp

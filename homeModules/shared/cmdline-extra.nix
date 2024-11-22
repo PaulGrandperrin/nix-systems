@@ -1,8 +1,28 @@
-{pkgs, config, inputs, ...}: {
+{pkgs, config, inputs, nixos-flake, home-manager-flake, ...}: {
   imports = [
     ./cmdline.nix
   ];
 
+  nix = {
+    registry = rec {
+      nixos.flake = nixos-flake;
+      #nixos-small.flake = inputs.nixos-small;
+      nixos-unstable.flake = inputs.nixos-unstable;
+      #nixpkgs-darwin.flake = inputs.nixpkgs-darwin;
+      #nur.flake = inputs.nur;
+      #flake-utils.flake = inputs.flake-utils;
+      #rust-overlay.flake = inputs.rust-overlay;
+      home-manager.flake = home-manager-flake;
+      nixpkgs.to = { # already set by default for NixOS with nixpkgs.flake.setFlakeRegistry
+        type = "path";
+        path = (toString pkgs.path);
+      };
+      n = nixpkgs; # shortcut
+      self.flake = inputs.self;
+    };
+    #registry = lib.mapAttrs (_: value: { flake = value; }) inputs; # nix.generateRegistryFromInputs in flake-utils-plus
+    #nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry; # nix.generateNixPathFromInputs in flake-utils-plus # nix.nixPath is not available in HM
+  };
 
   home = {
     packages = with pkgs; [
