@@ -289,21 +289,18 @@
     enable = true;
     openFirewall = true;
     nsswins = true; # name resolution
-    securityType = "user";
     settings = {
-    global = {
-      workgroup = "WORKGROUP";
-      security = "user"; 
-      "use sendfile" = "yes";
-      # note: localhost is the ipv6 localhost ::1
-      "hosts allow" = "192.168. 10.42.0 127.0.0.1 localhost";
-      "hosts deny" = "0.0.0.0/0";
-      "guest account" = "nobody";
-      "map to guest" = "bad user";
-      #"dfree command" = 
+      global = {
+        workgroup = "WORKGROUP";
+        security = "user"; 
+        "use sendfile" = "yes";
+        # note: localhost is the ipv6 localhost ::1
+        "hosts allow" = "192.168. 10.42.0 127.0.0.1 localhost";
+        "hosts deny" = "0.0.0.0/0";
+        "guest account" = "nobody";
+        "map to guest" = "bad user";
+        #"dfree command" = 
       };
-    };
-    shares = {
       public = {
         path = "/export/public";
         browseable = "yes";
