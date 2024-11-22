@@ -50,15 +50,15 @@
     ];
   };
 
-  fileSystems."/var/lib/machines/ubuntu" = {
-    device = "nixos/ubuntu";
-    fsType = "zfs";
-    options = [
-      "noatime"
-      "nodiratime"
-      "nofail"
-    ];
-  };
+  #fileSystems."/var/lib/machines/ubuntu" = {
+  #  device = "nixos/ubuntu";
+  #  fsType = "zfs";
+  #  options = [
+  #    "noatime"
+  #    "nodiratime"
+  #    "nofail"
+  #  ];
+  #};
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/17E7-9B0C";
