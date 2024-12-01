@@ -64,7 +64,6 @@
       url = "github:oxalica/rust-overlay";
       inputs = {
         nixpkgs.follows = "nixos-stable";
-        flake-utils.follows = "flake-utils";
       };
     };
 
@@ -96,12 +95,11 @@
       url = "github:Mic92/sops-nix";
       inputs  = {
         nixpkgs.follows = ""; # optional, not necessary for the module
-        nixpkgs-stable.follows = ""; # optional, not necessary for the module
       };
     };
 
-    pre-commit-hooks = {
-      url = "github:cachix/pre-commit-hooks.nix";
+    git-hooks = {
+      url = "github:cachix/git-hooks.nix";
       inputs = {
         nixpkgs.follows = "nixos-stable-lib";
         flake-compat.follows = "flake-compat";
@@ -121,7 +119,6 @@
 
     crane = { # eventually, use dream2nix when it's more stable
       url = "github:ipetkov/crane";
-      inputs.nixpkgs.follows = "nixos-stable";
     };
 
     xremap-flake = {
@@ -159,7 +156,7 @@
         rust-overlay.follows = "rust-overlay";
         flake-compat.follows = "flake-compat";
         flake-parts.follows = "flake-parts";
-        pre-commit-hooks-nix.follows = "pre-commit-hooks";
+        pre-commit-hooks-nix.follows = "git-hooks";
       };
     };
 
@@ -191,7 +188,7 @@
         #nixpkgs.follows = "nixpkgs"; # don't override so that the cache can be used
         flake-compat.follows = "flake-compat";
         #nix.follows = "nix"; # don't override so that the cache can be used
-        pre-commit-hooks.follows = "pre-commit-hooks";
+        git-hooks.follows = "git-hooks";
       };
     };
 
@@ -212,7 +209,7 @@
         nix-darwin.follows = "nix-darwin";
         flake-parts.follows = "flake-parts";
         flake-compat.follows = "flake-compat";
-        pre-commit-hooks.follows = "pre-commit-hooks";
+        git-hooks.follows = "git-hooks";
       };
     };
 
@@ -235,7 +232,7 @@
     #  url = "git+https://git.lix.systems/lix-project/lix.git";
     #  inputs = {
     #    nixpkgs.follows = "nixos-stable";
-    #    pre-commit-hooks.follows = "pre-commit-hooks";
+    #    git-hooks.follows = "git-hooks";
     #    flake-compat.follows = "flake-compat";
     #  };
     #};
@@ -277,11 +274,6 @@
       url = "github:numtide/system-manager";
       inputs = {
         nixpkgs.follows = "nixos-stable";
-        flake-utils.follows = "flake-utils";
-        devshell.follows = "devshell";
-        pre-commit-hooks-nix.follows = "pre-commit-hooks";
-        rust-overlay.follows = "rust-overlay";
-        crane.follows = "crane";
       };
     };
 

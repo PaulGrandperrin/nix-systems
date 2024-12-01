@@ -141,7 +141,7 @@
     #jack.enable = true;
   };
 
-  hardware.bluetooth.package = pkgs.bluez5-experimental;
+  hardware.bluetooth.package = pkgs.bluez-experimental; # enables experimental features, not experimental version
 
 
   fonts = {
