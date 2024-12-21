@@ -68,4 +68,5 @@ creation_rules:
     - age:
       - *nixos-xps # dev
       - *nixos-macbook # dev
+      - *nixos-asus
       - *recovery
