@@ -7,6 +7,7 @@ keys: # ssh-to-age -i /etc/ssh/ssh_host_ed25519_key.pub
   - &nixos-oci age1s9tauh069l9esyzwmudfkz7t226kkattp6qvze36p4950en3xqysduf4xg 
   - &nixos-testvm age1pjq3zvaug8mxzht4y50y3njyqlcmpa2g309zdmvz4ery996nxseq36uj3n
   - &nixos-chromebox age1mauey7sxlg8ty5ppea89wfztr7vu5nm7fc6k8g32rt3je7uy73wssed96c
+  - &nixos-asus age10ha4nhq4aujqh3e76y8vntv6qcahgfq6lf49c0udplyme74uxy3swvjm7s
   - &recovery age14u76z7ch37cx6hesffvr3kazmjjyxhnsvja2xspznt8683xn79ksxg8f4r # just in case
 creation_rules:
   - path_regex: ^secrets/common\.yaml$
@@ -20,6 +21,7 @@ creation_rules:
       - *nixos-oci
       - *nixos-testvm
       - *nixos-chromebox
+      - *nixos-asus
       - *recovery
   - path_regex: ^secrets/nixos-nas\.yaml$
     key_groups:
