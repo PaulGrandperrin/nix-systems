@@ -43,8 +43,14 @@
       clock-show-weekday = true;
     };
     "org/gnome/mutter" = {
-      #experimental-features = [ "scale-monitor-framebuffer" "rt-scheduler" ]; # crash X11 and the session
-      experimental-features = [ "scale-monitor-framebuffer" "xwayland-native-scaling"];
+      experimental-features = [
+        "scale-monitor-framebuffer"
+        "xwayland-native-scaling"
+        "autoclose-xwayland" # closes xwayland when no clients left
+        "kms-modifiers" # needed for HW accel on xwayland using nvidia (prob not needed on optimus though)
+        "variable-refresh-rate"
+        #"rt-scheduler" # NOTE removed, will cause all the other to be ignored
+      ];
       edge-tiling = true;
       check-alive-timeout = 0; # remove those "... is not responding" popups
     };
