@@ -17,16 +17,26 @@
       easyeffects
       (symlinkJoin {
         name = "signal-desktop";
-        paths = [ (callPackage (inputs.nixos-unstable.outPath + "/pkgs/by-name/si/signal-desktop/package.nix") {}) ];
+        #paths = [ (callPackage (inputs.nixos-unstable.outPath + "/pkgs/by-name/si/signal-desktop/package.nix") {}) ];
+        paths = [ unstable.signal-desktop ];
         buildInputs = [ pkgs.makeWrapper ];
         postBuild = ''
           wrapProgram $out/bin/signal-desktop \
             --set-default NIXOS_OZONE_WL 1
         '';
       })
+      (symlinkJoin {
+        name = "element-desktop";
+        #paths = [ (callPackage (inputs.nixos-unstable.outPath + "/pkgs/by-name/el/element-desktop/package.nix") {}) ];
+        paths = [ unstable.element-desktop ];
+        buildInputs = [ pkgs.makeWrapper ];
+        postBuild = ''
+          wrapProgram $out/bin/element-desktop \
+            --set-default NIXOS_OZONE_WL 1
+        '';
+      })
       discord
       unstable.telegram-desktop # stable is not kept up to date
-      element-desktop-wayland
       (nerdfonts.override { fonts = [ "FiraCode" ]; })
       deluge
       rawtherapee

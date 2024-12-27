@@ -202,7 +202,7 @@
     };
 
     nixvim = {
-      url = "github:nix-community/nixvim/main"; # FIXME change to nixos-24.11 when available
+      url = "github:nix-community/nixvim/nixos-24.11";
       inputs = {
         nixpkgs.follows = "nixos-stable";
         home-manager.follows = "home-manager-stable";

@@ -58,7 +58,7 @@ inputs: rec {
     #hostapd
     my-yuzu
 
-    inputs.nur.overlay
+    inputs.nur.overlays.default
     inputs.rust-overlay.overlays.default
     inputs.nix-alien.overlays.default
     #inputs.lix.overlays.default
