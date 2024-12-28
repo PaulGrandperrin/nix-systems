@@ -29,18 +29,21 @@ creation_rules:
       - *nixos-nas
       - *nixos-xps # dev
       - *nixos-macbook # dev
+      - *nixos-asus # dev
       - *recovery
   - path_regex: ^secrets/nixos-macbook\.yaml$
     key_groups:
     - age:
       - *nixos-macbook
       - *nixos-xps # dev
+      - *nixos-asus # dev
       - *recovery
   - path_regex: ^secrets/nixos-xps\.yaml$
     key_groups:
     - age:
       - *nixos-xps
       - *nixos-macbook # dev
+      - *nixos-asus # dev
       - *recovery
   - path_regex: ^secrets/nixos-macmini\.yaml$
     key_groups:
@@ -48,6 +51,7 @@ creation_rules:
       - *nixos-macmini
       - *nixos-xps # dev
       - *nixos-macbook # dev
+      - *nixos-asus # dev
       - *recovery
   - path_regex: ^secrets/nixos-gcp\.yaml$
     key_groups:
@@ -55,11 +59,20 @@ creation_rules:
       - *nixos-gcp
       - *nixos-xps # dev
       - *nixos-macbook # dev
+      - *nixos-asus # dev
       - *recovery
   - path_regex: ^secrets/nixos-oci\.yaml$
     key_groups:
     - age:
       - *nixos-oci
+      - *nixos-xps # dev
+      - *nixos-macbook # dev
+      - *nixos-asus # dev
+      - *recovery
+  - path_regex: ^secrets/nixos-asus\.yaml$
+    key_groups:
+    - age:
+      - *nixos-asus
       - *nixos-xps # dev
       - *nixos-macbook # dev
       - *recovery
@@ -68,5 +81,5 @@ creation_rules:
     - age:
       - *nixos-xps # dev
       - *nixos-macbook # dev
-      - *nixos-asus
+      - *nixos-asus # dev
       - *recovery
