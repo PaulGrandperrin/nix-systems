@@ -4,8 +4,8 @@
     ../shared/common.nix
     ../shared/zfs.nix
     ../shared/net.nix
-    #../shared/wireguard.nix
-    #../shared/wg-mounts.nix
+    ../shared/wireguard.nix
+    ../shared/wg-mounts.nix
     ../shared/gnome.nix
     ../shared/desktop.nix
     ../shared/desktop-i915.nix
@@ -63,9 +63,9 @@
 
   networking.hostId="3a0da539";
 
-  #services.my-wg = {
-  #  enable = true;
-  #};
+  services.my-wg = {
+    enable = true;
+  };
 
   networking.hostName = "nixos-asus";
   services.net = {

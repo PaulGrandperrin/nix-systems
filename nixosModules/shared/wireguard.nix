@@ -45,6 +45,10 @@ let
       endPoint.port = 51820;
       natToInternet = true;
       forwardToAll = true; # Only one
+    } {
+      id = 8;
+      hostname = "nixos-asus";
+      publicKey = "ASU+R1kFLFCzlSX92EAXZDIlyjg96/4YBptcHz0cSB4=";
     }
   ];
 in {
