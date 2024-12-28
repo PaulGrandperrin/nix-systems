@@ -53,6 +53,8 @@ args @ {pkgs, config, inputs, lib, ...}: {
     ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICLwI5YV8LFCX4MD64uZg6KV5ln+HgMWHR1r/rjVV6T7 paulg@nixos-macmini
     ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINsQJwr21m67xQIUqnHAc4wGkaj6o/Uy002xgN34G8Wj root@nixos-oci
     ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGUV9km+CluTn/QZGOstjxNpPEVkxWktmNrlC8Xqss4F paulg@nixos-oci
+    ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB6gqM1jzgCAtgFYK9nRteimmbulWMuWlW0WvdJK52uy root@nixos-asus
+    ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHTskdCgno5UHixoyUnrtcAQpmvv9Vu4cLvAqeQezUyk paulg@nixos-asus
   '';
   in {
     copySshAuthorizedKeys = lib.hm.dag.entryAfter ["writeBoundary"] ''
