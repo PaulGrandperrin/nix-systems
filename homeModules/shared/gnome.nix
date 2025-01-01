@@ -41,8 +41,13 @@
     "org/gnome/desktop/interface" = {
       show-battery-percentage = true;
       clock-show-weekday = true;
+      enable-hot-corners = true;
     };
     "org/gnome/mutter" = {
+      edge-tiling = true;
+      dynamic-workspaces = true;
+      workspaces-only-on-primary = true;
+      check-alive-timeout = 0; # remove those "... is not responding" popups
       experimental-features = [
         "scale-monitor-framebuffer"
         "xwayland-native-scaling"
@@ -51,8 +56,6 @@
         "variable-refresh-rate"
         #"rt-scheduler" # NOTE removed, will cause all the other to be ignored
       ];
-      edge-tiling = true;
-      check-alive-timeout = 0; # remove those "... is not responding" popups
     };
     "org/gnome/desktop/privacy" = {
       remember-recent-files = true;
@@ -81,6 +84,9 @@
       repeat-interval = 30;
     };
     "org/gnome/shell" = {
+      app-switcher = {
+        "current-workspace-only" = true;
+      };
       favorite-apps = [
         "org.gnome.Nautilus.desktop"
         "firefox.desktop"
