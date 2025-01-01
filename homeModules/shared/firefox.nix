@@ -43,6 +43,7 @@ args @ {pkgs, inputs, lib, config, is_nixos, ...}: lib.mkIf (config.home.usernam
           "browser.aboutConfig.showWarning" = false;
           #"identity.fxaccounts.account.device.name" = "${networking.hostName}";
           "fission.autostart" = true;
+          "browser.tabs.insertAfterCurrent" = true;
 
           "apz.overscroll.enabled" = true;
           #"apz.gtk.kinetic_scroll.enabled" = false;
