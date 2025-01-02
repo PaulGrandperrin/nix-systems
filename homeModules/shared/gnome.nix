@@ -84,9 +84,6 @@
       repeat-interval = 30;
     };
     "org/gnome/shell" = {
-      app-switcher = {
-        "current-workspace-only" = true;
-      };
       favorite-apps = [
         "org.gnome.Nautilus.desktop"
         "firefox.desktop"
@@ -102,6 +99,9 @@
         "places-menu@gnome-shell-extensions.gcampax.github.com"
         "workspace-indicator@gnome-shell-extensions.gcampax.github.com"
       ];
+    };
+    "org/gnome/shell/app-switcher" = {
+        current-workspace-only = true;
     };
     "org/gnome/desktop/calendar" = {
       show-weekdate = true;
