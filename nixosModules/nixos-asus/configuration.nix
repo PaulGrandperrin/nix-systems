@@ -34,6 +34,7 @@
     device = "zroot/encrypted/nixos";
     fsType = "zfs";
     options = [
+      "zfsutil"
       "noatime"
       "nodiratime"
     ];
@@ -43,6 +44,7 @@
     device = "zroot/encrypted/nixos/home";
     fsType = "zfs";
     options = [
+      "zfsutil"
       "noatime"
       "nodiratime"
     ];

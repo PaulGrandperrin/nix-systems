@@ -27,6 +27,7 @@
     device = "nixos";
     fsType = "zfs";
     options = [
+      "zfsutil"
       "noatime"
       "nodiratime"
     ];
@@ -36,6 +37,7 @@
     device = "nixos/nix";
     fsType = "zfs";
     options = [
+      "zfsutil"
       "noatime"
       "nodiratime"
     ];
@@ -45,6 +47,7 @@
     device = "nixos/home";
     fsType = "zfs";
     options = [
+      "zfsutil"
       "noatime"
       "nodiratime"
     ];
@@ -54,6 +57,7 @@
   #  device = "nixos/ubuntu";
   #  fsType = "zfs";
   #  options = [
+  #    "zfsutil"
   #    "noatime"
   #    "nodiratime"
   #    "nofail"

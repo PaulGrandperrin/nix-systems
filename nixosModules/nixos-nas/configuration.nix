@@ -32,6 +32,7 @@
     device = "flash/nixos";
     fsType = "zfs";
     options = [
+      "zfsutil"
       "noatime"
       "nodiratime"
     ];
@@ -41,6 +42,7 @@
     device = "flash/nixstore";
     fsType = "zfs";
     options = [
+      "zfsutil"
       "noatime"
       "nodiratime"
     ];
@@ -50,6 +52,7 @@
     device = "flash/home";
     fsType = "zfs";
     options = [
+      "zfsutil"
       "noatime"
       "nodiratime"
     ];
