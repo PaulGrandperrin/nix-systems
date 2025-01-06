@@ -67,6 +67,7 @@
     device = "system/machines/minecraft";
     fsType = "zfs";
     options = [
+      "zfsutil"
       "noatime"
       "nodiratime"
     ];
