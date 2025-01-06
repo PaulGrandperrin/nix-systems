@@ -49,7 +49,6 @@
     device = "ssd/encrypted/nixos";
     fsType = "zfs";
     options = [
-      "zfsutil"
       "noatime"
       "nodiratime"
     ];
@@ -59,7 +58,6 @@
     device = "ssd/encrypted/nixos/home";
     fsType = "zfs";
     options = [
-      "zfsutil"
       "noatime"
       "nodiratime"
     ];

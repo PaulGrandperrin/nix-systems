@@ -29,7 +29,6 @@
     device = "zpool/nixos";
     fsType = "zfs";
     options = [
-      "zfsutil"
       "noatime"
       "nodiratime"
     ];
@@ -39,7 +38,6 @@
     device = "zpool/nixos/home";
     fsType = "zfs";
     options = [
-      "zfsutil"
       "noatime"
       "nodiratime"
     ];
@@ -49,7 +47,6 @@
     device = "zpool/nixos/nix";
     fsType = "zfs";
     options = [
-      "zfsutil"
       "noatime"
       "nodiratime"
     ];

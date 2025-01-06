@@ -30,7 +30,6 @@
     device = "system/nixos";
     fsType = "zfs";
     options = [
-      "zfsutil"
       "noatime"
       "nodiratime"
     ];
@@ -40,7 +39,6 @@
     device = "system/nixos/nix";
     fsType = "zfs";
     options = [
-      "zfsutil"
       "noatime"
       "nodiratime"
     ];
@@ -60,7 +58,6 @@
     device = "system/nixos/home";
     fsType = "zfs";
     options = [
-      "zfsutil"
       "noatime"
       "nodiratime"
     ];
@@ -70,7 +67,6 @@
     device = "system/machines/minecraft";
     fsType = "zfs";
     options = [
-      "zfsutil"
       "noatime"
       "nodiratime"
     ];
