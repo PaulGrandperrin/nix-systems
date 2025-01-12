@@ -4,54 +4,49 @@
   lib,
 
   fetchFromGitHub,
-  stdenv_32bit,
+  stdenv,
 
-  pkgsi686Linux, # SDL2 and zlib
+  SDL2,
+  zlib,
 
   pkg-config,
+  cmake,
   python3,
 }:
 let
-  roms = {
-    "ntsc-final" = {
-      binName = "pd";
-    };
-    "pal-final" = {
-      binName = "pd.pal";
-    };
-    "jpn-final" = {
-      binName = "pd.jpn";
-    };
-  };
-  binName = roms.${romID}.binName;
+  roms = [
+    "ntsc-final"
+    "pal-final"
+    "jpn-final"
+  ];
 in
-assert lib.assertOneOf "romID" romID (builtins.attrNames roms);
-
-stdenv_32bit.mkDerivation rec {
+assert lib.assertOneOf "romID" romID roms;
+  stdenv.mkDerivation rec {
   pname = "perfect_dark";
-  version = "0-unstable-2024-09-02";
+  version = "0-unstable-2025-01-05";
 
   src = fetchFromGitHub {
     owner = "fgsfdsfgs";
     repo = "perfect_dark";
-    rev = "2a5c3a351eeb1772306567969fb8dc5b31eaf34e";
-    hash = "sha256-tpAzpIe2NYUtIY3NsvGl9liOuNb4YQCcfs+oLkFpFQA=";
+    rev = "4f7817a0ca83a893ee515854ff4f93415810810a";
+    hash = "sha256-J5dNkA8xXk5HgKpF+PMGSbH6Hj4M6dKp599C0PnaLT0=";
   };
 
-  buildInputs = with pkgsi686Linux; [
+  buildInputs = [
     SDL2
     zlib
   ];
 
   nativeBuildInputs = [
     pkg-config
+    cmake
     python3
   ];
 
   # the project uses git to retrieve version informations but our fetcher deletes the .git
   # so we replace the commands with the correct data directly
   postPatch = ''
-    substituteInPlace Makefile.port \
+    substituteInPlace CMakeLists.txt \
       --replace-fail 'git rev-parse --short HEAD' 'echo ${builtins.substring 0 9 src.rev}' \
       --replace-fail 'git rev-parse --abbrev-ref HEAD' 'echo port'
   '';
@@ -61,26 +56,25 @@ stdenv_32bit.mkDerivation rec {
   hardeningDisable = [ "format" ]; # otherwise fails to build
   hardeningEnable = [ "pie" ];
 
-  makeFlags = [
-    "TARGET_PLATFORM=i686-linux" # the project is 32-bit only for now
-    "ROMID=${romID}"
-    "GCC_OPT_LVL=" # "-Og" is explicitly set as default in perfect_dark, we remove it to use stdenv's settings instead (defaults to "-O2")
-  ];
-
-  makefile = "Makefile.port";
-
-  preBuild = ''
+  preConfigure = ''
     patchShebangs .
   '';
 
+  cmakeFlags = [
+    "-DROMID=${romID}"
+  ];
+
   installPhase = ''
     runHook preInstall
-
-    install -Dm 755 build/${romID}-port/${binName}.exe $out/bin/${binName}
+    pushd ..
+    
+    install -Dm 755 build/pd.x86_64 $out/bin/pd
 
     install -Dm 644 dist/linux/*.desktop -t $out/share/applications/
     install -Dm 644 dist/linux/*.png -t $out/share/pixmaps/
 
+
+    popd
     runHook postInstall
   '';
 
@@ -100,9 +94,9 @@ stdenv_32bit.mkDerivation rec {
 
       `ntsc-final` the default as it is the only recommended one by upstream.
     '';
-    mainProgram = binName;
+    mainProgram = "pd";
     platforms = [
-      "i686-linux"
+      #"i686-linux"
       "x86_64-linux"
     ];
     maintainers = with lib.maintainers; [ PaulGrandperrin ];
