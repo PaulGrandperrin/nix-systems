@@ -2,6 +2,9 @@
   home = {
     packages = with pkgs; [
       gnome-tweaks
+      gnome-extension-manager
+      dconf-editor
+      gnome-console
 
       #gnomeExtensions.sound-output-device-chooser # incomp
       gnomeExtensions.bluetooth-quick-connect
@@ -24,10 +27,10 @@
       #gnomeExtensions.focus-indicator # not anymore in 23.11
       #gnomeExtensions.desktop-cube
       #gnomeExtensions.pop-shell
+      gnomeExtensions.tiling-shell
+      #gnomeExtensions.rectangle
       #wintile?
 
-      dconf-editor
-      gnome-console
     ];
   };
 
