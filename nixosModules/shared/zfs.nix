@@ -17,7 +17,7 @@
   #  });
   #})]; 
 
-  boot.zfs.package = pkgs.unstable.zfs;
+  boot.zfs.package = pkgs.zfs_2_3;
 
   services.zfs = {
     zed.settings = {
