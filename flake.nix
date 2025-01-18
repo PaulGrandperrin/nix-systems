@@ -228,6 +228,20 @@
       };
     };
 
+    isd = {
+      url = "github:isd-project/isd";
+      inputs = {
+        nixpkgs.follows = "nixos-stable";
+      };
+    };
+
+    isd-unstable = {
+      url = "github:isd-project/isd";
+      inputs = {
+        nixpkgs.follows = "nixos-unstable";
+      };
+    };
+
     #lix = { # too long to build
     #  url = "git+https://git.lix.systems/lix-project/lix.git";
     #  inputs = {

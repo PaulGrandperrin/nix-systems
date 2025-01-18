@@ -131,6 +131,7 @@
       wl-clipboard # used by neovim to yank to clipboard
       trashy
       e2fsprogs
+      isd
 
       (buildFHSEnv {
         name = "fhs-run";
