@@ -26,6 +26,9 @@ inputs: rec {
   devenv = (final: prev: {
     devenv = inputs.devenv.packages.${prev.stdenv.hostPlatform.system}.devenv;
   });
+  isd = (final: prev: {
+    isd = inputs.isd.packages.${prev.stdenv.hostPlatform.system}.isd;
+  });
   hostapd = (final: prev: {
     hostapd = prev.hostapd.overrideAttrs (oldAttrs: {
       #patches = oldAttrs.patches ++ [
@@ -55,6 +58,7 @@ inputs: rec {
     rclonefs
     nixpkgs-update
     devenv
+    isd
     #hostapd
     my-yuzu
 
