@@ -21,7 +21,20 @@
 
   # use latest ZFS compatible linux kernel from unstable
   # manually evaluate `latest-zfs-kernel` to set its `pkgs` to `pkgs.unstable`
-  boot.kernelPackages = ((import "${inputs.srvos}/nixos/mixins/latest-zfs-kernel.nix") {inherit lib config; pkgs= pkgs.unstable;}).boot.kernelPackages;
+  #boot.kernelPackages = ((import "${inputs.srvos}/nixos/mixins/latest-zfs-kernel.nix") {inherit lib config; pkgs= pkgs.unstable;}).boot.kernelPackages;
+
+  boot.kernelPackages = let # from https://wiki.nixos.org/wiki/ZFS#Selecting_the_latest_ZFS-compatible_Kernel
+    zfsCompatibleKernelPackages = lib.filterAttrs (
+      name: kernelPackages:
+      (builtins.match "linux_[0-9]+_[0-9]+" name) != null
+      && (builtins.tryEval kernelPackages).success
+      && (!kernelPackages.${config.boot.zfs.package.kernelModuleAttribute}.meta.broken)
+    ) pkgs.linuxKernel.packages;
+  in lib.last (
+    lib.sort (a: b: (lib.versionOlder a.kernel.version b.kernel.version)) (
+      builtins.attrValues zfsCompatibleKernelPackages
+    )
+  );
 
   home-manager.users = let 
     homeModule = {
