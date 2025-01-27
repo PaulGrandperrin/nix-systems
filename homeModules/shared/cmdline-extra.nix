@@ -131,7 +131,6 @@
       wl-clipboard # used by neovim to yank to clipboard
       trashy
       e2fsprogs
-      isd
 
       (buildFHSEnv {
         name = "fhs-run";
@@ -179,6 +178,7 @@
         intel-gpu-tools
 
         nixpkgs-update
+        isd
       ] ++ lib.optionals (config.home.username == "root") [ # if root and linux
         i7z
         sbctl # secure boot key manager
