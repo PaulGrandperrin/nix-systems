@@ -39,6 +39,8 @@
     #nixos-unstable-small.url = "github:NixOS/nixpkgs/nixos-unstable-small";
     #master.url               = "github:NixOS/nixpkgs/master";
 
+    nixos-cosmic-stable.follows = "nixos-cosmic/nixpkgs-stable";
+
     nur.url = "github:nix-community/NUR";
 
     nix-on-droid = {
@@ -260,9 +262,9 @@
 
     nixos-cosmic = {
       url = "github:lilyinstarlight/nixos-cosmic";
-      inputs = {
-        nixpkgs.follows = "nixos-cosmic/nixpkgs-stable"; # ensures we use the same version of nixos-stable use for building the cache
-      };
+      #inputs = {
+      #  nixpkgs.follows = "nixos-cosmic/nixpkgs-stable"; # ensures we use the same version of nixos-stable use for building the cache
+      #};
     };
 
 
