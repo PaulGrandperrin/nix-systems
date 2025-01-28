@@ -389,11 +389,20 @@
 
   zramSwap = {
     enable = true;
-    algorithm = "lzo-rle";
+    algorithm = "lz4"; # https://www.reddit.com/r/Fedora/comments/mzun99/comment/h1cnvv3/?utm_source=share&utm_medium=web2x&context=3
     priority = 5;
-    memoryPercent = 200;
+    memoryPercent = 100;
   };
 
+  systemd.oomd = {
+    enable = true;
+    enableRootSlice = false;
+    enableSystemSlice = false;
+    enableUserSlices = true;
+    extraConfig = {
+      DefaultMemoryPressureDurationSec = "5s";
+    };
+  };
 
   # List services that you want to enable:
 
