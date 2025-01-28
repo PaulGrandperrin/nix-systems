@@ -60,6 +60,7 @@
 
   swapDevices = [ ];
 
+  nix.settings.max-jobs = 1; # avoids taking the system down
 
   networking.hostId="3a0da539";
 
