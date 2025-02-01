@@ -1,4 +1,5 @@
 { config, pkgs, lib, inputs, ... }: {
+  disabledModules = ["services/databases/foundationdb.nix"];
   imports = [
     ./hardware-configuration.nix
     ../shared/common.nix
@@ -14,6 +15,7 @@
     #../shared/mastodon.nix
     ../shared/hostapd.nix
     ../shared/yuzu.nix
+    ../shared/foundationdb.nix
   ];
 
   home-manager.users = let 
@@ -270,6 +272,15 @@
 
   sops.secrets."yuzu-multiplayer" = {
     restartUnits = [ "yuzu-multiplayer.service" ];
+  };
+
+  services.foundationdb = {
+    enable = true;
+    openFirewall = true;
+    traceFormat = "json";
+    package = pkgs.foundationdb-bin;
+    publicAddress = "10.42.0.1";
+    listenAddress = "public"; # default
   };
 
   services.yuzu = {
