@@ -57,6 +57,8 @@
 
   perfect_dark = pkgs.callPackage ./perfect_dark/package.nix {};
 
+  foundationdb-bin = pkgs.callPackage ./foundationdb-bin/package.nix {};
+
   #iso = inputs.nixos-generators.nixosGenerate {
   #  pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
   #  modules = [
