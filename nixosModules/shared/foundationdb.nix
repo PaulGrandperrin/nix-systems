@@ -411,7 +411,6 @@ in
           User = cfg.user;
           Group = cfg.group;
 
-          PermissionsStartOnly = true; # setup needs root perms
           TimeoutSec = 120; # give reasonable time to shut down
 
           # Security options
