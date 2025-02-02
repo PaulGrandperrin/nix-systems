@@ -278,7 +278,7 @@
     enable = true;
     openFirewall = true;
     traceFormat = "json";
-    package = pkgs.foundationdb-bin;
+    package = pkgs.foundationdb-bin.override { version = "7.3.59"; };
     publicAddress = "10.42.0.1";
     listenAddress = "public"; # default
   };
