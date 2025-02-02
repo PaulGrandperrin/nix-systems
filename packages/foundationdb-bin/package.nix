@@ -25,9 +25,9 @@
         clients = "sha256-qGRMZrGK9z+ATpuHF64+hfbUCke+0130lIhxUpwOvtY=";
         server = "sha256-HKD7oJLb1bZy4KJPprWxItcifdfqPdvhnYn50LNMZuU=";
       };
-      aarch64 = {
-        clients = "";
-        server = "";
+      arm64 = {
+        clients = "sha256-jVIGk5exXukqmJd03ltLmo4SkuBDhiDBDTs5VzydJbw=";
+        server = "sha256-jZXW06iP0EorCxYg8wIsGNETXnzjXk4Iurgqp9dDvmU=";
       };
     };
     "7.3.57" = { # latest
@@ -41,7 +41,7 @@
   arch = stdenvNoCC.hostPlatform.linuxArch;
   arch_deb = {
     "x86_64" = "amd64";
-    "aarch64" = "aarch64";
+    "arm64" = "aarch64";
   }.${arch};
   
   mkFoundationdbBin = artifactName: version: stdenvNoCC.mkDerivation {

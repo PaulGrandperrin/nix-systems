@@ -1,4 +1,5 @@
 { config, pkgs, lib, inputs, ... }: {
+  disabledModules = ["services/databases/foundationdb.nix"];
   imports = [
     ./hardware-configuration.nix
     ../shared/common.nix
@@ -12,6 +13,7 @@
     ../shared/headless.nix
     ../shared/yuzu.nix
     ../shared/nspawns.nix
+    ../shared/foundationdb.nix
   ];
 
   home-manager.users = let 
@@ -141,6 +143,15 @@
     enable = true;
     package = pkgs.unstable.ollama;
     #acceleration = "cuda";
+  };
+
+  services.foundationdb = {
+    enable = true;
+    openFirewall = true;
+    traceFormat = "json";
+    package = pkgs.foundationdb-bin.override { version = "7.3.59"; };
+    publicAddress = "10.42.0.7";
+    listenAddress = "public"; # default
   };
 
   boot.zfs.requestEncryptionCredentials = false; # don't ask for password when the machine is headless
