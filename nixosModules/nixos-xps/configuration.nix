@@ -1,5 +1,4 @@
 { config, pkgs, lib, inputs, ... }: {
-  disabledModules = ["services/databases/foundationdb.nix"];
   imports = [
     ./hardware-configuration.nix
     ../shared/common.nix
@@ -15,7 +14,6 @@
     ../shared/gaming.nix
     ../shared/nspawns.nix
     ../shared/guix.nix
-    ../shared/foundationdb.nix
     inputs.lanzaboote.nixosModules.lanzaboote
     #inputs.nix-cluster.nixosModules.nix-cluster
     #inputs.nar-alike-deduper.nixosModules.default
@@ -119,15 +117,6 @@
     enable = true;
     package = pkgs.unstable.ollama;
     #acceleration = "cuda";
-  };
-
-  services.foundationdb = {
-    enable = true;
-    openFirewall = true;
-    traceFormat = "json";
-    package = pkgs.foundationdb-bin.override { version = "7.3.59"; };
-    publicAddress = "10.42.0.4";
-    listenAddress = "public"; # default
   };
 
   virtualisation.my-nspawn = {
