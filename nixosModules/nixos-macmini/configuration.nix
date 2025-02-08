@@ -1,4 +1,5 @@
 { config, pkgs, lib, inputs, ... }: {
+  disabledModules = ["services/databases/foundationdb.nix"];
   imports = [
     ./hardware-configuration.nix
     ../shared/common.nix
@@ -11,6 +12,7 @@
     ../shared/auto-upgrade.nix
     ../shared/headless.nix
     ../shared/home-assistant.nix
+    ../shared/foundationdb.nix
   ];
 
   home-manager.users = let 
@@ -112,6 +114,15 @@
         proxyWebsockets = true;
       };
     };
+  };
+
+  services.foundationdb = {
+    enable = true;
+    openFirewall = true;
+    traceFormat = "json";
+    package = pkgs.foundationdb-bin.override { version = "7.3.59"; };
+    publicAddress = "10.42.0.2";
+    listenAddress = "public"; # default
   };
 
   #services.my-nspawn = {
