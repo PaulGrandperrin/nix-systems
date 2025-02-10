@@ -123,11 +123,12 @@
     vscode = { # better than plain package which can't install extensions from internet
       enable = true;
       package = let
-        #vscode = pkgs.callPackage (inputs.nixos-unstable.outPath + "/pkgs/applications/editors/vscode/vscode.nix") {
-        #  # the asar package has changed name in 23.11
-        #  #callPackage = p: overrides: pkgs.callPackage p (overrides // {asar = pkgs.nodePackages.asar;});
-        #};
-        vscode-fhsWithPackages = pkgs.vscode.fhsWithPackages;
+        vscode = pkgs.callPackage (inputs.nixos-unstable.outPath + "/pkgs/applications/editors/vscode/vscode.nix") {
+          callPackage = p: overrides: pkgs.callPackage p (overrides // {
+            libgbm = pkgs.mesa;
+          });
+        };
+        vscode-fhsWithPackages = vscode.fhsWithPackages;
         vscode-wayland = a: pkgs.symlinkJoin {
           name = "code";
           paths = [ (vscode-fhsWithPackages a) ];
@@ -138,8 +139,8 @@
           '';
         };
       in
-      #vscode-wayland(ps: with ps; [ # buggy
-      vscode-fhsWithPackages(ps: with ps; [
+      vscode-wayland(ps: with ps; [
+      #vscode-fhsWithPackages(ps: with ps; [
         nixd
         nixpkgs-fmt
         bintools
