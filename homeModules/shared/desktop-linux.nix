@@ -47,6 +47,7 @@
       speechd # for spd-say
       #unstable.zed-editor # 2024-11 not in binary cache
       unstable.lapce
+      unstable.sniffnet
 
       #gnome.gnome-boxes libvirt # doesn't work, but flatpak version does
 
