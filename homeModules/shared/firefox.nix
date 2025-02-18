@@ -12,7 +12,7 @@ args @ {pkgs, inputs, lib, config, is_nixos, ...}: lib.mkIf (config.home.usernam
           bitwarden
           buster-captcha-solver
           #bypass-paywalls-clean # FIXME
-          clearurls
+          #clearurls
           darkreader
           gesturefy
           i-dont-care-about-cookies

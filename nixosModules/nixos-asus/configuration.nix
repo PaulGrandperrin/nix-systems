@@ -7,6 +7,7 @@
     ../shared/wireguard.nix
     ../shared/wg-mounts.nix
     ../shared/gnome.nix
+    ../shared/cosmic.nix
     ../shared/desktop.nix
     ../shared/desktop-i915.nix
   ];

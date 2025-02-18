@@ -27,8 +27,8 @@ in {
   nixos-testvm-lean    = mkNixosConf "stable"        [ ./nixosModules/nixos-testvm/configuration.nix    ./nixosModules/shared/leanify.nix ];
   nixos-chromebox      = mkNixosConf "stable"        [ ./nixosModules/nixos-chromebox/configuration.nix                                   ];
   nixos-chromebox-lean = mkNixosConf "stable"        [ ./nixosModules/nixos-chromebox/configuration.nix ./nixosModules/shared/leanify.nix ];
-  nixos-asus           = mkNixosConf "stable"        [ ./nixosModules/nixos-asus/configuration.nix                                        ];
-  nixos-asus-lean      = mkNixosConf "stable"        [ ./nixosModules/nixos-asus/configuration.nix      ./nixosModules/shared/leanify.nix ];
+  nixos-asus           = mkNixosConf "cosmic-stable" [ ./nixosModules/nixos-asus/configuration.nix                                        ];
+  nixos-asus-lean      = mkNixosConf "cosmic-stable" [ ./nixosModules/nixos-asus/configuration.nix      ./nixosModules/shared/leanify.nix ];
 }
 
 
