@@ -298,6 +298,7 @@
    "kernel.sysrq" = 1; # magic keyboard shortcuts
    "vm.nr_hugepages" = lib.mkDefault "0"; # disabled is better for DBs
    #"vm.overcommit_memory" = "1";
+   "fs.inotify.max_user_watches" = 2000000; # https://code.visualstudio.com/docs/setup/linux#_visual-studio-code-is-unable-to-watch-for-file-changes-in-this-large-workspace-error-enospc
 
    # game fix: https://www.phoronix.com/news/Fedora-39-VM-Max-Map-Count
    "vm.max_map_count" = 2147483642;
