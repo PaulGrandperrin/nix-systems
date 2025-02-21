@@ -469,5 +469,28 @@
     };
   };
 
+  # I hate to wait 1m30s. If something doesn't work in 15s,
+  # it's never going to work later
+  systemd = {
+    watchdog = {
+      rebootTime = "30s";
+      runtimeTime = "30s";
+      kexecTime = "30s";
+    };
+
+    extraConfig = ''
+      ShutdownWatchdogSec=30s
+      DefaultTimeoutStopSec=15s
+      DefaultTimeoutStartSec=15s
+      DefaultTimeoutAbortSec=15s
+    '';
+
+    user.extraConfig = ''
+      DefaultTimeoutStopSec=15s
+      DefaultTimeoutStartSec=15s
+      DefaultTimeoutAbortSec=15s
+    '';
+  };
+
 }
 
