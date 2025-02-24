@@ -260,6 +260,13 @@
     #  };
     #};
 
+    amadou_server = {
+      url = "git+ssh://git@github.com/PaulGrandperrin/amadou_server.git";
+      inputs = {
+        nixpkgs.follows = "nixos-stable";
+      };
+    };
+
     nixos-cosmic = {
       url = "github:lilyinstarlight/nixos-cosmic";
       #inputs = {

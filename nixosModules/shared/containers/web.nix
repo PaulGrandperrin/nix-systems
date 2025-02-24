@@ -59,6 +59,7 @@
       #};
       #services.wordpress."louis.grandperrin.fr".package = pkgs.unstable.wordpress;
     
+      services.myNginx.defaultHeaders = false;
       services.nginx = {
         enable = true;
         additionalModules = [ pkgs.nginxModules.brotli ];
@@ -74,6 +75,10 @@
             root = "/var/www/amadou.grandperrin.fr";
             locations."/" = {
               tryFiles = "$uri $uri/ /index.html";
+              extraConfig = ''
+                add_header Cross-Origin-Embedder-Policy "require-corp"; # credentialless / require-corp # needed by flutter web wasm
+                add_header Cross-Origin-Opener-Policy "same-origin"; # needed by flutter web wasm
+              '';
             };
            };
           "louis.grandperrin.fr" = {

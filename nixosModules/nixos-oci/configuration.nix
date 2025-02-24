@@ -14,6 +14,7 @@
     ../shared/yuzu.nix
     ../shared/nspawns.nix
     ../shared/foundationdb.nix
+    inputs.amadou_server.nixosModules.amadouServer
   ];
 
   home-manager.users = let 
@@ -192,6 +193,15 @@
         proxyWebsockets = true;
       };
     };
+    "api.amadou.grandperrin.fr" = {
+      enableACME = true;
+      forceSSL = true;
+      locations."/" = {
+        #basicAuthFile = config.sops.secrets."web-amadou.grandperrin.fr".path;
+        proxyPass = "http://localhost:8080/";
+        proxyWebsockets = true;
+      };
+    };
     "louis.grandperrin.fr" = {
       enableACME = true;
       forceSSL = true;
@@ -210,5 +220,7 @@
       };
     };
   };
+
+  services.amadouServer.enable = true;
 }
 
