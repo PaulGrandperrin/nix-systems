@@ -225,8 +225,8 @@ args @ {pkgs, lib, ...}: {
         src = pkgs.fetchFromGitHub {
           owner = "IlanCosman";
           repo = "tide";
-          rev = "v6.0.1";
-          sha256 = "sha256-oLD7gYFCIeIzBeAW1j62z5FnzWAp3xSfxxe7kBtTLgA=";
+          rev = "v6.1.1";
+          sha256 = "sha256-ZyEk/WoxdX5Fr2kXRERQS1U1QHH3oVSyBQvlwYnEYyc=";
         };
       }
       #{
