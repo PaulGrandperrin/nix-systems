@@ -64,6 +64,11 @@
     ];
   };
 
+  nix.settings = {
+    cores = 2; # max concurrent tasks during one build
+    max-jobs = 2; # max concurrent build job
+  };
+
   swapDevices =
     [ { device = "/dev/disk/by-uuid/3574e8dd-b51d-4b2f-9e94-6bb389fd7959"; }
     ];

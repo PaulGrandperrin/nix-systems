@@ -76,6 +76,11 @@
     ];
   };
 
+  nix.settings = {
+    cores = 4; # max concurrent tasks during one build
+    max-jobs = 2; # max concurrent build job
+  };
+
   swapDevices = [ ];
 
 

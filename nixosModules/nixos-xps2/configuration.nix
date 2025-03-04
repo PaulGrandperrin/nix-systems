@@ -68,6 +68,11 @@
     ];
   };
 
+  nix.settings = {
+    cores = 4; # max concurrent tasks during one build
+    max-jobs = 4; # max concurrent build job
+  };
+
   # audio is broken on 6.7
   # https://bbs.archlinux.org/viewtopic.php?id=292297
   # https://bbs.archlinux.org/viewtopic.php?pid=2148028#p2148028

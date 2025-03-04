@@ -59,9 +59,12 @@
     ];
   };
 
-  swapDevices = [ ];
+  nix.settings = {
+    cores = 2; # max concurrent tasks during one build
+    max-jobs = 2; # max concurrent build job
+  };
 
-  nix.settings.max-jobs = 1; # avoids taking the system down
+  swapDevices = [ ];
 
   networking.hostId="3a0da539";
 
