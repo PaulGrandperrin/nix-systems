@@ -430,7 +430,7 @@
     #libvirtd.enable = true;
     oci-containers.backend = "podman";
     podman = {
-      enable = true;
+      #enable = true;
       autoPrune = {
         enable = true;
         dates = "04:30:00";

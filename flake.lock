@@ -12,15 +12,15 @@
         "paulg": "paulg"
       },
       "locked": {
-        "lastModified": 1741389717,
-        "narHash": "sha256-QmngQc2Ge4tJ0+pRuDrhDCbSi8PjwRfHGT0FQ3xpHyo=",
-        "ref": "refs/heads/main",
-        "rev": "1215b77c9dc613bdc31c0dbf3725224aeda2079f",
-        "revCount": 15,
+        "lastModified": 1740740296,
+        "narHash": "sha256-Pwl3RkXkVwwVrsph7a2MuWNAujQNqqcsQj4bG89JYT8=",
+        "rev": "eb39d4226f5dc8f83df3721eb8e7701d17f510a6",
+        "revCount": 12,
         "type": "git",
         "url": "ssh://git@github.com/PaulGrandperrin/amadou_server.git"
       },
       "original": {
+        "rev": "eb39d4226f5dc8f83df3721eb8e7701d17f510a6",
         "type": "git",
         "url": "ssh://git@github.com/PaulGrandperrin/amadou_server.git"
       }
