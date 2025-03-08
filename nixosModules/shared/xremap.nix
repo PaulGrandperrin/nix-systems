@@ -13,7 +13,7 @@
         {
           name = "Terminals";
           application = {
-            only = ["org.gnome.Console" "terminator" "kitty" "org.wezfurlong.wezterm"]; # busctl --user call org.gnome.Shell /com/k0kubun/Xremap com.k0kubun.Xremap WMClasses
+            only = ["org.gnome.Console" "terminator" "kitty" "org.wezfurlong.wezterm" "com.system76.CosmicTerm"]; # busctl --user call org.gnome.Shell /com/k0kubun/Xremap com.k0kubun.Xremap WMClasses
           };
           remap = {
             Super-t = "C-Shift-t"; # new tab
