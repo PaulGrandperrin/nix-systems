@@ -261,7 +261,7 @@
     #};
 
     amadou_server = {
-      url = "git+ssh://git@github.com/PaulGrandperrin/amadou_server.git?rev=eb39d4226f5dc8f83df3721eb8e7701d17f510a6";
+      url = "git+ssh://git@github.com/PaulGrandperrin/amadou_server.git?rev=25a3db8d3868bda51c462377361b6ff58a18739c";
       inputs = {
         nixpkgs.follows = "nixos-stable";
       };

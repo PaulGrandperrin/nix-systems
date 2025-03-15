@@ -6,21 +6,23 @@
         "devenv": "devenv",
         "fenix": "fenix",
         "flake-parts": "flake-parts_2",
+        "nixos-unstable": "nixos-unstable",
         "nixpkgs": [
           "nixos-stable"
         ],
         "paulg": "paulg"
       },
       "locked": {
-        "lastModified": 1740740296,
-        "narHash": "sha256-Pwl3RkXkVwwVrsph7a2MuWNAujQNqqcsQj4bG89JYT8=",
-        "rev": "eb39d4226f5dc8f83df3721eb8e7701d17f510a6",
-        "revCount": 12,
+        "lastModified": 1742076867,
+        "narHash": "sha256-iskQcOAI/c8kk+eiX6E2feAU03JV40hUL+wiXDLVwaw=",
+        "ref": "refs/heads/main",
+        "rev": "06cd1a7017d05a3ea56a73f65afedcd04aefa334",
+        "revCount": 18,
         "type": "git",
         "url": "ssh://git@github.com/PaulGrandperrin/amadou_server.git"
       },
       "original": {
-        "rev": "eb39d4226f5dc8f83df3721eb8e7701d17f510a6",
+        "rev": "06cd1a7017d05a3ea56a73f65afedcd04aefa334",
         "type": "git",
         "url": "ssh://git@github.com/PaulGrandperrin/amadou_server.git"
       }
@@ -1106,7 +1108,7 @@
       "inputs": {
         "nixpkgs": [
           "amadou_server",
-          "nixpkgs"
+          "nixos-unstable"
         ],
         "rust-analyzer-src": "rust-analyzer-src"
       },
@@ -1599,7 +1601,7 @@
       "inputs": {
         "nixpkgs-lib": [
           "amadou_server",
-          "nixpkgs"
+          "nixos-unstable"
         ]
       },
       "locked": {
@@ -4626,11 +4628,11 @@
     },
     "nixos-unstable": {
       "locked": {
-        "lastModified": 1740126099,
-        "narHash": "sha256-ozoOtE2hGsqh4XkTJFsrTkNxkRgShxpQxDynaPZUGxk=",
+        "lastModified": 1741851582,
+        "narHash": "sha256-cPfs8qMccim2RBgtKGF+x9IBCduRvd/N5F4nYpU0TVE=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "32fb99ba93fea2798be0e997ea331dd78167f814",
+        "rev": "6607cf789e541e7873d40d3a8f7815ea92204f32",
         "type": "github"
       },
       "original": {
@@ -4696,6 +4698,22 @@
     },
     "nixos-unstable_2": {
       "locked": {
+        "lastModified": 1740126099,
+        "narHash": "sha256-ozoOtE2hGsqh4XkTJFsrTkNxkRgShxpQxDynaPZUGxk=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "32fb99ba93fea2798be0e997ea331dd78167f814",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixos-unstable_3": {
+      "locked": {
         "lastModified": 1740367490,
         "narHash": "sha256-WGaHVAjcrv+Cun7zPlI41SerRtfknGQap281+AakSAw=",
         "owner": "NixOS",
@@ -4710,7 +4728,7 @@
         "type": "github"
       }
     },
-    "nixos-unstable_3": {
+    "nixos-unstable_4": {
       "locked": {
         "lastModified": 1741851582,
         "narHash": "sha256-cPfs8qMccim2RBgtKGF+x9IBCduRvd/N5F4nYpU0TVE=",
@@ -6223,7 +6241,7 @@
         "nixos-stable": "nixos-stable_2",
         "nixos-stable-lib": "nixos-stable-lib_2",
         "nixos-stable-small": "nixos-stable-small_2",
-        "nixos-unstable": "nixos-unstable_2",
+        "nixos-unstable": "nixos-unstable_3",
         "nixos-unstable-lib": "nixos-unstable-lib_2",
         "nixpkgs": "nixpkgs_25",
         "nixpkgs-update": "nixpkgs-update_2",
@@ -6289,7 +6307,7 @@
         "nixos-stable": "nixos-stable",
         "nixos-stable-lib": "nixos-stable-lib",
         "nixos-stable-small": "nixos-stable-small",
-        "nixos-unstable": "nixos-unstable",
+        "nixos-unstable": "nixos-unstable_2",
         "nixos-unstable-lib": "nixos-unstable-lib",
         "nixpkgs": "nixpkgs_14",
         "nixpkgs-update": "nixpkgs-update",
@@ -6832,7 +6850,7 @@
         "nixos-stable": "nixos-stable_3",
         "nixos-stable-lib": "nixos-stable-lib_3",
         "nixos-stable-small": "nixos-stable-small_3",
-        "nixos-unstable": "nixos-unstable_3",
+        "nixos-unstable": "nixos-unstable_4",
         "nixos-unstable-lib": "nixos-unstable-lib_3",
         "nixpkgs": "nixpkgs_36",
         "nixpkgs-update": "nixpkgs-update_3",
