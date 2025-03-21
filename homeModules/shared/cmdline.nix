@@ -51,6 +51,7 @@
       unstable.nh
       fh
       zenith
+      ruplacer
 
 
       socat
