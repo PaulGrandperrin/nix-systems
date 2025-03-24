@@ -26,6 +26,10 @@
 
   home = {
     packages = with pkgs; [
+      (lib.setPrio (-15) unstable.uutils-coreutils-noprefix)
+      (lib.hiPrio unstable.uutils-findutils)
+      (lib.hiPrio unstable.uutils-diffutils)
+
       # monitoring
       procs
       wireshark-cli
