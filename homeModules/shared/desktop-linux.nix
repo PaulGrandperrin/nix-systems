@@ -45,9 +45,9 @@
       unstable.popcorntime
       swappy
       speechd # for spd-say
-      #unstable.zed-editor # 2024-11 not in binary cache
       unstable.lapce
       unstable.sniffnet
+      unstable.zed-editor-fhs
 
       #gnome.gnome-boxes libvirt # doesn't work, but flatpak version does
 
@@ -121,6 +121,10 @@
     foot.enable = true;
     alacritty.enable = true;
     mangohud.enable = true;
+    #zed-editor = {
+    #  enable = true;
+    #  package = pkgs.unstable.zed-editor-fhs;
+    #};
     vscode = { # better than plain package which can't install extensions from internet
       enable = true;
       package = let
