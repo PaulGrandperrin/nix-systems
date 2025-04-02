@@ -101,9 +101,9 @@ args @ {pkgs, lib, ...}: {
       set -U tide_jobs_bg_color 1C1C1C
       set -U tide_jobs_color 5FAF00
       set -U tide_jobs_icon \uf013
-      set -U tide_kubectl_bg_color 1C1C1C
-      set -U tide_kubectl_color 326CE5
-      set -U tide_kubectl_icon \U000f10fe
+      #set -U tide_kubectl_bg_color 1C1C1C
+      #set -U tide_kubectl_color 326CE5
+      #set -U tide_kubectl_icon \U000f10fe
       set -U tide_left_prompt_frame_enabled false
       set -U tide_left_prompt_items vi_mode\x1eos\x1epwd\x1egit
       set -U tide_left_prompt_prefix 
@@ -147,7 +147,8 @@ args @ {pkgs, lib, ...}: {
       set -U tide_python_color 00AFAF
       set -U tide_python_icon \U000f0320
       set -U tide_right_prompt_frame_enabled false
-      set -U tide_right_prompt_items status\x1ecmd_duration\x1econtext\x1ejobs\x1edirenv\x1enode\x1epython\x1erustc\x1ejava\x1ephp\x1epulumi\x1eruby\x1ego\x1egcloud\x1ekubectl\x1edistrobox\x1etoolbox\x1eterraform\x1eaws\x1enix_shell\x1ecrystal\x1eelixir\x1etime
+      #set -U tide_right_prompt_items status\x1ecmd_duration\x1econtext\x1ejobs\x1edirenv\x1enode\x1epython\x1erustc\x1ejava\x1ephp\x1epulumi\x1eruby\x1ego\x1egcloud\x1ekubectl\x1edistrobox\x1etoolbox\x1eterraform\x1eaws\x1enix_shell\x1ecrystal\x1eelixir\x1etime
+      set -U tide_right_prompt_items status\x1ecmd_duration\x1econtext\x1ejobs\x1edirenv\x1enode\x1epython\x1erustc\x1ejava\x1ephp\x1epulumi\x1eruby\x1ego\x1egcloud\x1edistrobox\x1etoolbox\x1eterraform\x1eaws\x1enix_shell\x1ecrystal\x1eelixir\x1etime
       set -U tide_right_prompt_prefix \ue0b2
       set -U tide_right_prompt_separator_diff_color \ue0b2
       set -U tide_right_prompt_separator_same_color \ue0b3
