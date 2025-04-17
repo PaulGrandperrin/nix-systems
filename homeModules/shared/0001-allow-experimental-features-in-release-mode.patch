@@ -1,0 +1,34 @@
+From 020789dcab57b3cd76ee5be5a876419f0458bf15 Mon Sep 17 00:00:00 2001
+From: Paul Grandperrin <paul.grandperrin@gmail.com>
+Date: Wed, 2 Apr 2025 15:25:10 +0200
+Subject: [PATCH] allow experimental features in release mode
+
+---
+ crates/feature_flags/src/feature_flags.rs | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/crates/feature_flags/src/feature_flags.rs b/crates/feature_flags/src/feature_flags.rs
+index effb3cda31..95ee27e095 100644
+--- a/crates/feature_flags/src/feature_flags.rs
++++ b/crates/feature_flags/src/feature_flags.rs
+@@ -23,7 +23,7 @@ impl FeatureFlags {
+             return true;
+         }
+ 
+-        #[cfg(debug_assertions)]
++//        #[cfg(debug_assertions)]
+         if T::enabled_in_development() {
+             return true;
+         }
+@@ -129,7 +129,7 @@ where
+         if self
+             .try_global::<FeatureFlags>()
+             .is_some_and(|f| f.has_flag::<T>())
+-            || cfg!(debug_assertions) && T::enabled_in_development()
++            || /* cfg!(debug_assertions) && */ T::enabled_in_development()
+         {
+             self.defer_in(window, move |view, window, cx| {
+                 callback(view, window, cx);
+-- 
+2.47.2
+

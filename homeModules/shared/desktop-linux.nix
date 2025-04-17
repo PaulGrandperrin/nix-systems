@@ -47,7 +47,23 @@
       speechd # for spd-say
       unstable.lapce
       unstable.sniffnet
-      unstable.zed-editor-fhs
+      (unstable.zed-editor.overrideAttrs (o: rec {
+        patches = o.patches ++ [
+          ./0001-allow-experimental-features-in-release-mode.patch
+        ];
+        #version = "0.180.2-pre";
+        #src = fetchFromGitHub {
+        #  owner = "zed-industries";
+        #  repo = "zed";
+        #  tag = "v${version}";
+        #  hash = "sha256-0xBNquXp2tS5FVh6JBXxgYESl9n3lLvQzX3fAXRy0EM=";
+        #};
+        ##cargoHash = "";
+        #cargoDeps = o.cargoDeps.overrideAttrs {
+        #  inherit src;
+        #  outputHash = lib.fakeHash;
+        #};
+      })).fhs
 
       #gnome.gnome-boxes libvirt # doesn't work, but flatpak version does
 
