@@ -149,8 +149,8 @@
 
   systemd.services.smbios-thermal = {
     script = ''
-      # ${pkgs.libsmbios}/bin/smbios-thermal-ctl --set-thermal-mode quiet # obsolete since linux 6.11
-      echo quiet > /sys/firmware/acpi/platform_profile
+      ${pkgs.libsmbios}/bin/smbios-thermal-ctl --set-thermal-mode quiet || true # obsolete since linux 6.11
+      echo quiet > /sys/firmware/acpi/platform_profile || true
     '';
     wantedBy = [ "multi-user.target" ];
   };
