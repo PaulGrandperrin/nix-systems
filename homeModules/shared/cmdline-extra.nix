@@ -1,4 +1,4 @@
-{pkgs, config, inputs, nixos-flake, home-manager-flake, ...}: {
+{pkgs, lib, config, inputs, nixos-flake, home-manager-flake, ...}: {
   imports = [
     ./cmdline.nix
   ];
@@ -202,7 +202,38 @@
     eza = {
       enable = true;
     };
-    helix.enable = true;
+    helix = {
+      enable = true;
+      package = pkgs.unstable.evil-helix;
+      defaultEditor = lib.mkForce true;
+      settings = {
+        theme = "autumn_night_transparent";
+        editor = {
+          line-number = "relative";
+          lsp.display-messages = true;
+          cursor-shape = {
+            normal = "block";
+            insert = "bar";
+            select = "underline";
+          };
+          #file-picker.hidden = false;
+        };
+      };
+      languages.language = [{
+        name = "nix";
+        #auto-format = true;
+        #formatter.command = lib.getExe pkgs.nixfmt-rfc-style;
+      } {
+        name = "rust";
+
+      }];
+      themes = {
+        autumn_night_transparent = {
+          "inherits" = "autumn_night";
+          "ui.background" = { };
+        };
+      };
+    };
     #fzf = {
     #  enable = true;
     #  tmux.enableShellIntegration = true;
