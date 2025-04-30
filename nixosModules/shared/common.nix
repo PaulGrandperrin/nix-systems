@@ -86,7 +86,7 @@
     clean = {
       enable = true;
       dates = "05:00:00";
-      extraArgs = "--keep-since 3d --keep 2";
+      extraArgs = "--keep-since 3d --keep 2 --nogcroots";
     };
   };
 
