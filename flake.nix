@@ -274,6 +274,14 @@
       #};
     };
 
+    bugstalker = {
+      url = "github:godzie44/BugStalker";
+      inputs = {
+        nixpkgs.follows = "nixos-stable";
+        rust-overlay.follows = "rust-overlay";
+        flake-parts.follows = "flake-parts";
+      };
+    };
 
     #nar-alike-deduper = {
     #  #url = "github:PaulGrandperrin/nar-alike-deduper";

@@ -226,6 +226,32 @@
         "type": "github"
       }
     },
+    "bugstalker": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixos-stable"
+        ],
+        "rust-overlay": [
+          "rust-overlay"
+        ]
+      },
+      "locked": {
+        "lastModified": 1745507497,
+        "narHash": "sha256-8Iqg2coFsPQY3ws5MEC1LhTu+Z1lXeI3ccjgoBS454o=",
+        "owner": "godzie44",
+        "repo": "BugStalker",
+        "rev": "b3aa00ceb16adf487506f576ba9c6e55631f52bc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "godzie44",
+        "repo": "BugStalker",
+        "type": "github"
+      }
+    },
     "cachix": {
       "inputs": {
         "devenv": [
@@ -9563,6 +9589,7 @@
       "inputs": {
         "amadou_server": "amadou_server",
         "android-nixpkgs": "android-nixpkgs_4",
+        "bugstalker": "bugstalker",
         "crane": "crane_13",
         "darwin-stable": "darwin-stable_4",
         "darwin-unstable": "darwin-unstable_4",
