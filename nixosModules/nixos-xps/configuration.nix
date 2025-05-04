@@ -29,12 +29,14 @@
       (builtins.match "linux_[0-9]+_[0-9]+" name) != null
       && (builtins.tryEval kernelPackages).success
       && (!kernelPackages.${config.boot.zfs.package.kernelModuleAttribute}.meta.broken)
-    ) pkgs.linuxKernel.packages;
+    ) pkgs.unstable.linuxKernel.packages; # take kernel from unstable
   in lib.last (
     lib.sort (a: b: (lib.versionOlder a.kernel.version b.kernel.version)) (
       builtins.attrValues zfsCompatibleKernelPackages
     )
   );
+
+  boot.zfs.package = lib.mkForce pkgs.unstable.zfs; # also take zfs userspace from unstable for versions to be in sync
 
   home-manager.users = let 
     homeModule = {
