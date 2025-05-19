@@ -131,7 +131,7 @@
     piper # gtk interface to ratbagd
   ];
 
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true; # to make realtime scheduling possible in gnome-shell
   services.pipewire = {
     enable = true;
@@ -148,7 +148,7 @@
     fontDir.enable = true;
     enableDefaultPackages = true;
     packages = with pkgs; [
-      (nerdfonts.override { fonts = [ "FiraCode" ]; })
+      nerd-fonts.fira-code
     ];
 
     fontconfig = {

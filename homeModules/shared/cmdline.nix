@@ -80,7 +80,7 @@
     nix-index-database.comma.enable = true;
     lsd = {
       enable = true;
-      enableAliases = true;
+      enableFishIntegration = true;
     };
     bat.enable = true;
     htop.enable = true;

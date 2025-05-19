@@ -94,6 +94,7 @@
     restartUnits = [ "inadyn.service" ]; # not really useful because triggered by timer
   };
 
+  # TODO since 25.05, we can use services.duckdns
   services.inadyn = {
     enable = true;
     settings.provider."default@duckdns.org" = {

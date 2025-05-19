@@ -124,7 +124,7 @@
 
     ] ++ lib.optionals pkgs.stdenv.isLinux [
       lshw
-      dstat
+      dool # replaces dstat
       sysstat
       strace
       bmon

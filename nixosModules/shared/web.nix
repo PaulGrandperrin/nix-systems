@@ -19,8 +19,6 @@ in {
     services.nginx = {
       enable = true;
 
-      defaultMimeTypes = "${pkgs.unstable.mailcap}/etc/nginx/mime.types"; # the version of 24.05 doesn't know the "mjs" extension used by flutter web
-    
       # https://observatory.mozilla.org/
       # https://www.ssllabs.com/ssltest/index.html
       # https://securityheaders.com/

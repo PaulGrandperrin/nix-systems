@@ -106,20 +106,17 @@
   fonts = {
     fontDir.enable = true;
     fonts = [
-      ( pkgs.nerdfonts.override {
-        fonts = [
-          "CascadiaCode"
-          "FantasqueSansMono"
-          "FiraCode"
-          "FiraMono"
-          "Hack" # no ligatures
-          "Hasklig"
-          "Inconsolata"
-          "Iosevka"
-          "JetBrainsMono"
-          "VictorMono"
-        ];
-      } )
+      pkgs.nerd-fonts.fira-code
+      # "CascadiaCode"
+      # "FantasqueSansMono"
+      # "FiraCode"
+      # "FiraMono"
+      # "Hack" # no ligatures
+      # "Hasklig"
+      # "Inconsolata"
+      # "Iosevka"
+      # "JetBrainsMono"
+      # "VictorMono"
     ];
   };
 }

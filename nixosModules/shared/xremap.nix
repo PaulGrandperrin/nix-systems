@@ -4,6 +4,7 @@
     inputs.xremap-flake.nixosModules.default
   ];
   services.xremap = {
+    package = pkgs.xremap;
     serviceMode = "user";
     userName = "paulg";
     withGnome = true;

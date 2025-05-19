@@ -1,7 +1,7 @@
 {pkgs, config, lib, ...}: {
-  system.stateVersion = "24.11";
+  system.stateVersion = "25.05";
   user.shell = "${pkgs.fish}/bin/fish";
-  terminal.font = "${pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; }}/share/fonts/truetype/NerdFonts/FiraCodeNerdFont-Retina.ttf";
+  terminal.font = "${pkgs.nerd-fonts.fira-code }/share/fonts/truetype/NerdFonts/FiraCodeNerdFont-Retina.ttf";
 
   home-manager = {
     useGlobalPkgs = true;

@@ -52,9 +52,9 @@ inputs: rec {
       meta.platforms = prev.lib.platforms.linux;
     });
   });
-  fish-unstable = (final: prev: {
-    fish = final.unstable.fish;
-  });
+  #fish-unstable = (final: prev: {
+  #  fish = final.unstable.fish;
+  #});
   default = inputs.nixos-stable.lib.composeManyExtensions [
     all-channels
     local-packages
@@ -64,7 +64,7 @@ inputs: rec {
     isd
     #hostapd
     my-yuzu
-    fish-unstable
+    #fish-unstable
 
     inputs.nur.overlays.default
     inputs.rust-overlay.overlays.default

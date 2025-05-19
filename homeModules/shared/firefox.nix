@@ -8,7 +8,7 @@ args @ {pkgs, inputs, lib, config, is_nixos, ...}: lib.mkIf (config.home.usernam
 
       profiles."paulgrandperrin@gmail.com" = {
         id = 0;
-        extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+        extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
           bitwarden
           buster-captcha-solver
           #bypass-paywalls-clean # FIXME

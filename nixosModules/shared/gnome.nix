@@ -14,6 +14,9 @@
 
   services.gnome.gnome-browser-connector.enable = true;
 
+  # Gnome shell extensions:
+  services.xserver.desktopManager.gnome.sessionPath = [];
+
   # Workaround https://github.com/NixOS/nixpkgs/issues/336723
   systemd = {
      services."gnome-suspend" = {
