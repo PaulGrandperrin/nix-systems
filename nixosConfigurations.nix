@@ -1,7 +1,8 @@
 inputs: let
   mkNixosConf = stability: modules: let
     selectFlake = stable: unstable: cosmic-stable: { inherit stable unstable cosmic-stable; }.${stability}; 
-    nixos-flake = selectFlake inputs.nixos-stable inputs.nixos-unstable inputs.nixos-cosmic-stable;
+    #nixos-flake = selectFlake inputs.nixos-stable inputs.nixos-unstable inputs.nixos-cosmic-stable;
+    nixos-flake = selectFlake inputs.nixos-stable inputs.nixos-unstable inputs.nixos-stable;
     home-manager-flake = selectFlake inputs.home-manager-stable inputs.home-manager-unstable inputs.home-manager-stable;
   in
     nixos-flake.lib.nixosSystem {

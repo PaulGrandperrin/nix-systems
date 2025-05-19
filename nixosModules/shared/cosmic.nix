@@ -14,7 +14,7 @@
     #  f.outputs (inputs.nixos-cosmic.inputs // {self = f.outputs;})
     #).nixosModules.default
 
-    inputs.nixos-cosmic.nixosModules.default
+    #inputs.nixos-cosmic.nixosModules.default
   ];
 
   services.desktopManager.cosmic.enable = true;
