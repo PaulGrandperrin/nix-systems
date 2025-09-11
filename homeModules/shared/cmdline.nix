@@ -1,6 +1,6 @@
 {pkgs, config, inputs, lib, ...}: {
   imports = [
-    inputs.nix-index-database.hmModules.nix-index
+    inputs.nix-index-database.homeModules.nix-index
     ./fish.nix
     ./git.nix
   ];
@@ -67,7 +67,7 @@
       hostname
       neofetch
       gdu dua du-dust # ncdu dutree pdu # du alternatives
-      duf lfs # df alternatives
+      duf lfs dysk # df alternatives
       choose
       dogdns
       wakelan
