@@ -123,13 +123,9 @@
     #nixos.includeAllModules = true;
   };
 
-  boot.binfmt.registrations.appimage = { # make appImage work seamlessly
-    wrapInterpreterInShell = false;
-    interpreter = "${pkgs.appimage-run}/bin/appimage-run";
-    recognitionType = "magic";
-    offset = 0;
-    mask = ''\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff'';
-    magicOrExtension = ''\x7fELF....AI\x02'';
+  programs.appimage = {
+    enable = true;
+    binfmt = true;
   };
 
   services.envfs.enable = true; # populate /usr/bin for non-nix binaries
@@ -137,6 +133,7 @@
     enable = true;
     libraries = with pkgs; [
       libpng libbsd # android emulator
+      libsForQt5.qt5.qtbase # switch emulator
 
       # from https://github.com/Mic92/dotfiles/blob/main/nixos/modules/nix-ld.nix
       stdenv.cc.cc
