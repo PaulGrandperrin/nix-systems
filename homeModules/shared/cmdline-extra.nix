@@ -1,4 +1,4 @@
-{pkgs, lib, config, inputs, nixos-flake, home-manager-flake, ...}: {
+args @ {pkgs, lib, config, inputs, nixos-flake, home-manager-flake, ...}: {
   imports = [
     ./cmdline.nix
   ];
@@ -71,6 +71,7 @@
       nix-inspect
       libtree
       hdparm
+      manix
 
       # dev
       gdb
@@ -156,16 +157,21 @@
       #nix-index
       #nix-index-update
 
-      stress
+      stress-ng
       hwinfo
       lm_sensors
       mold
       bintools
       distrobox
 
+      s-tui
+      undervolt # unmaintained python script
+      intel-undervolt # intel only better maintained
+      (lib.lowPrio msr-tools) # conflicts on cpuid bimary
+      
+
     ] ++ lib.optionals ((config.home.username == "root") && pkgs.stdenv.isLinux) [ # if root and linux
       bandwhich # iftop
-    ] ++ lib.optionals ((config.home.username == "root") && pkgs.stdenv.isLinux) [ # if root and linux
       parted
       powertop
       ethtool
@@ -176,8 +182,7 @@
       ntfs3g
     ] ++ lib.optionals (pkgs.stdenv.hostPlatform.system == "x86_64-linux") (
       [ 
-        cpuid
-        cpufrequtils
+        cpuid # cpufrequtils
         #zenith
         intel-gpu-tools
 
@@ -189,7 +194,10 @@
         efibootmgr
         efitools
       ]
-    );
+    ) ++ lib.optionals (args ? nixosConfig) [
+      args.nixosConfig.boot.kernelPackages.turbostat # turbostat --Summary --show PkgWatt,CorWatt,PkgTmp,Bzy_MHz --interval 1
+      args.nixosConfig.boot.kernelPackages.cpupower
+    ];
   };
   programs = {
     direnv = {
