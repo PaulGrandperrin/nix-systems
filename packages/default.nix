@@ -55,8 +55,6 @@
     targets = ["wasm32-unknown-emscripten"];
   };
 
-  perfect_dark = pkgs.callPackage ./perfect_dark/package.nix {};
-
   foundationdb-bin = pkgs.callPackage ./foundationdb-bin/package.nix {};
 
   #iso = inputs.nixos-generators.nixosGenerate {
