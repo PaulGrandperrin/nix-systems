@@ -18,7 +18,13 @@
   ];
 
   services.desktopManager.cosmic.enable = true;
-  services.displayManager.cosmic-greeter.enable = true;
+  services.displayManager = {
+    cosmic-greeter.enable = true;
+    autoLogin = {
+      enable = true;
+      user = "paulg";
+    };
+  };
   services.xserver.displayManager.gdm.enable = lib.mkForce false;
 }
 
