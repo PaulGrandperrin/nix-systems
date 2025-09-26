@@ -8,15 +8,11 @@
       "https://nix-community.cachix.org"
       "https://cache.nixos.org"
       "https://devenv.cachix.org"
-      #"https://cosmic.cachix.org/"
-      #"https://cache.thalheim.io" # sops-nix
     ];
     extra-trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "nas.grandperrin.fr:QwhwNrClkzxCvdA0z3idUyl76Lmho6JTJLWplKtC2ig="
       "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
-      #"cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
-      #"cache.thalheim.io-1:R7msbosLEZKrxk/lKxf9BTjOOH7Ax3H0Qj0/6wiHOgc=" # sops-nix
     ];
   };
 
@@ -264,15 +260,6 @@
         nixpkgs.follows = "nixos-stable";
       };
     };
-
-    #nixos-cosmic-stable.follows = "nixos-cosmic/nixpkgs"; # TODO change to stable when it is 25.05
-    ##nixos-cosmic-stable.follows = "nixos-cosmic/nixpkgs-stable";
-    #nixos-cosmic = {
-    #  url = "github:lilyinstarlight/nixos-cosmic";
-    #  #inputs = {
-    #  #  nixpkgs.follows = "nixos-cosmic/nixpkgs-stable"; # ensures we use the same version of nixos-stable use for building the cache
-    #  #};
-    #};
 
     bugstalker = {
       url = "github:godzie44/BugStalker";
