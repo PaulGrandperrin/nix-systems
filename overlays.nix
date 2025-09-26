@@ -52,10 +52,6 @@ inputs: rec {
       meta.platforms = prev.lib.platforms.linux;
     });
   });
-  workaround-issue-154163 = (final: super: {
-    makeModulesClosure = x:
-      super.makeModulesClosure (x // { allowMissing = true; });
-  });
   #fish-unstable = (final: prev: {
   #  fish = final.unstable.fish;
   #});
@@ -68,7 +64,6 @@ inputs: rec {
     isd
     #hostapd
     my-yuzu
-    #workaround-issue-154163
     #fish-unstable
 
     inputs.nur.overlays.default
