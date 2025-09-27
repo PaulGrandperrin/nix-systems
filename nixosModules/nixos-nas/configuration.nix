@@ -160,29 +160,29 @@
     '';
   };
 
-  fileSystems = {
-    "/IronWolf12TB" = {
-      device = "IronWolf12TB";
-      fsType = "zfs";
-    };
-    "/IronWolf12TB/clear" = {
-      device = "IronWolf12TB/clear";
-      fsType = "zfs";
-    };
-    "/export" = { # for security, make /export its own filesystem instead of just being a directory of / 
-      device = "none";
-      fsType = "tmpfs";
-      options = [ "mode=755" ];
-    };
-    "/export/public" = {
-      device = "/IronWolf12TB/clear";
-      options = [ "bind" ];
-    };
-    "/export/encrypted" = {
-      device = "/IronWolf12TB/encrypted";
-      options = [ "bind" ];
-    };
-  };
+  #fileSystems = {
+  #  "/IronWolf12TB" = {
+  #    device = "IronWolf12TB";
+  #    fsType = "zfs";
+  #  };
+  #  "/IronWolf12TB/clear" = {
+  #    device = "IronWolf12TB/clear";
+  #    fsType = "zfs";
+  #  };
+  #  "/export" = { # for security, make /export its own filesystem instead of just being a directory of / 
+  #    device = "none";
+  #    fsType = "tmpfs";
+  #    options = [ "mode=755" ];
+  #  };
+  #  "/export/public" = {
+  #    device = "/IronWolf12TB/clear";
+  #    options = [ "bind" ];
+  #  };
+  #  "/export/encrypted" = {
+  #    device = "/IronWolf12TB/encrypted";
+  #    options = [ "bind" ];
+  #  };
+  #};
 
   sops.secrets."cache-nas.grandperrin.fr-privkey.pem" = {
     sopsFile = ../../secrets/nixos-nas.yaml;
