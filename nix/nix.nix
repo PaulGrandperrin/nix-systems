@@ -2,7 +2,7 @@
 # can be impurely extended in /etc/nix/nix.conf or ~/.config/nix/nix.conf
 # can be extended in plain text with nix.extraOptions
 {
-  experimental-features = "nix-command flakes repl-flake";
+  experimental-features = "nix-command flakes";
   auto-optimise-store = true; # maybe causes build failures
   allowed-users = [ "@wheel" "nix-serve" ];
   #trusted-users = ["@wheel"];

@@ -55,7 +55,7 @@
 
   services.systemd-lock-handler.enable = true; # TODO maybe run some housekeeping tasks
 
-  services.xserver.displayManager = {
+  services.displayManager = {
     gdm = { # gdm, ssdm, lightdm, cosmic-greeter
       enable = true;
       wayland = true;

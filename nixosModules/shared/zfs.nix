@@ -18,6 +18,11 @@
   #})]; 
 
   boot.zfs.package = pkgs.zfs_2_3;
+  boot.initrd.systemd = {
+    initrdBin = [
+      config.boot.zfs.package
+    ];
+  };
 
   services.zfs = {
     zed.settings = {

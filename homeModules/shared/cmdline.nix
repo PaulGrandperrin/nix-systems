@@ -65,7 +65,7 @@
       file
       psmisc # pstree killall
       hostname
-      neofetch
+      fastfetch # neofetch
       gdu dua du-dust # ncdu dutree pdu # du alternatives
       duf lfs dysk # df alternatives
       choose

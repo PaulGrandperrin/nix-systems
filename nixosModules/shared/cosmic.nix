@@ -25,7 +25,20 @@
       user = "paulg";
     };
   };
-  services.xserver.displayManager.gdm.enable = lib.mkForce false;
+  services.displayManager.gdm.enable = lib.mkForce false;
+  environment.systemPackages = with pkgs; [
+    # gnome apps filling in gapps in COSMIC env
+    loupe
+    gnome-boxes
+    gnome-calculator
+    gnome-calendar
+    gnome-clocks
+    gnome-color-manager
+    gnome-contacts
+    gnome-control-center
+    gnome-disk-utility
+
+  ];
 }
 
 
