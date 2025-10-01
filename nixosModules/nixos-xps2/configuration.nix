@@ -141,6 +141,7 @@
     "nvme_core.default_ps_max_latency_us=170000" # https://wiki.archlinux.org/title/Dell_XPS_15_(9560)#Enable_NVMe_APST and https://wiki.archlinux.org/title/Solid_state_drive/NVMe#Power_Saving_(APST)
     "enable_psr=1" "disable_power_well=0" # https://wiki.archlinux.org/title/Dell_XPS_15_(9560)#Enable_power_saving_features_for_the_i915_kernel_module
     #"acpi_rev_override=1" # https://wiki.archlinux.org/title/Dell_XPS_15_(9560)
+    "mitigations=off"
   ];
 
   # Secure boot

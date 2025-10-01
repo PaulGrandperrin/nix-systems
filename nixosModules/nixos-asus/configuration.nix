@@ -67,6 +67,7 @@
   swapDevices = [ ];
 
   networking.hostId="3a0da539";
+  boot.kernelParams = [ "mitigations=off" ];
 
   services.my-wg = {
     enable = true;
