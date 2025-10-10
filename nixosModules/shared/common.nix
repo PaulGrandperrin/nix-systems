@@ -400,8 +400,8 @@
     enableRootSlice = false;
     enableSystemSlice = false;
     enableUserSlices = true;
-    extraConfig = {
-      DefaultMemoryPressureDurationSec = "5s";
+    settings = {
+      OOM.DefaultMemoryPressureDurationSec = "5s";
     };
   };
 

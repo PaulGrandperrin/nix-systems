@@ -42,8 +42,10 @@
       };
       difftastic = {
         #enable = true;
-        background = "dark";
-        #display = "side-by-side"; # "side-by-side", "side-by-side-show-both", "inline"
+        options = {
+          background = "dark";
+          #display = "side-by-side"; # "side-by-side", "side-by-side-show-both", "inline"
+        };
       };
       signing = {
         key = "4AB1353033774DA3";
