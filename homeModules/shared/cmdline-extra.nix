@@ -80,8 +80,8 @@ args @ {pkgs, lib, config, inputs, nixos-flake, home-manager-flake, ...}: {
       #mycli
       pgcli
       gnumake
-      gcc11
-      (lib.setPrio 20 clang_16)
+      (lib.setPrio 19 gcc)
+      (lib.setPrio 20 clang)
 
       # doc
       tealdeer # tldr
