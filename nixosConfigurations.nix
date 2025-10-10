@@ -17,8 +17,8 @@ in {
   nixos-gcp-lean       = mkNixosConf "stable"   [ ./nixosModules/nixos-gcp/configuration.nix       ./nixosModules/shared/leanify.nix ];
   nixos-oci            = mkNixosConf "stable"   [ ./nixosModules/nixos-oci/configuration.nix                                         ];
   nixos-oci-lean       = mkNixosConf "stable"   [ ./nixosModules/nixos-oci/configuration.nix       ./nixosModules/shared/leanify.nix ];
-  nixos-xps            = mkNixosConf "stable"   [ ./nixosModules/nixos-xps/configuration.nix                                         ];
-  nixos-xps-lean       = mkNixosConf "stable"   [ ./nixosModules/nixos-xps/configuration.nix       ./nixosModules/shared/leanify.nix ];
+  nixos-xps            = mkNixosConf "unstable"   [ ./nixosModules/nixos-xps/configuration.nix                                         ];
+  nixos-xps-lean       = mkNixosConf "unstable"   [ ./nixosModules/nixos-xps/configuration.nix       ./nixosModules/shared/leanify.nix ];
   nixos-xps2           = mkNixosConf "unstable" [ ./nixosModules/nixos-xps2/configuration.nix                                        ];
   nixos-xps2-lean      = mkNixosConf "unstable" [ ./nixosModules/nixos-xps2/configuration.nix      ./nixosModules/shared/leanify.nix ];
   nixos-macbook        = mkNixosConf "stable"   [ ./nixosModules/nixos-macbook/configuration.nix                                     ];
@@ -27,8 +27,8 @@ in {
   nixos-testvm-lean    = mkNixosConf "stable"   [ ./nixosModules/nixos-testvm/configuration.nix    ./nixosModules/shared/leanify.nix ];
   nixos-chromebox      = mkNixosConf "stable"   [ ./nixosModules/nixos-chromebox/configuration.nix                                   ];
   nixos-chromebox-lean = mkNixosConf "stable"   [ ./nixosModules/nixos-chromebox/configuration.nix ./nixosModules/shared/leanify.nix ];
-  nixos-asus           = mkNixosConf "stable"   [ ./nixosModules/nixos-asus/configuration.nix                                        ];
-  nixos-asus-lean      = mkNixosConf "stable"   [ ./nixosModules/nixos-asus/configuration.nix      ./nixosModules/shared/leanify.nix ];
+  nixos-asus           = mkNixosConf "unstable"   [ ./nixosModules/nixos-asus/configuration.nix                                        ];
+  nixos-asus-lean      = mkNixosConf "unstable"   [ ./nixosModules/nixos-asus/configuration.nix      ./nixosModules/shared/leanify.nix ];
 }
 
 
