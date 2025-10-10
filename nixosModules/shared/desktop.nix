@@ -240,18 +240,6 @@
 
   #networking.wireless.iwd.enable = true;
   #networking.networkmanager.wifi.backend = "iwd";
-
-  specialisation = {
-    "Mitigations_Off" = {
-      inheritParentConfig = true; # defaults to true
-      configuration = {
-        system.nixos.tags = [ "mitigations_off" ];
-        boot.kernelParams = [ "mitigations=off" ];
-      };
-    };
-  };
-
-  
 }
 
 
