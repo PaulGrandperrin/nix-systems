@@ -165,8 +165,6 @@ args @ {pkgs, lib, config, inputs, nixos-flake, home-manager-flake, ...}: {
       distrobox
 
       s-tui
-      undervolt # unmaintained python script
-      intel-undervolt # intel only better maintained
       (lib.lowPrio msr-tools) # conflicts on cpuid bimary
       
 
@@ -185,6 +183,8 @@ args @ {pkgs, lib, config, inputs, nixos-flake, home-manager-flake, ...}: {
         cpuid # cpufrequtils
         #zenith
         intel-gpu-tools
+        undervolt # unmaintained python script
+        intel-undervolt # intel only better maintained
 
         nixpkgs-update
         isd
@@ -194,10 +194,13 @@ args @ {pkgs, lib, config, inputs, nixos-flake, home-manager-flake, ...}: {
         efibootmgr
         efitools
       ]
-    ) ++ lib.optionals (args ? nixosConfig) [
-      args.nixosConfig.boot.kernelPackages.turbostat # turbostat --Summary --show PkgWatt,CorWatt,PkgTmp,Bzy_MHz --interval 1
-      args.nixosConfig.boot.kernelPackages.cpupower
-    ];
+    ) ++ lib.optionals (args ? nixosConfig) (
+      [
+        args.nixosConfig.boot.kernelPackages.cpupower
+      ] ++ lib.optionals (pkgs.stdenv.hostPlatform.system == "x86_64-linux") [
+        args.nixosConfig.boot.kernelPackages.turbostat # turbostat --Summary --show PkgWatt,CorWatt,PkgTmp,Bzy_MHz --interval 1
+      ]
+    );
   };
   programs = {
     direnv = {
