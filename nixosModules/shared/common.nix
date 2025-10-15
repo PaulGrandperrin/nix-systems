@@ -96,7 +96,7 @@
   
   security = {
     sudo = {
-      #enable = true;
+      enable = false;
       execWheelOnly = true;
     };
     sudo-rs = {
@@ -104,7 +104,7 @@
       execWheelOnly = true;
     };
     please = {
-      enable = true;
+      #enable = true;
     };
 
     wrappers.su.source = lib.mkForce "${pkgs.sudo-rs}/bin/su";
