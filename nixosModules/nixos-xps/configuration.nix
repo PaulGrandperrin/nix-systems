@@ -192,10 +192,6 @@
     };
   };
 
-  services.etcd = {
-    enable = true;
-  };
-
   specialisation = {
     "Rescue" = {
       inheritParentConfig = true; # defaults to true
