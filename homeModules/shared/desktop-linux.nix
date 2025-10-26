@@ -48,6 +48,7 @@
       unstable.lapce
       unstable.sniffnet
       unstable.zed-editor.fhs
+      unstable.google-chrome
       #(unstable.zed-editor.overrideAttrs (o: rec {
       #  patches = o.patches ++ [
       #    ./0001-allow-experimental-features-in-release-mode.patch
