@@ -32,6 +32,7 @@ args @ {pkgs, lib, config, inputs, nixos-flake, home-manager-flake, ...}: {
       (lib.setPrio (-15) unstable.uutils-coreutils-noprefix)
       (lib.hiPrio unstable.uutils-findutils)
       (lib.hiPrio unstable.uutils-diffutils)
+      coreutils-prefixed
 
       # nix
       nix-inspect
