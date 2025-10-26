@@ -70,6 +70,7 @@
   nix = {
     settings = import ../../nix/nix.nix;
     package = pkgs.lix;
+    channel.enable = false;
     #gc = {
     #  automatic = true;
     #  persistent = true;
@@ -317,6 +318,8 @@
   };
 
   boot.tmp.cleanOnBoot = true;
+
+
 
   services.irqbalance.enable = true;
 
