@@ -3,7 +3,6 @@
 # can be extended in plain text with nix.extraOptions
 {
   experimental-features = "nix-command flakes";
-  allow-import-from-derivation = false; # ensure we don't use IFD by mistake
   auto-optimise-store = true; # maybe causes build failures
   allowed-users = [ "@wheel" "nix-serve" ];
   #trusted-users = ["@wheel"];
