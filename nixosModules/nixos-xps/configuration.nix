@@ -21,7 +21,11 @@
 
   # use latest ZFS compatible linux kernel from unstable
   # manually evaluate `latest-zfs-kernel` to set its `pkgs` to `pkgs.unstable`
-  boot.kernelPackages = ((import "${inputs.srvos}/nixos/mixins/latest-zfs-kernel.nix") {inherit lib config; pkgs= pkgs.unstable;}).boot.kernelPackages;
+  #boot.kernelPackages = ((import "${inputs.srvos}/nixos/mixins/latest-zfs-kernel.nix") {inherit lib config; pkgs= pkgs.unstable;}).boot.kernelPackages;
+  boot.kernelPackages = (import inputs.nixos-linux_6_16 {
+    system = pkgs.stdenv.hostPlatform.system;
+    config = import ../../nixpkgs/config.nix;
+  }).linuxKernel.packages.linux_6_16;
 
   #boot.kernelPackages = let # from https://wiki.nixos.org/wiki/ZFS#Selecting_the_latest_ZFS-compatible_Kernel
   #  zfsCompatibleKernelPackages = lib.filterAttrs (
