@@ -66,8 +66,8 @@
       psmisc # pstree killall
       hostname
       fastfetch # neofetch
-      gdu dua du-dust # ncdu dutree pdu # du alternatives
-      duf lfs dysk # df alternatives
+      gdu dua dust # ncdu dutree pdu # du alternatives
+      duf dysk # df alternatives
       choose
       dogdns
       wakelan

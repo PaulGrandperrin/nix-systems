@@ -274,7 +274,7 @@ args @ {pkgs, lib, config, inputs, nixos-flake, home-manager-flake, ...}: {
       settings = {
         email = "paul.grandperrin@gmail.com";
         lock_timeout = 300;
-        pinentry = pkgs.pinentry.curses;
+        pinentry = pkgs.pinentry-curses;
         device_id = "ea9f961d-c0cc-423c-accf-599fc08c42e0";
       };
     };

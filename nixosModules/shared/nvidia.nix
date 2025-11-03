@@ -5,7 +5,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    nvtopPackages.nvidia
+    #nvtopPackages.nvidia # depends on CUDA which is broken
   ];
 
   # nixos stable doesn't always up-to-date nvidia drivers, so use the kernel packages from unstable
@@ -33,7 +33,7 @@
       #sync.enable = true; #  needs modesetting.enable
     };
     # Fix screen tearing by forcing full composition pipeline
-    #forceFullCompositionPipeline = true;
+    #forceFullCompositionPipeline = true; # only works in sync mode, not offload
   };
 
   hardware.nvidia-container-toolkit.enable = true;

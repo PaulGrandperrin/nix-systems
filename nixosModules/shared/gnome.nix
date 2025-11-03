@@ -7,7 +7,7 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  services.xserver.desktopManager.gnome.enable = true;
+  services.desktopManager.gnome.enable = true;
   environment.gnome.excludePackages = [
   ];
   services.gvfs.enable = true;
