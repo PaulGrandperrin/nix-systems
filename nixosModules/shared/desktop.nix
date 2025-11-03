@@ -62,6 +62,8 @@
 
   services.systemd-lock-handler.enable = true; # TODO maybe run some housekeeping tasks
 
+  services.xserver.exportConfiguration = true; # creates /etc/X11/xorg.conf, see https://github.com/NixOS/nixpkgs/issues/457588
+
   services.displayManager = {
     gdm = { # gdm, ssdm, lightdm, cosmic-greeter
       enable = true;
