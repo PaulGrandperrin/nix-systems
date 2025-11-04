@@ -12,7 +12,8 @@
   #boot.kernelPackages = lib.mkDefault pkgs.unstable.linuxPackages;
 
   hardware.nvidia = {
-    package = config.boot.kernelPackages.nvidiaPackages.beta; # workaround https://github.com/NixOS/nixpkgs/issues/353990
+    #package = config.boot.kernelPackages.nvidiaPackages.beta; # workaround https://github.com/NixOS/nixpkgs/issues/353990
+    package = (config.boot.kernelPackages.callPackage (pkgs.unstable.path + "/pkgs/os-specific/linux/nvidia-x11") {}).beta; # constructs an nvidia package from unstable against our kernel
     nvidiaSettings = true;
     open = false; # not supported with 10XX series
     powerManagement = {
