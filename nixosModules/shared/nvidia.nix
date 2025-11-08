@@ -5,14 +5,15 @@
   };
 
   environment.systemPackages = with pkgs; [
-    nvtopPackages.nvidia
+    #nvtopPackages.nvidia # depends on CUDA which is broken
   ];
 
   # nixos stable doesn't always up-to-date nvidia drivers, so use the kernel packages from unstable
   #boot.kernelPackages = lib.mkDefault pkgs.unstable.linuxPackages;
 
   hardware.nvidia = {
-    package = config.boot.kernelPackages.nvidiaPackages.beta; # workaround https://github.com/NixOS/nixpkgs/issues/353990
+    #package = config.boot.kernelPackages.nvidiaPackages.beta; # workaround https://github.com/NixOS/nixpkgs/issues/353990
+    package = (config.boot.kernelPackages.callPackage (pkgs.unstable.path + "/pkgs/os-specific/linux/nvidia-x11") {}).beta; # constructs an nvidia package from unstable against our kernel
     nvidiaSettings = true;
     open = false; # not supported with 10XX series
     powerManagement = {
@@ -33,7 +34,7 @@
       #sync.enable = true; #  needs modesetting.enable
     };
     # Fix screen tearing by forcing full composition pipeline
-    #forceFullCompositionPipeline = true;
+    #forceFullCompositionPipeline = true; # only works in sync mode, not offload
   };
 
   hardware.nvidia-container-toolkit.enable = true;

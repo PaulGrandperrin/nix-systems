@@ -25,10 +25,18 @@ args @ {pkgs, lib, config, inputs, nixos-flake, home-manager-flake, ...}: {
   };
 
   home = {
+    sessionVariables = { # only works for interactive shells, pam works for all kind of sessions
+      GITHUB_TOKEN_CMD = "${pkgs.rbw}/bin/rbw get GitHub -f nixpkgs-review-token"; # for nixpkgs-review
+    };
     packages = with pkgs; [
       (lib.setPrio (-15) unstable.uutils-coreutils-noprefix)
       (lib.hiPrio unstable.uutils-findutils)
       (lib.hiPrio unstable.uutils-diffutils)
+      coreutils-prefixed
+
+      # nix
+      nix-inspect
+      nixpkgs-reviewFull
 
       # monitoring
       procs
@@ -68,7 +76,6 @@ args @ {pkgs, lib, config, inputs, nixos-flake, home-manager-flake, ...}: {
       ssh-to-age
       grex
       yt-dlp
-      nix-inspect
       libtree
       hdparm
       manix
@@ -80,8 +87,8 @@ args @ {pkgs, lib, config, inputs, nixos-flake, home-manager-flake, ...}: {
       #mycli
       pgcli
       gnumake
-      gcc11
-      (lib.setPrio 20 clang_16)
+      (lib.setPrio 19 gcc)
+      (lib.setPrio 20 clang)
 
       # doc
       tealdeer # tldr
@@ -270,7 +277,7 @@ args @ {pkgs, lib, config, inputs, nixos-flake, home-manager-flake, ...}: {
       settings = {
         email = "paul.grandperrin@gmail.com";
         lock_timeout = 300;
-        pinentry = pkgs.pinentry.curses;
+        pinentry = pkgs.pinentry-curses;
         device_id = "ea9f961d-c0cc-423c-accf-599fc08c42e0";
       };
     };

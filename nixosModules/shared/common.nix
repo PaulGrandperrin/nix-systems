@@ -33,7 +33,6 @@
     inputs
   );
 
-  boot.initrd.systemd.emergencyAccess = lib.mkDefault true;
 
   boot.supportedFilesystems = {
     ext4 = true;
@@ -71,6 +70,7 @@
   nix = {
     settings = import ../../nix/nix.nix;
     package = pkgs.lix;
+    channel.enable = false;
     #gc = {
     #  automatic = true;
     #  persistent = true;
@@ -97,7 +97,7 @@
   
   security = {
     sudo = {
-      #enable = true;
+      enable = false;
       execWheelOnly = true;
     };
     sudo-rs = {
@@ -105,7 +105,7 @@
       execWheelOnly = true;
     };
     please = {
-      enable = true;
+      #enable = true;
     };
 
     wrappers.su.source = lib.mkForce "${pkgs.sudo-rs}/bin/su";
@@ -209,6 +209,7 @@
     #"init_on_free=1"
     #"page_alloc.shuffle=1"
     "systemd.gpt_auto=no" # fails on OCI otherwise
+    "sysrq_always_enabled=1" # works even in the initramfs
   ];
 
   # to bisect kernel
@@ -278,7 +279,10 @@
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.initrd.systemd.enable = true;
+  boot.initrd.systemd = {
+    enable = true;
+    emergencyAccess = lib.mkDefault true;
+  };
 
   # Set your time zone.
   time.timeZone = "Europe/Paris";
@@ -314,6 +318,8 @@
   };
 
   boot.tmp.cleanOnBoot = true;
+
+
 
   services.irqbalance.enable = true;
 
@@ -397,8 +403,8 @@
     enableRootSlice = false;
     enableSystemSlice = false;
     enableUserSlices = true;
-    extraConfig = {
-      DefaultMemoryPressureDurationSec = "5s";
+    settings = {
+      OOM.DefaultMemoryPressureDurationSec = "5s";
     };
   };
 
@@ -469,18 +475,15 @@
   # I hate to wait 1m30s. If something doesn't work in 15s,
   # it's never going to work later
   systemd = {
-    watchdog = {
-      rebootTime = "30s";
-      runtimeTime = "30s";
-      kexecTime = "30s";
+    settings.Manager = {
+      ShutdownWatchdogSec = "30s";
+      RebootWatchdogSec = "30s";
+      KExecWatchdogSec = "30s";
+      RuntimeWatchdogSec = "30s";
+      DefaultTimeoutStopSec = "15s";
+      DefaultTimeoutStartSec = "15s";
+      DefaultTimeoutAbortSec = "15s";
     };
-
-    extraConfig = ''
-      ShutdownWatchdogSec=30s
-      DefaultTimeoutStopSec=15s
-      DefaultTimeoutStartSec=15s
-      DefaultTimeoutAbortSec=15s
-    '';
 
     user.extraConfig = ''
       DefaultTimeoutStopSec=15s

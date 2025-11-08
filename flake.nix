@@ -32,8 +32,9 @@
     darwin-unstable.url        = "github:NixOS/nixpkgs/nixpkgs-unstable"; # darwin-unstable for now (https://github.com/NixOS/nixpkgs/issues/107466)
     nixos-unstable.url         = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-unstable-lib.url     = "github:NixOS/nixpkgs/nixos-unstable?dir=lib";
-    #nixos-unstable-small.url = "github:NixOS/nixpkgs/nixos-unstable-small";
-    #master.url               = "github:NixOS/nixpkgs/master";
+    #nixos-unstable-small.url   = "github:NixOS/nixpkgs/nixos-unstable-small";
+    #master.url                 = "github:NixOS/nixpkgs/master";
+    nixos-linux_6_16.url        = "github:NixOS/nixpkgs/01f116e4df6a15f4ccdffb1bcd41096869fb385c";
 
     nur.url = "github:nix-community/NUR";
 

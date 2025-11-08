@@ -7,7 +7,7 @@
     ../shared/wireguard.nix
     ../shared/wg-mounts.nix
     ../shared/desktop.nix
-    #../shared/gnome.nix
+    ../shared/gnome.nix
     ../shared/cosmic.nix
     ../shared/desktop-i915.nix
     ../shared/nvidia.nix
@@ -22,6 +22,10 @@
   # use latest ZFS compatible linux kernel from unstable
   # manually evaluate `latest-zfs-kernel` to set its `pkgs` to `pkgs.unstable`
   #boot.kernelPackages = ((import "${inputs.srvos}/nixos/mixins/latest-zfs-kernel.nix") {inherit lib config; pkgs= pkgs.unstable;}).boot.kernelPackages;
+  boot.kernelPackages = (import inputs.nixos-linux_6_16 {
+    system = pkgs.stdenv.hostPlatform.system;
+    config = import ../../nixpkgs/config.nix;
+  }).linuxKernel.packages.linux_6_16;
 
   #boot.kernelPackages = let # from https://wiki.nixos.org/wiki/ZFS#Selecting_the_latest_ZFS-compatible_Kernel
   #  zfsCompatibleKernelPackages = lib.filterAttrs (
@@ -36,7 +40,7 @@
   #  )
   #);
 
-  #boot.zfs.package = lib.mkForce pkgs.unstable.zfs; # also take zfs userspace from unstable for versions to be in sync
+  boot.zfs.package = lib.mkForce pkgs.unstable.zfs; # also take zfs userspace from unstable for versions to be in sync
 
   home-manager.users = let 
     homeModule = {
@@ -163,6 +167,7 @@
     "nvme_core.default_ps_max_latency_us=170000" # https://wiki.archlinux.org/title/Dell_XPS_15_(9560)#Enable_NVMe_APST and https://wiki.archlinux.org/title/Solid_state_drive/NVMe#Power_Saving_(APST)
     "enable_psr=1" "disable_power_well=0" # https://wiki.archlinux.org/title/Dell_XPS_15_(9560)#Enable_power_saving_features_for_the_i915_kernel_module
     #"acpi_rev_override=1" # https://wiki.archlinux.org/title/Dell_XPS_15_(9560)
+    "mitigations=off"
   ];
 
   # Secure boot
@@ -190,10 +195,7 @@
       '';
     };
   };
-
-  services.etcd = {
-    enable = true;
-  };
+  boot.plymouth.tpm2-totp.enable = true;
 
   specialisation = {
     "Rescue" = {

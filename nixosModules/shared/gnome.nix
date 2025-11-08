@@ -7,7 +7,7 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  services.xserver.desktopManager.gnome.enable = true;
+  services.desktopManager.gnome.enable = true;
   environment.gnome.excludePackages = [
   ];
   services.gvfs.enable = true;
@@ -15,7 +15,7 @@
   services.gnome.gnome-browser-connector.enable = true;
 
   # Gnome shell extensions:
-  services.xserver.desktopManager.gnome.sessionPath = [];
+  services.desktopManager.gnome.sessionPath = [];
 
   # Workaround https://github.com/NixOS/nixpkgs/issues/336723
   systemd = {

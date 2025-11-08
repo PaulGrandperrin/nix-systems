@@ -42,6 +42,13 @@
   boot.plymouth.theme = "spinner";
   boot.loader.timeout = 0; # hides menu but can be shown by pressing and hilding key at boot
 
+  services.scx = {
+    enable = true;
+    scheduler = "scx_lavd";
+    package = pkgs.scx.rustscheds; # not interested in C scheds
+    extraArgs = [ "--autopower" ];
+  };
+
   time.timeZone = lib.mkForce null; # allow TZ to be set by desktop user
 
   services.thermald.enable = false; # should be disabled when power-profile-daemon (GNOME or KDE)
@@ -55,7 +62,9 @@
 
   services.systemd-lock-handler.enable = true; # TODO maybe run some housekeeping tasks
 
-  services.xserver.displayManager = {
+  services.xserver.exportConfiguration = true; # creates /etc/X11/xorg.conf, see https://github.com/NixOS/nixpkgs/issues/457588
+
+  services.displayManager = {
     gdm = { # gdm, ssdm, lightdm, cosmic-greeter
       enable = true;
       wayland = true;
@@ -129,6 +138,7 @@
   services.ratbagd.enable = true; # gaming mouse
   environment.systemPackages = with pkgs; [
     piper # gtk interface to ratbagd
+    config.services.scx.package
   ];
 
   services.pulseaudio.enable = false;
@@ -240,18 +250,6 @@
 
   #networking.wireless.iwd.enable = true;
   #networking.networkmanager.wifi.backend = "iwd";
-
-  specialisation = {
-    "Mitigations_Off" = {
-      inheritParentConfig = true; # defaults to true
-      configuration = {
-        system.nixos.tags = [ "mitigations_off" ];
-        boot.kernelParams = [ "mitigations=off" ];
-      };
-    };
-  };
-
-  
 }
 
 

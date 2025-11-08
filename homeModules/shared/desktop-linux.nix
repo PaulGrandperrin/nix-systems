@@ -5,7 +5,7 @@
       # nix run --impure --expr '(builtins.getFlake "n").legacyPackages.x86_64-linux.blender.override {cudaSupport = true;}'
 
       qemu_kvm
-      glxinfo
+      mesa-demos # glxinfo
       vulkan-tools
       libva-utils # vainfo
       vdpauinfo
@@ -48,6 +48,7 @@
       unstable.lapce
       unstable.sniffnet
       unstable.zed-editor.fhs
+      unstable.google-chrome
       #(unstable.zed-editor.overrideAttrs (o: rec {
       #  patches = o.patches ++ [
       #    ./0001-allow-experimental-features-in-release-mode.patch
