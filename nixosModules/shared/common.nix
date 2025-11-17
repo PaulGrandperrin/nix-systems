@@ -57,7 +57,15 @@
   environment.sessionVariables = {
     NIX_USER_CONF_FILES = config.sops.secrets.github-public-access-token.path; 
     ENVFS_RESOLVE_ALWAYS = "1";
+    NH_OS_FLAKE = "/etc/nixos";
   };
+
+  security.pam.loginLimits = [{ # equivalent to ulimit -Hn 1048576
+    domain = "*";
+    type = "hard";
+    item = "nofile";
+    value = 1048576;
+  }];
 
   # Hardening
   # TODO: noexec mounts, tmpfs...
