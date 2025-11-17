@@ -291,6 +291,7 @@ args @ {pkgs, lib, config, inputs, nixos-flake, home-manager-flake, ...}: {
     #  enableFuzzySearch = true;
     #};
     kitty.enable = true;
+    xplr.enable = true;
     wezterm = {
       enable = true;
       package = pkgs.unstable.wezterm;
