@@ -8087,11 +8087,11 @@
         "nixpkgs": "nixpkgs_47"
       },
       "locked": {
-        "lastModified": 1763372398,
-        "narHash": "sha256-JBGrFlX1iazxDVBuedkiIsEhuf1IKFBCAT6vzHquHlQ=",
+        "lastModified": 1763373017,
+        "narHash": "sha256-RIlFhr5ZgXHzGHCPXu+tapEM6mazOcqC30uqJ/CBymQ=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "ce6bfb72eb8d6894358681a766a997d8e699740a",
+        "rev": "0616e04e3a273205a2fdd6acf687be859a4955cf",
         "type": "github"
       },
       "original": {
