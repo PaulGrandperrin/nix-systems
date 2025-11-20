@@ -14,6 +14,7 @@
     ../shared/gaming.nix
     ../shared/nspawns.nix
     ../shared/guix.nix
+    ../shared/ollama.nix
     inputs.lanzaboote.nixosModules.lanzaboote
     #inputs.nix-cluster.nixosModules.nix-cluster
     #inputs.nar-alike-deduper.nixosModules.default
@@ -119,16 +120,12 @@
     enable = true;
   };
 
+  paulg.ollama.enable = true;
+
   services.thermald.enable = false; # should be disabled when throttled is enabled
   services.throttled.enable = true;
 
   hardware.nvidia.open = false; # not supported on Pascal microarch
-
-  services.ollama = {
-    enable = true;
-    package = pkgs.unstable.ollama;
-    #acceleration = "cuda";
-  };
 
   virtualisation.my-nspawn = {
     enable = true;

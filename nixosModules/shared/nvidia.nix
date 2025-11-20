@@ -1,5 +1,7 @@
 { config, pkgs, lib, ... }:
 {
+  #nixpkgs.config.cudaSupport = true;
+
   services.xserver = {
     videoDrivers = ["nvidia" ];
   };
