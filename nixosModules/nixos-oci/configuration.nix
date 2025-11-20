@@ -14,6 +14,7 @@
     ../shared/yuzu.nix
     ../shared/nspawns.nix
     ../shared/foundationdb.nix
+    ../shared/ollama.nix
     inputs.amadou_server.nixosModules.amadouServer
   ];
 
@@ -145,12 +146,6 @@
     enable = true;
   };
 
-  services.ollama = {
-    enable = true;
-    package = pkgs.unstable.ollama;
-    #acceleration = "cuda";
-  };
-
   services.foundationdb = {
     enable = true;
     openFirewall = true;
@@ -166,6 +161,13 @@
   ];
 
   sops.secrets."web-amadou.grandperrin.fr" = {
+    sopsFile = ../../secrets/nixos-oci.yaml;
+    mode = "0440";
+    owner = "nginx";
+    group = "nginx";
+    restartUnits = [ "nginx.service" ];
+  };
+  sops.secrets."web-llm.grandperrin.fr" = {
     sopsFile = ../../secrets/nixos-oci.yaml;
     mode = "0440";
     owner = "nginx";
@@ -224,7 +226,17 @@
         '';
       };
     };
+    "llm.grandperrin.fr" = {
+      enableACME = true;
+      forceSSL = true;
+      locations."/" = {
+        basicAuthFile = config.sops.secrets."web-llm.grandperrin.fr".path;
+        proxyPass = "http://${config.networking.hostName}.wg:3000/";
+      };
+    };
   };
+
+  paulg.ollama.enable = true;
 
   services.amadouServer.enable = true;
 }
