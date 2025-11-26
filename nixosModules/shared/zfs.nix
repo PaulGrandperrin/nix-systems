@@ -17,7 +17,7 @@
   #  });
   #})]; 
 
-  boot.zfs.package = pkgs.zfs_2_3;
+  #boot.zfs.package = pkgs.zfs;
   boot.initrd.systemd = {
     initrdBin = [
       config.boot.zfs.package
