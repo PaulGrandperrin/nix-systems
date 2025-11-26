@@ -25,22 +25,21 @@
       id   = "nixpkgs";
     };
 
-    nixos-stable.url           = "github:NixOS/nixpkgs/nixos-25.05";
-    nixos-stable-lib.url       = "github:NixOS/nixpkgs/nixos-25.05?dir=lib"; # "github:nix-community/nixpkgs.lib" doesn't work
-    nixos-stable-small.url     = "github:NixOS/nixpkgs/nixos-25.05-small";
-    darwin-stable.url          = "github:NixOS/nixpkgs/nixpkgs-25.05-darwin";
+    nixos-stable.url           = "github:NixOS/nixpkgs/nixos-25.11";
+    nixos-stable-lib.url       = "github:NixOS/nixpkgs/nixos-25.11?dir=lib"; # "github:nix-community/nixpkgs.lib" doesn't work
+    nixos-stable-small.url     = "github:NixOS/nixpkgs/nixos-25.11-small";
+    darwin-stable.url          = "github:NixOS/nixpkgs/nixpkgs-25.11-darwin";
     darwin-unstable.url        = "github:NixOS/nixpkgs/nixpkgs-unstable"; # darwin-unstable for now (https://github.com/NixOS/nixpkgs/issues/107466)
     nixos-unstable.url         = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-unstable-lib.url     = "github:NixOS/nixpkgs/nixos-unstable?dir=lib";
     #nixos-unstable-small.url   = "github:NixOS/nixpkgs/nixos-unstable-small";
     #master.url                 = "github:NixOS/nixpkgs/master";
-    nixos-linux_6_16.url        = "github:NixOS/nixpkgs/01f116e4df6a15f4ccdffb1bcd41096869fb385c";
 
     nur.url = "github:nix-community/NUR";
 
     nix-on-droid = {
       url = "github:nix-community/nix-on-droid/master";
-      #url = "github:nix-community/nix-on-droid/release-25.05";
+      #url = "github:nix-community/nix-on-droid/release-25.11";
       inputs = {
         nixpkgs.follows = "nixos-stable-lib";
         home-manager.follows = "home-manager-stable"; # TODO try to remove
@@ -65,7 +64,8 @@
     };
 
     home-manager-stable = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager/master";
+      #url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixos-stable-lib"; # not needed by NixOS' module thanks to `home-manager.useGlobalPkgs = true` but needed by the unpriviledged module
     };
     home-manager-unstable = {
@@ -145,7 +145,7 @@
     };
 
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.2";
+      url = "github:nix-community/lanzaboote/v0.4.3";
 
       inputs = {
         nixpkgs.follows = "nixos-stable"; # NOTE doesn't only use the lib
@@ -199,7 +199,8 @@
     };
 
     nixvim = {
-      url = "github:nix-community/nixvim/nixos-25.05";
+      #url = "github:nix-community/nixvim/25.05";
+      url = "github:nix-community/nixvim/main"; # TODO move to 25.11
       inputs = {
         nixpkgs.follows = "nixos-stable";
         home-manager.follows = "home-manager-stable";
