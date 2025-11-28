@@ -96,9 +96,11 @@
   services.flatpak.enable = true;
   xdg.portal = {
     enable = true; # required for flatpak
-    #extraPortals = with pkgs; [
-    #  xdg-desktop-portal-gtk
-    #];
+    config.common.default = "gtk";
+
+    extraPortals = with pkgs; lib.mkDefault [
+      xdg-desktop-portal-gtk
+    ];
   };
   systemd.services.flatpak-remote-add-flathub = {
     requires = ["network-online.target"];
