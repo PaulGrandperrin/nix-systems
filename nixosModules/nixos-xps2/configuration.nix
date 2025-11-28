@@ -6,12 +6,12 @@
     ../shared/net.nix
     #../shared/wireguard.nix
     #../shared/wg-mounts.nix
-    #../shared/kde.nix
-    ../shared/gnome.nix
+    ../shared/desktop.nix
+    #../shared/gnome.nix
     #../shared/cosmic.nix
-    ../shared/desktop-i915.nix
-    ../shared/nvidia.nix
-    ../shared/gaming.nix
+    #../shared/desktop-i915.nix
+    #../shared/nvidia.nix
+    #../shared/gaming.nix
     #../shared/nspawns.nix
     inputs.lanzaboote.nixosModules.lanzaboote
     #inputs.nix-cluster.nixosModules.nix-cluster
@@ -22,10 +22,10 @@
     homeModule = {
       imports = [
         ../../homeModules/shared/core.nix
-        ../../homeModules/shared/cmdline-extra.nix
-        ../../homeModules/shared/firefox.nix
+        #../../homeModules/shared/cmdline-extra.nix
+        #../../homeModules/shared/firefox.nix
         #../../homeModules/shared/chromium.nix
-        ../../homeModules/shared/desktop-linux.nix
+        #../../homeModules/shared/desktop-linux.nix
         #../../homeModules/shared/gnome.nix
         #../../homeModules/shared/kodi.nix
         #../../homeModules/shared/rust.nix
@@ -97,45 +97,17 @@
   services.thermald.enable = false; # should be disabled when throttled is enabled
   services.throttled.enable = true;
 
-  hardware.nvidia.open = false; # no supported on Pascal microarch
-
-  #services.ollama = {
-  #  enable = true;
-  #  package = pkgs.unstable.ollama;
-  #  #acceleration = "cuda";
-  #};
-
-  #virtualisation.my-nspawn = {
-  #  enable = true;
-  #  wan-if = "wlp2s0";
-  #  containers = {
-  #    test = {
-  #      id = 1;
-  #      mac = "02:7a:7c:64:3a:46";
-  #      ports = [
-  #      ];
-  #      max-mem="4G";
-  #      os = "debian";
-  #    };
-  #    test2 = {
-  #      id = 2;
-  #      mac = "2a:ef:5b:b5:ad:e5";
-  #      ports = [
-  #      ];
-  #      max-mem="4G";
-  #      os = "nixos";
-  #    };
-  #  };
-  #};
+  hardware.nvidia.open = false; # not supported on Pascal microarch
 
   systemd.services.smbios-thermal = {
     script = ''
-      ${pkgs.libsmbios}/bin/smbios-thermal-ctl --set-thermal-mode quiet
+      ${pkgs.libsmbios}/bin/smbios-thermal-ctl --set-thermal-mode quiet || true # obsolete since linux 6.11
+      echo quiet > /sys/firmware/acpi/platform_profile || true
     '';
     wantedBy = [ "multi-user.target" ];
   };
 
-  zramSwap.enable = lib.mkForce false;
+  zramSwap.enable = lib.mkForce true;
 
   boot.kernelParams = [
     "nvme_core.default_ps_max_latency_us=170000" # https://wiki.archlinux.org/title/Dell_XPS_15_(9560)#Enable_NVMe_APST and https://wiki.archlinux.org/title/Solid_state_drive/NVMe#Power_Saving_(APST)
@@ -168,10 +140,6 @@
         ${pkgs.coreutils}/bin/sha256sum -c ${challenge}
       '';
     };
-  };
-
-  services.etcd = {
-    enable = true;
   };
 
   specialisation = {
