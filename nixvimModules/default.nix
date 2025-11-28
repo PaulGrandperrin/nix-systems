@@ -134,11 +134,14 @@
                 my-rust = inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.my-rust-stable;
               in {
                 enable = true;
+                packageFallback = true; # use devshell lang server in priority
                 package = my-rust;
                 installCargo = true;
                 cargoPackage = my-rust;
                 installRustc = true;
                 rustcPackage = my-rust;
+                installRustfmt = true;
+                rustfmtPackage = my-rust;
               };
             };
           };
