@@ -234,6 +234,7 @@
   };
 
   networking.networkmanager = {
+    enable = true;
     wifi.scanRandMacAddress = true; # default is true
     wifi.macAddress = "stable"; # default is "preverve"
     ethernet.macAddress = "stable"; # default is "preserve"
