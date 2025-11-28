@@ -60,11 +60,11 @@
     NH_OS_FLAKE = "/etc/nixos";
   };
 
-  security.pam.loginLimits = [{ # equivalent to ulimit -Hn 1048576
+  security.pam.loginLimits = [{ # equivalent to ulimit -Hn 10485760
     domain = "*";
     type = "hard";
     item = "nofile";
-    value = 1048576;
+    value = 10485760;
   }];
 
   # Hardening
