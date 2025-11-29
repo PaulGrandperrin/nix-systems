@@ -110,6 +110,7 @@ args @ {pkgs, lib, config, inputs, nixos-flake, home-manager-flake, ...}: {
       (lib.lowPrio lnvim)
       (lib.lowPrio spvim)
 
+      nixvim
       ## use nixvim pkg, but only expose the nvim binary as nixvim
       #(pkgs.runCommandNoCC "nixvim" {} ''
       #  mkdir -p $out/bin

@@ -47,12 +47,11 @@
       util-linux
       which
       zstd
-      nixvim
       unstable.nh
       fh
       zenith
       ruplacer
-
+      (lib.lowPrio neovim)
 
       socat
       whois
