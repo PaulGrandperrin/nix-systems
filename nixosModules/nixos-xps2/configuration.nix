@@ -74,6 +74,7 @@
   };
 
   services.displayManager.gdm.enable = lib.mkForce false;
+  services.system76-scheduler.enable = lib.mkForce false;
 
   # audio is broken on 6.7
   # https://bbs.archlinux.org/viewtopic.php?id=292297
