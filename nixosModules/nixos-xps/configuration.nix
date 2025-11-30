@@ -129,28 +129,28 @@
 
   hardware.nvidia.open = false; # not supported on Pascal microarch
 
-  virtualisation.my-nspawn = {
-    enable = true;
-    wan-if = "wlp2s0";
-    containers = {
-      test = {
-        id = 1;
-        mac = "02:7a:7c:64:3a:46";
-        ports = [
-        ];
-        max-mem="4G";
-        os = "debian";
-      };
-      test2 = {
-        id = 2;
-        mac = "2a:ef:5b:b5:ad:e5";
-        ports = [
-        ];
-        max-mem="4G";
-        os = "nixos";
-      };
-    };
-  };
+  #virtualisation.my-nspawn = {
+  #  enable = true;
+  #  wan-if = "wlp2s0";
+  #  containers = {
+  #    test = {
+  #      id = 1;
+  #      mac = "02:7a:7c:64:3a:46";
+  #      ports = [
+  #      ];
+  #      max-mem="4G";
+  #      os = "debian";
+  #    };
+  #    test2 = {
+  #      id = 2;
+  #      mac = "2a:ef:5b:b5:ad:e5";
+  #      ports = [
+  #      ];
+  #      max-mem="4G";
+  #      os = "nixos";
+  #    };
+  #  };
+  #};
 
   systemd.services.smbios-thermal = {
     script = ''
