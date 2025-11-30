@@ -6,8 +6,8 @@
 
   environment.sessionVariables = { # works for all kinds of sessions whereas environment.variables (/etc/profile) only works for interactive shells
     LIBVA_DRIVER_NAME = "iHD";
-    #LIBVA_DRIVER_NAME = "i965";
-    VDPAU_DRIVER = "va_gl";
+    #LIBVA_DRIVER_NAME = "i965"; # legacy
+    #VDPAU_DRIVER = "va_gl"; # legacy
   };
 
   # TODO why /dev/dri/by-path/pci-0000:00:02.0-render and not /dev/dri/renderD128 ? udev ? needed for ffmpeg
@@ -26,10 +26,11 @@
   hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [
-      intel-media-driver
-      intel-vaapi-driver
-      libva-vdpau-driver
-      libvdpau-va-gl
+      intel-media-driver # CPUs starting from broadwell
+      #intel-vaapi-driver # for CPUs older than broadwell, unmaintained
+
+      #libva-vdpau-driver # legacy
+      #libvdpau-va-gl # legacy
       
       # OpenCL
       #intel-ocl # replaced by intel-compute-runtime (neo)
