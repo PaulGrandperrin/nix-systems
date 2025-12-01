@@ -198,8 +198,7 @@
     };
 
     nixvim = {
-      #url = "github:nix-community/nixvim/25.05";
-      url = "github:nix-community/nixvim/main"; # TODO move to 25.11
+      url = "github:nix-community/nixvim/nixos-25.11";
       inputs = {
         nixpkgs.follows = "nixos-stable";
         home-manager.follows = "home-manager-stable";
