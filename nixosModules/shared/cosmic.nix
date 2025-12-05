@@ -27,6 +27,16 @@
   };
   services.displayManager.gdm.enable = lib.mkForce false;
   environment.systemPackages = with pkgs; [
+    cosmic-reader
+    cosmic-ext-ctl
+    cosmic-ext-tweaks
+    cosmic-ext-calculator
+    cosmic-ext-applet-minimon
+    cosmic-ext-applet-caffeine
+    cosmic-ext-applet-privacy-indicator
+    cosmic-ext-applet-external-monitor-brightness
+    examine
+
     # gnome apps filling in gapps in COSMIC env
     loupe
     gnome-boxes

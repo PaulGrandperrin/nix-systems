@@ -55,6 +55,44 @@ inputs: rec {
   #fish-unstable = (final: prev: {
   #  fish = final.unstable.fish;
   #});
+  cosmic-unstable = (final: prev: {
+    cosmic-applets = prev.unstable.cosmic-applets;
+    cosmic-applibrary = prev.unstable.cosmic-applibrary;
+    cosmic-bg = prev.unstable.cosmic-bg;
+    cosmic-comp = prev.unstable.cosmic-comp;
+    cosmic-edit = prev.unstable.cosmic-edit;
+    cosmic-files = prev.unstable.cosmic-files;
+    cosmic-greeter = prev.unstable.cosmic-greeter;
+    cosmic-icons = prev.unstable.cosmic-icons;
+    cosmic-idle = prev.unstable.cosmic-idle;
+    cosmic-initial-setup = prev.unstable.cosmic-initial-setup;
+    cosmic-launcher = prev.unstable.cosmic-launcher;
+    cosmic-notifications = prev.unstable.cosmic-notifications;
+    cosmic-osd = prev.unstable.cosmic-osd;
+    cosmic-panel = prev.unstable.cosmic-panel;
+    cosmic-player = prev.unstable.cosmic-player;
+    cosmic-randr = prev.unstable.cosmic-randr;
+    cosmic-screenshot = prev.unstable.cosmic-screenshot;
+    cosmic-session = prev.unstable.cosmic-session;
+    cosmic-settings-daemon = prev.unstable.cosmic-settings-daemon;
+    cosmic-settings = prev.unstable.cosmic-settings;
+    cosmic-store = prev.unstable.cosmic-store;
+    cosmic-term = prev.unstable.cosmic-term;
+    cosmic-wallpapers = prev.unstable.cosmic-wallpapers;
+    cosmic-workspaces-epoch = prev.unstable.cosmic-workspaces-epoch;
+    xdg-desktop-portal-cosmic = prev.unstable.xdg-desktop-portal-cosmic;
+
+    cosmic-ext-applet-caffeine = prev.unstable.cosmic-ext-applet-caffeine;
+    cosmic-ext-applet-external-monitor-brightness = prev.unstable.cosmic-ext-applet-external-monitor-brightness;
+    cosmic-ext-applet-minimon = prev.unstable.cosmic-ext-applet-minimon;
+    cosmic-ext-applet-privacy-indicator = prev.unstable.cosmic-ext-applet-privacy-indicator;
+    cosmic-ext-calculator = prev.unstable.cosmic-ext-calculator;
+    cosmic-ext-ctl = prev.unstable.cosmic-ext-ctl;
+    cosmic-ext-tweaks = prev.unstable.cosmic-ext-tweaks;
+    cosmic-protocols = prev.unstable.cosmic-protocols;
+    cosmic-reader = prev.unstable.cosmic-reader;
+    examine = prev.unstable.examine;
+  });
   default = inputs.nixos-stable.lib.composeManyExtensions [
     all-channels
     local-packages
@@ -65,6 +103,7 @@ inputs: rec {
     #hostapd
     my-yuzu
     #fish-unstable
+    cosmic-unstable
 
     inputs.nur.overlays.default
     inputs.rust-overlay.overlays.default
