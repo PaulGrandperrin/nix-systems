@@ -429,6 +429,7 @@
       PermitRootLogin = lib.mkForce "yes";
     };
   };
+  services.sshguard.enable = true;
 
   # give nix-daemon the lowest priority 
   nix = {
