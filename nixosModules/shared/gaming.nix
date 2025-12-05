@@ -27,6 +27,11 @@
 
     # gnomeExtensions.gamemode # not anymore in 23.11
   ];
+
+  boot.kernelModules = [
+    "ntsync"
+  ];
+
 }
 
 
