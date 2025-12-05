@@ -42,6 +42,15 @@
   boot.plymouth.theme = "spinner";
   boot.loader.timeout = 0; # hides menu but can be shown by pressing and hilding key at boot
 
+  services.kmscon = {
+    enable = true;
+    package = pkgs.unstable.kmscon;
+    fonts = [
+      {name= "Nerds Fire Code"; package = pkgs.nerd-fonts.fira-code;}
+    ];
+    hwRender = true;
+  };
+
   services.scx = {
     enable = true;
     scheduler = "scx_lavd";
