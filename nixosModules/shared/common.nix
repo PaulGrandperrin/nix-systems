@@ -355,7 +355,7 @@
     extraGroups = [
       "wheel"
       "networkmanager" # no need for password
-      "audio" # used by JACK for realtime, otherwise not needed on systemd
+      #"audio" # used by JACK for realtime, otherwise not needed on systemd. Not recommended https://wiki.archlinux.org/title/Advanced_Linux_Sound_Architecture#User_privileges
       "input" # manage controllers
       "kvm" # access to /dev/kvm but doesn't seem to be needed. thanks to uaccess? but maybe it's need for android emulator
       "podman" # allow access to docker socket
