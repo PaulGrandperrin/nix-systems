@@ -128,8 +128,17 @@
   services.throttled.enable = true;
 
   hardware.nvidia.open = false; # not supported on Pascal microarch
-  hardware.graphics.package = pkgs.unstable.mesa;
-  hardware.graphics.package32 = pkgs.unstable.pkgsi686Linux.mesa;
+
+  hardware.graphics = {
+    package = pkgs.unstable.mesa;
+    extraPackages = with pkgs.unstable; [
+      intel-media-driver
+    ];
+    package32 = pkgs.unstable.pkgsi686Linux.mesa;
+    extraPackages32 = with pkgs.unstable.pkgsi686Linux; [
+      intel-media-driver
+    ];
+  };
 
   #virtualisation.my-nspawn = {
   #  enable = true;
