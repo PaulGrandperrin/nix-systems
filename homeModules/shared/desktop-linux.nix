@@ -4,6 +4,7 @@
 
       # nix run --impure --expr '(builtins.getFlake "n").legacyPackages.x86_64-linux.blender.override {cudaSupport = true;}'
 
+      unstable.rio
       qemu_kvm
       mesa-demos # glxinfo
       vulkan-tools
