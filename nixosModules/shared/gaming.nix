@@ -16,7 +16,7 @@
 
   home-manager.users.paulg.home.packages = with pkgs; [
     # gaming
-    protonup-ng
+    protonplus
     protontricks
     lutris
     stockfish
