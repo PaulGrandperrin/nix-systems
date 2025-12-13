@@ -3,8 +3,18 @@
   programs = {
     steam = {
       enable = true;
-      dedicatedServer.openFirewall = true;
-      remotePlay.openFirewall = true;
+      extraCompatPackages = with pkgs; [
+        steam-play-none
+        proton-ge-bin
+      ];
+      #dedicatedServer.openFirewall = true;
+      #localNetworkGameTransfers.openFirewall = true;
+      #remotePlay.openFirewall = true;
+      protontricks = {
+        enable = true;
+        package = pkgs.protontricks;
+      };
+      gamescopeSession.enable = true;
     };
     gamemode.enable = true;
     gamescope = {
