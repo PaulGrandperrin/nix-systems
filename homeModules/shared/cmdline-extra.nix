@@ -96,7 +96,7 @@ args @ {pkgs, lib, config, inputs, nixos-flake, home-manager-flake, ...}: {
       man-pages-posix
 
       # graphics in term
-      viu
+      viu timg
 
       # data recovery
       ddrescue
