@@ -39,6 +39,9 @@
       #ocl-icd 
       #khronos-ocl-icd-loader
     ];
+    extraPackages32 = with pkgs.pkgsi686Linux; [
+      intel-media-driver
+    ];
   }; 
 
 }
