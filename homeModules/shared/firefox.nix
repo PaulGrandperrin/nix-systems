@@ -1,12 +1,7 @@
 args @ {pkgs, inputs, lib, config, is_nixos, ...}: lib.mkIf (config.home.username != "root") { 
-  programs = {
-    firefox = {
-      enable = true;
-      package = pkgs.emptyDirectory // { override = _: # ugly trick to make things work in HM
-        if (args ? nixosConfig) then pkgs.firefox-bin else pkgs.emptyDirectory; # trick to allow using HM config without installing nix version of Firefox
-      };
-
-      profiles."paulgrandperrin@gmail.com" = {
+  programs =
+    let profiles =  {
+      "paulgrandperrin@gmail.com" = {
         id = 0;
         extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
           bitwarden
@@ -88,7 +83,19 @@ args @ {pkgs, inputs, lib, config, is_nixos, ...}: lib.mkIf (config.home.usernam
           "network.dns.http3_echconfig.enabled" = true;
         };
       };
+    };
+  in {
+    librewolf = {
+      enable = true;
+      inherit profiles;
 
+    };
+    firefox = {
+      enable = true;
+      package = pkgs.emptyDirectory // { override = _: # ugly trick to make things work in HM
+        if (args ? nixosConfig) then pkgs.firefox-bin else pkgs.emptyDirectory; # trick to allow using HM config without installing nix version of Firefox
+      };
+      inherit profiles;
     };
   };
 
