@@ -144,6 +144,7 @@ args @ {pkgs, lib, config, inputs, nixos-flake, home-manager-flake, ...}: {
       wl-clipboard # used by neovim to yank to clipboard
       trashy
       e2fsprogs
+      nvme-cli
 
       (buildFHSEnv {
         name = "fhs-run";
