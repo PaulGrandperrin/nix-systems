@@ -29,6 +29,8 @@ in {
   nixos-chromebox-lean = mkNixosConf "stable"   [ ./nixosModules/nixos-chromebox/configuration.nix ./nixosModules/shared/leanify.nix ];
   nixos-asus           = mkNixosConf "stable"   [ ./nixosModules/nixos-asus/configuration.nix                                        ];
   nixos-asus-lean      = mkNixosConf "stable"   [ ./nixosModules/nixos-asus/configuration.nix      ./nixosModules/shared/leanify.nix ];
+  nixos-g1a            = mkNixosConf "stable"   [ ./nixosModules/nixos-g1a/configuration.nix                                         ];
+  nixos-g1a-lean       = mkNixosConf "stable"   [ ./nixosModules/nixos-g1a/configuration.nix       ./nixosModules/shared/leanify.nix ];
 }
 
 
