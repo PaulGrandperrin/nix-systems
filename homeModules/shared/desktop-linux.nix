@@ -147,11 +147,12 @@
     vscode = { # better than plain package which can't install extensions from internet
       enable = true;
       package = let
-        vscode = pkgs.callPackage (inputs.nixos-unstable.outPath + "/pkgs/applications/editors/vscode/vscode.nix") {
-          callPackage = p: overrides: pkgs.callPackage p (overrides // {
-            libgbm = pkgs.mesa;
-          });
-        };
+        vscode = pkgs.unstable.vscode;
+        #vscode = pkgs.callPackage (inputs.nixos-unstable.outPath + "/pkgs/applications/editors/vscode/vscode.nix") {
+        #  callPackage = p: overrides: pkgs.callPackage p (overrides // {
+        #    libgbm = pkgs.mesa;
+        #  });
+        #};
         vscode-fhsWithPackages = vscode.fhsWithPackages;
         vscode-wayland = a: pkgs.symlinkJoin {
           inherit (vscode) pname version;
