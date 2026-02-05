@@ -44,7 +44,10 @@
   #  });
   #})]; 
 
-  #boot.zfs.package = pkgs.zfs;
+  boot.zfs = {
+    #package = pkgs.zfs;
+    forceImportRoot = false; # default to true but recommended to disable. if fails to boot, use "zfs_force=1" on kernel cmdline once.
+  };
   boot.initrd.systemd = {
     initrdBin = [
       config.boot.zfs.package
