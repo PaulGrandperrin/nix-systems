@@ -254,12 +254,12 @@
     #  };
     #};
 
-    amadou_server = {
-      url = "git+ssh://git@github.com/PaulGrandperrin/amadou_server.git?rev=25a3db8d3868bda51c462377361b6ff58a18739c";
-      inputs = {
-        nixpkgs.follows = "nixos-stable";
-      };
-    };
+    #amadou_server = {
+    #  url = "git+ssh://git@github.com/PaulGrandperrin/amadou_server.git?rev=25a3db8d3868bda51c462377361b6ff58a18739c";
+    #  inputs = {
+    #    nixpkgs.follows = "nixos-stable";
+    #  };
+    #};
 
     bugstalker = {
       url = "github:godzie44/BugStalker";
