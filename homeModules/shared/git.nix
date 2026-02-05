@@ -10,8 +10,8 @@
     lazygit.enable = true;
     difftastic = {
       options = {
-        #enable = true;
-        #enableGitIntegration = true;
+        enable = true;
+        enableGitIntegration = true;
         options = {
           background = "dark";
           #display = "side-by-side"; # "side-by-side", "side-by-side-show-both", "inline"
@@ -20,7 +20,7 @@
     };
     delta = {
       enable = true;
-      enableGitIntegration = true;
+      #enableGitIntegration = true;
       options = {
         navigate = true;
         line-numbers = true;
