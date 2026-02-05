@@ -219,25 +219,49 @@
     "systemd.gpt_auto=no" # fails on OCI otherwise
     "sysrq_always_enabled=1" # works even in the initramfs
   ];
+  
 
   # to bisect kernel
-  #boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_6_1.override { # (#4)
+  #boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_6_17.override { # (#4)
   #  argsOverride = rec {
   #    src = pkgs.fetchFromGitHub {
   #      owner = "gregkh";
   #      repo = "linux";
   #      # (#1) -> put the bisect revision here
-  #      rev = "f11a26633eb6d3bb24a10b1bacc4e4a9b0c6389f";
   #      # (#2) -> clear the sha; run a build, get the sha, populate the sha
-  #      sha256 = "sha256-7Ep9/ScE+Ix8DRAjUiIUuBFKIuBlmBkDXP8EA9cNFmQ=";
+  #      #rev = "eef72d856f978955e633c270abb1f7ec7b61c6d2"; # bad
+  #      #sha256 = "sha256-RvJcNukgDuRO7D4VdW//dX+Aih47yxmwDJEYDtn+HJU=";
+
+  #      #rev = "7c2a888605b553ae8ef8b2d6e0c985b02543a3ef"; # bad
+  #      #sha256 = "sha256-0K5u4zQamqwT9OvWGxpKcg8vXl0TSNgogyk1r8Flfr4=";
+
+  #      #rev = "041de1f9bcf440a27db17bb8340a1f91dd9a6c5b"; # bad 1st sleep
+  #      #sha256 = "sha256-OuWjlJlMAyW+aT/RBn6qUJwd10W4Mi96Jmu7YwvEQwo=";
+
+  #      #rev = "a79e49e1704367b635edad1479db23d7cf1fb71a"; # good
+  #      #sha256 = "sha256-wYCRlD1KPb8WPBHSVpvASSZ4+X5pF78hc0+mL2+USsE=";
+
+  #      #rev = "0b7161eaecd7a6e12820acc703a883be47c798d3"; # good
+  #      #sha256 = "sha256-6+F4N/lYgyRuH0wfxwCtOETBB6eOWR2/tudbNGdyGCA=";
+
+  #      #rev = "860f93f4fce1e733b8a2474f6bfa153243d775f3"; # good with no flags, with flags: ??? # last good
+  #      #sha256 = "sha256-Umd1vnm1kAupUt0mn/NdbTc90Jurmkga9arLpCFMLmM=";
+
+  #      #rev = "18030e84cbda014787369b6d4cde8404fa2d08fc"; # bad at 2nd sleep, (also sometime goes to sleep but doesn't come back, at least the screen), VPE queue reset failed
+  #      #sha256 = "sha256-mYovsHOegNZDHBBrpdcmnMF/kiWGzgBUBGIX4yLwF/4=";
+
+  #      #rev = "9c03896ec657d3eb2af82f567a57054f735e4ccc"; # bad ??? , goes to sleep but doesn't come back, at least the screen
+  #      #sha256 = "sha256-u9RNQrCRe4kgRtNvxG9Fmsza683k+o1m7xPGv4DVFyk=";
+
+  #      rev = "9539c00f44033fcbdaa0673bb370c4a148df1206"; # is the first bad commit: regular bad, crash after 2nd suspend
+  #      sha256 = "sha256-3CwZERhskTVUncli64oGKUMMTeWvt03BH5Nik0iwB+Y=";
   #    };
   #    dontStrip = true;
   #    # (#3) `head Makefile` from the kernel and put the right version numbers here
-  #    version = "6.1.45";
-  #    modDirVersion = "6.1.45";
+  #    version = "6.17.9";
+  #    modDirVersion = "6.17.9";
   #  };
   #});
-  
 
   # tried to use ccache
   #programs.ccache.enable = false;
