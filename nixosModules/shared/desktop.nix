@@ -42,6 +42,31 @@
   boot.plymouth.theme = "spinner";
   boot.loader.timeout = 0; # hides menu but can be shown by pressing and hilding key at boot
 
+  systemd.sleep.extraConfig = ''
+    HibernateDelaySec=180m
+    HibernateOnACPower=no
+  '';
+
+  # TODO customize battery level at which we hibernate using one of:
+  # - a /etc/systemd/system-sleep/ script (considered a hack)
+  # - using systemd inhibitors (looks like a runtime API, not static file conf)
+  # - nixos' option: powerManagement.powerDownCommands
+  # by writing to /sys/class/power_supply/BAT0/alarm
+
+  services.logind.settings.Login = {
+    HandlePowerKey = "suspend-then-hibernate";
+    HandleRebootKey = "suspend-then-hibernate";
+    HandleSuspendKey = "suspend-then-hibernate";
+    HandleHibernateKey = "suspend-then-hibernate";
+    HandlePowerKeyLongPress = "poweroff";
+    HandleRebootKeyLongPress = "poweroff";
+    HandleSuspendKeyLongPress = "poweroff";
+    HandleHibernateKeyLongPress = "poweroff";
+    HandleLidSwitch = "suspend-then-hibernate";
+    HandleLidSwitchExternalPower = "suspend-then-hibernate";
+    HandleLidSwitchDocked = "suspend-then-hibernate";
+  };
+
   services.kmscon = {
     enable = true;
     package = pkgs.unstable.kmscon;
