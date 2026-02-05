@@ -79,6 +79,7 @@ args @ {pkgs, lib, config, inputs, nixos-flake, home-manager-flake, ...}: {
       libtree
       hdparm
       manix
+      clinfo
 
       # dev
       gdb
@@ -145,6 +146,7 @@ args @ {pkgs, lib, config, inputs, nixos-flake, home-manager-flake, ...}: {
       trashy
       e2fsprogs
       nvme-cli
+      sysfsutils # systool
 
       (buildFHSEnv {
         name = "fhs-run";
