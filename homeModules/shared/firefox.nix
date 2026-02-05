@@ -86,14 +86,20 @@ args @ {pkgs, inputs, lib, config, is_nixos, ...}: lib.mkIf (config.home.usernam
     };
   in {
     librewolf = {
-      enable = true;
+      #enable = true; # currently unmaintained
+      #package = pkgs.unstable.librewolf-bin.override {
+      #  librewolf-bin-unwrapped = pkgs.unstable.librewolf-bin-unwrapped.overrideAttrs (oldAttrs: {
+      #    meta = oldAttrs.meta // {
+      #      knownVulnerabilities = [];
+      #    };
+      #  });
+      #};
       inherit profiles;
-
     };
     firefox = {
       enable = true;
       package = pkgs.emptyDirectory // { override = _: # ugly trick to make things work in HM
-        if (args ? nixosConfig) then pkgs.firefox-bin else pkgs.emptyDirectory; # trick to allow using HM config without installing nix version of Firefox
+        if (args ? nixosConfig) then pkgs.unstable.firefox-bin else pkgs.emptyDirectory; # trick to allow using HM config without installing nix version of Firefox
       };
       inherit profiles;
     };
