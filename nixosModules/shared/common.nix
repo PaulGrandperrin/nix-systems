@@ -69,7 +69,7 @@
 
   # Hardening
   # TODO: noexec mounts, tmpfs...
-  environment.defaultPackages = lib.mkForce [];
+  #environment.defaultPackages = lib.mkForce [];
 
   security.acme.acceptTerms = true;
   #security.acme.server = "https://acme-staging-v02.api.letsencrypt.org/directory";
