@@ -309,7 +309,10 @@
   #}];
 
   # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot = {
+    enable = true;
+    configurationLimit = 4; # prevents running out of space on a 1GB /boot
+  };
   boot.loader.efi.canTouchEfiVariables = true;
   boot.initrd.systemd = {
     enable = true;
