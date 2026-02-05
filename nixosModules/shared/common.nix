@@ -383,7 +383,7 @@
       "wheel"
       "networkmanager" # no need for password
       #"audio" # used by JACK for realtime, otherwise not needed on systemd. Not recommended https://wiki.archlinux.org/title/Advanced_Linux_Sound_Architecture#User_privileges
-      "input" # manage controllers
+      "input" # manage controllers and fingerprint reader
       "kvm" # access to /dev/kvm but doesn't seem to be needed. thanks to uaccess? but maybe it's need for android emulator
       "podman" # allow access to docker socket
       # "libvirtd" # doesn't seem to be necessary
@@ -427,7 +427,7 @@
   ];
 
   zramSwap = {
-    enable = true;
+    enable = lib.mkDefault true;
     algorithm = "lz4"; # https://www.reddit.com/r/Fedora/comments/mzun99/comment/h1cnvv3/?utm_source=share&utm_medium=web2x&context=3
     priority = 5;
     memoryPercent = 100;
