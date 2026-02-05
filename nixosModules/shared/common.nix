@@ -209,10 +209,10 @@
   boot.kernelParams = [
     #"ipv6.disable=1"
     "nosgx"
-    #"iommu=pt"
+    "iommu=pt"
     "intel_iommu=on"
     "amd_iommu=on"
-    "efi=disable_early_pci_dma"
+    "efi=disable_early_pci_dma" # https://mjg59.dreamwidth.org/54433.html
     #"init_on_alloc=1"
     #"init_on_free=1"
     #"page_alloc.shuffle=1"
