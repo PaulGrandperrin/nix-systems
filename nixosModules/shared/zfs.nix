@@ -20,7 +20,7 @@
   # casesensitivity=insensitive: perf boost for proton but breaks unix
 
   # zfs create zpool/encrypted
-  # -o encryption=on # good default: aes256-gcm
+  # -o encryption=aes-128-gcm # default is aes256-gcm which is overkill in a pre-quantum world
   # -o keyformat=passphrase
   # -o pbkdf2iters=1000000 # 3 times the 2026 default
 
