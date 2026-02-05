@@ -465,6 +465,13 @@
     daemonIOSchedPriority = 7; # only used by "best-effort"
   };
 
+  # put the service in top-level slice
+  # so that it's lower than system and user slice overall
+  # instead of only being lower in system slice
+  systemd.services.nix-daemon.serviceConfig.Slice = "-.slice";
+  # always use the daemon, even executed  with root
+  environment.variables.NIX_REMOTE = "daemon";
+
   virtualisation = {
     #libvirtd.enable = true;
     oci-containers.backend = "podman";
