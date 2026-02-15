@@ -8,7 +8,7 @@
     ../shared/wg-mounts.nix
     ../shared/desktop.nix
     ../shared/gnome.nix
-    ../shared/cosmic.nix
+    #../shared/cosmic.nix
     ../shared/desktop-i915.nix
     ../shared/nvidia.nix
     ../shared/gaming.nix
@@ -23,6 +23,7 @@
   # use latest ZFS compatible linux kernel from unstable
   # manually evaluate `latest-zfs-kernel` to set its `pkgs` to `pkgs.unstable`
   boot.kernelPackages = ((import "${inputs.srvos}/nixos/mixins/latest-zfs-kernel.nix") {inherit lib config; pkgs= pkgs.unstable;}).boot.kernelPackages;
+  boot.zfs.package = lib.mkForce pkgs.unstable.zfs_2_4; # also take zfs userspace from unstable for versions to be in sync
 
   #boot.kernelPackages = (import inputs.nixos-linux_6_16 {
   #  system = pkgs.stdenv.hostPlatform.system;
@@ -129,16 +130,16 @@
 
   hardware.nvidia.open = false; # not supported on Pascal microarch
 
-  hardware.graphics = {
-    package = pkgs.unstable.mesa;
-    extraPackages = with pkgs.unstable; [
-      intel-media-driver
-    ];
-    package32 = pkgs.unstable.pkgsi686Linux.mesa;
-    extraPackages32 = with pkgs.unstable.pkgsi686Linux; [
-      intel-media-driver
-    ];
-  };
+  #hardware.graphics = {
+  #  package = pkgs.unstable.mesa;
+  #  extraPackages = with pkgs.unstable; [
+  #    intel-media-driver
+  #  ];
+  #  package32 = pkgs.unstable.pkgsi686Linux.mesa;
+  #  extraPackages32 = with pkgs.unstable.pkgsi686Linux; [
+  #    intel-media-driver
+  #  ];
+  #};
 
   #virtualisation.my-nspawn = {
   #  enable = true;
