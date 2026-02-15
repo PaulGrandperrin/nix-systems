@@ -29,9 +29,9 @@
     argsOverride = rec {
       src = pkgs.fetchurl {
             url = "mirror://kernel/linux/kernel/v${lib.versions.major version}.x/linux-${version}.tar.xz";
-            hash = "sha256-N/DF1cJCwdYE6H1I8IeV6GGlqF9yW0yhHQpTjxL/jP8=";
+            hash = "sha256-1tN3FhdBraL6so7taRQyd2NKKuteOIPlDAMViO3kjt4=";
       };
-      version = "6.18.8";
+      version = "6.18.10";
       modDirVersion = version;
     };
   });
@@ -213,13 +213,13 @@
       };
     };
     mesa_override_fn = finalAttrs: previousAttrs: rec {
-      version = "26.0.0-rc1";
+      version = "26.0.0-rc3";
       src = pkgs.fetchFromGitLab {
         domain = "gitlab.freedesktop.org";
         owner = "mesa";
         repo = "mesa";
-        rev = "a2b03c2117d90901cd4b0a0bd4f628983eb576ad";
-        hash = "sha256-Tx7QadZ0YfJkE0I9SiVUHbmcrasN+nAFAI9mSnPXImA=";
+        rev = "mesa-${version}";
+        hash = "sha256-4s8VDh1T9IW334JS4kXIx27O0MqN210pP4kTzHyVriI=";
       };
       patches = builtins.filter (p: baseNameOf p != "musl.patch") previousAttrs.patches;
     };
