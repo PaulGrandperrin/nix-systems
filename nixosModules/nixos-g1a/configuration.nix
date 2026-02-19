@@ -29,9 +29,9 @@
     argsOverride = rec {
       src = pkgs.fetchurl {
             url = "mirror://kernel/linux/kernel/v${lib.versions.major version}.x/linux-${version}.tar.xz";
-            hash = "sha256-1tN3FhdBraL6so7taRQyd2NKKuteOIPlDAMViO3kjt4=";
+            hash = "sha256-4AMpStTCwqxbt3+7gllRETT1HZh7MhJRaDLcSwyD8eo=";
       };
-      version = "6.18.10";
+      version = "6.18.12";
       modDirVersion = version;
     };
   });
