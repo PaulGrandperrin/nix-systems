@@ -15,6 +15,7 @@ in {
 
     services.nextjs-ollama-llm-ui = {
       enable = true;
+      port = 3000; # default
       hostname = "${config.networking.hostName}.wg";
     };
   };

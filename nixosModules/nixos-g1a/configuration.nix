@@ -13,7 +13,7 @@
     ../shared/gaming.nix
     #../shared/nspawns.nix
     #../shared/guix.nix
-    #../shared/ollama.nix
+    ../shared/ollama.nix
     ../shared/lid-killswitch.nix
     ../shared/modprobed-db.nix
     #inputs.lanzaboote.nixosModules.lanzaboote
