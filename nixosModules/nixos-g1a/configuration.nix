@@ -4,8 +4,8 @@
     ../shared/common.nix
     ../shared/zfs.nix
     ../shared/net.nix
-    #../shared/wireguard.nix
-    #../shared/wg-mounts.nix
+    ../shared/wireguard.nix
+    ../shared/wg-mounts.nix
     ../shared/desktop.nix
     ../shared/desktop-radeon.nix
     ../shared/gnome.nix

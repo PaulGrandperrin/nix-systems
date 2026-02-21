@@ -1,4 +1,9 @@
 { lib, pkgs, config, ... }:
+
+# cargo install wireguard-vanity-address
+# $HOME/.cargo/bin/wireguard-vanity-address --in 4 ${prefix}+
+# put public part here and private part in secrets/${hostname}.yaml using sops
+
 with lib;                      
 let
   cfg = config.services.my-wg;
@@ -49,6 +54,10 @@ let
       id = 8;
       hostname = "nixos-asus";
       publicKey = "ASU+R1kFLFCzlSX92EAXZDIlyjg96/4YBptcHz0cSB4=";
+    } {
+      id = 9;
+      hostname = "nixos-g1a";
+      publicKey = "g1a+pv2+KpDHKHDS6zSnzw2Rm8JvaZOPlDmOd5m4Szg=";
     }
   ];
 in {
