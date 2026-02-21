@@ -196,6 +196,7 @@
 
   # those machines can easily deploy closures to all nixos machines
   users.users.root.openssh.authorizedKeys.keys = [ 
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIELUTXZC4h2yO9P7SzO9kf0ozPY4MG1LUp3SOoPYv3Xf" # root@nixos-g1a
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHOIxgOXuz4/8JB++umc4fEvFwIlM3eeVadTsvCZCQN2" # root@nixos-xps
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMK/GnaGGlU7pl4po31XP6K5VpodTu67J+D1/3d74R57" # root@nixos-macbook
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB6gqM1jzgCAtgFYK9nRteimmbulWMuWlW0WvdJK52uy" # root@nixos-asus

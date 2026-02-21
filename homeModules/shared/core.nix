@@ -43,6 +43,8 @@ args @ {pkgs, config, inputs, lib, ...}: {
     ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJVW/7zXgQwIAk46daSBfP5ti7zpADrs1p//f5IyRHJH paulg@darwin-macbook
     ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIChG+jbZaRNcbsQTyu6Dd9SaiaCSyR586FY5N1mHSRvE paulg@nixos-gcp
     ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIChG+jbZaRNcbsQTyu6Dd9SaiaCSyR586FY5N1mHSRvE root@nixos-gcp
+    ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHRI5oAShY/xSqDUnVHkvPWDU1G0czo3kbAA0t8lrk95 paulg@nixos-g1a
+    ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIELUTXZC4h2yO9P7SzO9kf0ozPY4MG1LUp3SOoPYv3Xf root@nixos-g1a
     ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM3KlABFus1z3jTDvylO6e6gSnn7nIqJKZOZJ9di5OW4 paulg@nixos-xps
     ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHOIxgOXuz4/8JB++umc4fEvFwIlM3eeVadTsvCZCQN2 root@nixos-xps
     ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBBKbOypMYzisA9fwYtZVWWtcvsOqA294EEBIYN/9YCr paulg@nixos-macbook
