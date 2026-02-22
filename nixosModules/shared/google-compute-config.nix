@@ -36,7 +36,7 @@ with lib;
 
   # enable OS Login. This also requires setting enable-oslogin=TRUE metadata on
   # instance or project level
-  security.googleOsLogin.enable = true;
+  security.googleOsLogin.enable = false; # NOTE enabling breaks normal login
 
   # Use GCE udev rules for dynamic disk volumes
   services.udev.packages = [ pkgs.google-guest-configs ];
