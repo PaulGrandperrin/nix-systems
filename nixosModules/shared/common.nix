@@ -43,7 +43,7 @@
 
   sops = {
     defaultSopsFile = ../../secrets/common.yaml;
-    age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ]; # default
+    age.sshKeyPaths = [ "/root/.ssh/id_ed25519" ];
     gnupg.sshKeyPaths = []; # we don't use it and if the file doesn't exist, the whole process fails: https://github.com/Mic92/sops-nix/issues/427
   };
 
