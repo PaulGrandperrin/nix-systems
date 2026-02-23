@@ -9,7 +9,7 @@
     ./mail.nix
     ./sysdig.nix
   ];
-  system.stateVersion = "25.05";
+  system.stateVersion = "25.11";
 
   #systemd.enableStrictShellChecks = true; # TODO
 

@@ -14,7 +14,7 @@ args @ {pkgs, config, inputs, lib, ...}: {
 
   # systemd.user.systemctlPath = "/usr/bin/systemctl"; # TODO ?
   home = {
-    stateVersion = "25.05";
+    stateVersion = "25.11";
     enableNixpkgsReleaseCheck = true; # check for release version mismatch between Home Manager and Nixpkgs
     sessionVariables = { # only works for interactive shells, pam works for all kind of sessions
       NIX_PATH = (lib.concatStringsSep ":" (lib.mapAttrsToList (name: path: "${name}=${path.to.path}") config.nix.registry));

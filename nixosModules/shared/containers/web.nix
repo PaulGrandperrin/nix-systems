@@ -31,7 +31,7 @@
       hostPkgs = pkgs;
     in { config, pkgs, ... }: {
       imports = [ ../web.nix ];
-      system.stateVersion = "25.05";
+      system.stateVersion = "25.11";
       nixpkgs.pkgs = hostPkgs; # reuse host pkgs for overlays and evaluation speed
 
       networking.useDHCP = false;

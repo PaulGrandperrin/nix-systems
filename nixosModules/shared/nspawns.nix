@@ -228,7 +228,7 @@ in {
                           wget
                         ];
               
-                        system.stateVersion = "25.05";
+                        system.stateVersion = "25.11";
                         nixpkgs.hostPlatform = lib.mkDefault system;
                       })
                     ];
