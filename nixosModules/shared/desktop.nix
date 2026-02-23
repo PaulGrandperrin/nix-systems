@@ -115,6 +115,7 @@
     #defaultSession = "gnome"; # gnome (gnome-wayland) or gnome-xorg
   };
 
+  users.users.root.openssh.authorizedKeys.keys = lib.mkForce []; # disallow any external connection with keys
 
   environment.sessionVariables = {
     #XDG_SESSION_TYPE = "wayland"; # absolutly force wayland
