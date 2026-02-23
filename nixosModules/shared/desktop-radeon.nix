@@ -2,27 +2,29 @@
 {
   # no need to set services.xserver.videoDrivers because I don't use Xorg but only XWayland which don't use it. and anyway, the default "modesetting" is good.
 
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs.unstable; [
     amdgpu_top 
     nvtopPackages.amd
-    rocmPackages.rocm-smi
-    unstable.amd-debug-tools
+    #rocmPackages.rocm-smi
+    #rocmPackages.amdsmi
+    #rocmPackages.rocminfo
+    amd-debug-tools
   ];
 
   # https://wiki.nixos.org/wiki/AMD_GPU#HIP
-  systemd.tmpfiles.rules = 
-  let
-    rocmEnv = pkgs.symlinkJoin {
-      name = "rocm-combined";
-      paths = with pkgs.rocmPackages; [
-        rocblas
-        hipblas
-        clr
-      ];
-    };
-  in [
-    "L+    /opt/rocm   -    -    -     -    ${rocmEnv}"
-  ];
+  #systemd.tmpfiles.rules = 
+  #let
+  #  rocmEnv = pkgs.symlinkJoin {
+  #    name = "rocm-combined";
+  #    paths = with pkgs.unstable.rocmPackages; [
+  #      rocblas
+  #      hipblas
+  #      clr
+  #    ];
+  #  };
+  #in [
+  #  "L+    /opt/rocm   -    -    -     -    ${rocmEnv}"
+  #];
 
   hardware.amdgpu = {
     initrd.enable = true;

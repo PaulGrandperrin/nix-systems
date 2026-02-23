@@ -195,7 +195,28 @@
   #  enable = true;
   #};
 
-  #paulg.ollama.enable = true;
+  #nixpkgs.overlays = [
+  #  (final: prev: {
+  #    hipblaslt = prev.hipblaslt.override {
+  #      gpuTargets = [ "gfx1151" ]; # Replace with your specific gfx ID
+  #    };
+  #  })
+  #];
+  #nixpkgs.config.rocmTargets = [ "gfx1151" ];
+  paulg.ollama.enable = true;
+#  services.ollama = {
+#    package = pkgs.unstable.ollama-rocm;
+#    acceleration = lib.mkForce "rocm";
+#    rocmOverrideGfx = "11.5.1";
+#  };
+  boot.kernelParams = [ # https://strixhalo.wiki/AI/AI_Capabilities_Overview#memory-limits
+    "iommu=pt"                  # Sets IOMMU to "Pass-Through" mode. This helps performance, reducing overhead for the iGPU unified memory access.
+    "amdgpu.gttsize=114688"     # Caps GPU unified memory to 112 GiB; Deprecated, use TTM instead
+    "ttm.pages_limit=29360128"  # Caps pinned memory to 128 - 16 = 112 GiB; in 4k pages
+    #"ttm.page_pool_size=29360128" # Forces a minimum preallocated size. This memory becomes inaccessible to the system. Help minimize fragmentation to increase perf.
+    "amdgpu.vm_fragment_size=9" # since page_pool_size is lower than pages_limit, increase the chunk size of allocations. (4=64K default, 9=2M)
+  ];
+
 
   #services.thermald.enable = false; # should be disabled when throttled is enabled
   #services.throttled.enable = true;
@@ -274,24 +295,16 @@
   #  };
   #};
 
-  #systemd.services.smbios-thermal = {
-  #  script = ''
-  #    ${pkgs.libsmbios}/bin/smbios-thermal-ctl --set-thermal-mode quiet || true # obsolete since linux 6.11
-  #    echo quiet > /sys/firmware/acpi/platform_profile || true
-  #  '';
-  #  wantedBy = [ "multi-user.target" ];
-  #};
-
   zramSwap.enable = lib.mkForce false; # TODO enable zswap
 
   services.thermald.enable = lib.mkForce false; # mostly intel specific but shouldn't conflict with ppd
   services.power-profiles-daemon.enable = lib.mkForce true; # /sys/firmware/acpi/platform_profile_choices
-  boot.kernelParams = [
+  #boot.kernelParams = [
   #"amd_pstate=active" # useless as it's the default
   #  "pcie_aspm=force" 
   #  "pcie_aspm.policy=powersave"
   #  "idle=nomwait"
-  ];
+  #];
 
   #services.udev.extraRules = '' # gemini generated ideas
   #  # Enable runtime power management for all PCI devices
@@ -358,6 +371,7 @@
   #    };
   #  };
   #};
+
 
   services.fprintd = {
     enable = true;
