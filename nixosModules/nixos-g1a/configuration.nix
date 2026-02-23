@@ -191,9 +191,9 @@
     mainInt = "wlp193s0";
   };
 
-  #services.my-wg = {
-  #  enable = true;
-  #};
+  services.my-wg = {
+    enable = true;
+  };
 
   #nixpkgs.overlays = [
   #  (final: prev: {
