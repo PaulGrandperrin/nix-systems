@@ -1,4 +1,7 @@
-keys: # ssh-to-age -i /etc/ssh/ssh_host_ed25519_key.pub
+# ssh-to-age -i /etc/ssh/ssh_host_ed25519_key.pub # key defined by nixos option sops.age.sshKeyPaths and used on activation
+# ssh-to-age -private-key -i /etc/ssh/ssh_host_ed25519_key -o /root/.config/sops/age/keys.txt # creates file used by sops command line tool
+# sops updatekeys secrets/*
+keys:
   - &nixos-xps age1ux7xcmxf77wjtnzcykcpm2h8pcnudf9c5e0ncudfd2qgvuwuq3pqmyj0xl
   - &nixos-gcp age1js0r7ap05js7t3ctjxmzt3q6l0rc4dz28xqrx2k468znt386efsq8ky25h
   - &nixos-macmini age1xkm04qn4r7gvd6a962t863gmzzpzeqqvusrdfq293uelktrc4v0qz2d6nk
@@ -8,7 +11,7 @@ keys: # ssh-to-age -i /etc/ssh/ssh_host_ed25519_key.pub
   - &nixos-testvm age1pjq3zvaug8mxzht4y50y3njyqlcmpa2g309zdmvz4ery996nxseq36uj3n
   - &nixos-chromebox age1mauey7sxlg8ty5ppea89wfztr7vu5nm7fc6k8g32rt3je7uy73wssed96c
   - &nixos-asus age10ha4nhq4aujqh3e76y8vntv6qcahgfq6lf49c0udplyme74uxy3swvjm7s
-  - &nixos-g1a age1a6h6q4myn5cjnxf89rmlw55fu5xweeup7xenduphlyvpsd5yjuuq337rn6
+  - &nixos-g1a age1xxys6793r5ger7ee2rya3p3p9zr4fr2tgxymnrtaucrwqzxhtsys4zyhzs
   - &recovery age14u76z7ch37cx6hesffvr3kazmjjyxhnsvja2xspznt8683xn79ksxg8f4r # just in case
 creation_rules:
   - path_regex: ^secrets/common\.yaml$
