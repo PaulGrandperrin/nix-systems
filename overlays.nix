@@ -81,6 +81,7 @@ inputs: rec {
     cosmic-wallpapers = prev.unstable.cosmic-wallpapers;
     cosmic-workspaces-epoch = prev.unstable.cosmic-workspaces-epoch;
     xdg-desktop-portal-cosmic = prev.unstable.xdg-desktop-portal-cosmic;
+    system76-power = prev.unstable.system76-power;
 
     cosmic-ext-applet-caffeine = prev.unstable.cosmic-ext-applet-caffeine;
     cosmic-ext-applet-external-monitor-brightness = prev.unstable.cosmic-ext-applet-external-monitor-brightness;

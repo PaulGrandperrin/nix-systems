@@ -299,6 +299,7 @@
 
   services.thermald.enable = lib.mkForce false; # mostly intel specific but shouldn't conflict with ppd
   services.power-profiles-daemon.enable = lib.mkForce true; # /sys/firmware/acpi/platform_profile_choices
+
   #boot.kernelParams = [
   #"amd_pstate=active" # useless as it's the default
   #  "pcie_aspm=force" 
