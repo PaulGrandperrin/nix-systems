@@ -14,10 +14,21 @@
   programs = {
     steam = {
       enable = true;
-      package = pkgs.unstable.steam;
+      package = pkgs.unstable.steam.override {
+        extraEnv = {
+          #MANGOHUD = true;
+        };
+        extraPkgs = p: with p; [
+        ];
+        extraLibraries = p: with p; [
+          SDL SDL2 sdl3 # steam-run quake4
+        ];
+      };
       extraCompatPackages = with pkgs.unstable; [
         steam-play-none
         proton-ge-bin
+      ];
+      extraPackages = with pkgs; [
       ];
       #dedicatedServer.openFirewall = true;
       #localNetworkGameTransfers.openFirewall = true;
