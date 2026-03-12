@@ -23,20 +23,19 @@
 
   # use latest ZFS compatible linux kernel from unstable
   # manually evaluate `latest-zfs-kernel` to set its `pkgs` to `pkgs.unstable`
-  #boot.kernelPackages = ((import "${inputs.srvos}/nixos/mixins/latest-zfs-kernel.nix") {inherit lib config; pkgs = pkgs.unstable;}).boot.kernelPackages;
+  boot.kernelPackages = ((import "${inputs.srvos}/nixos/mixins/latest-zfs-kernel.nix") {inherit lib config; pkgs = pkgs.unstable;}).boot.kernelPackages;
 
-  boot.kernelPackages = pkgs.unstable.linuxPackagesFor (pkgs.unstable.linux_6_18.override {
-    argsOverride = rec {
-      src = pkgs.fetchurl {
-            url = "mirror://kernel/linux/kernel/v${lib.versions.major version}.x/linux-${version}.tar.xz";
-            hash = "sha256-7Sw8Vf045oNsCU/ONW8lZ/lRYTC3M1SimFeWA2jFaH8=";
-      };
-      version = "6.18.13";
-      modDirVersion = version;
-    };
-  });
+  #boot.kernelPackages = pkgs.unstable.linuxPackagesFor (pkgs.unstable.linux_6_18.override {
+  #  argsOverride = rec {
+  #    src = pkgs.fetchurl {
+  #          url = "mirror://kernel/linux/kernel/v${lib.versions.major version}.x/linux-${version}.tar.xz";
+  #          hash = "sha256-7Sw8Vf045oNsCU/ONW8lZ/lRYTC3M1SimFeWA2jFaH8=";
+  #    };
+  #    version = "6.18.13";
+  #    modDirVersion = version;
+  #  };
+  #});
   
-
   #boot.kernelPackages = (import inputs.kernel {
   #  system = pkgs.stdenv.hostPlatform.system;
   #  config = import ../../nixpkgs/config.nix;
