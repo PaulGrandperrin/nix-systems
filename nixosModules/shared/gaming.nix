@@ -21,7 +21,7 @@
         extraPkgs = p: with p; [
         ];
         extraLibraries = p: with p; [
-          SDL SDL2 sdl3 # steam-run quake4
+          #SDL SDL2 sdl3 # steam-run quake4
         ];
       };
       extraCompatPackages = with pkgs.unstable; [
