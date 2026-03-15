@@ -223,35 +223,37 @@
   hardware.graphics = let
     # TODO add wayland-protocol-git ??
     libdrm_override_fn = finalAttrs: previousAttrs: rec {
-      version = "git";
-      src = pkgs.fetchFromGitLab {
-        domain = "gitlab.freedesktop.org";
-        owner = "mesa";
-        repo = "libdrm";
-        rev = "369990d9660a387f618d0eedc341eb285016243b";
-        hash = "sha256-kOaTjBeo4IsfWEk/JBTNId5ikrnpoc9DEjIl7DUd2yE=";
-      };
+      #version = "git";
+      #src = pkgs.fetchFromGitLab {
+      #  domain = "gitlab.freedesktop.org";
+      #  owner = "mesa";
+      #  repo = "libdrm";
+      #  rev = "369990d9660a387f618d0eedc341eb285016243b";
+      #  hash = "sha256-kOaTjBeo4IsfWEk/JBTNId5ikrnpoc9DEjIl7DUd2yE=";
+      #};
     };
     mesa_override_fn = finalAttrs: previousAttrs: rec {
-      version = "26.0.0-rc3";
+      version = "26.0.2";
       src = pkgs.fetchFromGitLab {
         domain = "gitlab.freedesktop.org";
         owner = "mesa";
         repo = "mesa";
         rev = "mesa-${version}";
-        hash = "sha256-4s8VDh1T9IW334JS4kXIx27O0MqN210pP4kTzHyVriI=";
+        hash = "sha256-OaE1XM421C0rMep03wM7g4Ttwwn/8z5neLQI8LY9b2U=";
       };
-      patches = builtins.filter (p: baseNameOf p != "musl.patch") previousAttrs.patches;
+      #patches = builtins.filter (p: baseNameOf p != "musl.patch") previousAttrs.patches;
     };
   in {
     package = pkgs.unstable.mesa;
     package32 = pkgs.unstable.pkgsi686Linux.mesa;
+
     #package = ((pkgs.unstable.mesa.override {
     #  libdrm = (pkgs.unstable.libdrm.overrideAttrs libdrm_override_fn);
     #}).overrideAttrs mesa_override_fn);
     #package32 = ((pkgs.unstable.pkgsi686Linux.mesa.override {
     #  libdrm = (pkgs.unstable.pkgsi686Linux.libdrm.overrideAttrs libdrm_override_fn);
     #}).overrideAttrs mesa_override_fn);
+
     #extraPackages = with pkgs.unstable; [];
     #extraPackages32 = with pkgs.unstable.pkgsi686Linux; [];
   };
