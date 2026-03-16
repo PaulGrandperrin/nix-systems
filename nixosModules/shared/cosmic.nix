@@ -17,15 +17,9 @@
     #inputs.nixos-cosmic.nixosModules.default
   ];
 
+  services.displayManager.cosmic-greeter.enable = lib.mkDefault true;
+
   services.desktopManager.cosmic.enable = true;
-  services.displayManager = {
-    cosmic-greeter.enable = true;
-    autoLogin = {
-      enable = true;
-      user = "paulg";
-    };
-  };
-  services.displayManager.gdm.enable = lib.mkForce false;
   environment.systemPackages = with pkgs; [
     cosmic-reader
     cosmic-ext-ctl

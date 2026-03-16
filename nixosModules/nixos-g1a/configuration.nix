@@ -10,6 +10,7 @@
     ../shared/desktop-radeon.nix
     ../shared/gnome.nix
     ../shared/cosmic.nix
+    ../shared/kde.nix
     ../shared/gaming.nix
     #../shared/nspawns.nix
     #../shared/guix.nix
@@ -182,6 +183,17 @@
   #  cores = 4; # max concurrent tasks during one build
   #  max-jobs = 4; # max concurrent build job
   #};
+
+  services.displayManager = {
+    cosmic-greeter.enable = false;
+    gdm.enable = true;
+    #gdm.autoLogin.delay = 2;
+    defaultSession = "cosmic";
+    #autoLogin = {
+    #  enable = true;
+    #  user = "paulg";
+    #};
+  };
 
   networking.hostId="367cd464"; # needed by ZFS: head -c 8 /etc/machine-id
   networking.hostName = "nixos-g1a";

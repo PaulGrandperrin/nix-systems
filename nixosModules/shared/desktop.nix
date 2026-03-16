@@ -99,15 +99,6 @@
   services.xserver.exportConfiguration = true; # creates /etc/X11/xorg.conf, see https://github.com/NixOS/nixpkgs/issues/457588
 
   services.displayManager = {
-    gdm = { # gdm, ssdm, lightdm, cosmic-greeter
-      enable = true;
-      wayland = true;
-      #wayland.enable = true;
-      #debug = true;
-    };
-    #lightdm = { # does not work with gnome-shell's lock screen but works with prime.sync
-    #  enable = true;
-    #};
     #autoLogin = { # when using wayland, needs the tty disabling hack
     #  enable = true;
     #  user = "paulg";

@@ -4,6 +4,8 @@
     ./desktop.nix
   ];
 
+  services.displayManager.gdm.enable = lib.mkDefault true;
+
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
