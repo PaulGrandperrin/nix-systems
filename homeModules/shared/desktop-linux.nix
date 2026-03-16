@@ -48,7 +48,7 @@
       speechd # for spd-say
       unstable.lapce
       unstable.sniffnet
-      unstable.zed-editor.fhs
+      (unstable.zed-editor.fhsWithPackages (p: [p.libcap p.zlib]))
       unstable.google-chrome
       #(unstable.zed-editor.overrideAttrs (o: rec {
       #  patches = o.patches ++ [
