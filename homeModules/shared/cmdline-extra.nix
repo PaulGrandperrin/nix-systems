@@ -26,7 +26,7 @@ args @ {pkgs, lib, config, inputs, nixos-flake, home-manager-flake, ...}: {
 
   home = {
     sessionVariables = { # only works for interactive shells, pam works for all kind of sessions
-      GITHUB_TOKEN_CMD = "${pkgs.rbw}/bin/rbw get GitHub -f nixpkgs-review-token"; # for nixpkgs-review
+      GITHUB_TOKEN_CMD = "rbw get GitHub -f nixpkgs-review-token"; # for nixpkgs-review
     };
     packages = with pkgs; [
       (lib.setPrio (-15) unstable.uutils-coreutils-noprefix)
@@ -278,11 +278,11 @@ args @ {pkgs, lib, config, inputs, nixos-flake, home-manager-flake, ...}: {
     skim.enable = true;
     rbw = {
       enable = true;
+      package = pkgs.unstable.rbw;
       settings = {
         email = "paul.grandperrin@gmail.com";
         lock_timeout = 300;
         pinentry = pkgs.pinentry-curses;
-        device_id = "ea9f961d-c0cc-423c-accf-599fc08c42e0";
       };
     };
     zoxide.enable = true;
