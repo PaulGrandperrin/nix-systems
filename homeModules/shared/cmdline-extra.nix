@@ -50,6 +50,8 @@ args @ {pkgs, lib, config, inputs, nixos-flake, home-manager-flake, ...}: {
       unstable.bpftop
 
       # file management
+      lz4
+      b3sum
       rsync
       sshfs
       rclone
