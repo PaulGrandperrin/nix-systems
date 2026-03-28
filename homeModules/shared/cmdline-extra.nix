@@ -83,6 +83,7 @@ args @ {pkgs, lib, config, inputs, nixos-flake, home-manager-flake, ...}: {
       manix
       clinfo
       exiftool
+      waypipe
 
       # dev
       gdb
