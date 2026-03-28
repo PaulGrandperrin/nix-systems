@@ -82,6 +82,7 @@ args @ {pkgs, lib, config, inputs, nixos-flake, home-manager-flake, ...}: {
       hdparm
       manix
       clinfo
+      exiftool
 
       # dev
       gdb
