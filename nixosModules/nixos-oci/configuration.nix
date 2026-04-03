@@ -15,7 +15,7 @@
     ../shared/nspawns.nix
     ../shared/foundationdb.nix
     ../shared/ollama.nix
-    inputs.amadou_server.nixosModules.amadouServer
+    #inputs.amadou_server.nixosModules.amadouServer
   ];
 
   home-manager.users = let 
@@ -238,6 +238,6 @@
 
   paulg.ollama.enable = true;
 
-  services.amadouServer.enable = true;
+  #services.amadouServer.enable = true;
 }
 
