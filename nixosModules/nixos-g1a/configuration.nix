@@ -1,4 +1,56 @@
-{ config, pkgs, lib, inputs, ... }: {
+{ config, pkgs, lib, inputs, ... }: let 
+  # TODO add wayland-protocol-git ??
+  libdrm_override_fn = finalAttrs: previousAttrs: rec {
+    #version = "git";
+    #src = pkgs.fetchFromGitLab {
+    #  domain = "gitlab.freedesktop.org";
+    #  owner = "mesa";
+    #  repo = "libdrm";
+    #  rev = "369990d9660a387f618d0eedc341eb285016243b";
+    #  hash = "sha256-kOaTjBeo4IsfWEk/JBTNId5ikrnpoc9DEjIl7DUd2yE=";
+    #};
+  };
+  mesa_override_fn = finalAttrs: previousAttrs: rec {
+    version = "26.1.0-rc1";
+    src = pkgs.fetchFromGitLab {
+      domain = "gitlab.freedesktop.org";
+      owner = "mesa";
+      repo = "mesa";
+      rev = "mesa-${version}";
+      hash = "sha256-oY2APY/4QIUqN4BRZf3a5uiXL7e2YrdtdP84b/NI/Yk=";
+    };
+    #patches = builtins.filter (p: baseNameOf p != "musl.patch") previousAttrs.patches;
+    outputs = lib.remove "spirv2dxil" previousAttrs.outputs;
+  };
+  mesa = ((pkgs.unstable.mesa.override {
+    libdrm = (pkgs.unstable.libdrm.overrideAttrs libdrm_override_fn);
+    stdenv = pkgs.unstable.stdenvAdapters.withCFlags "-march=znver5 -O3 -pipe" pkgs.unstable.stdenv;
+    #withValgrind = false;
+    galliumDrivers = [
+      #"llvmpipe" # newer than softpipe
+      #"zink" # OpenGL over Vulkan
+      "radeonsi" # can't only be zink because zink doesn't provide VA
+    ];
+    vulkanDrivers = [
+      "amd"
+      #"swrast" # aka lavapipe
+    ];
+  }).overrideAttrs mesa_override_fn);
+  mesa32 = ((pkgs.unstable.pkgsi686Linux.mesa.override {
+    libdrm = (pkgs.unstable.pkgsi686Linux.libdrm.overrideAttrs libdrm_override_fn);
+    stdenv = pkgs.unstable.pkgsi686Linux.stdenvAdapters.withCFlags "-O3 -pipe" pkgs.unstable.pkgsi686Linux.stdenv;
+    #withValgrind = false;
+    galliumDrivers = [
+      #"llvmpipe" # newer than softpipe
+      #"zink" # OpenGL over Vulkan
+      "radeonsi" # can't only be zink because zink doesn't provide VA
+    ];
+    vulkanDrivers = [
+      "amd"
+      #"swrast" # aka lavapipe
+    ];
+  }).overrideAttrs mesa_override_fn);
+in {
   imports = [
     ./hardware-configuration.nix
     ../shared/common.nix
@@ -179,10 +231,13 @@
     cryptsetup
   ];
 
-  #nix.settings = {
+  nix.settings = {
   #  cores = 4; # max concurrent tasks during one build
   #  max-jobs = 4; # max concurrent build job
-  #};
+    system-features = [
+      "gccarch-znver5"
+    ];
+  };
 
   services.displayManager = {
     cosmic-greeter.enable = false;
@@ -232,43 +287,50 @@
   #services.thermald.enable = false; # should be disabled when throttled is enabled
   #services.throttled.enable = true;
 
-  hardware.graphics = let
-    # TODO add wayland-protocol-git ??
-    libdrm_override_fn = finalAttrs: previousAttrs: rec {
-      #version = "git";
-      #src = pkgs.fetchFromGitLab {
-      #  domain = "gitlab.freedesktop.org";
-      #  owner = "mesa";
-      #  repo = "libdrm";
-      #  rev = "369990d9660a387f618d0eedc341eb285016243b";
-      #  hash = "sha256-kOaTjBeo4IsfWEk/JBTNId5ikrnpoc9DEjIl7DUd2yE=";
-      #};
-    };
-    mesa_override_fn = finalAttrs: previousAttrs: rec {
-      version = "26.0.2";
-      src = pkgs.fetchFromGitLab {
-        domain = "gitlab.freedesktop.org";
-        owner = "mesa";
-        repo = "mesa";
-        rev = "mesa-${version}";
-        hash = "sha256-OaE1XM421C0rMep03wM7g4Ttwwn/8z5neLQI8LY9b2U=";
-      };
-      #patches = builtins.filter (p: baseNameOf p != "musl.patch") previousAttrs.patches;
-    };
-  in {
+  hardware.graphics = {
     package = pkgs.unstable.mesa;
     package32 = pkgs.unstable.pkgsi686Linux.mesa;
 
-    #package = ((pkgs.unstable.mesa.override {
-    #  libdrm = (pkgs.unstable.libdrm.overrideAttrs libdrm_override_fn);
-    #}).overrideAttrs mesa_override_fn);
-    #package32 = ((pkgs.unstable.pkgsi686Linux.mesa.override {
-    #  libdrm = (pkgs.unstable.pkgsi686Linux.libdrm.overrideAttrs libdrm_override_fn);
-    #}).overrideAttrs mesa_override_fn);
-
-    #extraPackages = with pkgs.unstable; [];
-    #extraPackages32 = with pkgs.unstable.pkgsi686Linux; [];
+    extraPackages = with pkgs.unstable; [];
+    extraPackages32 = with pkgs.unstable.pkgsi686Linux; [];
   };
+
+  programs.steam.package = lib.mkForce (pkgs.unstable.steam.override {
+    extraProfile = let 
+      drv = pkgs.buildEnv {
+        name = "custom-graphics-drivers";
+        paths = [ mesa ];
+      };
+
+      drv32 = pkgs.buildEnv {
+        name = "custom-graphics-drivers-32bit";
+        paths = [ mesa32 ];
+      };
+    in ''
+      # DRI / GL driver modules
+      export LIBGL_DRIVERS_PATH=${drv}/lib/dri:${drv32}/lib/dri
+      export GALLIUM_DRIVER_PATH=${drv}/lib/dri:${drv32}/lib/dri
+
+      # EGL driver modules
+      # __EGL_VENDOR_LIBRARY_DIRS only adds dirs, but old drivers might get choosen
+      export __EGL_VENDOR_LIBRARY_FILENAMES=${drv}/share/glvnd/egl_vendor.d/50_mesa.json:${drv32}/share/glvnd/egl_vendor.d/50_mesa.json
+
+      # VA-API / VDPAU driver modules
+      export LIBVA_DRIVERS_PATH=${drv}/lib/dri:${drv32}/lib/dri
+      export VDPAU_DRIVER_PATH=${drv}/lib/vdpau:${drv32}/lib/vdpau
+
+      VK_DRIVER_FILES=""
+      for f in ${drv}/share/vulkan/icd.d/*.json ${drv32}/share/vulkan/icd.d/*.json; do
+        [ -f "$f" ] && VK_DRIVER_FILES="''${VK_DRIVER_FILES:+$VK_DRIVER_FILES:}$f"
+      done
+      export VK_DRIVER_FILES
+
+      # Shared libs (libEGL_mesa, libGLX_mesa, libgbm …)
+      # LD_LIBRARY_PATH beats both RUNPATH and the ldconfig cache,
+      # so our Mesa is loaded instead of the system one.
+      export LD_LIBRARY_PATH=${drv}/lib:${drv32}/lib''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
+    '';
+  });
 
   ## might increase compatibility but needs --impure
   ## might need https://github.com/chaotic-cx/nyx/blob/aacb796ccd42be1555196c20013b9b674b71df75/pkgs/mesa-git/default.nix#L54
