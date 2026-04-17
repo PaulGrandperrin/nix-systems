@@ -312,23 +312,27 @@ in {
       export GALLIUM_DRIVER_PATH=${drv}/lib/dri:${drv32}/lib/dri
 
       # EGL driver modules
-      # __EGL_VENDOR_LIBRARY_DIRS only adds dirs, but old drivers might get choosen
-      export __EGL_VENDOR_LIBRARY_FILENAMES=${drv}/share/glvnd/egl_vendor.d/50_mesa.json:${drv32}/share/glvnd/egl_vendor.d/50_mesa.json
+      export __EGL_VENDOR_LIBRARY_DIRS=${drv}/share/glvnd/egl_vendor.d:${drv32}/share/glvnd/egl_vendor.d # doesn't prevent looking at the original driver path
+      export __EGL_VENDOR_LIBRARY_FILENAMES=${drv}/share/glvnd/egl_vendor.d/50_mesa.json:${drv32}/share/glvnd/egl_vendor.d/50_mesa.json # overrides the original driver path
 
       # VA-API / VDPAU driver modules
       export LIBVA_DRIVERS_PATH=${drv}/lib/dri:${drv32}/lib/dri
       export VDPAU_DRIVER_PATH=${drv}/lib/vdpau:${drv32}/lib/vdpau
 
+      # Vulkan ICDs
       VK_DRIVER_FILES=""
       for f in ${drv}/share/vulkan/icd.d/*.json ${drv32}/share/vulkan/icd.d/*.json; do
         [ -f "$f" ] && VK_DRIVER_FILES="''${VK_DRIVER_FILES:+$VK_DRIVER_FILES:}$f"
       done
       export VK_DRIVER_FILES
+      
+      # Vulkan layers
+      export XDG_DATA_DIRS=$(echo "${drv}/share:${drv32}/share:$XDG_DATA_DIRS" | sed 's|/run/opengl-driver[-32]*/share:||g; s|:/run/opengl-driver[-32]*/share||g')
 
       # Shared libs (libEGL_mesa, libGLX_mesa, libgbm …)
       # LD_LIBRARY_PATH beats both RUNPATH and the ldconfig cache,
       # so our Mesa is loaded instead of the system one.
-      export LD_LIBRARY_PATH=${drv}/lib:${drv32}/lib''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
+      export LD_LIBRARY_PATH=$(echo "${drv}/lib:${drv32}/lib:$LD_LIBRARY_PATH" | sed 's|/run/opengl-driver[-32]*/lib:||g; s|:/run/opengl-driver[-32]*/lib||g')
     '';
   });
 
