@@ -49,7 +49,9 @@
       unstable.lapce
       unstable.sniffnet
       (unstable.zed-editor.fhsWithPackages (p: [p.libcap p.zlib]))
-      unstable.google-chrome
+      (unstable.google-chrome.override {
+        commandLineArgs = "--password-store=basic";
+      })
       #(unstable.zed-editor.overrideAttrs (o: rec {
       #  patches = o.patches ++ [
       #    ./0001-allow-experimental-features-in-release-mode.patch
