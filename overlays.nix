@@ -109,6 +109,7 @@ inputs: rec {
     inputs.nur.overlays.default
     inputs.rust-overlay.overlays.default
     inputs.nix-alien.overlays.default
+    inputs.firefox-nightly.overlays.default
     #inputs.lix.overlays.default
   ];
 }

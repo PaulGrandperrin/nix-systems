@@ -295,6 +295,12 @@
       };
     };
 
+    firefox-nightly = {
+      url = "github:nix-community/flake-firefox-nightly";
+      inputs = {
+        nixpkgs.follows = "";
+      };
+    };
   };
 
   outputs = inputs: {
