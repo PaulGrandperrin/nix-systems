@@ -362,11 +362,11 @@ in {
   #services.throttled.enable = true;
 
   hardware.graphics = {
-    package = pkgs.unstable.mesa;
-    package32 = pkgs.unstable.pkgsi686Linux.mesa;
+    #package = pkgs.unstable.mesa;
+    #package32 = pkgs.unstable.pkgsi686Linux.mesa;
 
-    extraPackages = with pkgs.unstable; [];
-    extraPackages32 = with pkgs.unstable.pkgsi686Linux; [];
+    #extraPackages = with pkgs.unstable; [];
+    #extraPackages32 = with pkgs.unstable.pkgsi686Linux; [];
   };
 
   programs.steam.package = lib.mkForce (pkgs.unstable.steam.override {
