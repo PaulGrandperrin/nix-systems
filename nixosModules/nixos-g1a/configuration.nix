@@ -1,4 +1,64 @@
 { config, pkgs, lib, inputs, ... }: let 
+
+  #baseKernel = pkgs.linuxKernel.kernels.linux_6_19;
+  baseKernel = pkgs.unstable.linux_6_18.override { # same conf as 6.19
+    argsOverride = rec {
+      src = pkgs.fetchurl {
+            url = "mirror://kernel/linux/kernel/v${lib.versions.major version}.x/linux-${version}.tar.xz";
+            hash = "sha256-zei/Zzm+Sgd3/tu7pTMLgYjFVoDEWpIqTfoonL7G8YU=";
+      };
+      version = "6.19.14";
+      modDirVersion = version;
+    };
+  };
+  myConfigFile = pkgs.stdenvNoCC.mkDerivation {
+    name = "linux-localmod-config";
+    src = baseKernel.src;  # the kernel tarball
+
+    nativeBuildInputs = with pkgs.buildPackages; [
+      stdenv.cc bison flex perl
+    ];
+
+    # The nixpkgs-generated .config is a Nix store path we can reference
+    nixpkgsConfig = baseKernel.configfile;
+    lsmodFile = ./modprobed.db;  # copied from ~/.config/modprobed.db
+
+    buildPhase = ''
+      # unpack was done by stdenv; now cd into the source
+      cp $nixpkgsConfig .config
+
+      make \
+        ARCH=${pkgs.stdenv.hostPlatform.linuxArch} \
+        HOSTCC=${pkgs.buildPackages.stdenv.cc.targetPrefix}gcc \
+        LSMOD=$lsmodFile \
+        localmodconfig
+    '';
+
+    installPhase = "cp .config $out";
+  };
+  myFeatures = { # from pkgs/os-specific/linux/kernel/generic.nix
+    efiBootStub = true;
+    netfilterRPFilter = true;
+    ia32Emulation = true;
+  };
+  # The NixOS boot.kernelPackages `apply` function always calls kernel.override(...),
+  # which re-runs build.nix from scratch and loses any passthru.features we set via
+  # overrideAttrs. We fix this by replacing .override with a version that re-wraps
+  # its result, so features survive the call chain.
+  wrapWithFeatures = kernel:
+    kernel.overrideAttrs (old: {
+      passthru = (old.passthru or { }) // { features = myFeatures; };
+    })
+    // {
+      # Every .override call produces a new build.nix derivation; wrap it too.
+      override = f: wrapWithFeatures (kernel.override f);
+    };
+  myKernel = wrapWithFeatures (pkgs.linuxManualConfig {
+    inherit (baseKernel) version src modDirVersion;
+    configfile = myConfigFile;
+    allowImportFromDerivation = true;
+  });
+
   # TODO add wayland-protocol-git ??
   libdrm_override_fn = finalAttrs: previousAttrs: rec {
     #version = "git";
@@ -76,15 +136,18 @@ in {
 
   # use latest ZFS compatible linux kernel from unstable
   # manually evaluate `latest-zfs-kernel` to set its `pkgs` to `pkgs.unstable`
-  boot.kernelPackages = ((import "${inputs.srvos}/nixos/mixins/latest-zfs-kernel.nix") {inherit lib config; pkgs = pkgs.unstable;}).boot.kernelPackages;
+  #boot.kernelPackages = ((import "${inputs.srvos}/nixos/mixins/latest-zfs-kernel.nix") {inherit lib config; pkgs = pkgs.unstable;}).boot.kernelPackages;
 
-  #boot.kernelPackages = pkgs.unstable.linuxPackagesFor (pkgs.unstable.linux_6_18.override {
+  boot.kernelPackages = pkgs.linuxKernel.packagesFor myKernel;
+  #boot.initrd.allowMissingModules = true;
+
+  #boot.kernelPackages = pkgs.unstable.linuxPackagesFor (pkgs.unstable.linux_6_19.override {
   #  argsOverride = rec {
   #    src = pkgs.fetchurl {
   #          url = "mirror://kernel/linux/kernel/v${lib.versions.major version}.x/linux-${version}.tar.xz";
-  #          hash = "sha256-7Sw8Vf045oNsCU/ONW8lZ/lRYTC3M1SimFeWA2jFaH8=";
+  #          hash = "sha256-zei/Zzm+Sgd3/tu7pTMLgYjFVoDEWpIqTfoonL7G8YU=";
   #    };
-  #    version = "6.18.13";
+  #    version = "6.19.14";
   #    modDirVersion = version;
   #  };
   #});
@@ -214,15 +277,18 @@ in {
 
   boot = {
     resumeDevice = "/dev/mapper/swap";
-    initrd.luks = {
-      #cryptoModules = lib.mkAfter [ # needed when using aegis but maybe not enough because it doesn't work
-      #  "aegis128"
-      #  "aegis128_aesni"
-      #  "dm_integrity" # async_xor # async_tx # xor # dm_bufio
-      #];
-      devices."swap" = {
-        # device option is already filled by swapDevices[].encrypted.blkDev
-        allowDiscards = true;
+    initrd = {
+      allowMissingModules = true;
+      luks = {
+        #cryptoModules = lib.mkAfter [ # needed when using aegis but maybe not enough because it doesn't work
+        #  "aegis128"
+        #  "aegis128_aesni"
+        #  "dm_integrity" # async_xor # async_tx # xor # dm_bufio
+        #];
+        devices."swap" = {
+          # device option is already filled by swapDevices[].encrypted.blkDev
+          allowDiscards = true;
+        };
       };
     };
   };
