@@ -10,7 +10,6 @@
       vulkan-tools
       libva-utils # vainfo
       vdpauinfo
-      ffmpeg
       mpv
       vlc
       waydroid

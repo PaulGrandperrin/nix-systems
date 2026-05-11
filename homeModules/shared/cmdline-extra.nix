@@ -73,7 +73,7 @@ args @ {pkgs, lib, config, inputs, nixos-flake, home-manager-flake, ...}: {
       wireguard-tools
       cachix
       yt-dlp # replaces youtube-dl
-      ffmpeg
+      unstable.ffmpeg
       sops
       ssh-to-age
       grex
