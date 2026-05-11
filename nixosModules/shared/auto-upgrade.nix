@@ -12,4 +12,10 @@
     };
   };
 
+  systemd.services.nixos-upgrade = {
+    serviceConfig = {
+      LimitNOFILE = 100000000;
+    };
+  };
+
 }
