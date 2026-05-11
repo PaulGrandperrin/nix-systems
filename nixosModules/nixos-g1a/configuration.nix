@@ -347,6 +347,14 @@ in {
     "ttm.pages_limit=29360128"  # Caps pinned memory to 128 - 16 = 112 GiB; in 4k pages
     #"ttm.page_pool_size=29360128" # Forces a minimum preallocated size. This memory becomes inaccessible to the system. Help minimize fragmentation to increase perf.
     "amdgpu.vm_fragment_size=9" # since page_pool_size is lower than pages_limit, increase the chunk size of allocations. (4=64K default, 9=2M)
+    "amdgpu.gpu_recovery=1" # Enables TDR (Timeout Detection and Recovery).
+    
+    # https://gitlab.freedesktop.org/drm/amd/-/work_items/5171#note_3428784
+    #amdgpu.runpm=0 doesn't do anything for APUs
+    #amdgpu.gpu_recovery=1 is the default behavior.
+    #amdgpu.dcdebugmask=0x10 is for turning off PSR, which is an eDP power saving feature.
+    #amdgpu.gfxoff=0 Isn't a valid parameter
+    #amdgpu.mes=0 0 is the default behavior.
   ];
 
 
