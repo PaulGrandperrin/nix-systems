@@ -77,7 +77,7 @@
   };
 
   services.scx = {
-    enable = true;
+    #enable = true;
     scheduler = "scx_lavd";
     package = pkgs.scx.rustscheds; # not interested in C scheds
     extraArgs = [ "--autopower" ];
