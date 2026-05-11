@@ -47,11 +47,11 @@
       util-linux
       which
       zstd
-      unstable.nh
       fh
       zenith
       ruplacer
       (lib.lowPrio neovim)
+      dix
 
       socat
       whois
@@ -83,8 +83,18 @@
     };
     bat.enable = true;
     htop.enable = true;
-    zellij = {
+    nh = {
       enable = true;
+      package = pkgs.unstable.nh;
+      flake = "/etc/nixos/";
+      clean = {
+        enable = true;
+        dates = "05:15:00";
+        extraArgs = "--keep-since 3d --keep 2 --nogcroots";
+      };
+    };
+    zellij = {
+      #enable = true; # FTB because rustc out of date
       #enableFishIntegration = true;
       settings = {
         pane_frames = false;
