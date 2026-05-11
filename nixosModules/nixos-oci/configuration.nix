@@ -155,6 +155,9 @@
     listenAddress = "public"; # default
   };
 
+  # to be able to running wayland apps through waypipe
+  hardware.graphics.enable = true;
+
   boot.zfs.requestEncryptionCredentials = false; # don't ask for password when the machine is headless
 
   environment.systemPackages = with pkgs; [
