@@ -75,6 +75,7 @@
     pcsx2
     #unstable.yuzu
     unstable.perfect_dark
+    unstable.banjorecomp
 
     # gnomeExtensions.gamemode # not anymore in 23.11
   ];
