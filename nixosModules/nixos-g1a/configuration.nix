@@ -1,13 +1,12 @@
 { config, pkgs, lib, inputs, ... }: let 
 
-  #baseKernel = pkgs.linuxKernel.kernels.linux_6_19;
-  baseKernel = pkgs.unstable.linux_6_18.override { # same conf as 6.19
+  baseKernel = pkgs.unstable.linux_6_18.override {
     argsOverride = rec {
       src = pkgs.fetchurl {
             url = "mirror://kernel/linux/kernel/v${lib.versions.major version}.x/linux-${version}.tar.xz";
-            hash = "sha256-zei/Zzm+Sgd3/tu7pTMLgYjFVoDEWpIqTfoonL7G8YU=";
+            hash = "sha256-wz6nWx87xfzKuDZ5DNNoTqtwV/84NGS179imi6YiqDw=";
       };
-      version = "6.19.14";
+      version = "6.18.29";
       modDirVersion = version;
     };
   };
@@ -174,6 +173,14 @@ in {
   #boot.zfs.modulePackage = config.boot.kernelPackages.callPackage (pkgs.unstable.path + "/pkgs/os-specific/linux/zfs/2_4.nix") {configFile = "kernel";};
 
   boot.zfs.allowHibernation = true; # ok because our swap in on a dedicated partition and we use systemd initrd
+
+  boot.kernelPatches = [{
+    name = "amdgpu VPE fix";
+    patch = (pkgs.fetchurl {
+      url = "https://lore.kernel.org/amd-gfx/20260512024834.1945236-1-haoping.liu@amd.com/t.mbox.gz";
+      hash = "sha256-4Enuh0sWjTUVc2FMsfWCX8pPH50cl2j1w46LsrGhAQM=";
+    });
+  }];
 
   home-manager.users = let 
     homeModule = {
