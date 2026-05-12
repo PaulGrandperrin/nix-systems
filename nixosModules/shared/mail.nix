@@ -36,6 +36,8 @@
       '';
     };
   in {
+    wants = [ "opensmtpd.service" ];
+    after = [ "opensmtpd.service" ];
     serviceConfig = {
       Type = "oneshot";
       ExecStart = "${serviceFailureScript}/bin/systemd-service-failure-script %i";
