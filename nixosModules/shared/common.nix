@@ -33,6 +33,16 @@
     inputs
   );
 
+  # fix for https://github.com/systemd/systemd/issues/41227
+  systemd.package = pkgs.systemd.overrideAttrs (oldAttrs: {
+    patches = (oldAttrs.patches or []) ++ [
+      (pkgs.fetchpatch {
+        #url = "https://github.com/systemd/systemd/pull/41232.patch";
+        url = "https://github.com/systemd/systemd/commit/df45055942330fcd2b77389e449905e7f6ca34ec.patch";
+        hash = "sha256-PDh4mP9rYGCglp25346nExU2v6P0WYPfLZgu+YwzZ9c=";
+      })
+    ];
+  });
 
   boot.supportedFilesystems = {
     ext4 = true;
