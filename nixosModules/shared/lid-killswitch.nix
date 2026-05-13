@@ -41,16 +41,17 @@ let
   lid-killswitch-service = {
     description = "Lid Monitor Poweroff";
     wantedBy = [ "sysinit.target"];
-    unitConfig.DefaultDependencies = false;
+    unitConfig = {
+      DefaultDependencies = false; # don't conflict with shutdown.target
+      SurviveFinalKillSignal = "yes";
+    };
     serviceConfig = {
       ExecStart = "${lid-killswitch-script}";
       Restart = "always";
       Type = "exec";
 
-      SurviveFinalKillSignal = "yes";
       KillSignal = "SIGCONT";
       SendSIGKILL = false;
-      DefaultDependencies = false; # don't conflict with shutdown.target
       OOMScoreAdjust = -1000;
     };
   };
