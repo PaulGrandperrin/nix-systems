@@ -10,7 +10,7 @@ in {
   config = mkIf cfg.enable {
     services.ollama = {
       enable = true;
-      acceleration = "vulkan";
+      package = pkgs.ollama-vulkan;
     };
 
     services.nextjs-ollama-llm-ui = {

@@ -52,16 +52,16 @@ in {
 
     services.resolved = {
       enable = true;
-      dnssec = "false"; # https://github.com/systemd/systemd/issues/10579
-      domains = [
-        "~."
-        "grandperrin.fr"
-      ];
-      extraConfig = ''
-        FallbackDNS=
-        DNSOverTLS=true
-        MulticastDNS=true
-      '';
+      settings.Resolve = {
+        Domains = [
+          "~."
+          "grandperrin.fr"
+        ];
+        FallbackDNS = "";
+        DNSSEC = "false"; # https://github.com/systemd/systemd/issues/10579
+        DNSOverTLS = true;
+        MulticastDNS = true;
+      };
     };
 
     systemd.network.networks."10-proton" = {

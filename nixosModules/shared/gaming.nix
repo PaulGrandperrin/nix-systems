@@ -69,7 +69,7 @@
     # gaming
     protonplus
     protontricks
-    lutris
+    # lutris # fails to build because of openldap !
     stockfish
     dolphin-emu
     pcsx2

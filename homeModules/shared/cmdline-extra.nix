@@ -303,6 +303,7 @@ args @ {pkgs, lib, config, inputs, nixos-flake, home-manager-flake, ...}: {
     wezterm = {
       enable = true;
       package = pkgs.unstable.wezterm;
+      settings = {}; # TODO fill from extraConfig
       extraConfig = ''
         local wezterm = require("wezterm")
         

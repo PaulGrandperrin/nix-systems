@@ -167,7 +167,7 @@
       libpulseaudio
       libuuid
       libusb1
-      xorg.libxcb
+      libxcb
       libxkbcommon
       mesa
       nspr
@@ -177,19 +177,19 @@
       systemd
       icu
       openssl
-      xorg.libX11
-      xorg.libXScrnSaver
-      xorg.libXcomposite
-      xorg.libXcursor
-      xorg.libXdamage
-      xorg.libXext
-      xorg.libXfixes
-      xorg.libXi
-      xorg.libXrandr
-      xorg.libXrender
-      xorg.libXtst
-      xorg.libxkbfile
-      xorg.libxshmfence
+      libX11
+      libxscrnsaver
+      libxcomposite
+      libxcursor
+      libxdamage
+      libxext
+      libxfixes
+      libxi
+      libxrandr
+      libxrender
+      libxtst
+      libxkbfile
+      libxshmfence
       zlib
     ];
   };
@@ -315,10 +315,7 @@
     configurationLimit = 4; # prevents running out of space on a 1GB /boot
   };
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.initrd.systemd = {
-    enable = true;
-    emergencyAccess = lib.mkDefault true;
-  };
+  boot.initrd.systemd.emergencyAccess = lib.mkDefault true;
 
   # Set your time zone.
   time.timeZone = "Europe/Paris";

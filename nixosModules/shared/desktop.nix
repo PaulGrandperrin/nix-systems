@@ -42,10 +42,10 @@
   boot.plymouth.theme = "spinner";
   boot.loader.timeout = 0; # hides menu but can be shown by pressing and hilding key at boot
 
-  systemd.sleep.extraConfig = ''
-    HibernateDelaySec=180m
-    HibernateOnACPower=no
-  '';
+  systemd.sleep.settings.Sleep = {
+    HibernateDelaySec = "180m";
+    HibernateOnACPower = "no";
+  };
 
   # TODO customize battery level at which we hibernate using one of:
   # - a /etc/systemd/system-sleep/ script (considered a hack)
@@ -119,6 +119,12 @@
     #CLUTTER_PAINT = "disable-dynamic-max-render-time";
   };
 
+  environment.systemPackages = with pkgs; [
+    piper # gtk interface to ratbagd
+    config.services.scx.package
+    android-tools
+  ];
+
   services.flatpak.enable = true;
   xdg.portal = {
     enable = true; # required for flatpak
@@ -158,16 +164,11 @@
   };
 
   # android
-  programs.adb.enable = true;
   users.users.paulg.extraGroups = ["adbusers"];
 
   hardware.logitech.wireless.enable = true; # includes ltunify
   hardware.logitech.wireless.enableGraphical = true; # includes solaar
   services.ratbagd.enable = true; # gaming mouse
-  environment.systemPackages = with pkgs; [
-    piper # gtk interface to ratbagd
-    config.services.scx.package
-  ];
 
   services.pulseaudio.enable = false;
   security.rtkit.enable = true; # to make realtime scheduling possible in gnome-shell

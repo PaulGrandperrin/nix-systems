@@ -41,7 +41,7 @@
       deluge
       rawtherapee
       libreoffice
-      helvum
+      crosspipe # replaces helvum which is unmaintained
       unstable.popcorntime
       swappy
       speechd # for spd-say

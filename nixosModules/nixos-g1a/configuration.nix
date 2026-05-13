@@ -172,7 +172,7 @@ in {
   boot.zfs.package = lib.mkForce pkgs.unstable.zfs_2_4; # also take zfs userspace from unstable for versions to be in sync
   #boot.zfs.modulePackage = config.boot.kernelPackages.callPackage (pkgs.unstable.path + "/pkgs/os-specific/linux/zfs/2_4.nix") {configFile = "kernel";};
 
-  boot.zfs.allowHibernation = true; # ok because our swap in on a dedicated partition and we use systemd initrd
+  boot.zfs.unsafeAllowHibernation = true; # ok because our swap in on a dedicated partition and we use systemd initrd
 
   boot.kernelPatches = [{
     name = "amdgpu VPE fix";

@@ -68,7 +68,7 @@
       gdu dua dust # ncdu dutree pdu # du alternatives
       duf dysk # df alternatives
       choose
-      dogdns
+      doggo # replaces dogdns which is unmaintained
       wakelan
     ] ++ lib.optionals pkgs.stdenv.isLinux [
       lsb-release
