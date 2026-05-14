@@ -1,6 +1,6 @@
 {
   system.autoUpgrade = {
-    enable = true;
+    #enable = true;
     flake = "git+ssh://git@github.com/PaulGrandperrin/nix-systems?ref=main";
     #flake = "git+file:///etc/nixos/";
     flags = [ "--no-write-lock-file" ]; # updates all inputs but don't write anything to FS
