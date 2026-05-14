@@ -5,7 +5,7 @@
   autoPatchelfHook,
   dpkg,
   stdenvNoCC,
-  xorg,
+  lndir,
 
   xz,
   zlib,
@@ -89,17 +89,17 @@
     buildCommand = ''
       mkdir -p $out
       for i in ${(mkFoundationdbBin "clients" version).out} ${(mkFoundationdbBin "server" version).out}; do
-        ${xorg.lndir}/bin/lndir -silent $i $out
+        ${lndir}/bin/lndir -silent $i $out
       done
 
       mkdir -p $dev
       for i in ${(mkFoundationdbBin "clients" version).dev} ${(mkFoundationdbBin "server" version).dev}; do
-        ${xorg.lndir}/bin/lndir -silent $i $dev
+        ${lndir}/bin/lndir -silent $i $dev
       done
 
       mkdir -p $lib
       for i in ${(mkFoundationdbBin "clients" version).lib} ${(mkFoundationdbBin "server" version).lib}; do
-        ${xorg.lndir}/bin/lndir -silent $i $lib
+        ${lndir}/bin/lndir -silent $i $lib
       done
     '';
 
