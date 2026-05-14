@@ -42,17 +42,17 @@ let
     description = "Lid Monitor Poweroff";
     wantedBy = [ "sysinit.target"];
     unitConfig = {
-      DefaultDependencies = false; # don't conflict with shutdown.target
+      # NOTE we are following the root storage daemon recommendations even though it isn't one: https://systemd.io/ROOT_STORAGE_DAEMONS/
+      DefaultDependencies = "no"; # don't conflict with shutdown.target
+      IgnoreOnIsolate = "yes";
+      RefuseManualStop = "yes";
       SurviveFinalKillSignal = "yes";
     };
     serviceConfig = {
       ExecStart = "${lid-killswitch-script}";
       Restart = "always";
       Type = "exec";
-
-      KillSignal = "SIGCONT";
-      SendSIGKILL = false;
-      OOMScoreAdjust = -1000;
+      OOMScoreAdjust = -1000; # equivalent to disabling OOM killing
     };
   };
 in
