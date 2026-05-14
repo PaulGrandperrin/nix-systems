@@ -188,6 +188,7 @@
     };
     "/export/public" = {
       device = "/IronWolf12TB/clear";
+      fsType = "nfs";
       options = [
         "bind"
         "noatime"
@@ -197,6 +198,7 @@
     };
     "/export/encrypted" = {
       device = "/IronWolf12TB/encrypted";
+      fsType = "nfs";
       options = [
         "bind"
         "noatime"
