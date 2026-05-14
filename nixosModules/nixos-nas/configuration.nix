@@ -297,6 +297,8 @@
     111 4100 4101 4102 20048 # nfs v3
   ];
 
+  hardware.graphics.enable = true; # for waypipe
+
   sops.secrets."yuzu-multiplayer" = {
     restartUnits = [ "yuzu-multiplayer.service" ];
   };
