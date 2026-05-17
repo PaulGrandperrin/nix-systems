@@ -8,7 +8,7 @@
     ../shared/net.nix
     ../shared/wireguard.nix
     ../shared/wg-mounts.nix
-    ../shared/thelounge.nix
+    #../shared/thelounge.nix
     ../shared/headless.nix
   ];
 
