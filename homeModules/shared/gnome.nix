@@ -87,16 +87,16 @@
       repeat-interval = 30;
     };
     "org/gnome/shell" = {
-      favorite-apps = [
-        "org.gnome.Nautilus.desktop"
-        "firefox.desktop"
-        "org.wezfurlong.wezterm.desktop"
-        "code.desktop"
-        "signal-desktop.desktop"
-        "discord.desktop"
-        "org.telegram.desktop.desktop"
-        "gnome-calculator.desktop"
-      ];
+      #favorite-apps = [
+      #  "org.gnome.Nautilus.desktop"
+      #  "firefox.desktop"
+      #  "org.wezfurlong.wezterm.desktop"
+      #  "code.desktop"
+      #  "signal-desktop.desktop"
+      #  "discord.desktop"
+      #  "org.telegram.desktop.desktop"
+      #  "gnome-calculator.desktop"
+      #];
       enabled-extensions = (map (extension: extension.extensionUuid) (builtins.filter (x: x ? extensionUuid) config.home.packages)) ++ [
         "apps-menu@gnome-shell-extensions.gcampax.github.com"
         "places-menu@gnome-shell-extensions.gcampax.github.com"
