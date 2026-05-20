@@ -1,16 +1,17 @@
 { config, pkgs, lib, inputs, ... }: let 
 
-  baseKernel = pkgs.unstable.linux_7_0.override {
-    argsOverride = rec {
-      src = pkgs.fetchurl {
-            url = "mirror://kernel/linux/kernel/v${lib.versions.major version}.x/linux-${version}.tar.xz";
-            hash = "sha256-rAes33bPRiHMUYeiZwJwoaaZUzyKayJeSHjEFq2D8cQ=";
-      };
-      version = "7.0.9";
-      modDirVersion = version;
-    };
-  };
+  #baseKernel = pkgs.unstable.linux_7_0.override {
+  #  argsOverride = rec {
+  #    src = pkgs.fetchurl {
+  #          url = "mirror://kernel/linux/kernel/v${lib.versions.major version}.x/linux-${version}.tar.xz";
+  #          hash = "sha256-rAes33bPRiHMUYeiZwJwoaaZUzyKayJeSHjEFq2D8cQ=";
+  #    };
+  #    version = "7.0.9";
+  #    modDirVersion = version;
+  #  };
+  #};
   #baseKernel = pkgs.unstable.linux_7_0;
+  baseKernel = pkgs.unstable.linux_xanmod_latest;
   myConfigFile = pkgs.stdenvNoCC.mkDerivation {
     name = "linux-localmod-config";
     src = baseKernel.src;  # the kernel tarball
