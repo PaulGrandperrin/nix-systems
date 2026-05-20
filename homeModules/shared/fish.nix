@@ -216,19 +216,19 @@ args @ {pkgs, lib, ...}: {
       nix-prune-gcroots = "find -L /nix/var/nix/gcroots/auto/ -maxdepth 1 -xtype l -exec rm -v {} \\;";
       zfs-auto-snap-prune = "zfs list -t all|rg '@zfs-auto-snap'|cut -d' ' -f1|xargs -n1 -pr zfs destroy -v";
     };
-    plugins = with pkgs.fishPlugins; [
+    plugins = with pkgs.unstable.fishPlugins; [
 
       ### PROMPTS
 
       {
         name = "tide"; # natively async
-        #src = tide.src; # 5.6 on 23.11
-        src = pkgs.fetchFromGitHub {
-          owner = "IlanCosman";
-          repo = "tide";
-          rev = "v6.1.1";
-          sha256 = "sha256-ZyEk/WoxdX5Fr2kXRERQS1U1QHH3oVSyBQvlwYnEYyc=";
-        };
+        src = tide.src;
+        #src = pkgs.fetchFromGitHub {
+        #  owner = "IlanCosman";
+        #  repo = "tide";
+        #  rev = "v6.2.0";
+        #  sha256 = "";
+        #};
       }
       #{
       #  name = "bobthefish"; # need async-prompt to be async
