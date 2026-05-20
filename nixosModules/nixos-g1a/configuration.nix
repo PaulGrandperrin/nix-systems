@@ -188,7 +188,7 @@ in {
       name = "MT7925 bluetooth fix";
       patch = (pkgs.fetchurl {
         url = "https://lore.kernel.org/all/770d36b07311bf88210c187923f243fb9f126f04.1777058551.git.pav@iki.fi/t.mbox.gz";
-        hash = "sha256-oEjeqBbRHHn3KuD41keYAaHJl6Zkz78rSQzPvg8b9jQ=";
+        hash = "sha256-L7yLvq4Jp7/rQ6VimH+Y++sdDphmMmaknw+v5O3O1sU=";
       });
     }
   ];
