@@ -9,6 +9,7 @@
     #rocmPackages.amdsmi
     #rocmPackages.rocminfo
     amd-debug-tools
+    ryzenadj
   ];
 
   # https://wiki.nixos.org/wiki/AMD_GPU#HIP
