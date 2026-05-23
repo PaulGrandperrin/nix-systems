@@ -11,7 +11,7 @@
   #  };
   #};
   #baseKernel = pkgs.unstable.linux_7_0;
-  baseKernel = pkgs.unstable.linux_xanmod_latest;
+  baseKernel = pkgs.unstable.linux_zen;
   myConfigFile = pkgs.stdenvNoCC.mkDerivation {
     name = "linux-localmod-config";
     src = baseKernel.src;  # the kernel tarball
@@ -139,7 +139,13 @@ in {
   # manually evaluate `latest-zfs-kernel` to set its `pkgs` to `pkgs.unstable`
   #boot.kernelPackages = ((import "${inputs.srvos}/nixos/mixins/latest-zfs-kernel.nix") {inherit lib config; pkgs = pkgs.unstable;}).boot.kernelPackages;
 
-  boot.kernelPackages = pkgs.linuxKernel.packagesFor myKernel;
+  boot.kernelPackages = pkgs.linuxKernel.packagesFor (myKernel.overrideAttrs (old: {
+    makeFlags = (old.makeFlags or []) ++ [
+      # https://origin.kernel.org/doc/html/v7.0/kbuild/kbuild.html
+      "KCFLAGS=-march=znver5 -mtune=znver5 -O3 -pipe" # adds to KBUILD_CFLAGS
+      "KRUSTFLAGS=-C target-cpu=znver5 -Z tune-cpu=znver5 -C opt-level=3" # adds to KBUILD_RUSTFLAGS
+    ];
+  }));
   #boot.initrd.allowMissingModules = true;
 
   #boot.kernelPackages = pkgs.unstable.linuxPackagesFor (pkgs.unstable.linux_6_19.override {
@@ -176,6 +182,10 @@ in {
 
   boot.zfs.unsafeAllowHibernation = true; # ok because our swap in on a dedicated partition and we use systemd initrd
 
+  # https://gitweb.gentoo.org/proj/linux-patches.git/tree/?h=7.0
+  # https://github.com/CachyOS/kernel-patches/
+  # https://github.com/zen-kernel/zen-kernel/commits/7.0/zen-sauce/
+  # https://gitlab.com/xanmod/linux-patches/-/tree/master?ref_type=heads
   boot.kernelPatches = [
     {
       name = "amdgpu VPE fix";
@@ -191,6 +201,20 @@ in {
         hash = "sha256-L7yLvq4Jp7/rQ6VimH+Y++sdDphmMmaknw+v5O3O1sU=";
       });
     }
+    #{
+    #  name = "ZEN: Disable stack conservation for GCC";
+    #  patch = (pkgs.fetchurl {
+    #    url = "https://github.com/zen-kernel/zen-kernel/commit/4666accb7aa1155a0f3dac521a4645dd2cab2463.patch";
+    #    hash = "";
+    #  });
+    #}
+    #{
+    #  name = "ZEN: arch/x86: Disable AVX2 and tree vectorization";
+    #  patch = (pkgs.fetchurl {
+    #    url = "https://github.com/zen-kernel/zen-kernel/commit/403290adb07913fd1ce60222506adcc8619dda2c";
+    #    hash = "";
+    #  });
+    #}
   ];
 
   home-manager.users = let 
