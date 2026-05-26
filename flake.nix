@@ -25,11 +25,11 @@
       id   = "nixpkgs";
     };
 
-    nixos-stable.url           = "github:NixOS/nixpkgs/nixos-unstable"; # TODO 26.05
-    nixos-stable-lib.url       = "github:NixOS/nixpkgs/nixos-unstable?dir=lib"; # "github:nix-community/nixpkgs.lib" doesn't work # TODO 26.05
-    nixos-stable-small.url     = "github:NixOS/nixpkgs/nixos-unstable-small"; # TODO 26.05
-    darwin-stable.url          = "github:NixOS/nixpkgs/nixpkgs-25.11-darwin";
-    darwin-unstable.url        = "github:NixOS/nixpkgs/nixpkgs-unstable"; # darwin-unstable for now (https://github.com/NixOS/nixpkgs/issues/107466)
+    nixos-stable.url           = "github:NixOS/nixpkgs/nixos-26.05";
+    nixos-stable-lib.url       = "github:NixOS/nixpkgs/nixos-26.05?dir=lib"; # "github:nix-community/nixpkgs.lib" doesn't work
+    #nixos-stable-small.url     = "github:NixOS/nixpkgs/nixos-26.05-small";
+    #darwin-stable.url          = "github:NixOS/nixpkgs/nixpkgs-25.11-darwin";
+    #darwin-unstable.url        = "github:NixOS/nixpkgs/nixpkgs-unstable"; # darwin-unstable for now (https://github.com/NixOS/nixpkgs/issues/107466)
     nixos-unstable.url         = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-unstable-lib.url     = "github:NixOS/nixpkgs/nixos-unstable?dir=lib";
     #nixos-unstable-small.url   = "github:NixOS/nixpkgs/nixos-unstable-small";
@@ -64,7 +64,7 @@
     };
 
     home-manager-stable = {
-      url = "github:nix-community/home-manager/master"; # TODO release-26.05
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixos-stable-lib"; # not needed by NixOS' module thanks to `home-manager.useGlobalPkgs = true` but needed by the unpriviledged module
     };
     home-manager-unstable = {
@@ -82,10 +82,10 @@
       };
     };
 
-    nixgl = {
-      url = "github:guibou/nixGL";
-      flake = false; # TODO it's now a flake!
-    };
+    #nixgl = {
+    #  url = "github:guibou/nixGL";
+    #  flake = false; # TODO it's now a flake!
+    #};
 
     sops-nix = {
       url = "github:Mic92/sops-nix";
@@ -198,7 +198,7 @@
     };
 
     nixvim = {
-      url = "github:nix-community/nixvim/main"; # TODO nixos-26.05
+      url = "github:nix-community/nixvim/nixos-26.05";
       inputs = {
         nixpkgs.follows = "nixos-stable";
         home-manager.follows = "home-manager-stable";
