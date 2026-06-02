@@ -1,4 +1,4 @@
-{ config, pkgs, lib, inputs, ... }:
+{ config, pkgs, lib, inputs, home-manager-flake, ... }:
 {
   imports = [
     ./xremap.nix
@@ -274,7 +274,20 @@
     # we don't define the final path here because if the parent directory doesn't exist yet ($HOME/.config), it'll create it with root ownership, breaking the session.
   };
   # HM will create $HOME.config with the correct owner
-  home-manager.users.paulg.xdg.configFile."rclone/rclone.conf".source = config.home-manager.users.paulg.lib.file.mkOutOfStoreSymlink config.sops.secrets."rclone.conf".path;
+  #home-manager.users.paulg.xdg.configFile."rclone/rclone.conf".source = config.home-manager.users.paulg.lib.file.mkOutOfStoreSymlink config.sops.secrets."rclone.conf".path;
+
+home-manager.users.paulg.home.activation.setupRcloneConf = 
+  home-manager-flake.lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    RCLONE_DIR="$HOME/.config/rclone"
+    RCLONE_CONF="$RCLONE_DIR/rclone.conf"
+    SECRET_SOURCE="${config.sops.secrets."rclone.conf".path}"
+
+    if [ -f "$SECRET_SOURCE" ]; then
+      $DRY_RUN_CMD mkdir -p "$RCLONE_DIR"
+      $DRY_RUN_CMD cp -f "$SECRET_SOURCE" "$RCLONE_CONF"
+      $DRY_RUN_CMD chmod 600 "$RCLONE_CONF"
+    fi
+  '';
 
   sops.secrets."DelPuppo Guest.nmconnection" = {
     restartUnits = [ "NetworkManager.service" ];
