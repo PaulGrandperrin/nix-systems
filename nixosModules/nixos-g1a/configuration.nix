@@ -410,6 +410,7 @@ in {
     #extraPackages = with pkgs.unstable; [];
     #extraPackages32 = with pkgs.unstable.pkgsi686Linux; [];
   };
+  #hardware.amdgpu.overdrive.enable = true;
 
   programs.steam.package = lib.mkForce (pkgs.unstable.steam.override {
     extraProfile = let 
