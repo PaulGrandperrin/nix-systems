@@ -11,7 +11,7 @@
   #  };
   #};
   #baseKernel = pkgs.unstable.linux_7_0;
-  baseKernel = pkgs.unstable.linux_zen;
+  baseKernel = pkgs.linux_zen;
   myConfigFile = pkgs.stdenvNoCC.mkDerivation {
     name = "linux-localmod-config";
     src = baseKernel.src;  # the kernel tarball
@@ -72,13 +72,13 @@
     #};
   };
   mesa_override_fn = finalAttrs: previousAttrs: rec {
-    version = "26.1.0";
+    version = "26.1.1";
     src = pkgs.fetchFromGitLab {
       domain = "gitlab.freedesktop.org";
       owner = "mesa";
       repo = "mesa";
       rev = "mesa-${version}";
-      hash = "sha256-Ymgtqecx1DinLzygpamX+I15ucL1wenh7p/40IGepIA=";
+      hash = "sha256-OmhBmBGR12Tl+5msiyL8lYQ3XYcDYCqUUjQObEqjytI=";
     };
     #patches = builtins.filter (p: baseNameOf p != "musl.patch") previousAttrs.patches;
     outputs = lib.remove "spirv2dxil" previousAttrs.outputs;
@@ -194,13 +194,13 @@ in {
         hash = "sha256-4Enuh0sWjTUVc2FMsfWCX8pPH50cl2j1w46LsrGhAQM=";
       });
     }
-    {
-      name = "MT7925 bluetooth fix";
-      patch = (pkgs.fetchurl {
-        url = "https://lore.kernel.org/all/770d36b07311bf88210c187923f243fb9f126f04.1777058551.git.pav@iki.fi/t.mbox.gz";
-        hash = "sha256-L7yLvq4Jp7/rQ6VimH+Y++sdDphmMmaknw+v5O3O1sU=";
-      });
-    }
+    #{
+    #  name = "MT7925 bluetooth fix"; # already in zen 7.0.9
+    #  patch = (pkgs.fetchurl {
+    #    url = "https://lore.kernel.org/all/770d36b07311bf88210c187923f243fb9f126f04.1777058551.git.pav@iki.fi/t.mbox.gz";
+    #    hash = "sha256-L7yLvq4Jp7/rQ6VimH+Y++sdDphmMmaknw+v5O3O1sU=";
+    #  });
+    #}
     #{
     #  name = "ZEN: Disable stack conservation for GCC";
     #  patch = (pkgs.fetchurl {
