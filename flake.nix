@@ -35,34 +35,6 @@
     #nixos-unstable-small.url   = "github:NixOS/nixpkgs/nixos-unstable-small";
     #master.url                 = "github:NixOS/nixpkgs/master";
 
-    nur.url = "github:nix-community/NUR";
-
-    nix-on-droid = {
-      url = "github:nix-community/nix-on-droid/master";
-      #url = "github:nix-community/nix-on-droid/release-25.11";
-      inputs = {
-        nixpkgs.follows = "nixos-stable-lib";
-        home-manager.follows = "home-manager-stable"; # TODO try to remove
-      };
-    };
-
-    nix-darwin = {
-      url = "github:lnl7/nix-darwin/master";
-      inputs.nixpkgs.follows = "nixos-stable-lib";
-    };
-
-    devshell = {
-      url = "github:numtide/devshell";
-      inputs.nixpkgs.follows = "nixos-stable-lib";
-    };
-
-    rust-overlay = {
-      url = "github:oxalica/rust-overlay";
-      inputs = {
-        nixpkgs.follows = "nixos-stable";
-      };
-    };
-
     home-manager-stable = {
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixos-stable-lib"; # not needed by NixOS' module thanks to `home-manager.useGlobalPkgs = true` but needed by the unpriviledged module
@@ -72,105 +44,35 @@
       inputs.nixpkgs.follows = "nixos-unstable-lib"; # not needed by NixOS' module thanks to `home-manager.useGlobalPkgs = true` but needed by the unpriviledged module
     };
 
-    nix-alien = {
-      url = "github:thiagokokada/nix-alien";
-      inputs = {
-        nixpkgs.follows = "nixos-stable-lib";
-        flake-compat.follows = "flake-compat";
-        nix-index-database.follows = "nix-index-database";
-      };
-    };
+    ### NOTE alphabetical order from here
 
-    #nixgl = {
-    #  url = "github:guibou/nixGL";
-    #  flake = false; # TODO it's now a flake!
+    #amadou_server = {
+    #  url = "git+ssh://git@github.com/PaulGrandperrin/amadou_server.git?rev=25a3db8d3868bda51c462377361b6ff58a18739c";
+    #  inputs = {
+    #    nixpkgs.follows = "nixos-stable";
+    #  };
     #};
 
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
-      inputs  = {
-        nixpkgs.follows = ""; # optional, not necessary for the module
+    android-nixpkgs = {
+      url = "github:tadfisher/android-nixpkgs/stable";
+      inputs = {
+        nixpkgs.follows = "nixos-stable";
+        devshell.follows = "devshell";
+        flake-utils.follows = "flake-utils";
       };
     };
 
-    git-hooks = {
-      url = "github:cachix/git-hooks.nix";
+    bugstalker = {
+      url = "github:godzie44/BugStalker";
       inputs = {
-        nixpkgs.follows = "nixos-stable-lib";
-        flake-compat.follows = "flake-compat";
-      };  
-    };
-
-    nix-index-database = {
-      url = "github:Mic92/nix-index-database";
-      inputs.nixpkgs.follows = "nixos-stable"; # NOTE doesn't only use the lib
-    };
-
-    nixos-generators = {
-      url = "github:nix-community/nixos-generators";
-      inputs.nixpkgs.follows = "nixos-stable"; # NOTE doesn't only use the lib
+        nixpkgs.follows = "nixos-stable";
+        rust-overlay.follows = "rust-overlay";
+        flake-parts.follows = "flake-parts";
+      };
     };
 
     crane = { # eventually, use dream2nix when it's more stable
       url = "github:ipetkov/crane";
-    };
-
-    xremap-flake = {
-      url = "github:xremap/nix-flake";
-      inputs = {
-        nixpkgs.follows = "nixos-stable"; # NOTE doesn't only use the lib
-        flake-parts.follows = "flake-parts";
-        crane.follows = "crane";
-      };
-    };
-
-    flake-utils = {
-      url = "github:numtide/flake-utils";
-    };
-
-    flake-compat = {
-      url = "github:edolstra/flake-compat";
-      flake = false;
-    };
-
-    flake-parts = {
-      url = "github:hercules-ci/flake-parts";
-      inputs.nixpkgs-lib.follows = "nixos-stable-lib";
-    };
-
-    lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.3";
-
-      inputs = {
-        nixpkgs.follows = "nixos-stable"; # NOTE doesn't only use the lib
-        rust-overlay.follows = "rust-overlay";
-        flake-compat.follows = "flake-compat";
-        flake-parts.follows = "flake-parts";
-        pre-commit-hooks-nix.follows = "git-hooks";
-        crane.follows = "crane";
-      };
-    };
-
-    nix = {
-      url = "github:NixOS/nix";
-
-      inputs = {
-        nixpkgs.follows = "nixos-stable";
-        flake-compat.follows = "flake-compat";
-      };
-    };
-    
-    dwarffs = {
-      url = "github:edolstra/dwarffs";
-      inputs = {
-        nixpkgs.follows = "nixos-stable";
-        nix.follows = "nix";
-      };
-    };
-
-    disko = {
-      url = "github:nix-community/disko";
-      inputs.nixpkgs.follows = "";
     };
 
     devenv = {
@@ -183,36 +85,51 @@
       };
     };
 
-    android-nixpkgs = {
-      url = "github:tadfisher/android-nixpkgs/stable";
+    devshell = {
+      url = "github:numtide/devshell";
+      inputs.nixpkgs.follows = "nixos-stable-lib";
+    };
+
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "";
+    };
+    
+    dwarffs = {
+      url = "github:edolstra/dwarffs";
       inputs = {
         nixpkgs.follows = "nixos-stable";
-        devshell.follows = "devshell";
-        flake-utils.follows = "flake-utils";
+        nix.follows = "nix";
       };
     };
 
-    nixvim = {
-      url = "github:nix-community/nixvim/nixos-26.05";
+    firefox-nightly = {
+      url = "github:nix-community/flake-firefox-nightly";
       inputs = {
-        nixpkgs.follows = "nixos-stable";
-        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "";
       };
     };
 
-    nix-inspect = {
-      url = "github:bluskript/nix-inspect";
-      inputs = {
-        #nixpkgs.follows = "nixos-stable";
-        #parts.follows = "flake-parts";
-      };
+    flake-compat = {
+      url = "github:edolstra/flake-compat";
+      flake = false;
     };
 
-    nixpkgs-update = {
-      url = "github:ryantm/nixpkgs-update";
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixos-stable-lib";
+    };
+
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+    };
+
+    git-hooks = {
+      url = "github:cachix/git-hooks.nix";
       inputs = {
-        # nixpkgs.follows = "nixos-stable"; # don't override so that we can use the cache
-      };
+        nixpkgs.follows = "nixos-stable-lib";
+        flake-compat.follows = "flake-compat";
+      };  
     };
 
     isd = {
@@ -229,6 +146,19 @@
       };
     };
 
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.4.3";
+
+      inputs = {
+        nixpkgs.follows = "nixos-stable"; # NOTE doesn't only use the lib
+        rust-overlay.follows = "rust-overlay";
+        flake-compat.follows = "flake-compat";
+        flake-parts.follows = "flake-parts";
+        pre-commit-hooks-nix.follows = "git-hooks";
+        crane.follows = "crane";
+      };
+    };
+
     #lix = { # too long to build
     #  url = "git+https://git.lix.systems/lix-project/lix.git";
     #  inputs = {
@@ -237,29 +167,6 @@
     #    flake-compat.follows = "flake-compat";
     #  };
     #};
-
-    #nix-cluster = {
-    #  url = "git+ssh://git@github.com/PaulGrandperrin/nix-cluster.git";
-    #  inputs = {
-    #    nixpkgs.follows = "nixos-stable";
-    #  };
-    #};
-
-    #amadou_server = {
-    #  url = "git+ssh://git@github.com/PaulGrandperrin/amadou_server.git?rev=25a3db8d3868bda51c462377361b6ff58a18739c";
-    #  inputs = {
-    #    nixpkgs.follows = "nixos-stable";
-    #  };
-    #};
-
-    bugstalker = {
-      url = "github:godzie44/BugStalker";
-      inputs = {
-        nixpkgs.follows = "nixos-stable";
-        rust-overlay.follows = "rust-overlay";
-        flake-parts.follows = "flake-parts";
-      };
-    };
 
     #nar-alike-deduper = {
     #  #url = "github:PaulGrandperrin/nar-alike-deduper";
@@ -271,6 +178,99 @@
     #    crane.follows = "crane";
     #  };
     #};
+
+    nix = {
+      url = "github:NixOS/nix";
+
+      inputs = {
+        nixpkgs.follows = "nixos-stable";
+        flake-compat.follows = "flake-compat";
+      };
+    };
+
+    nix-alien = {
+      url = "github:thiagokokada/nix-alien";
+      inputs = {
+        nixpkgs.follows = "nixos-stable-lib";
+        flake-compat.follows = "flake-compat";
+        nix-index-database.follows = "nix-index-database";
+      };
+    };
+
+    #nix-cluster = {
+    #  url = "git+ssh://git@github.com/PaulGrandperrin/nix-cluster.git";
+    #  inputs = {
+    #    nixpkgs.follows = "nixos-stable";
+    #  };
+    #};
+
+    nix-darwin = {
+      url = "github:lnl7/nix-darwin/master";
+      inputs.nixpkgs.follows = "nixos-stable-lib";
+    };
+
+    nix-index-database = {
+      url = "github:Mic92/nix-index-database";
+      inputs.nixpkgs.follows = "nixos-stable"; # NOTE doesn't only use the lib
+    };
+
+    nix-inspect = {
+      url = "github:bluskript/nix-inspect";
+      inputs = {
+        #nixpkgs.follows = "nixos-stable";
+        #parts.follows = "flake-parts";
+      };
+    };
+
+    nix-on-droid = {
+      url = "github:nix-community/nix-on-droid/master";
+      #url = "github:nix-community/nix-on-droid/release-25.11";
+      inputs = {
+        nixpkgs.follows = "nixos-stable-lib";
+        home-manager.follows = "home-manager-stable"; # TODO try to remove
+      };
+    };
+
+    #nixgl = {
+    #  url = "github:guibou/nixGL";
+    #  flake = false; # TODO it's now a flake!
+    #};
+
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixos-stable"; # NOTE doesn't only use the lib
+    };
+
+    nixpkgs-update = {
+      url = "github:ryantm/nixpkgs-update";
+      inputs = {
+        # nixpkgs.follows = "nixos-stable"; # don't override so that we can use the cache
+      };
+    };
+
+    nixvim = {
+      url = "github:nix-community/nixvim/nixos-26.05";
+      inputs = {
+        nixpkgs.follows = "nixos-stable";
+        flake-parts.follows = "flake-parts";
+      };
+    };
+
+    nur.url = "github:nix-community/NUR";
+
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs = {
+        nixpkgs.follows = "nixos-stable";
+      };
+    };
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs  = {
+        nixpkgs.follows = ""; # optional, not necessary for the module
+      };
+    };
 
     srvos = {
       url = "github:nix-community/srvos";
@@ -286,10 +286,12 @@
       };
     };
 
-    firefox-nightly = {
-      url = "github:nix-community/flake-firefox-nightly";
+    xremap-flake = {
+      url = "github:xremap/nix-flake";
       inputs = {
-        nixpkgs.follows = "";
+        nixpkgs.follows = "nixos-stable"; # NOTE doesn't only use the lib
+        flake-parts.follows = "flake-parts";
+        crane.follows = "crane";
       };
     };
   };
