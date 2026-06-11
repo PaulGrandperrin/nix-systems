@@ -77,7 +77,6 @@
       inputs = {
         nixpkgs.follows = "nixos-stable-lib";
         flake-compat.follows = "flake-compat";
-        flake-utils.follows = "flake-utils";
         nix-index-database.follows = "nix-index-database";
       };
     };
@@ -99,7 +98,6 @@
       inputs = {
         nixpkgs.follows = "nixos-stable-lib";
         flake-compat.follows = "flake-compat";
-        nixpkgs-stable.follows = "nixos-stable-lib";
       };  
     };
 
@@ -121,10 +119,7 @@
       url = "github:xremap/nix-flake";
       inputs = {
         nixpkgs.follows = "nixos-stable"; # NOTE doesn't only use the lib
-        home-manager.follows = "home-manager-stable";
         flake-parts.follows = "flake-parts";
-        devshell.follows = "devshell";
-        hyprland.follows = ""; # we don't use it
         crane.follows = "crane";
       };
     };
@@ -148,11 +143,11 @@
 
       inputs = {
         nixpkgs.follows = "nixos-stable"; # NOTE doesn't only use the lib
-        flake-utils.follows = "flake-utils";
         rust-overlay.follows = "rust-overlay";
         flake-compat.follows = "flake-compat";
         flake-parts.follows = "flake-parts";
         pre-commit-hooks-nix.follows = "git-hooks";
+        crane.follows = "crane";
       };
     };
 
@@ -201,11 +196,7 @@
       url = "github:nix-community/nixvim/nixos-26.05";
       inputs = {
         nixpkgs.follows = "nixos-stable";
-        home-manager.follows = "home-manager-stable";
-        nix-darwin.follows = "nix-darwin";
         flake-parts.follows = "flake-parts";
-        flake-compat.follows = "flake-compat";
-        git-hooks.follows = "git-hooks";
       };
     };
 
