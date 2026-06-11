@@ -34,15 +34,35 @@
   );
 
   # fix for https://github.com/systemd/systemd/issues/41227
-  systemd.package = pkgs.systemd.overrideAttrs (oldAttrs: {
-    patches = (oldAttrs.patches or []) ++ [
-      (pkgs.fetchpatch {
-        #url = "https://github.com/systemd/systemd/pull/41232.patch";
-        url = "https://github.com/systemd/systemd/commit/df45055942330fcd2b77389e449905e7f6ca34ec.patch";
-        hash = "sha256-PDh4mP9rYGCglp25346nExU2v6P0WYPfLZgu+YwzZ9c=";
-      })
-    ];
-  });
+  systemd.package = lib.throwIfNot (pkgs.systemd.version == "260.1") "systemd version override outdated!" (
+    pkgs.systemd.overrideAttrs (prevAttrs: {
+      version = "260.2";
+      src = prevAttrs.src.override {
+        hash = "sha256-NXmmSV7/9WIW6C8wjdOwaerCy4v7Zcrd8+XDzcS8rEk=";
+      };
+      #patches = (oldAttrs.patches or []) ++ [
+      #  (pkgs.fetchpatch {
+      #    #url = "https://github.com/systemd/systemd/pull/41232.patch";
+      #    url = "https://github.com/systemd/systemd/commit/df45055942330fcd2b77389e449905e7f6ca34ec.patch";
+      #    hash = "sha256-PDh4mP9rYGCglp25346nExU2v6P0WYPfLZgu+YwzZ9c=";
+      #  })
+      #];
+      #mesonFlags = let
+      #  umount-wrapped = pkgs.writeScript "umount-wrapped" ''
+      #  #!/bin/sh
+      #  touch /tmp/umount-path
+      #  chmod 777 /tmp/umount-path
+      #  echo "$PATH --- $@" >> /tmp/umount-path 
+      #  [ -k /run/wrappers/bin/umount ] && exec /run/wrappers/bin/umount "$@"
+      #  [ -k /usr/bin/umount ] && exec /usr/bin/umount "$@"
+      #  exec "${lib.getOutput "mount" pkgs.util-linux}/bin/umount" "$@"
+      #'';
+      #in map (f:
+      #  if lib.hasPrefix "-Dumount-path=" f then "-Dumount-path=${umount-wrapped}"
+      #  else f
+      #) oldAttrs.mesonFlags;
+    })
+  );
 
   boot.supportedFilesystems = {
     ext4 = true;
