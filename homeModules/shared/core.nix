@@ -7,10 +7,7 @@ args @ {pkgs, config, inputs, lib, ...}: {
   # when we use home-manager from a nixosConfiguration, we use `useGlobalPkgs`
   # which reuses the parent nixpkgs which already has the correct config and overlays.
   # we explicitly disable those here, otherwise, those options would conflict with nixos' nixpkgs
-  nixpkgs = lib.mkIf (args ? nixosConfig) {
-    config = lib.mkForce null;
-    overlays = lib.mkForce null;
-  };
+  chaotic.nyx.overlay.enable = !(args ? nixosConfig);
 
   xdg.enable = true; # export XDG vars to ensure the correct directories are used
   targets.genericLinux.enable = pkgs.stdenv.isLinux && ! args ? nixosConfig;
