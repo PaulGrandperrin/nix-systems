@@ -17,6 +17,7 @@ args @ {pkgs, config, inputs, lib, ...}: {
   nix = {
     package = lib.mkDefault pkgs.nix;
     settings = import ../../nix/nix.nix;
+    nixPath = lib.mapAttrsToList (name: path: "${name}=${path.to.path}") config.nix.registry;
   };
 
   # systemd.user.systemctlPath = "/usr/bin/systemctl"; # TODO ?
@@ -24,7 +25,6 @@ args @ {pkgs, config, inputs, lib, ...}: {
     stateVersion = "26.05";
     enableNixpkgsReleaseCheck = true; # check for release version mismatch between Home Manager and Nixpkgs
     sessionVariables = { # only works for interactive shells, pam works for all kind of sessions
-      NIX_PATH = lib.mkForce (lib.concatStringsSep ":" (lib.mapAttrsToList (name: path: "${name}=${path.to.path}") config.nix.registry));
     };
 
     # always keep a reference to the source flake that generated each generations
