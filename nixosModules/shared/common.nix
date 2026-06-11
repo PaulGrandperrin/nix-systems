@@ -6,6 +6,9 @@
     #(inputs.nixos-unstable + "/nixos/modules/programs/nh.nix")
     home-manager-flake.nixosModules.home-manager
     #inputs.dwarffs.nixosModules.dwarffs # broken..
+    inputs.chaotic.nixosModules.nyx-cache
+    inputs.chaotic.nixosModules.nyx-overlay
+    inputs.chaotic.nixosModules.nyx-registry 
     ./mail.nix
     ./sysdig.nix
   ];

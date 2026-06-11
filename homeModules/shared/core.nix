@@ -1,7 +1,17 @@
 args @ {pkgs, config, inputs, lib, ...}: {
   imports = [
     ./cmdline.nix
+    inputs.chaotic.homeManagerModules.default
   ];
+
+  # when we use home-manager from a nixosConfiguration, we use `useGlobalPkgs`
+  # which reuses the parent nixpkgs which already has the correct config and overlays.
+  # we explicitly disable those here, otherwise, those options would conflict with nixos' nixpkgs
+  nixpkgs = lib.mkIf (args ? nixosConfig) {
+    config = lib.mkForce null;
+    overlays = lib.mkForce null;
+  };
+
   xdg.enable = true; # export XDG vars to ensure the correct directories are used
   targets.genericLinux.enable = pkgs.stdenv.isLinux && ! args ? nixosConfig;
 
@@ -17,7 +27,7 @@ args @ {pkgs, config, inputs, lib, ...}: {
     stateVersion = "26.05";
     enableNixpkgsReleaseCheck = true; # check for release version mismatch between Home Manager and Nixpkgs
     sessionVariables = { # only works for interactive shells, pam works for all kind of sessions
-      NIX_PATH = (lib.concatStringsSep ":" (lib.mapAttrsToList (name: path: "${name}=${path.to.path}") config.nix.registry));
+      NIX_PATH = lib.mkForce (lib.concatStringsSep ":" (lib.mapAttrsToList (name: path: "${name}=${path.to.path}") config.nix.registry));
     };
 
     # always keep a reference to the source flake that generated each generations
