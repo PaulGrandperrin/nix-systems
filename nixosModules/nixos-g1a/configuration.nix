@@ -72,13 +72,14 @@
     #};
   };
   mesa_override_fn = finalAttrs: previousAttrs: rec {
-    version = "26.1.1";
+    version = "git";
     src = pkgs.fetchFromGitLab {
       domain = "gitlab.freedesktop.org";
       owner = "mesa";
       repo = "mesa";
-      rev = "mesa-${version}";
-      hash = "sha256-OmhBmBGR12Tl+5msiyL8lYQ3XYcDYCqUUjQObEqjytI=";
+      #rev = "mesa-${version}";
+      rev = "879dd9ca8c37b2cedcd8c0b7626e36e57fd1faa3";
+      hash = "sha256-B0eg3tzqQb8B5pqvJu3cx9c2o8584dIAKy+cdsxvdng=";
     };
     #patches = builtins.filter (p: baseNameOf p != "musl.patch") previousAttrs.patches;
     outputs = lib.remove "spirv2dxil" previousAttrs.outputs;
