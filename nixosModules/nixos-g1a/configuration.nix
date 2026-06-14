@@ -131,6 +131,7 @@ in {
     ../shared/ollama.nix
     ../shared/lid-killswitch.nix
     ../shared/modprobed-db.nix
+    ../shared/amd-ai.nix
     #inputs.lanzaboote.nixosModules.lanzaboote
     #inputs.nix-cluster.nixosModules.nix-cluster
     #inputs.nar-alike-deduper.nixosModules.default
@@ -369,6 +370,8 @@ in {
   services.my-wg = {
     enable = true;
   };
+
+  #paulg.amd-ai.enable = true;
 
   #nixpkgs.overlays = [
   #  (final: prev: {

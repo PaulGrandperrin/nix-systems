@@ -6,13 +6,14 @@
     extra-substituters = [
       #"http://nixos-nas.wg:5000"
       "https://nix-community.cachix.org"
-      "https://cache.nixos.org"
       "https://devenv.cachix.org"
+      "https://nix-amd-ai.cachix.org"
     ];
     extra-trusted-public-keys = [
+      #"nas.grandperrin.fr:QwhwNrClkzxCvdA0z3idUyl76Lmho6JTJLWplKtC2ig="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      "nas.grandperrin.fr:QwhwNrClkzxCvdA0z3idUyl76Lmho6JTJLWplKtC2ig="
       "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
+      "nix-amd-ai.cachix.org-1:F4OU4vw/lV2oiG6SBHZ+nqjl4EFJuqI4X9A7pvaBmhQ="
     ];
   };
 
@@ -206,6 +207,11 @@
       };
     };
 
+    nix-amd-ai = {
+      url = "github:noamsto/nix-amd-ai";
+      # NOTE: don't override inputs in order to use the cache 
+    };
+
     #nix-cluster = {
     #  url = "git+ssh://git@github.com/PaulGrandperrin/nix-cluster.git";
     #  inputs = {
@@ -227,7 +233,7 @@
       url = "github:bluskript/nix-inspect";
       inputs = {
         #nixpkgs.follows = "nixos-stable";
-        #parts.follows = "flake-parts";
+        #flake-parts.follows = "flake-parts";
       };
     };
 
