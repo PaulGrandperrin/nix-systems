@@ -111,7 +111,7 @@
 
   nix = {
     settings = import ../../nix/nix.nix;
-    package = pkgs.lix;
+    #package = pkgs.lix;
     channel.enable = false;
     #gc = {
     #  automatic = true;
