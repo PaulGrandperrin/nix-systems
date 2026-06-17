@@ -11,7 +11,7 @@
   #  };
   #};
   #baseKernel = pkgs.unstable.linux_7_0;
-  baseKernel = pkgs.linux_zen;
+  baseKernel = pkgs.unstable.linux_zen;
   myConfigFile = pkgs.stdenvNoCC.mkDerivation {
     name = "linux-localmod-config";
     src = baseKernel.src;  # the kernel tarball
@@ -141,7 +141,7 @@ in {
   # manually evaluate `latest-zfs-kernel` to set its `pkgs` to `pkgs.unstable`
   #boot.kernelPackages = ((import "${inputs.srvos}/nixos/mixins/latest-zfs-kernel.nix") {inherit lib config; pkgs = pkgs.unstable;}).boot.kernelPackages;
 
-  boot.kernelPackages = pkgs.linuxKernel.packagesFor (myKernel.overrideAttrs (old: {
+  boot.kernelPackages = pkgs.unstable.linuxKernel.packagesFor (myKernel.overrideAttrs (old: {
     makeFlags = (old.makeFlags or []) ++ [
       # https://origin.kernel.org/doc/html/v7.0/kbuild/kbuild.html
       "KCFLAGS=-march=znver5 -mtune=znver5 -O3 -pipe" # adds to KBUILD_CFLAGS
@@ -189,13 +189,13 @@ in {
   # https://github.com/zen-kernel/zen-kernel/commits/7.0/zen-sauce/
   # https://gitlab.com/xanmod/linux-patches/-/tree/master?ref_type=heads
   boot.kernelPatches = [
-    {
-      name = "amdgpu VPE fix";
-      patch = (pkgs.fetchurl {
-        url = "https://lore.kernel.org/amd-gfx/20260512024834.1945236-1-haoping.liu@amd.com/t.mbox.gz";
-        hash = "sha256-4Enuh0sWjTUVc2FMsfWCX8pPH50cl2j1w46LsrGhAQM=";
-      });
-    }
+    #{
+    #  name = "amdgpu VPE fix";
+    #  patch = (pkgs.fetchurl {
+    #    url = "https://lore.kernel.org/amd-gfx/20260512024834.1945236-1-haoping.liu@amd.com/t.mbox.gz";
+    #    hash = "sha256-4Enuh0sWjTUVc2FMsfWCX8pPH50cl2j1w46LsrGhAQM=";
+    #  });
+    #}
     #{
     #  name = "MT7925 bluetooth fix"; # already in zen 7.0.9
     #  patch = (pkgs.fetchurl {
