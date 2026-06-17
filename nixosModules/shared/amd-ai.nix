@@ -12,12 +12,13 @@ in {
   config = mkIf cfg.enable {
     hardware.amd-npu = {
       enable = true;
-      enableNPU = true;         # default; set false for GPU-only hosts (see "Other hardware")
-      enableFastFlowLM = true;  # LLM inference on NPU (requires enableNPU)
-      enableLemonade = true;    # OpenAI-compatible API server
-      enableROCm = true;        # ROCm GPU backends (llamacpp + sd-cpp)
-      enableVulkan = true;      # Vulkan GPU backends (llamacpp + whispercpp)
-      enableImageGen = true;    # default true; set false to drop sd-cpp from closure
+      enableNPU = true;
+      enableFastFlowLM = true;
+      enableLemonade = true;
+      enableROCm = true;
+      enableVulkan = true;
+      enableImageGen = true;
+
       lemonade.user = "paulg";
     };
 
