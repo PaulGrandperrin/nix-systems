@@ -24,9 +24,11 @@
           #SDL SDL2 sdl3 # steam-run quake4
         ];
       };
-      extraCompatPackages = with pkgs.unstable; [
-        steam-play-none
-        proton-ge-bin
+      extraCompatPackages = with pkgs; [
+        unstable.steam-play-none # run linux game as is, even if valve recommends proton
+        #unstable.proton-ge-bin # from nixpkgs
+        proton-ge-custom # from chaotic
+        proton-cachyos_x86_64_v3 # from chaotic
       ];
       extraPackages = with pkgs; [
       ];
