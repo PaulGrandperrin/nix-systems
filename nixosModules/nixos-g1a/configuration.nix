@@ -131,6 +131,7 @@ in {
     ../shared/ollama.nix
     ../shared/lid-killswitch.nix
     ../shared/modprobed-db.nix
+    ../shared/ai.nix
     ../shared/amd-ai.nix
     #inputs.lanzaboote.nixosModules.lanzaboote
     #inputs.nix-cluster.nixosModules.nix-cluster
@@ -434,8 +435,10 @@ in {
     enable = true;
   };
 
+  paulg.ai.enable = true;
   paulg.amd-ai.enable = true;
   systemd.services.lemond.environment.HSA_OVERRIDE_GFX_VERSION = "11.0.0";
+
 
   #nixpkgs.overlays = [
   #  (final: prev: {
