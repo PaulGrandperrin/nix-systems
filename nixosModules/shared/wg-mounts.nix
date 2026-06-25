@@ -8,7 +8,9 @@
       "mountproto=tcp" # NFSv3 only
       "soft" # return errors to client when access is lost, instead of waiting indefinitely
       "softreval" # use cache even when access is lost
-      "timeo=100"
+      "timeo=10" # deciseconds
+      "retrans=1" # 1s + 2*1s = 3s
+      "retry=0"
       "noatime"
       "nodiratime"
       "noauto" # don't mount until needed
@@ -28,7 +30,9 @@
       "mountproto=tcp" # NFSv3 only
       "soft" # return errors to client when access is lost, instead of waiting indefinitely
       "softreval" # use cache even when access is lost
-      "timeo=100"
+      "timeo=10" # deciseconds
+      "retrans=1" # 1s + 2*1s = 3s
+      "retry=0"
       "noatime"
       "nodiratime"
       "noauto" # don't mount until needed
