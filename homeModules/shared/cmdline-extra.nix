@@ -37,6 +37,7 @@ args @ {pkgs, lib, config, inputs, nixos-flake, home-manager-flake, ...}: {
       # nix
       nix-inspect
       nixpkgs-reviewFull
+      nix-tree
 
       # monitoring
       procs
