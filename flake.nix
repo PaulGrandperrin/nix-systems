@@ -178,6 +178,15 @@
     #  };
     #};
 
+    llama-cpp = {
+      url = "github:ggml-org/llama.cpp";
+
+      inputs = {
+        nixpkgs.follows = "nixos-unstable";
+        flake-parts.follows = "flake-parts";
+      };
+    };
+
     #nar-alike-deduper = {
     #  #url = "github:PaulGrandperrin/nar-alike-deduper";
     #  url = "/home/paulg/Repos/nar-alike-deduper/";

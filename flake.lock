@@ -789,6 +789,29 @@
         "type": "github"
       }
     },
+    "llama-cpp": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixos-unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1782642851,
+        "narHash": "sha256-mKwR2cjL4bsv7J24UIBXvXPu1AI7keHdlpY7KqCPtik=",
+        "owner": "ggml-org",
+        "repo": "llama.cpp",
+        "rev": "c1a1c8ee94e37ff7ba2c872e783aaf7f77e0f320",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ggml-org",
+        "repo": "llama.cpp",
+        "type": "github"
+      }
+    },
     "mk-naked-shell": {
       "flake": false,
       "locked": {
@@ -1792,6 +1815,7 @@
         "isd": "isd",
         "isd-unstable": "isd-unstable",
         "lanzaboote": "lanzaboote",
+        "llama-cpp": "llama-cpp",
         "nix": "nix_2",
         "nix-alien": "nix-alien",
         "nix-amd-ai": "nix-amd-ai",
