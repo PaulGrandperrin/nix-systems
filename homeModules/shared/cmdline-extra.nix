@@ -95,6 +95,8 @@ args @ {pkgs, lib, config, inputs, nixos-flake, home-manager-flake, ...}: {
       gnumake
       (lib.setPrio 19 gcc)
       (lib.setPrio 20 clang)
+      unstable.nixd
+      unstable.nil
 
       # doc
       tealdeer # tldr
