@@ -78,8 +78,8 @@
   };
 
   nix.settings = {
-    cores = 4; # max concurrent tasks during one build
-    max-jobs = 2; # max concurrent build job
+    cores = 2; # max concurrent tasks during one build
+    max-jobs = 1; # max concurrent build job
   };
 
   swapDevices = [ ];
@@ -106,7 +106,7 @@
           "222:22"
           "59627:25565"
         ];
-        max-mem = "16G";
+        max-mem = "6G";
         os = "debian";
       };
     };
@@ -239,7 +239,7 @@
     };
   };
 
-  paulg.ollama.enable = true;
+  #paulg.ollama.enable = true;
 
   #services.amadouServer.enable = true;
 }
