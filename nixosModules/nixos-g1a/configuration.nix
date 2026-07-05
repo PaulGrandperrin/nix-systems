@@ -311,7 +311,6 @@ in {
     options = [
       "zfsutil" # needed because of mountpoint=none
       "noatime"
-      "nodiratime"
     ];
   };
 
@@ -321,7 +320,6 @@ in {
     options = [
       "zfsutil" # needed because of mountpoint=none
       "noatime"
-      "nodiratime"
     ];
   };
 
@@ -331,7 +329,6 @@ in {
     options = [
       "zfsutil" # needed because of mountpoint=none
       "noatime"
-      "nodiratime"
       "nofail"
     ];
   };

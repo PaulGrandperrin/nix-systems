@@ -45,7 +45,7 @@
           "nixos" = {
             type = "zfs_fs";
             mountpoint = "/";
-            mountOptions = ["noatime" "nodiratime"];
+            mountOptions = ["noatime"];
             options = {
               #encryption = "aes-128-gcm"; # upgrade to 256 when quantum computing is really a thing
               mountpoint = "legacy";
@@ -55,7 +55,7 @@
           "nixos/home" = {
             type = "zfs_fs";
             mountpoint = "/home";
-            mountOptions = ["noatime" "nodiratime"];
+            mountOptions = ["noatime"];
             options = {
               mountpoint = "legacy";
             };
@@ -63,7 +63,7 @@
           "nixos/nix" = {
             type = "zfs_fs";
             mountpoint = "/nix";
-            mountOptions = ["noatime" "nodiratime"];
+            mountOptions = ["noatime"];
             options = {
               mountpoint = "legacy";
             };

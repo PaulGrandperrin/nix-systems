@@ -76,7 +76,6 @@
     fsType = "zfs";
     options = [
       "noatime"
-      "nodiratime"
     ];
   };
 
@@ -85,7 +84,6 @@
     fsType = "zfs";
     options = [
       "noatime"
-      "nodiratime"
     ];
   };
 
