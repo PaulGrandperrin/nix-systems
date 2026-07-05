@@ -196,9 +196,6 @@
     };
   };
 
-  # avahi required for service discovery
-  services.avahi.enable = true;
-
   services.pipewire = {
     # opens UDP ports 6001-6002
     raopOpenFirewall = true;
