@@ -23,6 +23,7 @@ in {
 
     environment.systemPackages = with pkgs; [
       inputs.llama-cpp.packages.${stdenv.hostPlatform.system}.vulkan
+      unstable.lmstudio
     ];
 
     sops.secrets.HF_TOKEN = {
