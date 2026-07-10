@@ -22,7 +22,8 @@
         buildInputs = [ pkgs.makeWrapper ];
         postBuild = ''
           wrapProgram $out/bin/signal-desktop \
-            --set-default NIXOS_OZONE_WL 1
+            --set-default NIXOS_OZONE_WL 1 \
+            --add-flag "--password-store=gnome-libsecret"
         '';
       })
       (symlinkJoin {
