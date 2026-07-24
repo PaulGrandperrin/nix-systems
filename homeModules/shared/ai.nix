@@ -4,8 +4,9 @@ in {
   ];
   home = {
     packages = with pkgs; [
-      opencode
-      opencode-desktop
+      unstable.opencode
+      unstable.opencode-desktop
+      unstable.pi-coding-agent
     ];
   };
 }
