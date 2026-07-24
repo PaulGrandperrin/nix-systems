@@ -17,8 +17,8 @@ in {
     ];
 
     services.open-webui = {
-      enable = true;
-      package = pkgs.unstable.open-webui;
+      #enable = true;
+      package = pkgs.open-webui;
     };
 
     environment.systemPackages = with pkgs; [
