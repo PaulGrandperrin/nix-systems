@@ -90,6 +90,7 @@ args @ {pkgs, lib, config, inputs, nixos-flake, home-manager-flake, ...}: {
       gdb
       elfutils
       ruby pry
+      python3
       #mycli
       pgcli
       gnumake
