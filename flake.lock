@@ -1572,6 +1572,27 @@
         "type": "github"
       }
     },
+    "opencode": {
+      "inputs": {
+        "nixpkgs": [
+          "nixos-stable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1784518238,
+        "narHash": "sha256-DfLLl5tBNE24AHF3tZmHM6x7srcMjVDFlMWmc7rj7QU=",
+        "owner": "anomalyco",
+        "repo": "opencode",
+        "rev": "cfa134f042151877c03222f34a7bdba2c770609b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "anomalyco",
+        "ref": "production",
+        "repo": "opencode",
+        "type": "github"
+      }
+    },
     "parts": {
       "inputs": {
         "nixpkgs-lib": [
@@ -1823,6 +1844,7 @@
         "nixpkgs-update": "nixpkgs-update",
         "nixvim": "nixvim",
         "nur": "nur",
+        "opencode": "opencode",
         "rust-overlay": "rust-overlay_3",
         "sops-nix": "sops-nix",
         "srvos": "srvos",

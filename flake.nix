@@ -282,6 +282,13 @@
 
     nur.url = "github:nix-community/NUR";
 
+    opencode = {
+      url = "github:anomalyco/opencode/production";
+      inputs = {
+        nixpkgs.follows = "nixos-stable";
+      };
+    };
+
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
       inputs = {

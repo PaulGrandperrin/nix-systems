@@ -57,7 +57,8 @@ inputs: rec {
   #});
   cosmic-unstable = (final: prev: {
     cosmic-applets = prev.unstable.cosmic-applets;
-    cosmic-applibrary = prev.unstable.cosmic-applibrary;
+    cosmic-applibrary = prev.unstable.cosmic-applibrary; # renamed to cosmic-app-library
+    cosmic-app-library = prev.unstable.cosmic-app-library;
     cosmic-bg = prev.unstable.cosmic-bg;
     cosmic-comp = prev.unstable.cosmic-comp;
     cosmic-edit = prev.unstable.cosmic-edit;
@@ -110,6 +111,7 @@ inputs: rec {
     inputs.rust-overlay.overlays.default
     inputs.nix-alien.overlays.default
     inputs.firefox-nightly.overlays.default
+    inputs.opencode.overlays.default
     #inputs.lix.overlays.default
   ];
 }
