@@ -3,10 +3,11 @@ in {
   imports = [
   ];
   home = {
-    packages = with pkgs; [
-      unstable.opencode
-      unstable.opencode-desktop
-      unstable.pi-coding-agent
+    packages = with pkgs.unstable; [
+      opencode
+      opencode-desktop
+      pi-coding-agent
+      nodejs
     ];
   };
 }
