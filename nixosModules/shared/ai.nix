@@ -33,10 +33,7 @@ in {
       sopsFile = ../../secrets/other.yaml;
     };
 
-    programs.fish.loginShellInit = lib.mkAfter ''
-      test -f ${config.sops.secrets.HF_TOKEN.path} && set -gx HF_TOKEN (cat ${config.sops.secrets.HF_TOKEN.path})
-    '';
-
+    environment.sessionVariables.HF_TOKEN_PATH = config.sops.secrets.HF_TOKEN.path;
   };
 
 }
