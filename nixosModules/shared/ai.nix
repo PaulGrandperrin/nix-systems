@@ -12,7 +12,7 @@ in {
   config = mkIf cfg.enable {
     home-manager.users.paulg.home.packages = with pkgs; [
       unstable.python314Packages.huggingface-hub
-      unstable.llama-cpp-vulkan
+      #unstable.llama-cpp-vulkan
       unstable.stable-diffusion-cpp-rocm
     ];
 
@@ -22,7 +22,7 @@ in {
     };
 
     environment.systemPackages = with pkgs; [
-      inputs.llama-cpp.packages.${stdenv.hostPlatform.system}.vulkan
+      #inputs.llama-cpp.packages.${stdenv.hostPlatform.system}.vulkan
       unstable.lmstudio
     ];
 
