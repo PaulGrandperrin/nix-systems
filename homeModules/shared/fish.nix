@@ -101,6 +101,7 @@ args @ {pkgs, lib, ...}: {
       set -U tide_jobs_bg_color 1C1C1C
       set -U tide_jobs_color 5FAF00
       set -U tide_jobs_icon \uf013
+      set -U tide_jobs_number_threshold 1000
       #set -U tide_kubectl_bg_color 1C1C1C
       #set -U tide_kubectl_color 326CE5
       #set -U tide_kubectl_icon \U000f10fe
