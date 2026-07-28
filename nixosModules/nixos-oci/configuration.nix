@@ -208,23 +208,23 @@
         proxyWebsockets = true;
       };
     };
-    #"louis.grandperrin.fr" = {
-    #  enableACME = true;
-    #  forceSSL = true;
-    #  extraConfig = ''
-    #    proxy_redirect off;
-    #  '';
-    #  locations."/" = {
-    #    proxyPass = "http://10.42.0.7:10080/";
-    #    proxyWebsockets = true;
-    #    extraConfig = ''
-    #      #proxy_set_header Host $host:$server_port;
-    #      proxy_set_header X-Real-IP $remote_addr;
-    #      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    #      proxy_set_header X-Forwarded-Proto $scheme;
-    #    '';
-    #  };
-    #};
+    "louis.grandperrin.fr" = {
+      enableACME = true;
+      forceSSL = true;
+      extraConfig = ''
+        proxy_redirect off;
+      '';
+      locations."/" = {
+        proxyPass = "http://10.42.0.7:10080/";
+        proxyWebsockets = true;
+        extraConfig = ''
+          #proxy_set_header Host $host:$server_port;
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto $scheme;
+        '';
+      };
+    };
     "llm.grandperrin.fr" = {
       enableACME = true;
       forceSSL = true;
