@@ -1,7 +1,7 @@
 { config, pkgs, lib, inputs, home-manager-flake, ... }:
 {
   imports = [
-    ./xremap.nix
+    #./xremap.nix
   ];
 
   # don't waste time typing password when the user rights already make it possible to read my password manager's memory
