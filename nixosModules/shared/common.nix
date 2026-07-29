@@ -127,7 +127,7 @@
     clean = {
       enable = true;
       dates = "05:00:00";
-      extraArgs = "--keep-since 3d --keep 2 --nogcroots";
+      extraArgs = "--keep-since 7d --keep 2 --nogcroots";
     };
   };
 
