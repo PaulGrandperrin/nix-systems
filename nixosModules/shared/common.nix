@@ -123,7 +123,6 @@
   programs.nh = {
     enable = true;
     package = pkgs.unstable.nh;
-    flake = "/etc/nixos/";
     clean = {
       enable = true;
       dates = "05:00:00";
