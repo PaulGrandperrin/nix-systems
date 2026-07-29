@@ -1,17 +1,17 @@
 { config, pkgs, lib, inputs, ... }: let 
 
-  #baseKernel = pkgs.unstable.linux_7_0.override {
-  #  argsOverride = rec {
-  #    src = pkgs.fetchurl {
-  #          url = "mirror://kernel/linux/kernel/v${lib.versions.major version}.x/linux-${version}.tar.xz";
-  #          hash = "sha256-rAes33bPRiHMUYeiZwJwoaaZUzyKayJeSHjEFq2D8cQ=";
-  #    };
-  #    version = "7.0.9";
-  #    modDirVersion = version;
-  #  };
-  #};
+  baseKernel = pkgs.unstable.linux_7_1.override {
+    argsOverride = rec {
+      src = pkgs.fetchurl {
+            url = "mirror://kernel/linux/kernel/v${lib.versions.major version}.x/linux-${version}.tar.xz";
+            hash = "sha256-3pmZt4TSKT8A05xi2PkqCKuKVLxOgP/SUKDAnLB6D5g=";
+      };
+      version = "7.0.14";
+      modDirVersion = version;
+    };
+  };
   #baseKernel = pkgs.unstable.linux_7_0;
-  baseKernel = pkgs.unstable.linux_zen;
+  #baseKernel = pkgs.unstable.linux_zen;
   myConfigFile = pkgs.stdenvNoCC.mkDerivation {
     name = "linux-localmod-config";
     src = baseKernel.src;  # the kernel tarball
@@ -72,19 +72,20 @@
     #};
   };
   mesa_override_fn = finalAttrs: previousAttrs: rec {
-    version = "git";
-    src = pkgs.fetchFromGitLab {
-      domain = "gitlab.freedesktop.org";
-      owner = "mesa";
-      repo = "mesa";
-      #rev = "mesa-${version}";
-      rev = "879dd9ca8c37b2cedcd8c0b7626e36e57fd1faa3";
-      hash = "sha256-B0eg3tzqQb8B5pqvJu3cx9c2o8584dIAKy+cdsxvdng=";
-    };
-    #patches = builtins.filter (p: baseNameOf p != "musl.patch") previousAttrs.patches;
+    #version = "git";
+    #src = pkgs.fetchFromGitLab {
+    #  domain = "gitlab.freedesktop.org";
+    #  owner = "mesa";
+    #  repo = "mesa";
+    #  #rev = "mesa-${version}";
+    #  rev = "879dd9ca8c37b2cedcd8c0b7626e36e57fd1faa3";
+    #  hash = "sha256-B0eg3tzqQb8B5pqvJu3cx9c2o8584dIAKy+cdsxvdng=";
+    #};
+    ##patches = builtins.filter (p: baseNameOf p != "musl.patch") previousAttrs.patches;
     outputs = lib.remove "spirv2dxil" previousAttrs.outputs;
   };
-  mesa = ((pkgs.unstable.mesa.override {
+  mesa = ((pkgs.mesa_git.override {
+  #mesa = ((pkgs.unstable.mesa.override {
     libdrm = (pkgs.unstable.libdrm.overrideAttrs libdrm_override_fn);
     stdenv = pkgs.unstable.stdenvAdapters.withCFlags "-march=znver5 -O3 -pipe" pkgs.unstable.stdenv;
     #withValgrind = false;
@@ -98,7 +99,8 @@
       #"swrast" # aka lavapipe
     ];
   }).overrideAttrs mesa_override_fn);
-  mesa32 = ((pkgs.unstable.pkgsi686Linux.mesa.override {
+  mesa32 = ((pkgs.mesa32_git.override {
+  #mesa32 = ((pkgs.unstable.pkgsi686Linux.mesa.override {
     libdrm = (pkgs.unstable.pkgsi686Linux.libdrm.overrideAttrs libdrm_override_fn);
     stdenv = pkgs.unstable.pkgsi686Linux.stdenvAdapters.withCFlags "-O3 -pipe" pkgs.unstable.pkgsi686Linux.stdenv;
     #withValgrind = false;
@@ -142,13 +144,13 @@ in {
   # manually evaluate `latest-zfs-kernel` to set its `pkgs` to `pkgs.unstable`
   #boot.kernelPackages = ((import "${inputs.srvos}/nixos/mixins/latest-zfs-kernel.nix") {inherit lib config; pkgs = pkgs.unstable;}).boot.kernelPackages;
 
-  boot.kernelPackages = pkgs.unstable.linuxKernel.packagesFor (myKernel.overrideAttrs (old: {
-    makeFlags = (old.makeFlags or []) ++ [
-      # https://origin.kernel.org/doc/html/v7.0/kbuild/kbuild.html
-      "KCFLAGS=-march=znver5 -mtune=znver5 -O3 -pipe" # adds to KBUILD_CFLAGS
-      "KRUSTFLAGS=-C target-cpu=znver5 -Z tune-cpu=znver5 -C opt-level=3" # adds to KBUILD_RUSTFLAGS
-    ];
-  }));
+  #boot.kernelPackages = pkgs.unstable.linuxKernel.packagesFor (myKernel.overrideAttrs (old: {
+  #  makeFlags = (old.makeFlags or []) ++ [
+  #    # https://origin.kernel.org/doc/html/v7.0/kbuild/kbuild.html
+  #    "KCFLAGS=-march=znver5 -mtune=znver5 -O3 -pipe" # adds to KBUILD_CFLAGS
+  #    "KRUSTFLAGS=-C target-cpu=znver5 -Z tune-cpu=znver5 -C opt-level=3" # adds to KBUILD_RUSTFLAGS
+  #  ];
+  #}));
   #boot.initrd.allowMissingModules = true;
 
   #boot.kernelPackages = pkgs.unstable.linuxPackagesFor (pkgs.unstable.linux_6_19.override {
@@ -180,7 +182,7 @@ in {
   #  )
   #);
 
-  boot.zfs.package = lib.mkForce pkgs.unstable.zfs_2_4; # also take zfs userspace from unstable for versions to be in sync
+  #boot.zfs.package = lib.mkForce pkgs.unstable.zfs_2_4; # also take zfs userspace from unstable for versions to be in sync
   #boot.zfs.modulePackage = config.boot.kernelPackages.callPackage (pkgs.unstable.path + "/pkgs/os-specific/linux/zfs/2_4.nix") {configFile = "kernel";};
 
   boot.zfs.unsafeAllowHibernation = true; # ok because our swap in on a dedicated partition and we use systemd initrd
@@ -218,69 +220,69 @@ in {
     #    hash = "";
     #  });
     #}
-    {
-      name = "media: platform: amd: Introduce amd isp4 capture driver";
-      patch = (pkgs.fetchurl {
-        url = "https://github.com/torvalds/linux/commit/9a54c285630c0072daef5d526c3f0b697e901065.patch";
-        hash = "sha256-WOubQSXy/0qMo36zzxYzblNLDdQD6n/qOfUakIqSgU4=";
-      });
-    }
-    {
-      name = "media: platform: amd: low level support for isp4 firmware";
-      patch = (pkgs.fetchurl {
-        url = "https://github.com/torvalds/linux/commit/f2f2c3547d6283e79de424c3c6e759899608fa1e.patch";
-        hash = "sha256-d+hrc7PqWcLS8cWaau9uD391xDPZQHDxr5FJ1pW5AWo=";
-      });
-    }
-    {
-      name = "media: platform: amd: Add isp4 fw and hw interface";
-      patch = (pkgs.fetchurl {
-        url = "https://github.com/torvalds/linux/commit/4c5feef6a62c22b578344891232872056415a3dd.patch";
-        hash = "sha256-LE4pzxLN8ZAkDp/yTY+Hc3X+X1X05XB8OTPN1R0Enys=";
-      });
-    }
-    {
-      name = "media: platform: amd: isp4 subdev and firmware loading handling added";
-      patch = (pkgs.fetchurl {
-        url = "https://github.com/torvalds/linux/commit/4e5e7a7ddb4ab9ac35928d7dc72efc8797639dc3.patch";
-        hash = "sha256-5dr4xJVOwPXgjz1X3PcoITIR5V0GeyG+SdymLIqmNQU=";
-      });
-    }
-    {
-      name = "media: platform: amd: isp4 video node and buffers handling added";
-      patch = (pkgs.fetchurl {
-        url = "https://github.com/torvalds/linux/commit/2ccf48af22709b90ea9419cd828c92652d7709ac.patch";
-        hash = "sha256-+8YJ+siavMRQnlLXtL4mAaMQLj+hyD9wn/LC+gOU67k=";
-      });
-    }
-    {
-      name = "media: platform: amd: isp4 debug fs logging and more descriptive errors";
-      patch = (pkgs.fetchurl {
-        url = "https://github.com/torvalds/linux/commit/ec4bec227b9d3796cb78af0d3d9bcdd26f0769c5.patch";
-        hash = "sha256-pGHhMUz3latY0r66mtgkdlLfVP53gd9q1mldw/IAKNc=";
-      });
-    }
-    {
-      name = "Documentation: add documentation of AMD isp 4 driver";
-      patch = (pkgs.fetchurl {
-        url = "https://github.com/torvalds/linux/commit/3cd9b7011519c3fffffb7b6752fc7603be52dc1d.patch";
-        hash = "sha256-8UDhPr91HId2yLhM7MFSBJVOW3QhXrbW7CWXUvJdnSk=";
-      });
-    }
-    {
-      name = "media: platform: amd: isp4: drop stale list reinit before free";
-      patch = (pkgs.fetchurl {
-        url = "https://github.com/torvalds/linux/commit/5d8004bd279579452d7fe9f38396414fc87e1109.patch";
-        hash = "sha256-PeSGHSqafI+7V1jLGpSa2er4184e3yRhs0bM6+asypg=";
-      });
-    }
-    {
-      name = "media: platform: amd: add DRM_AMDGPU dependency";
-      patch = (pkgs.fetchurl {
-        url = "https://github.com/torvalds/linux/commit/e62bb5abdcc0dc57ff09c4db961784582e61cd9b.patch";
-        hash = "sha256-FYdFVGdcaF50pny6kE10VOhZUZQWfRqS7NSE0S4mMwg=";
-      });
-    }
+    #{
+    #  name = "media: platform: amd: Introduce amd isp4 capture driver";
+    #  patch = (pkgs.fetchurl {
+    #    url = "https://github.com/torvalds/linux/commit/9a54c285630c0072daef5d526c3f0b697e901065.patch";
+    #    hash = "sha256-WOubQSXy/0qMo36zzxYzblNLDdQD6n/qOfUakIqSgU4=";
+    #  });
+    #}
+    #{
+    #  name = "media: platform: amd: low level support for isp4 firmware";
+    #  patch = (pkgs.fetchurl {
+    #    url = "https://github.com/torvalds/linux/commit/f2f2c3547d6283e79de424c3c6e759899608fa1e.patch";
+    #    hash = "sha256-d+hrc7PqWcLS8cWaau9uD391xDPZQHDxr5FJ1pW5AWo=";
+    #  });
+    #}
+    #{
+    #  name = "media: platform: amd: Add isp4 fw and hw interface";
+    #  patch = (pkgs.fetchurl {
+    #    url = "https://github.com/torvalds/linux/commit/4c5feef6a62c22b578344891232872056415a3dd.patch";
+    #    hash = "sha256-LE4pzxLN8ZAkDp/yTY+Hc3X+X1X05XB8OTPN1R0Enys=";
+    #  });
+    #}
+    #{
+    #  name = "media: platform: amd: isp4 subdev and firmware loading handling added";
+    #  patch = (pkgs.fetchurl {
+    #    url = "https://github.com/torvalds/linux/commit/4e5e7a7ddb4ab9ac35928d7dc72efc8797639dc3.patch";
+    #    hash = "sha256-5dr4xJVOwPXgjz1X3PcoITIR5V0GeyG+SdymLIqmNQU=";
+    #  });
+    #}
+    #{
+    #  name = "media: platform: amd: isp4 video node and buffers handling added";
+    #  patch = (pkgs.fetchurl {
+    #    url = "https://github.com/torvalds/linux/commit/2ccf48af22709b90ea9419cd828c92652d7709ac.patch";
+    #    hash = "sha256-+8YJ+siavMRQnlLXtL4mAaMQLj+hyD9wn/LC+gOU67k=";
+    #  });
+    #}
+    #{
+    #  name = "media: platform: amd: isp4 debug fs logging and more descriptive errors";
+    #  patch = (pkgs.fetchurl {
+    #    url = "https://github.com/torvalds/linux/commit/ec4bec227b9d3796cb78af0d3d9bcdd26f0769c5.patch";
+    #    hash = "sha256-pGHhMUz3latY0r66mtgkdlLfVP53gd9q1mldw/IAKNc=";
+    #  });
+    #}
+    #{
+    #  name = "Documentation: add documentation of AMD isp 4 driver";
+    #  patch = (pkgs.fetchurl {
+    #    url = "https://github.com/torvalds/linux/commit/3cd9b7011519c3fffffb7b6752fc7603be52dc1d.patch";
+    #    hash = "sha256-8UDhPr91HId2yLhM7MFSBJVOW3QhXrbW7CWXUvJdnSk=";
+    #  });
+    #}
+    #{
+    #  name = "media: platform: amd: isp4: drop stale list reinit before free";
+    #  patch = (pkgs.fetchurl {
+    #    url = "https://github.com/torvalds/linux/commit/5d8004bd279579452d7fe9f38396414fc87e1109.patch";
+    #    hash = "sha256-PeSGHSqafI+7V1jLGpSa2er4184e3yRhs0bM6+asypg=";
+    #  });
+    #}
+    #{
+    #  name = "media: platform: amd: add DRM_AMDGPU dependency";
+    #  patch = (pkgs.fetchurl {
+    #    url = "https://github.com/torvalds/linux/commit/e62bb5abdcc0dc57ff09c4db961784582e61cd9b.patch";
+    #    hash = "sha256-FYdFVGdcaF50pny6kE10VOhZUZQWfRqS7NSE0S4mMwg=";
+    #  });
+    #}
   ];
 
   home-manager.users = let 
@@ -292,6 +294,7 @@ in {
         #../../homeModules/shared/chromium.nix
         ../../homeModules/shared/desktop-linux.nix
         ../../homeModules/shared/gnome.nix
+        ../../homeModules/shared/ai.nix
         #../../homeModules/shared/kodi.nix
         #../../homeModules/shared/rust.nix
         #../../homeModules/shared/wine.nix
@@ -445,14 +448,14 @@ in {
   #  })
   #];
   #nixpkgs.config.rocmTargets = [ "gfx1151" ];
-  paulg.ollama.enable = true;
+  #paulg.ollama.enable = true;
 #  services.ollama = {
 #    package = pkgs.unstable.ollama-rocm;
 #    acceleration = lib.mkForce "rocm";
 #    rocmOverrideGfx = "11.5.1";
 #  };
-  boot.kernelParams = [ # https://strixhalo.wiki/AI/AI_Capabilities_Overview#memory-limits
-    "iommu=pt"                  # Sets IOMMU to "Pass-Through" mode. This helps performance, reducing overhead for the iGPU unified memory access.
+  boot.kernelParams = lib.mkAfter [ # https://strixhalo.wiki/AI/AI_Capabilities_Overview#memory-limits
+    "iommu=off"                  # This helps performance, reducing overhead for the iGPU unified memory access.
     "amdgpu.gttsize=114688"     # Caps GPU unified memory to 112 GiB; Deprecated, use TTM instead
     "ttm.pages_limit=29360128"  # Caps pinned memory to 128 - 16 = 112 GiB; in 4k pages
     #"ttm.page_pool_size=29360128" # Forces a minimum preallocated size. This memory becomes inaccessible to the system. Help minimize fragmentation to increase perf.
@@ -484,12 +487,14 @@ in {
     extraProfile = let 
       drv = pkgs.buildEnv {
         name = "custom-graphics-drivers";
-        paths = [ mesa ];
+        #paths = [ mesa ];
+        paths = [ pkgs.unstable.mesa ];
       };
 
       drv32 = pkgs.buildEnv {
         name = "custom-graphics-drivers-32bit";
-        paths = [ mesa32 ];
+        #paths = [ mesa32 ];
+        paths = [ pkgs.unstable.pkgsi686Linux.mesa ];
       };
     in ''
       # DRI / GL driver modules
