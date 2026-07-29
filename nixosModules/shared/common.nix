@@ -25,8 +25,8 @@
 
   home-manager = {
     useGlobalPkgs = true; # means that pkgs are taken from the nixosSystem and not from home-manager.inputs.nixpkgs
-    useUserPackages = true; # means that pkgs are installed at /etc/profiles instead of $HOME/.nix-profile
-    startAsUserService = true; # activates each user environment on login instead of at boot-up.
+    #useUserPackages = true; # means that pkgs are installed at /etc/profiles instead of $HOME/.nix-profile
+    #startAsUserService = true; # activates each user environment on login instead of at boot-up.
     extraSpecialArgs = config._module.specialArgs;
   };
   
