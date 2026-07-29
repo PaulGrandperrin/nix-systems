@@ -30,12 +30,6 @@ args @ {pkgs, lib, ...}: {
       set -g theme_nerd_fonts yes
       set -g fish_greeting
       ${pkgs.any-nix-shell}/bin/any-nix-shell fish --info-right | source # use fish in nix run and nix-shell
-      source ${
-        pkgs.fetchurl {
-          url = "https://raw.githubusercontent.com/gnachman/iTerm2/c52136b7c0bae545436be8d1441449f19e21faa1/Resources/shell_integration/iterm2_shell_integration.fish";
-          sha256 = "sha256-l7KdmiJlbGy/ozC+l5rrmEebA8kZgV7quYG5I/MHDOI=";
-        }
-      }
       #tide configure --auto --style=Classic --prompt_colors='True color' --classic_prompt_color=Darkest --show_time='24-hour format' --classic_prompt_separators=Angled --powerline_prompt_heads=Sharp --powerline_prompt_tails=Flat --powerline_prompt_style='One line' --prompt_spacing=Compact --icons='Many icons' --transient=No
       set -U tide_aws_bg_color 1C1C1C
       set -U tide_aws_color FF9900
