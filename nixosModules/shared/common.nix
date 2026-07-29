@@ -90,6 +90,7 @@
   environment.sessionVariables = {
     NIX_USER_CONF_FILES = config.sops.secrets.github-public-access-token.path; 
     ENVFS_RESOLVE_ALWAYS = "1";
+    NH_BYPASS_ROOT_CHECK = "true";
     NH_OS_FLAKE = "/etc/nixos";
   };
 

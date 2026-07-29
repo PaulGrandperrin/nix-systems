@@ -9,7 +9,6 @@
   home = {
     sessionVariables = { # only works for interactive shells, pam works for all kind of sessions
       EDITOR = lib.mkDefault "nvim";
-      NH_BYPASS_ROOT_CHECK = "true";
     };
 
     packages = with pkgs; [
