@@ -114,6 +114,7 @@
       #"swrast" # aka lavapipe
     ];
   }).overrideAttrs mesa_override_fn);
+
 in {
   imports = [
     ./hardware-configuration.nix
@@ -182,8 +183,12 @@ in {
   #  )
   #);
 
-  #boot.zfs.package = lib.mkForce pkgs.unstable.zfs_2_4; # also take zfs userspace from unstable for versions to be in sync
-  #boot.zfs.modulePackage = config.boot.kernelPackages.callPackage (pkgs.unstable.path + "/pkgs/os-specific/linux/zfs/2_4.nix") {configFile = "kernel";};
+  boot.kernelPackages = pkgs.unstable.linuxPackagesFor pkgs.unstable.linux_7_1;
+  boot.zfs.package = lib.mkForce pkgs.unstable.zfs_2_4;
+  boot.zfs.modulePackage = config.boot.kernelPackages.zfs_2_4.overrideAttrs (old: {
+    meta = old.meta // { broken = false; };
+    configureFlags = (old.configureFlags or []) ++ [ "--enable-linux-experimental" ];
+  });
 
   boot.zfs.unsafeAllowHibernation = true; # ok because our swap in on a dedicated partition and we use systemd initrd
 
