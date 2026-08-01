@@ -206,7 +206,7 @@ args @ {pkgs, lib, ...}: {
       ssh-keygen-ed25519 = "ssh-keygen -t ed25519";
       nixos-rebuild-gcp = "nixos-rebuild --flake git+file:///etc/nixos#nixos-gcp --use-substitutes --target-host root@gcp.grandperrin.fr";
       update-hardware-conf = "nixos-generate-config --show-hardware-config --no-filesystems > /etc/nixos/nixosModules/$(hostname)/hardware-configuration.nix && git -C /etc/nixos/ commit /etc/nixos/nixosModules/$(hostname)/hardware-configuration.nix -m \"$(hostname): update hardware-configuration.nix\"";
-      nixos-update-flake = "pushd /etc/nixos && nix flake update && git commit -m \"nix flake update\" flake.lock && git push && popd";
+      git-nix-flake-update = "nix flake update && git commit -m \"nix flake update\" flake.lock";
       nixos-test = "nixos-rebuild test --flake /etc/nixos/#$(hostname)-lean -L";
       nix-prune-gcroots = "find -L /nix/var/nix/gcroots/auto/ -maxdepth 1 -xtype l -exec rm -v {} \\;";
       zfs-auto-snap-prune = "zfs list -t all|rg '@zfs-auto-snap'|cut -d' ' -f1|xargs -n1 -pr zfs destroy -v";
