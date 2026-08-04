@@ -13,6 +13,9 @@ inputs: rec {
   };
   local-packages = (final: prev: import ./packages {pkgs = final; inherit inputs;});
   nixpkgs-update = (final: prev: inputs.nixpkgs-update.packages.${prev.stdenv.hostPlatform.system} or {});
+  llm-agents-cached = (final: prev: {
+    llm-agents-cached = inputs.llm-agents.packages.${prev.stdenv.hostPlatform.system};
+  });
   rclonefs = (final: prev: {
     rclone = (prev.symlinkJoin { # create filesystem helpers until https://github.com/NixOS/nixpkgs/issues/258478
       name = "rclone";
@@ -112,6 +115,8 @@ inputs: rec {
     inputs.nix-alien.overlays.default
     inputs.firefox-nightly.overlays.default
     inputs.opencode.overlays.default
+    llm-agents-cached
+    inputs.llm-agents.overlays.shared-nixpkgs
     #inputs.lix.overlays.default
   ];
 }

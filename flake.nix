@@ -8,12 +8,14 @@
       "https://nix-community.cachix.org"
       "https://devenv.cachix.org"
       "https://nix-amd-ai.cachix.org"
+      "https://cache.numtide.com"
     ];
     extra-trusted-public-keys = [
       #"nas.grandperrin.fr:QwhwNrClkzxCvdA0z3idUyl76Lmho6JTJLWplKtC2ig="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
       "nix-amd-ai.cachix.org-1:F4OU4vw/lV2oiG6SBHZ+nqjl4EFJuqI4X9A7pvaBmhQ="
+      "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
     ];
   };
 
@@ -92,6 +94,7 @@
         flake-compat.follows = "flake-compat";
         #nix.follows = "nix"; # don't override so that the cache can be used
         git-hooks.follows = "git-hooks";
+        nixd.inputs.treefmt-nix.follows = "treefmt-nix"; # nixd is an input of devenv, dedupe its treefmt-nix
       };
     };
 
@@ -184,6 +187,15 @@
       inputs = {
         nixpkgs.follows = "nixos-unstable";
         flake-parts.follows = "flake-parts";
+      };
+    };
+
+    llm-agents = {
+      url = "github:numtide/llm-agents.nix";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        treefmt-nix.follows = "treefmt-nix";
+        # NOTE don't override nixpkgs so that the cache can be used
       };
     };
 
@@ -315,6 +327,11 @@
       inputs = {
         nixpkgs.follows = "nixos-stable";
       };
+    };
+
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixos-stable"; # NOTE doesn't only use the lib
     };
 
     xremap-flake = {
