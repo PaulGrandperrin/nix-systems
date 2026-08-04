@@ -79,7 +79,6 @@
       inputs = {
         home-manager.follows = "home-manager-stable"; # TODO try to remove
         flake-schemas.follows = "flake-schemas";
-        rust-overlay.follows = "rust-overlay";
       };
     };
 
