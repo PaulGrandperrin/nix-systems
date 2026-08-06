@@ -9,13 +9,14 @@
     gh.enable = true;
     lazygit.enable = true;
     difftastic = {
+      enable = true;
+      git = {
+        #enable = true;
+        #diffToolMode = true;
+      };
       options = {
-        enable = true;
-        #enableGitIntegration = true;
-        options = {
-          background = "dark";
-          #display = "side-by-side"; # "side-by-side", "side-by-side-show-both", "inline"
-        };
+        background = "dark";
+        #display = "side-by-side"; # "side-by-side", "side-by-side-show-both", "inline"
       };
     };
     delta = {
