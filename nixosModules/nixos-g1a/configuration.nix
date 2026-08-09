@@ -72,15 +72,15 @@
     #};
   };
   mesa_override_fn = finalAttrs: previousAttrs: rec {
-    #version = "git";
-    #src = pkgs.fetchFromGitLab {
-    #  domain = "gitlab.freedesktop.org";
-    #  owner = "mesa";
-    #  repo = "mesa";
-    #  #rev = "mesa-${version}";
-    #  rev = "879dd9ca8c37b2cedcd8c0b7626e36e57fd1faa3";
-    #  hash = "sha256-B0eg3tzqQb8B5pqvJu3cx9c2o8584dIAKy+cdsxvdng=";
-    #};
+    version = "26.2.0";
+    src = pkgs.fetchFromGitLab {
+      domain = "gitlab.freedesktop.org";
+      owner = "mesa";
+      repo = "mesa";
+      rev = "mesa-${version}";
+      #rev = "879dd9ca8c37b2cedcd8c0b7626e36e57fd1faa3";
+      hash = "sha256-g2U24Dz7GFKd3+jkIHFTsIp7Cahe29puU4u4VDbAD50=";
+    };
     ##patches = builtins.filter (p: baseNameOf p != "musl.patch") previousAttrs.patches;
     outputs = lib.remove "spirv2dxil" previousAttrs.outputs;
   };
@@ -492,14 +492,14 @@ in {
     extraProfile = let 
       drv = pkgs.buildEnv {
         name = "custom-graphics-drivers";
-        #paths = [ mesa ];
-        paths = [ pkgs.unstable.mesa ];
+        paths = [ mesa ];
+        #paths = [ pkgs.unstable.mesa ];
       };
 
       drv32 = pkgs.buildEnv {
         name = "custom-graphics-drivers-32bit";
-        #paths = [ mesa32 ];
-        paths = [ pkgs.unstable.pkgsi686Linux.mesa ];
+        paths = [ mesa32 ];
+        #paths = [ pkgs.unstable.pkgsi686Linux.mesa ];
       };
     in ''
       # DRI / GL driver modules
