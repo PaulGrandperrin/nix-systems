@@ -460,7 +460,7 @@ in {
 #    rocmOverrideGfx = "11.5.1";
 #  };
   boot.kernelParams = lib.mkAfter [ # https://strixhalo.wiki/AI/AI_Capabilities_Overview#memory-limits
-    "iommu=off"                  # This helps performance, reducing overhead for the iGPU unified memory access.
+    "iommu=pt"                  # This helps performance, reducing overhead for the iGPU unified memory access. iommu=off breaks wifi
     "amdgpu.gttsize=114688"     # Caps GPU unified memory to 112 GiB; Deprecated, use TTM instead
     "ttm.pages_limit=29360128"  # Caps pinned memory to 128 - 16 = 112 GiB; in 4k pages
     #"ttm.page_pool_size=29360128" # Forces a minimum preallocated size. This memory becomes inaccessible to the system. Help minimize fragmentation to increase perf.
