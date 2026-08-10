@@ -276,6 +276,10 @@
       inputs.nixpkgs.follows = "nixos-stable"; # NOTE doesn't only use the lib
     };
 
+    nixpkgs-multiverse = {
+      url = "github:fzakaria/nixpkgs-multiverse";
+    };
+
     nixpkgs-update = {
       url = "github:ryantm/nixpkgs-update";
       inputs = {

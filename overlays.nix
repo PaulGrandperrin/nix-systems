@@ -32,6 +32,10 @@ inputs: rec {
   isd = (final: prev: {
     isd = inputs.isd.packages.${prev.stdenv.hostPlatform.system}.isd;
   });
+
+  mv = (final: prev: {
+    mv = inputs.nixpkgs-multiverse.multiverse.${prev.stdenv.hostPlatform.system};
+  });
   hostapd = (final: prev: {
     hostapd = prev.hostapd.overrideAttrs (oldAttrs: {
       #patches = oldAttrs.patches ++ [
@@ -105,6 +109,7 @@ inputs: rec {
     nixpkgs-update
     devenv
     isd
+    mv
     #hostapd
     my-yuzu
     #fish-unstable

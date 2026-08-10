@@ -1400,6 +1400,21 @@
         "type": "github"
       }
     },
+    "nixpkgs-multiverse": {
+      "locked": {
+        "lastModified": 1786341869,
+        "narHash": "sha256-x5znipkXo5Mr/PM/343VQF7JcoRLTm6InfvMPZs9NHw=",
+        "owner": "fzakaria",
+        "repo": "nixpkgs-multiverse",
+        "rev": "9a471c11260c47a679be09039fac67f7aa8a6dbe",
+        "type": "github"
+      },
+      "original": {
+        "owner": "fzakaria",
+        "repo": "nixpkgs-multiverse",
+        "type": "github"
+      }
+    },
     "nixpkgs-regression": {
       "locked": {
         "lastModified": 1643052045,
@@ -1932,6 +1947,7 @@
         "nixos-unstable": "nixos-unstable",
         "nixos-unstable-lib": "nixos-unstable-lib",
         "nixpkgs": "nixpkgs_7",
+        "nixpkgs-multiverse": "nixpkgs-multiverse",
         "nixpkgs-update": "nixpkgs-update",
         "nixvim": "nixvim",
         "nur": "nur",
