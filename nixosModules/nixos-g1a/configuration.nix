@@ -72,16 +72,19 @@
     #};
   };
   mesa_override_fn = finalAttrs: previousAttrs: rec {
-    version = "26.2.0";
+    #version = "26.2.0";
+    version = "git-patched";
     src = pkgs.fetchFromGitLab {
       domain = "gitlab.freedesktop.org";
       owner = "mesa";
       repo = "mesa";
-      rev = "mesa-${version}";
-      #rev = "879dd9ca8c37b2cedcd8c0b7626e36e57fd1faa3";
-      hash = "sha256-g2U24Dz7GFKd3+jkIHFTsIp7Cahe29puU4u4VDbAD50=";
+      #rev = "mesa-${version}";
+      rev = "681ce7c2b8eb2c317f8842080ee093e9b29aa13f";
+      hash = "sha256-HHCiHeQDEvX2+nWIX9XZh5ixdgU7oDNGay+Q2qxZcpY=";
     };
-    ##patches = builtins.filter (p: baseNameOf p != "musl.patch") previousAttrs.patches;
+    patches = previousAttrs.patches or [] ++ [
+      ./0001-wsi-wayland-make-present-time-mode-changes-to-IMMEDI.patch
+    ];
     outputs = lib.remove "spirv2dxil" previousAttrs.outputs;
   };
   mesa = ((pkgs.mesa_git.override {
@@ -482,6 +485,8 @@ in {
   hardware.graphics = {
     #package = pkgs.unstable.mesa;
     #package32 = pkgs.unstable.pkgsi686Linux.mesa;
+    package = mesa;
+    package32 = mesa32;
 
     #extraPackages = with pkgs.unstable; [];
     #extraPackages32 = with pkgs.unstable.pkgsi686Linux; [];
