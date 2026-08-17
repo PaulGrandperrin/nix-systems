@@ -4,10 +4,10 @@
     argsOverride = rec {
       src = pkgs.fetchurl {
             url = "mirror://kernel/linux/kernel/v${lib.versions.major version}.x/linux-${version}.tar.xz";
-            hash = "sha256-3pmZt4TSKT8A05xi2PkqCKuKVLxOgP/SUKDAnLB6D5g=";
+            hash = "sha256-+f7z0UwN9TgZAm9L50RZg1wqCw3L9bW72eoZ8IKUArM=";
       };
-      version = "7.0.14";
-      modDirVersion = version;
+      version = "7.2";
+      modDirVersion = "7.2.0";
     };
   };
   #baseKernel = pkgs.unstable.linux_7_0;
@@ -186,11 +186,19 @@ in {
   #  )
   #);
 
-  boot.kernelPackages = pkgs.unstable.linuxPackagesFor pkgs.unstable.linux_7_1;
+  #boot.kernelPackages = pkgs.unstable.linuxPackagesFor pkgs.unstable.linux_7_1;
+  boot.kernelPackages = pkgs.unstable.linuxPackagesFor myKernel;
   boot.zfs.package = lib.mkForce pkgs.unstable.zfs_2_4;
   boot.zfs.modulePackage = config.boot.kernelPackages.zfs_2_4.overrideAttrs (old: {
     meta = old.meta // { broken = false; };
     configureFlags = (old.configureFlags or []) ++ [ "--enable-linux-experimental" ];
+    patches = (old.patches or []) ++ [
+      (pkgs.fetchpatch {
+        name = "zfs-linux-7.2-compat";
+        url = "https://github.com/openzfs/zfs/pull/18677.patch";
+        hash = "sha256-Za7ARm126Wd3ucEtbMqGa0i4yloLJD4sLnCx9Ysq1hg=";
+      })
+    ];
   });
 
   boot.zfs.unsafeAllowHibernation = true; # ok because our swap in on a dedicated partition and we use systemd initrd
