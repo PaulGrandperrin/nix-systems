@@ -491,10 +491,10 @@ in {
   #services.throttled.enable = true;
 
   hardware.graphics = {
-    #package = pkgs.unstable.mesa;
-    #package32 = pkgs.unstable.pkgsi686Linux.mesa;
     package = mesa;
-    package32 = mesa32;
+    #package = pkgs.unstable.mesa;
+    #package32 = mesa32;
+    #package32 = pkgs.unstable.pkgsi686Linux.mesa;
 
     #extraPackages = with pkgs.unstable; [];
     #extraPackages32 = with pkgs.unstable.pkgsi686Linux; [];
@@ -511,8 +511,8 @@ in {
 
       drv32 = pkgs.buildEnv {
         name = "custom-graphics-drivers-32bit";
-        paths = [ mesa32 ];
-        #paths = [ pkgs.unstable.pkgsi686Linux.mesa ];
+        #paths = [ mesa32 ];
+        paths = [ pkgs.unstable.pkgsi686Linux.mesa ];
       };
     in ''
       # DRI / GL driver modules
