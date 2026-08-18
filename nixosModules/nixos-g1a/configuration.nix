@@ -377,7 +377,7 @@ in {
 
   swapDevices = [{
     device = config.boot.resumeDevice;
-    options = ["nofail"];
+    options = ["nofail" "x-systemd.device-timeout=5s"];
     discardPolicy = "both";
     encrypted = {
       enable = true;
