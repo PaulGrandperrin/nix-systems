@@ -1,6 +1,6 @@
 { config, pkgs, lib, inputs, ... }: let 
 
-  baseKernel = pkgs.unstable.linux_7_1.override {
+  baseKernel = pkgs.unstable.linux_7_2.override {
     argsOverride = rec {
       src = pkgs.fetchurl {
             url = "mirror://kernel/linux/kernel/v${lib.versions.major version}.x/linux-${version}.tar.xz";
@@ -185,18 +185,18 @@ in {
   #  )
   #);
 
-  #boot.kernelPackages = pkgs.unstable.linuxPackagesFor pkgs.unstable.linux_7_1;
-  boot.kernelPackages = pkgs.unstable.linuxPackagesFor myKernel;
+  boot.kernelPackages = pkgs.unstable.linuxPackagesFor pkgs.unstable.linux_7_2;
+  #boot.kernelPackages = pkgs.unstable.linuxPackagesFor myKernel;
   boot.zfs.package = lib.mkForce pkgs.unstable.zfs_2_4;
   boot.zfs.modulePackage = config.boot.kernelPackages.zfs_2_4.overrideAttrs (old: {
     meta = old.meta // { broken = false; };
     configureFlags = (old.configureFlags or []) ++ [ "--enable-linux-experimental" ];
     patches = (old.patches or []) ++ [
-      (pkgs.fetchpatch {
-        name = "zfs-linux-7.2-compat";
-        url = "https://github.com/openzfs/zfs/pull/18677.patch";
-        hash = "sha256-Za7ARm126Wd3ucEtbMqGa0i4yloLJD4sLnCx9Ysq1hg=";
-      })
+      #(pkgs.fetchpatch {
+      #  name = "zfs-linux-7.2-compat";
+      #  url = "https://github.com/openzfs/zfs/pull/18677.patch";
+      #  hash = "sha256-Za7ARm126Wd3ucEtbMqGa0i4yloLJD4sLnCx9Ysq1hg=";
+      #})
     ];
   });
 
@@ -207,97 +207,6 @@ in {
   # https://github.com/zen-kernel/zen-kernel/commits/7.0/zen-sauce/
   # https://gitlab.com/xanmod/linux-patches/-/tree/master?ref_type=heads
   boot.kernelPatches = [
-    #{
-    #  name = "amdgpu VPE fix";
-    #  patch = (pkgs.fetchurl {
-    #    url = "https://lore.kernel.org/amd-gfx/20260512024834.1945236-1-haoping.liu@amd.com/t.mbox.gz";
-    #    hash = "sha256-4Enuh0sWjTUVc2FMsfWCX8pPH50cl2j1w46LsrGhAQM=";
-    #  });
-    #}
-    #{
-    #  name = "MT7925 bluetooth fix"; # already in zen 7.0.9
-    #  patch = (pkgs.fetchurl {
-    #    url = "https://lore.kernel.org/all/770d36b07311bf88210c187923f243fb9f126f04.1777058551.git.pav@iki.fi/t.mbox.gz";
-    #    hash = "sha256-L7yLvq4Jp7/rQ6VimH+Y++sdDphmMmaknw+v5O3O1sU=";
-    #  });
-    #}
-    #{
-    #  name = "ZEN: Disable stack conservation for GCC";
-    #  patch = (pkgs.fetchurl {
-    #    url = "https://github.com/zen-kernel/zen-kernel/commit/4666accb7aa1155a0f3dac521a4645dd2cab2463.patch";
-    #    hash = "";
-    #  });
-    #}
-    #{
-    #  name = "ZEN: arch/x86: Disable AVX2 and tree vectorization";
-    #  patch = (pkgs.fetchurl {
-    #    url = "https://github.com/zen-kernel/zen-kernel/commit/403290adb07913fd1ce60222506adcc8619dda2c";
-    #    hash = "";
-    #  });
-    #}
-    #{
-    #  name = "media: platform: amd: Introduce amd isp4 capture driver";
-    #  patch = (pkgs.fetchurl {
-    #    url = "https://github.com/torvalds/linux/commit/9a54c285630c0072daef5d526c3f0b697e901065.patch";
-    #    hash = "sha256-WOubQSXy/0qMo36zzxYzblNLDdQD6n/qOfUakIqSgU4=";
-    #  });
-    #}
-    #{
-    #  name = "media: platform: amd: low level support for isp4 firmware";
-    #  patch = (pkgs.fetchurl {
-    #    url = "https://github.com/torvalds/linux/commit/f2f2c3547d6283e79de424c3c6e759899608fa1e.patch";
-    #    hash = "sha256-d+hrc7PqWcLS8cWaau9uD391xDPZQHDxr5FJ1pW5AWo=";
-    #  });
-    #}
-    #{
-    #  name = "media: platform: amd: Add isp4 fw and hw interface";
-    #  patch = (pkgs.fetchurl {
-    #    url = "https://github.com/torvalds/linux/commit/4c5feef6a62c22b578344891232872056415a3dd.patch";
-    #    hash = "sha256-LE4pzxLN8ZAkDp/yTY+Hc3X+X1X05XB8OTPN1R0Enys=";
-    #  });
-    #}
-    #{
-    #  name = "media: platform: amd: isp4 subdev and firmware loading handling added";
-    #  patch = (pkgs.fetchurl {
-    #    url = "https://github.com/torvalds/linux/commit/4e5e7a7ddb4ab9ac35928d7dc72efc8797639dc3.patch";
-    #    hash = "sha256-5dr4xJVOwPXgjz1X3PcoITIR5V0GeyG+SdymLIqmNQU=";
-    #  });
-    #}
-    #{
-    #  name = "media: platform: amd: isp4 video node and buffers handling added";
-    #  patch = (pkgs.fetchurl {
-    #    url = "https://github.com/torvalds/linux/commit/2ccf48af22709b90ea9419cd828c92652d7709ac.patch";
-    #    hash = "sha256-+8YJ+siavMRQnlLXtL4mAaMQLj+hyD9wn/LC+gOU67k=";
-    #  });
-    #}
-    #{
-    #  name = "media: platform: amd: isp4 debug fs logging and more descriptive errors";
-    #  patch = (pkgs.fetchurl {
-    #    url = "https://github.com/torvalds/linux/commit/ec4bec227b9d3796cb78af0d3d9bcdd26f0769c5.patch";
-    #    hash = "sha256-pGHhMUz3latY0r66mtgkdlLfVP53gd9q1mldw/IAKNc=";
-    #  });
-    #}
-    #{
-    #  name = "Documentation: add documentation of AMD isp 4 driver";
-    #  patch = (pkgs.fetchurl {
-    #    url = "https://github.com/torvalds/linux/commit/3cd9b7011519c3fffffb7b6752fc7603be52dc1d.patch";
-    #    hash = "sha256-8UDhPr91HId2yLhM7MFSBJVOW3QhXrbW7CWXUvJdnSk=";
-    #  });
-    #}
-    #{
-    #  name = "media: platform: amd: isp4: drop stale list reinit before free";
-    #  patch = (pkgs.fetchurl {
-    #    url = "https://github.com/torvalds/linux/commit/5d8004bd279579452d7fe9f38396414fc87e1109.patch";
-    #    hash = "sha256-PeSGHSqafI+7V1jLGpSa2er4184e3yRhs0bM6+asypg=";
-    #  });
-    #}
-    #{
-    #  name = "media: platform: amd: add DRM_AMDGPU dependency";
-    #  patch = (pkgs.fetchurl {
-    #    url = "https://github.com/torvalds/linux/commit/e62bb5abdcc0dc57ff09c4db961784582e61cd9b.patch";
-    #    hash = "sha256-FYdFVGdcaF50pny6kE10VOhZUZQWfRqS7NSE0S4mMwg=";
-    #  });
-    #}
   ];
 
   home-manager.users = let 
