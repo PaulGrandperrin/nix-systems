@@ -79,11 +79,10 @@
       owner = "mesa";
       repo = "mesa";
       #rev = "mesa-${version}";
-      rev = "681ce7c2b8eb2c317f8842080ee093e9b29aa13f";
-      hash = "sha256-HHCiHeQDEvX2+nWIX9XZh5ixdgU7oDNGay+Q2qxZcpY=";
+      rev = "dcb47270b483a3e9c34847dcdc31d0fa74a3414f"; # includes my wayland IMMEDIATE fix
+      hash = "sha256-qaylFBEehfvm4UYCiEBfRO68jwuCdRIXa6kMfWHgUSs=";
     };
     patches = previousAttrs.patches or [] ++ [
-      ./0001-wsi-wayland-make-present-time-mode-changes-to-IMMEDI.patch
     ];
     outputs = lib.remove "spirv2dxil" previousAttrs.outputs;
   };
