@@ -495,6 +495,13 @@ in {
   services.thermald.enable = lib.mkForce false; # mostly intel specific but shouldn't conflict with ppd
   services.power-profiles-daemon.enable = lib.mkForce true; # /sys/firmware/acpi/platform_profile_choices
 
+  # Work around HP ZBook Ultra G1a BIOS 01.05.07 causing AMD PMF TEE
+  # errors after s2idle resume. Keep PMF loaded but disable Smart PC Support.
+  # https://h30434.www3.hp.com/t5/Business-Notebooks/HP-ZBook-Ultra-G1a-Issues-after-bios-upgrade-to-1-05-07/td-p/9664151
+  boot.extraModprobeConfig = ''
+    options amd_pmf smart_pc_support=0
+  '';
+
   #boot.kernelParams = [
   #"amd_pstate=active" # useless as it's the default
   #  "pcie_aspm=force" 
