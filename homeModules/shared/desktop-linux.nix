@@ -43,7 +43,7 @@
       rawtherapee
       libreoffice
       crosspipe # replaces helvum which is unmaintained
-      unstable.popcorntime
+      #unstable.popcorntime # removed in https://github.com/NixOS/nixpkgs/pull/559328
       swappy
       speechd # for spd-say
       unstable.lapce
