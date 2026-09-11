@@ -294,6 +294,13 @@ in {
     };
   }];
 
+  services.smartd.devices = [
+    {
+      device = "/dev/nvme0";
+      options = "-a -o on -W 2,65,70";
+    }
+  ];
+
   # cryptsetup luksFormat /dev/disk/by-partlabel/encrypted_swap \
   #  --type luks2 \
   #  --sector-size 4096 \
