@@ -4,10 +4,10 @@
     argsOverride = rec {
       src = pkgs.fetchurl {
             url = "mirror://kernel/linux/kernel/v${lib.versions.major version}.x/linux-${version}.tar.xz";
-            hash = "sha256-+f7z0UwN9TgZAm9L50RZg1wqCw3L9bW72eoZ8IKUArM=";
+            hash = "sha256-AXEO4Bc32sSS8brlK+zQV+CNINEViQiaoGrM/0FcKN0=";
       };
-      version = "7.2";
-      modDirVersion = "7.2.0";
+      version = "7.2.4";
+      modDirVersion = "7.2.4";
     };
   };
   #baseKernel = pkgs.unstable.linux_7_0;
@@ -79,8 +79,8 @@
       owner = "mesa";
       repo = "mesa";
       #rev = "mesa-${version}";
-      rev = "dcb47270b483a3e9c34847dcdc31d0fa74a3414f"; # includes my wayland IMMEDIATE fix
-      hash = "sha256-qaylFBEehfvm4UYCiEBfRO68jwuCdRIXa6kMfWHgUSs=";
+      rev = "72ebd91e19f885f95de030bcedd4f12e614dbbbf"; # includes my wayland IMMEDIATE fix
+      hash = "sha256-VdXCrO2mDmcpbIf63ebHhQ0F06jgBnXr6XKeZKpiKJo=";
     };
     patches = previousAttrs.patches or [] ++ [
     ];
@@ -185,8 +185,8 @@ in {
   #  )
   #);
 
-  boot.kernelPackages = pkgs.unstable.linuxPackagesFor pkgs.unstable.linux_7_2;
-  #boot.kernelPackages = pkgs.unstable.linuxPackagesFor myKernel;
+  #boot.kernelPackages = pkgs.unstable.linuxPackagesFor pkgs.unstable.linux_7_2;
+  boot.kernelPackages = pkgs.unstable.linuxPackagesFor myKernel;
   boot.zfs.package = lib.mkForce pkgs.unstable.zfs_2_4;
   boot.zfs.modulePackage = config.boot.kernelPackages.zfs_2_4.overrideAttrs (old: {
     meta = old.meta // { broken = false; };
