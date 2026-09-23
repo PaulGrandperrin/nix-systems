@@ -122,6 +122,7 @@ inputs: rec {
     inputs.opencode.overlays.default
     llm-agents-cached
     inputs.llm-agents.overlays.shared-nixpkgs
+    inputs.comfyui-nix.overlays.default
     #inputs.lix.overlays.default
   ];
 }

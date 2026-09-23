@@ -145,6 +145,27 @@
         "type": "github"
       }
     },
+    "comfyui-nix": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "lastModified": 1788968328,
+        "narHash": "sha256-mx9MwY1G1SFTWe1XwHgXTdFKdlmGhYsL8LQcPRMF/QE=",
+        "owner": "utensils",
+        "repo": "comfyui-nix",
+        "rev": "5e6d5155d302a015645164d195a6ad79f00ed43a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "utensils",
+        "repo": "comfyui-nix",
+        "type": "github"
+      }
+    },
     "crane": {
       "locked": {
         "lastModified": 1790899423,
@@ -208,7 +229,7 @@
         ],
         "nix": "nix",
         "nixd": "nixd",
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": "nixpkgs_3",
         "rust-overlay": "rust-overlay"
       },
       "locked": {
@@ -844,7 +865,7 @@
         "flake-parts": [
           "flake-parts"
         ],
-        "nixpkgs": "nixpkgs_3",
+        "nixpkgs": "nixpkgs_4",
         "systems": "systems_5",
         "treefmt-nix": [
           "treefmt-nix"
@@ -1000,7 +1021,7 @@
         "flake-compat": "flake-compat_3",
         "flake-parts": "flake-parts_4",
         "nix-darwin": "nix-darwin",
-        "nixpkgs": "nixpkgs_4"
+        "nixpkgs": "nixpkgs_5"
       },
       "locked": {
         "lastModified": 1791276326,
@@ -1107,7 +1128,7 @@
     "nix-inspect": {
       "inputs": {
         "nci": "nci",
-        "nixpkgs": "nixpkgs_5",
+        "nixpkgs": "nixpkgs_6",
         "parts": "parts_2"
       },
       "locked": {
@@ -1453,7 +1474,7 @@
     "nixpkgs-update": {
       "inputs": {
         "mmdoc": "mmdoc",
-        "nixpkgs": "nixpkgs_7",
+        "nixpkgs": "nixpkgs_8",
         "runtimeDeps": "runtimeDeps",
         "treefmt-nix": "treefmt-nix"
       },
@@ -1472,6 +1493,22 @@
       }
     },
     "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1788752844,
+        "narHash": "sha256-VaWGJ6+cIYN2erfSecbRV+4ljI185Ty2wUrXyvQbgOw=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "dc5d91f840324650bac8c379428c7037a416959a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_3": {
       "inputs": {
         "nixpkgs-src": "nixpkgs-src"
       },
@@ -1490,7 +1527,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_3": {
+    "nixpkgs_4": {
       "locked": {
         "lastModified": 1790600678,
         "narHash": "sha256-6k3n7X2UsZ6tAlWTz99RimiZab+17tMUrw9sRUcELiA=",
@@ -1506,7 +1543,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_4": {
+    "nixpkgs_5": {
       "locked": {
         "lastModified": 1790578696,
         "narHash": "sha256-ZoxIApko70jCdbH3l20HWXOBaT2HZd87orzd2yJ9dVE=",
@@ -1522,7 +1559,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_5": {
+    "nixpkgs_6": {
       "locked": {
         "lastModified": 1732014248,
         "narHash": "sha256-y/MEyuJ5oBWrWAic/14LaIr/u5E0wRVzyYsouYY3W6w=",
@@ -1538,7 +1575,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_6": {
+    "nixpkgs_7": {
       "locked": {
         "lastModified": 1791191277,
         "narHash": "sha256-R4B+RRYmze9htmPZ8xeF19mchTSH99GdaqanKCW8CF8=",
@@ -1551,7 +1588,7 @@
         "type": "indirect"
       }
     },
-    "nixpkgs_7": {
+    "nixpkgs_8": {
       "locked": {
         "lastModified": 1672428209,
         "narHash": "sha256-eejhqkDz2cb2vc5VeaWphJz8UXNuoNoM8/Op8eWv2tQ=",
@@ -1565,7 +1602,7 @@
         "type": "indirect"
       }
     },
-    "nixpkgs_8": {
+    "nixpkgs_9": {
       "locked": {
         "lastModified": 1791260994,
         "narHash": "sha256-Miqqk/ammqnTUxaoCyvtwoPeLbI1ksFyLxi/CazZpWY=",
@@ -1647,7 +1684,7 @@
     "nur": {
       "inputs": {
         "flake-parts": "flake-parts_5",
-        "nixpkgs": "nixpkgs_8"
+        "nixpkgs": "nixpkgs_9"
       },
       "locked": {
         "lastModified": 1791279986,
@@ -1902,6 +1939,7 @@
         "android-nixpkgs": "android-nixpkgs",
         "bugstalker": "bugstalker",
         "chaotic": "chaotic",
+        "comfyui-nix": "comfyui-nix",
         "crane": "crane",
         "devenv": "devenv",
         "devshell": "devshell",
@@ -1932,7 +1970,7 @@
         "nixos-stable-lib": "nixos-stable-lib",
         "nixos-unstable": "nixos-unstable",
         "nixos-unstable-lib": "nixos-unstable-lib",
-        "nixpkgs": "nixpkgs_6",
+        "nixpkgs": "nixpkgs_7",
         "nixpkgs-multiverse": "nixpkgs-multiverse",
         "nixpkgs-update": "nixpkgs-update",
         "nixvim": "nixvim",

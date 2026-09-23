@@ -5,6 +5,7 @@
   nixConfig = {
     extra-substituters = [
       #"http://nixos-nas.wg:5000"
+      "https://comfyui.cachix.org"
       "https://nix-community.cachix.org"
       "https://devenv.cachix.org"
       "https://nix-amd-ai.cachix.org"
@@ -12,6 +13,7 @@
     ];
     extra-trusted-public-keys = [
       #"nas.grandperrin.fr:QwhwNrClkzxCvdA0z3idUyl76Lmho6JTJLWplKtC2ig="
+      "comfyui.cachix.org-1:33mf9VzoIjzVbp0zwj+fT51HG0y31ZTK3nzYZAX0rec="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
       "nix-amd-ai.cachix.org-1:F4OU4vw/lV2oiG6SBHZ+nqjl4EFJuqI4X9A7pvaBmhQ="
@@ -79,6 +81,14 @@
       inputs = {
         home-manager.follows = "home-manager-stable"; # TODO try to remove
         flake-schemas.follows = "flake-schemas";
+      };
+    };
+
+    comfyui-nix = {
+      url = "github:utensils/comfyui-nix";
+      inputs = {
+        #nixpkgs.follows = "nixos-stable"; # don't override so that the comfyui.cachix.org cache can be used
+        flake-parts.follows = "flake-parts";
       };
     };
 
