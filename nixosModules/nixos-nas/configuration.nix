@@ -157,53 +157,53 @@
     '';
   };
 
-  fileSystems = {
-    "/IronWolf12TB" = {
-      device = "IronWolf12TB";
-      fsType = "zfs";
-      options = [
-        "noatime"
-        "nodiratime"
-        "nofail"
-      ];
-    };
-    "/IronWolf12TB/clear" = {
-      device = "IronWolf12TB/clear";
-      fsType = "zfs";
-      options = [
-        "noatime"
-        "nodiratime"
-        "nofail"
-      ];
-    };
-    "/export" = { # for security, make /export its own filesystem instead of just being a directory of / 
-      device = "none";
-      fsType = "tmpfs";
-      options = [
-        "mode=755"
-      ];
-    };
-    "/export/public" = {
-      device = "/IronWolf12TB/clear";
-      fsType = "nfs";
-      options = [
-        "bind"
-        "noatime"
-        "nodiratime"
-        "nofail"
-      ];
-    };
-    "/export/encrypted" = {
-      device = "/IronWolf12TB/encrypted";
-      fsType = "nfs";
-      options = [
-        "bind"
-        "noatime"
-        "nodiratime"
-        "nofail"
-      ];
-    };
-  };
+  #fileSystems = {
+  #  "/IronWolf12TB" = {
+  #    device = "IronWolf12TB";
+  #    fsType = "zfs";
+  #    options = [
+  #      "noatime"
+  #      "nodiratime"
+  #      "nofail"
+  #    ];
+  #  };
+  #  "/IronWolf12TB/clear" = {
+  #    device = "IronWolf12TB/clear";
+  #    fsType = "zfs";
+  #    options = [
+  #      "noatime"
+  #      "nodiratime"
+  #      "nofail"
+  #    ];
+  #  };
+  #  "/export" = { # for security, make /export its own filesystem instead of just being a directory of / 
+  #    device = "none";
+  #    fsType = "tmpfs";
+  #    options = [
+  #      "mode=755"
+  #    ];
+  #  };
+  #  "/export/public" = {
+  #    device = "/IronWolf12TB/clear";
+  #    fsType = "nfs";
+  #    options = [
+  #      "bind"
+  #      "noatime"
+  #      "nodiratime"
+  #      "nofail"
+  #    ];
+  #  };
+  #  "/export/encrypted" = {
+  #    device = "/IronWolf12TB/encrypted";
+  #    fsType = "nfs";
+  #    options = [
+  #      "bind"
+  #      "noatime"
+  #      "nodiratime"
+  #      "nofail"
+  #    ];
+  #  };
+  #};
 
   sops.secrets."cache-nas.grandperrin.fr-privkey.pem" = {
     sopsFile = ../../secrets/nixos-nas.yaml;
