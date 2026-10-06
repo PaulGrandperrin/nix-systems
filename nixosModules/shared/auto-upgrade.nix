@@ -4,12 +4,12 @@
     flake = "git+ssh://git@github.com/PaulGrandperrin/nix-systems?ref=main";
     #flake = "git+file:///etc/nixos/";
     flags = [ "--no-write-lock-file --accept-flake-config" ]; # updates all inputs but don't write anything to FS
-    dates = "04:00:00";
+    dates = "04:00";
     allowReboot = true;
-    rebootWindow = {
-      lower = "04:00";
-      upper = "06:00";
-    };
+    #rebootWindow = {
+    #  lower = "04:00";
+    #  upper = "06:00";
+    #};
   };
 
   systemd.services.nixos-upgrade = {
