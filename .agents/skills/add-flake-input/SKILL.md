@@ -6,7 +6,7 @@ description: add a new input to a flake and integrate its features (packages, ov
 - the user should have given you a URL-like argument for the flake to add. If not or if the URL looks wrong, abort now and report the issue to the user
 - if the user gave you a URL that is not directly compatible with nix, convert it (e.g. `https://github.com/NixOS/nixpkgs.git` to `github:NixOS/nixpkgs`)
 - we'll call the flake in the current directory the local flake, and the flake referenced by the given URL as the external flake
-- find the external flake's project repository and read its `README.md` and `flake.nix` and any other file needed to understand how to integrate this external flake into the local flake
+- find the external flake's project repository and read its `README.md`, `AGENTS.md` and `flake.nix` and any other file needed to understand how to integrate this external flake into the local flake
 - read the result of `nix flake metadata` on this external flake 
 - optionally read the result of `nix flake show` on this external flake, but be careful as the output can potentially be huge 
 - integrate the external flake in the local `flake.nix` input section while respecting the alphabetical order of the inputs.
