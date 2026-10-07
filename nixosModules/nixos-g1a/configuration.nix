@@ -141,6 +141,7 @@ in {
     #inputs.lanzaboote.nixosModules.lanzaboote
     #inputs.nix-cluster.nixosModules.nix-cluster
     #inputs.nar-alike-deduper.nixosModules.default
+    inputs.comfyui-nix.nixosModules.default
   ];
 
   # use latest ZFS compatible linux kernel from unstable
@@ -415,6 +416,18 @@ in {
     #extraPackages32 = with pkgs.unstable.pkgsi686Linux; [];
   };
   #hardware.amdgpu.overdrive.enable = true;
+
+  services.comfyui = {
+    enable = true;
+    gpuSupport = "rocm";
+    enableManager = true;  # Enable the built-in ComfyUI Manager
+    port = 8188;
+    listenAddress = "127.0.0.1";  # Use "0.0.0.0" for network access
+    dataDir = "/var/lib/comfyui";
+    openFirewall = false;
+    # extraArgs = [ "--lowvram" ];
+    # environment = { };
+  };
 
   programs.steam.package = lib.mkForce (pkgs.unstable.steam.override {
     extraProfile = let 
