@@ -167,6 +167,8 @@
   };
 
   services.envfs.enable = true; # populate /usr/bin for non-nix binaries
+  systemd.services.debug-shell.serviceConfig.ExecStart = "${pkgs.bashInteractive}/bin/bash"; # workaround https://github.com/NixOS/nixpkgs/issues/571855
+
   programs.nix-ld = { # create a link-loader for non-nix binaries
     enable = true;
     libraries = with pkgs; [
