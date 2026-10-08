@@ -4,10 +4,10 @@
     argsOverride = rec {
       src = pkgs.fetchurl {
             url = "mirror://kernel/linux/kernel/v${lib.versions.major version}.x/linux-${version}.tar.xz";
-            hash = "sha256-EujVqXPRrXxaXGmILkAisTHtcV23AD/c12Dd+MPlGUE=";
+            hash = "sha256-tMXfvlGjZKbH8DhpIA+IyOH3dANTkAXxS3/GvJG42Lo=";
       };
-      version = "7.2.8";
-      modDirVersion = "7.2.8";
+      version = "7.2.9";
+      modDirVersion = "7.2.9";
     };
   };
   #baseKernel = pkgs.unstable.linux_7_0;
@@ -79,8 +79,8 @@
       owner = "mesa";
       repo = "mesa";
       #rev = "mesa-${version}";
-      rev = "72ebd91e19f885f95de030bcedd4f12e614dbbbf"; # includes my wayland IMMEDIATE fix
-      hash = "sha256-VdXCrO2mDmcpbIf63ebHhQ0F06jgBnXr6XKeZKpiKJo=";
+      rev = "1d4a5d7f91ba39eed9292a590b6bf403091fa5e2"; # includes my wayland IMMEDIATE fix
+      hash = "sha256-9/ayM4mqHyHxFybm691F76+qUbuLEzLEeZl9tHC/QVM=";
     };
     patches = previousAttrs.patches or [] ++ [
     ];
