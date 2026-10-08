@@ -57,6 +57,8 @@
     ];
   };
 
+  boot.plymouth.enable = lib.mkForce false;
+
   nix.settings = {
     cores = 2; # max concurrent tasks during one build
     max-jobs = 2; # max concurrent build job
