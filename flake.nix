@@ -85,7 +85,8 @@
     };
 
     comfyui-nix = {
-      url = "github:utensils/comfyui-nix";
+      #url = "github:utensils/comfyui-nix";
+      url = "github:sjdevries/comfyui-nix/feat/rocm72-channel"; # https://github.com/utensils/comfyui-nix/pull/112
       inputs = {
         #nixpkgs.follows = "nixos-stable"; # don't override so that the comfyui.cachix.org cache can be used
         flake-parts.follows = "flake-parts";

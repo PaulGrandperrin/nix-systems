@@ -153,15 +153,16 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1790528779,
-        "narHash": "sha256-TAaraW5ApM9M8ecRCpGxNWZ/+/xAN0g1tTQ1qB5F/Eo=",
-        "owner": "utensils",
+        "lastModified": 1791121685,
+        "narHash": "sha256-oA2SG4tzhwjATYTrUu//3zqywBOtsBbj/kVrVZ6jido=",
+        "owner": "sjdevries",
         "repo": "comfyui-nix",
-        "rev": "58f91b001c99a97df46b7be8d58b08f01cb8f6ff",
+        "rev": "647d751fb353d46fabe5fea3f506e8f4e3531d26",
         "type": "github"
       },
       "original": {
-        "owner": "utensils",
+        "owner": "sjdevries",
+        "ref": "feat/rocm72-channel",
         "repo": "comfyui-nix",
         "type": "github"
       }
