@@ -407,7 +407,7 @@ in {
   #services.throttled.enable = true;
 
   hardware.graphics = {
-    package = mesa;
+    #package = mesa;
     #package = pkgs.unstable.mesa;
     #package32 = mesa32;
     #package32 = pkgs.unstable.pkgsi686Linux.mesa;
