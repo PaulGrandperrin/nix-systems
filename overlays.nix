@@ -120,6 +120,7 @@ inputs: rec {
     inputs.nix-alien.overlays.default
     inputs.firefox-nightly.overlays.default
     inputs.opencode.overlays.default
+    inputs.pi.overlays.default
     llm-agents-cached
     inputs.llm-agents.overlays.shared-nixpkgs
     inputs.comfyui-nix.overlays.default

@@ -315,6 +315,13 @@
       };
     };
 
+    pi = {
+      url = "github:earendil-works/pi/stable";
+      inputs = {
+        nixpkgs.follows = "nixos-stable";
+      };
+    };
+
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
       inputs = {

@@ -9,7 +9,8 @@ in {
       unstable.opencode-desktop
 
       #llm-agents.pi # issues with extension loading
-      unstable.pi-coding-agent
+      pi # from official flake overlay
+      #unstable.pi-coding-agent
       llm-agents-cached.omp
 
       #llm-agents-cached.code # conflict with vscode
