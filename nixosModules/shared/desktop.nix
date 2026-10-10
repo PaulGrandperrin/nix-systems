@@ -68,7 +68,7 @@
   };
 
   services.kmscon = {
-    enable = true;
+    #enable = true;
     package = pkgs.unstable.kmscon;
     fonts = [
       {name= "Nerds Fire Code"; package = pkgs.nerd-fonts.fira-code;}
