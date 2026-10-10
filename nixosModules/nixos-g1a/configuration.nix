@@ -261,17 +261,17 @@ in {
     ];
   };
 
-  fileSystems."/home/paulg/ntfs" = {
-    device = "/dev/disk/by-partlabel/ntfs";
-    fsType = "ntfs3";
-    options = [
-      "windows_names"
-      "prealloc"
-      "noatime"
-      "nodiratime"
-      "nofail"
-    ];
-  };
+  #fileSystems."/home/paulg/ntfs" = {
+  #  device = "/dev/disk/by-partlabel/ntfs";
+  #  fsType = "ntfs3";
+  #  options = [
+  #    "windows_names"
+  #    "prealloc"
+  #    "noatime"
+  #    "nodiratime"
+  #    "nofail"
+  #  ];
+  #};
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-partlabel/nixos_boot";
