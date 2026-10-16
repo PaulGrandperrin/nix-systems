@@ -70,7 +70,6 @@ args @ {pkgs, lib, config, inputs, nixos-flake, home-manager-flake, ...}: {
       sd
       httpie curlie xh
       entr
-      tmate
       wireguard-tools
       cachix
       yt-dlp # replaces youtube-dl
