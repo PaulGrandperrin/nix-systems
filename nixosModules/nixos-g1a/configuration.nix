@@ -86,8 +86,8 @@
     ];
     outputs = lib.remove "spirv2dxil" previousAttrs.outputs;
   };
-  mesa = ((pkgs.mesa_git.override {
-  #mesa = ((pkgs.unstable.mesa.override {
+  #mesa = ((pkgs.mesa_git.override {
+  mesa = ((pkgs.unstable.mesa.override {
     libdrm = (pkgs.unstable.libdrm.overrideAttrs libdrm_override_fn);
     stdenv = pkgs.unstable.stdenvAdapters.withCFlags "-march=znver5 -O3 -pipe" pkgs.unstable.stdenv;
     #withValgrind = false;
