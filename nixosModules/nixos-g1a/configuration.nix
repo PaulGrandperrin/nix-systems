@@ -434,7 +434,7 @@ in {
   #hardware.amdgpu.overdrive.enable = true;
 
   services.comfyui = {
-    enable = true;
+    #enable = true;
     gpuSupport = "rocm";
     rocmChannel = "rocm72";
     enableManager = true;  # Enable the built-in ComfyUI Manager
