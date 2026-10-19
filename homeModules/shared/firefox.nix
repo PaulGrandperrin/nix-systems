@@ -23,7 +23,7 @@ args @ {pkgs, inputs, lib, config, is_nixos, ...}: lib.mkIf (config.home.usernam
           save-page-we
           sponsorblock
           stylus
-          terms-of-service-didnt-read
+          #terms-of-service-didnt-read
           #translate-web-pages
           #tree-style-tab # fails
           ublock-origin
