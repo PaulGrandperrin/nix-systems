@@ -72,22 +72,22 @@
     #};
   };
   mesa_override_fn = finalAttrs: previousAttrs: rec {
-    #version = "26.2.0";
-    version = "git-patched";
+    version = "26.3.0-rc1";
+    #version = "git-patched";
     src = pkgs.fetchFromGitLab {
       domain = "gitlab.freedesktop.org";
       owner = "mesa";
       repo = "mesa";
-      #rev = "mesa-${version}";
-      rev = "1d4a5d7f91ba39eed9292a590b6bf403091fa5e2"; # includes my wayland IMMEDIATE fix
-      hash = "sha256-9/ayM4mqHyHxFybm691F76+qUbuLEzLEeZl9tHC/QVM=";
+      rev = "mesa-${version}";
+      #rev = "1d4a5d7f91ba39eed9292a590b6bf403091fa5e2"; # includes my wayland IMMEDIATE fix
+      hash = "sha256-0q4RbN1+YT1RXM1Cn2udRWzxSMEYQ2M+76DprKAFr4k=";
     };
     patches = previousAttrs.patches or [] ++ [
     ];
     outputs = lib.remove "spirv2dxil" previousAttrs.outputs;
   };
   #mesa = ((pkgs.mesa_git.override {
-  mesa = ((pkgs.unstable.mesa.override {
+  mesa = ((pkgs.unstable.mesa.override (o: {
     libdrm = (pkgs.unstable.libdrm.overrideAttrs libdrm_override_fn);
     stdenv = pkgs.unstable.stdenvAdapters.withCFlags "-march=znver5 -O3 -pipe" pkgs.unstable.stdenv;
     #withValgrind = false;
@@ -100,7 +100,15 @@
       "amd"
       #"swrast" # aka lavapipe
     ];
-  }).overrideAttrs mesa_override_fn);
+    vulkanLayers = [
+      "device-select"
+      "intel-nullhw"
+      "overlay"
+      "screenshot"
+      "vram-report-limit"
+    ];
+    #vulkanLayers = builtins.filter (x: x != "anti-lag") o.vulkanLayers;
+  })).overrideAttrs mesa_override_fn);
   mesa32 = ((pkgs.mesa32_git.override {
   #mesa32 = ((pkgs.unstable.pkgsi686Linux.mesa.override {
     libdrm = (pkgs.unstable.pkgsi686Linux.libdrm.overrideAttrs libdrm_override_fn);
@@ -115,6 +123,14 @@
       "amd"
       #"swrast" # aka lavapipe
     ];
+    vulkanLayers = [
+      "device-select"
+      "intel-nullhw"
+      "overlay"
+      "screenshot"
+      "vram-report-limit"
+    ];
+    #vulkanLayers = builtins.filter (x: x != "anti-lag") o.vulkanLayers;
   }).overrideAttrs mesa_override_fn);
 
 in {
