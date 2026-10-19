@@ -4,10 +4,10 @@
     argsOverride = rec {
       src = pkgs.fetchurl {
             url = "mirror://kernel/linux/kernel/v${lib.versions.major version}.x/linux-${version}.tar.xz";
-            hash = "sha256-tMXfvlGjZKbH8DhpIA+IyOH3dANTkAXxS3/GvJG42Lo=";
+            hash = "sha256-/Q/EefmDqMBTE/E+nDYzD+ZlHPclOWdIxA1c2T+h5qQ=";
       };
-      version = "7.2.9";
-      modDirVersion = "7.2.9";
+      version = "7.2.11";
+      modDirVersion = "7.2.11";
     };
   };
   #baseKernel = pkgs.unstable.linux_7_0;
