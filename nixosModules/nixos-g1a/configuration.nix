@@ -4,10 +4,10 @@
     argsOverride = rec {
       src = pkgs.fetchurl {
             url = "mirror://kernel/linux/kernel/v${lib.versions.major version}.x/linux-${version}.tar.xz";
-            hash = "sha256-/Q/EefmDqMBTE/E+nDYzD+ZlHPclOWdIxA1c2T+h5qQ=";
+            hash = "sha256-hzY8JPEOBjIes2J2VSEJTpRHH2v/i84taz5A858ASVM=";
       };
-      version = "7.2.11";
-      modDirVersion = "7.2.11";
+      version = "7.3";
+      modDirVersion = "7.3.0";
     };
   };
   #baseKernel = pkgs.unstable.linux_7_0;
@@ -208,13 +208,19 @@ in {
   boot.zfs.modulePackage = config.boot.kernelPackages.zfs_2_4.overrideAttrs (old: {
     meta = old.meta // { broken = false; };
     configureFlags = (old.configureFlags or []) ++ [ "--enable-linux-experimental" ];
-    patches = (old.patches or []) ++ [
-      #(pkgs.fetchpatch {
-      #  name = "zfs-linux-7.2-compat";
-      #  url = "https://github.com/openzfs/zfs/pull/18677.patch";
-      #  hash = "sha256-Za7ARm126Wd3ucEtbMqGa0i4yloLJD4sLnCx9Ysq1hg=";
-      #})
-    ];
+    #patches = (old.patches or []) ++ [
+    #  (pkgs.fetchpatch {
+    #    name = "zfs-linux-7.3-compat";
+    #    url = "https://github.com/openzfs/zfs/pull/19082.patch";
+    #    hash = "sha256-Vk4OirQYbR1qNRJMpP2/Yf7vD8CQ2a9gW9QM/NBL/bI=";
+    #  })
+    #];
+    src = pkgs.fetchFromGitHub {
+      owner = "CachyOS";
+      repo = "zfs";
+      rev = "ec7010975a999a963dfc672ef5b5c6e8dcc928a4"; # 2.4.4 + 7.3 compat
+      hash = "sha256-AtDefFMgBitoq+9l6yaTKHLDuLwcFQxzWd++I1bMquE=";
+    };
   });
 
   boot.zfs.unsafeAllowHibernation = true; # ok because our swap in on a dedicated partition and we use systemd initrd
