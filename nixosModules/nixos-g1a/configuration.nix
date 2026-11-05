@@ -1,13 +1,19 @@
 { config, pkgs, lib, inputs, ... }: let 
 
-  baseKernel = pkgs.unstable.linux_7_2.override {
+  baseKernel = pkgs.unstable.linux_7_3.override {
     argsOverride = rec {
       src = pkgs.fetchurl {
             url = "mirror://kernel/linux/kernel/v${lib.versions.major version}.x/linux-${version}.tar.xz";
-            hash = "sha256-hzY8JPEOBjIes2J2VSEJTpRHH2v/i84taz5A858ASVM=";
+            hash = "sha256-+llarZNzT4KcljwqkO98NnMiT9f9rntJQG45fN4t4jE=";
       };
-      version = "7.3";
-      modDirVersion = "7.3.0";
+      version = "7.3.1";
+      modDirVersion = "7.3.1";
+      #src = pkgs.fetchurl {
+      #      url = "mirror://kernel/linux/kernel/v${lib.versions.major version}.x/linux-${version}.tar.xz";
+      #      hash = "sha256-uxhGio3Il4qgDKpkRudT97baP+5Wtrfzixb5QwugLU8=";
+      #};
+      #version = "7.2.12";
+      #modDirVersion = "7.2.12";
     };
   };
   #baseKernel = pkgs.unstable.linux_7_0;
@@ -54,7 +60,7 @@
       # Every .override call produces a new build.nix derivation; wrap it too.
       override = f: wrapWithFeatures (kernel.override f);
     };
-  myKernel = wrapWithFeatures (pkgs.linuxManualConfig {
+  myKernel = wrapWithFeatures (pkgs.unstable.linuxManualConfig {
     inherit (baseKernel) version src modDirVersion;
     configfile = myConfigFile;
     allowImportFromDerivation = true;
@@ -72,7 +78,7 @@
     #};
   };
   mesa_override_fn = finalAttrs: previousAttrs: rec {
-    version = "26.3.0-rc1";
+    version = "26.3.0-rc3";
     #version = "git-patched";
     src = pkgs.fetchFromGitLab {
       domain = "gitlab.freedesktop.org";
@@ -80,7 +86,7 @@
       repo = "mesa";
       rev = "mesa-${version}";
       #rev = "1d4a5d7f91ba39eed9292a590b6bf403091fa5e2"; # includes my wayland IMMEDIATE fix
-      hash = "sha256-0q4RbN1+YT1RXM1Cn2udRWzxSMEYQ2M+76DprKAFr4k=";
+      hash = "sha256-8rlk0Zrv3xrbn0jCjPg1AWtw+nNIfFOcM0428u8lZfI=";
     };
     patches = previousAttrs.patches or [] ++ [
     ];
