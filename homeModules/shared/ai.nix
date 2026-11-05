@@ -6,7 +6,7 @@ in {
     packages = with pkgs; [
       llm-agents.opencode
       llm-agents.opencode2
-      unstable.opencode-desktop
+      #unstable.opencode-desktop
 
       #llm-agents.pi # issues with extension loading
       pi # from official flake overlay
