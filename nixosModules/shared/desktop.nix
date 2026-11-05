@@ -123,6 +123,7 @@
     piper # gtk interface to ratbagd
     config.services.scx.package
     android-tools
+    gearlever # for appimages
   ];
 
   services.flatpak.enable = true;
@@ -144,6 +145,11 @@
   #    ${pkgs.flatpak}/bin/flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
   #  '';
   #};
+
+  programs.appimage = {
+    enable = true;
+    binfmt = true;
+  };
 
   services.system76-scheduler = {
     enable = true;

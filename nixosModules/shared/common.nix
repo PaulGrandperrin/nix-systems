@@ -161,11 +161,6 @@
     #nixos.includeAllModules = true;
   };
 
-  programs.appimage = {
-    enable = true;
-    binfmt = true;
-  };
-
   services.envfs.enable = true; # populate /usr/bin for non-nix binaries
   systemd.services.debug-shell.serviceConfig.ExecStart = [
     ""
