@@ -10,7 +10,7 @@ args @ {pkgs, config, inputs, lib, ...}: {
   chaotic.nyx.overlay.enable = !(args ? nixosConfig);
 
   xdg.enable = true; # export XDG vars to ensure the correct directories are used
-  targets.genericLinux.enable = pkgs.stdenv.isLinux && ! args ? nixosConfig;
+  targets.genericLinux.enable = pkgs.stdenv.hostPlatform.isLinux && ! args ? nixosConfig;
 
   xdg.configFile."nixpkgs/config.nix".source = ../../nixpkgs/config.nix; # read by "nix-shell", "nix shell --impure" etc
   
@@ -22,7 +22,7 @@ args @ {pkgs, config, inputs, lib, ...}: {
 
   # systemd.user.systemctlPath = "/usr/bin/systemctl"; # TODO ?
   home = {
-    stateVersion = "26.05";
+    stateVersion = "26.11";
     enableNixpkgsReleaseCheck = true; # check for release version mismatch between Home Manager and Nixpkgs
     sessionVariables = { # only works for interactive shells, pam works for all kind of sessions
     };
@@ -32,7 +32,7 @@ args @ {pkgs, config, inputs, lib, ...}: {
 
     packages = with pkgs; [
     ]
-    ++ lib.optionals pkgs.stdenv.isLinux (
+    ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux (
       [
       ] ++ lib.optionals (config.home.username == "root") [ # if root and linux
       ]
@@ -72,7 +72,7 @@ args @ {pkgs, config, inputs, lib, ...}: {
     '';
   });
 
-  services.gpg-agent = lib.mkIf pkgs.stdenv.isLinux {
+  services.gpg-agent = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
     enable = true;
     defaultCacheTtl = 60 * 60 * 24;
     extraConfig = ''

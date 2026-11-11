@@ -10,7 +10,7 @@ in {
       #my-rust-analyzer
     ];
 
-    file.".cargo/config.toml" = lib.mkIf pkgs.stdenv.isLinux {
+    file.".cargo/config.toml" = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
       text = ''
         [build]
         rustflags = ["-C", "link-arg=-fuse-ld=${pkgs.mold}/bin/mold"]

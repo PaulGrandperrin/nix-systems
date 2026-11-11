@@ -12,7 +12,7 @@
     ./mail.nix
     #./sysdig.nix
   ];
-  system.stateVersion = "26.05";
+  system.stateVersion = "26.11";
 
   #systemd.enableStrictShellChecks = true; # TODO
 
@@ -171,7 +171,7 @@
     enable = true;
     libraries = with pkgs; [
       libpng libbsd # android emulator
-      libsForQt5.qt5.qtbase # switch emulator
+      qt5.qtbase # switch emulator
 
       # from https://github.com/Mic92/dotfiles/blob/main/nixos/modules/nix-ld.nix
       stdenv.cc.cc
@@ -603,11 +603,11 @@
       DefaultTimeoutAbortSec = "15s";
     };
 
-    user.extraConfig = ''
-      DefaultTimeoutStopSec=15s
-      DefaultTimeoutStartSec=15s
-      DefaultTimeoutAbortSec=15s
-    '';
+    user.settings.Manager = {
+      DefaultTimeoutStopSec = "15s";
+      DefaultTimeoutStartSec = "15s";
+      DefaultTimeoutAbortSec = "15s";
+    };
   };
 
 }

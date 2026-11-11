@@ -1,5 +1,5 @@
 {pkgs, config, lib, ...}: {
-  system.stateVersion = "26.05";
+  system.stateVersion = "26.11";
   user.shell = "${pkgs.fish}/bin/fish";
   terminal.font = "${pkgs.nerd-fonts.fira-code }/share/fonts/truetype/NerdFonts/FiraCodeNerdFont-Retina.ttf";
 

@@ -30,7 +30,7 @@ args @ {pkgs, lib, config, inputs, nixos-flake, home-manager-flake, ...}: {
     };
     packages = with pkgs; [
       (lib.setPrio (-15) unstable.uutils-coreutils-noprefix)
-      (lib.hiPrio unstable.uutils-findutils)
+      #(lib.hiPrio unstable.uutils-findutils) # FIXME broken
       (lib.hiPrio unstable.uutils-diffutils)
       coreutils-prefixed
 
@@ -139,7 +139,7 @@ args @ {pkgs, lib, config, inputs, nixos-flake, home-manager-flake, ...}: {
       #  meta.priority = 1;
       #}))
 
-    ] ++ lib.optionals pkgs.stdenv.isLinux [
+    ] ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux [
       lshw
       dool # replaces dstat
       sysstat
@@ -186,7 +186,7 @@ args @ {pkgs, lib, config, inputs, nixos-flake, home-manager-flake, ...}: {
       (lib.lowPrio msr-tools) # conflicts on cpuid bimary
       
 
-    ] ++ lib.optionals ((config.home.username == "root") && pkgs.stdenv.isLinux) [ # if root and linux
+    ] ++ lib.optionals ((config.home.username == "root") && pkgs.stdenv.hostPlatform.isLinux) [ # if root and linux
       bandwhich # iftop
       parted
       powertop
@@ -276,7 +276,7 @@ args @ {pkgs, lib, config, inputs, nixos-flake, home-manager-flake, ...}: {
     };
     bottom.enable = true;
     broot.enable = true;
-    topgrade.enable = !pkgs.stdenv.isDarwin; # FIXME broken on darwin
+    #topgrade.enable = !pkgs.stdenv.hostPlatform.isDarwin; # FIXME broken on darwin && linux
     #powerline-go.enable = true;
     #starship = { # async prompt: https://gist.github.com/duament/bac0181935953b97ca71640727c9c029
     #  enable = true;

@@ -69,7 +69,7 @@
       choose
       doggo # replaces dogdns which is unmaintained
       wakelan
-    ] ++ lib.optionals pkgs.stdenv.isLinux [
+    ] ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux [
       lsb-release
     ];
   };

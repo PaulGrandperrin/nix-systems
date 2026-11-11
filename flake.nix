@@ -30,10 +30,12 @@
       id   = "nixpkgs";
     };
 
-    nixos-stable.url           = "github:NixOS/nixpkgs/nixos-26.05";
-    nixos-stable-lib.url       = "github:NixOS/nixpkgs/nixos-26.05?dir=lib"; # "github:nix-community/nixpkgs.lib" doesn't work
-    #nixos-stable-small.url     = "github:NixOS/nixpkgs/nixos-26.05-small";
-    #darwin-stable.url          = "github:NixOS/nixpkgs/nixpkgs-25.11-darwin";
+    #nixos-stable.url           = "github:NixOS/nixpkgs/nixos-26.11";
+    #nixos-stable-lib.url       = "github:NixOS/nixpkgs/nixos-26.11?dir=lib"; # "github:nix-community/nixpkgs.lib" doesn't work
+    nixos-stable.url           = "github:NixOS/nixpkgs/nixos-unstable";
+    nixos-stable-lib.url       = "github:NixOS/nixpkgs/nixos-unstable?dir=lib"; # "github:nix-community/nixpkgs.lib" doesn't work
+    #nixos-stable-small.url     = "github:NixOS/nixpkgs/nixos-26.11-small";
+    #darwin-stable.url          = "github:NixOS/nixpkgs/nixpkgs-26.11-darwin";
     #darwin-unstable.url        = "github:NixOS/nixpkgs/nixpkgs-unstable"; # darwin-unstable for now (https://github.com/NixOS/nixpkgs/issues/107466)
     nixos-unstable.url         = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-unstable-lib.url     = "github:NixOS/nixpkgs/nixos-unstable?dir=lib";
@@ -41,7 +43,8 @@
     #master.url                 = "github:NixOS/nixpkgs/master";
 
     home-manager-stable = {
-      url = "github:nix-community/home-manager/release-26.05";
+      #url = "github:nix-community/home-manager/release-26.11";
+      url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixos-stable-lib"; # not needed by NixOS' module thanks to `home-manager.useGlobalPkgs = true` but needed by the unpriviledged module
     };
     home-manager-unstable = {
@@ -170,7 +173,7 @@
     };
 
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.3";
+      url = "github:nix-community/lanzaboote/v0.4.3"; # TODO update
 
       inputs = {
         nixpkgs.follows = "nixos-stable"; # NOTE doesn't only use the lib
@@ -299,7 +302,8 @@
     };
 
     nixvim = {
-      url = "github:nix-community/nixvim/nixos-26.05";
+      url = "github:nix-community/nixvim/main";
+      #url = "github:nix-community/nixvim/nixos-26.11";
       inputs = {
         nixpkgs.follows = "nixos-stable";
         flake-parts.follows = "flake-parts";

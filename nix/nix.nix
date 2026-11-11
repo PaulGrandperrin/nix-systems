@@ -2,7 +2,7 @@
 # can be impurely extended in /etc/nix/nix.conf or ~/.config/nix/nix.conf
 # can be extended in plain text with nix.extraOptions
 rec {
-  experimental-features = "nix-command flakes";
+  experimental-features = ["nix-command" "flakes"];
   auto-optimise-store = true;
   allowed-users = [ "@wheel" "nix-serve" ];
   #trusted-users = ["@wheel"]; # only do it on desktop machines
