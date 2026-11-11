@@ -71,7 +71,6 @@ in
   boot.initrd = {
     kernelModules = ["button"];
     systemd = {
-      enable = true;
       storePaths = [
         pkgs.gnugrep
         lid-killswitch-script

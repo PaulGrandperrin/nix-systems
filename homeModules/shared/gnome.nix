@@ -23,7 +23,7 @@
       gnomeExtensions.caffeine
       gnomeExtensions.appindicator
       gnomeExtensions.bluetooth-battery
-      gnomeExtensions.task-widget
+      #gnomeExtensions.task-widget
       #gnomeExtensions.focus-indicator # not anymore in 23.11
       #gnomeExtensions.desktop-cube
       #gnomeExtensions.pop-shell

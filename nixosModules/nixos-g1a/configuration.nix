@@ -2,18 +2,12 @@
 
   baseKernel = pkgs.unstable.linux_7_3.override {
     argsOverride = rec {
+      version = "7.3.4";
+      modDirVersion = "7.3.4";
       src = pkgs.fetchurl {
             url = "mirror://kernel/linux/kernel/v${lib.versions.major version}.x/linux-${version}.tar.xz";
-            hash = "sha256-+llarZNzT4KcljwqkO98NnMiT9f9rntJQG45fN4t4jE=";
+            hash = "sha256-sRtt+Clejpkf8EC3GqpJlKi1XKojtrCSkH8ZW1hA/R8=";
       };
-      version = "7.3.1";
-      modDirVersion = "7.3.1";
-      #src = pkgs.fetchurl {
-      #      url = "mirror://kernel/linux/kernel/v${lib.versions.major version}.x/linux-${version}.tar.xz";
-      #      hash = "sha256-uxhGio3Il4qgDKpkRudT97baP+5Wtrfzixb5QwugLU8=";
-      #};
-      #version = "7.2.12";
-      #modDirVersion = "7.2.12";
     };
   };
   #baseKernel = pkgs.unstable.linux_7_0;
@@ -78,7 +72,7 @@
     #};
   };
   mesa_override_fn = finalAttrs: previousAttrs: rec {
-    version = "26.3.0-rc3";
+    version = "26.3.0";
     #version = "git-patched";
     src = pkgs.fetchFromGitLab {
       domain = "gitlab.freedesktop.org";
@@ -86,7 +80,7 @@
       repo = "mesa";
       rev = "mesa-${version}";
       #rev = "1d4a5d7f91ba39eed9292a590b6bf403091fa5e2"; # includes my wayland IMMEDIATE fix
-      hash = "sha256-8rlk0Zrv3xrbn0jCjPg1AWtw+nNIfFOcM0428u8lZfI=";
+      hash = "sha256-3zDo+E/NFjS5qgKiyoTdfSClhaI2TC9M2JEVHzxt+NY=";
     };
     patches = previousAttrs.patches or [] ++ [
     ];
@@ -458,48 +452,48 @@ in {
     # environment = { };
   };
 
-  programs.steam.package = lib.mkForce (pkgs.unstable.steam.override {
-    extraProfile = let 
-      drv = pkgs.buildEnv {
-        name = "custom-graphics-drivers";
-        paths = [ mesa ];
-        #paths = [ pkgs.unstable.mesa ];
-      };
+  #programs.steam.package = lib.mkForce (pkgs.unstable.steam.override {
+  #  extraProfile = let 
+  #    drv = pkgs.buildEnv {
+  #      name = "custom-graphics-drivers";
+  #      paths = [ mesa ];
+  #      #paths = [ pkgs.unstable.mesa ];
+  #    };
 
-      drv32 = pkgs.buildEnv {
-        name = "custom-graphics-drivers-32bit";
-        #paths = [ mesa32 ];
-        paths = [ pkgs.unstable.pkgsi686Linux.mesa ];
-      };
-    in ''
-      # DRI / GL driver modules
-      export LIBGL_DRIVERS_PATH=${drv}/lib/dri:${drv32}/lib/dri
-      export GALLIUM_DRIVER_PATH=${drv}/lib/dri:${drv32}/lib/dri
+  #    drv32 = pkgs.buildEnv {
+  #      name = "custom-graphics-drivers-32bit";
+  #      #paths = [ mesa32 ];
+  #      paths = [ pkgs.unstable.pkgsi686Linux.mesa ];
+  #    };
+  #  in ''
+  #    # DRI / GL driver modules
+  #    export LIBGL_DRIVERS_PATH=${drv}/lib/dri:${drv32}/lib/dri
+  #    export GALLIUM_DRIVER_PATH=${drv}/lib/dri:${drv32}/lib/dri
 
-      # EGL driver modules
-      export __EGL_VENDOR_LIBRARY_DIRS=${drv}/share/glvnd/egl_vendor.d:${drv32}/share/glvnd/egl_vendor.d # doesn't prevent looking at the original driver path
-      export __EGL_VENDOR_LIBRARY_FILENAMES=${drv}/share/glvnd/egl_vendor.d/50_mesa.json:${drv32}/share/glvnd/egl_vendor.d/50_mesa.json # overrides the original driver path
+  #    # EGL driver modules
+  #    export __EGL_VENDOR_LIBRARY_DIRS=${drv}/share/glvnd/egl_vendor.d:${drv32}/share/glvnd/egl_vendor.d # doesn't prevent looking at the original driver path
+  #    export __EGL_VENDOR_LIBRARY_FILENAMES=${drv}/share/glvnd/egl_vendor.d/50_mesa.json:${drv32}/share/glvnd/egl_vendor.d/50_mesa.json # overrides the original driver path
 
-      # VA-API / VDPAU driver modules
-      export LIBVA_DRIVERS_PATH=${drv}/lib/dri:${drv32}/lib/dri
-      export VDPAU_DRIVER_PATH=${drv}/lib/vdpau:${drv32}/lib/vdpau
+  #    # VA-API / VDPAU driver modules
+  #    export LIBVA_DRIVERS_PATH=${drv}/lib/dri:${drv32}/lib/dri
+  #    export VDPAU_DRIVER_PATH=${drv}/lib/vdpau:${drv32}/lib/vdpau
 
-      # Vulkan ICDs
-      VK_DRIVER_FILES=""
-      for f in ${drv}/share/vulkan/icd.d/*.json ${drv32}/share/vulkan/icd.d/*.json; do
-        [ -f "$f" ] && VK_DRIVER_FILES="''${VK_DRIVER_FILES:+$VK_DRIVER_FILES:}$f"
-      done
-      export VK_DRIVER_FILES
-      
-      # Vulkan layers
-      export XDG_DATA_DIRS=$(echo "${drv}/share:${drv32}/share:$XDG_DATA_DIRS" | sed 's|/run/opengl-driver[-32]*/share:||g; s|:/run/opengl-driver[-32]*/share||g')
+  #    # Vulkan ICDs
+  #    VK_DRIVER_FILES=""
+  #    for f in ${drv}/share/vulkan/icd.d/*.json ${drv32}/share/vulkan/icd.d/*.json; do
+  #      [ -f "$f" ] && VK_DRIVER_FILES="''${VK_DRIVER_FILES:+$VK_DRIVER_FILES:}$f"
+  #    done
+  #    export VK_DRIVER_FILES
+  #    
+  #    # Vulkan layers
+  #    export XDG_DATA_DIRS=$(echo "${drv}/share:${drv32}/share:$XDG_DATA_DIRS" | sed 's|/run/opengl-driver[-32]*/share:||g; s|:/run/opengl-driver[-32]*/share||g')
 
-      # Shared libs (libEGL_mesa, libGLX_mesa, libgbm …)
-      # LD_LIBRARY_PATH beats both RUNPATH and the ldconfig cache,
-      # so our Mesa is loaded instead of the system one.
-      export LD_LIBRARY_PATH=$(echo "${drv}/lib:${drv32}/lib:$LD_LIBRARY_PATH" | sed 's|/run/opengl-driver[-32]*/lib:||g; s|:/run/opengl-driver[-32]*/lib||g')
-    '';
-  });
+  #    # Shared libs (libEGL_mesa, libGLX_mesa, libgbm …)
+  #    # LD_LIBRARY_PATH beats both RUNPATH and the ldconfig cache,
+  #    # so our Mesa is loaded instead of the system one.
+  #    export LD_LIBRARY_PATH=$(echo "${drv}/lib:${drv32}/lib:$LD_LIBRARY_PATH" | sed 's|/run/opengl-driver[-32]*/lib:||g; s|:/run/opengl-driver[-32]*/lib||g')
+  #  '';
+  #});
 
   ## might increase compatibility but needs --impure
   ## might need https://github.com/chaotic-cx/nyx/blob/aacb796ccd42be1555196c20013b9b674b71df75/pkgs/mesa-git/default.nix#L54

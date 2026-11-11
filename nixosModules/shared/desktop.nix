@@ -70,17 +70,16 @@
   services.kmscon = {
     #enable = true;
     package = pkgs.unstable.kmscon;
-    fonts = [
-      {name= "Nerds Fire Code"; package = pkgs.nerd-fonts.fira-code;}
-    ];
-    hwRender = true;
+    config = {
+      font-name = "Nerds Fire Code";
+      hwaccel = true;
+    };
   };
 
-  services.scx = {
+  services.scx-loader = {
     #enable = true;
-    scheduler = "scx_lavd";
-    package = pkgs.scx.rustscheds; # not interested in C scheds
-    extraArgs = [ "--autopower" ];
+    config.default_sched = "scx_lavd";
+    schedsPackages = [ pkgs.scx.rustscheds ]; # not interested in C scheds
   };
 
   time.timeZone = lib.mkForce null; # allow TZ to be set by desktop user
@@ -121,10 +120,9 @@
 
   environment.systemPackages = with pkgs; [
     piper # gtk interface to ratbagd
-    config.services.scx.package
     android-tools
-    gearlever # for appimages
-  ];
+    #gearlever # for appimages
+  ] ++ config.services.scx-loader.schedsPackages;
 
   services.flatpak.enable = true;
   xdg.portal = {
@@ -173,7 +171,7 @@
   users.users.paulg.extraGroups = ["adbusers"];
 
   hardware.logitech.wireless.enable = true; # includes ltunify
-  hardware.logitech.wireless.enableGraphical = true; # includes solaar
+  programs.solaar.enable = true;
   services.ratbagd.enable = true; # gaming mouse
 
   services.pulseaudio.enable = false;
