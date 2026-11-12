@@ -126,10 +126,10 @@
     };
     Install.WantedBy = [ "default.target" ];
     Mount = {
-      ExecSearchPath = "${pkgs.rclone}/bin/:/run/wrappers/bin/"; # the wrappers are needed for fusermount3 with suid
+      ExecSearchPath = "/run/wrappers/bin/"; # rclone needs the wrappers to find fusermount3 with its suid bit
       What = "gdrive:";
       Where = "/home/${config.home.username}/Google Drive";
-      Type = "fuse.rclonefs";
+      Type = "rclone"; # libmount then runs the `mount.rclone` helper provided by pkgs.rclone in environment.systemPackages (nixosModules/shared/desktop.nix)
       Options = "_netdev,args2env,vfs-cache-mode=full,dir-cache-time=5000h,poll-interval=10s,vfs-cache-max-age=90d,vfs-cache-max-size=5G,transfers=32,checkers=32"; # allow-non-empty
     };
   };

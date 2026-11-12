@@ -122,6 +122,13 @@
     piper # gtk interface to ratbagd
     android-tools
     #gearlever # for appimages
+
+    # provides the `mount.rclone` libmount helper used by the rclone Google Drive mount unit
+    # (homeModules/shared/desktop-linux.nix, `Type=rclone`). libmount only looks for helpers in
+    # /run/wrappers/bin, /run/current-system/sw/bin and /sbin, where it used to find FUSE 2's
+    # `mount.fuse`; fuse2 was removed from nixpkgs (commit a2a954f3a), which made the mount fail
+    # with "must be superuser to use mount".
+    rclone
   ] ++ config.services.scx-loader.schedsPackages;
 
   services.flatpak.enable = true;
