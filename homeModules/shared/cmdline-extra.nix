@@ -48,7 +48,6 @@ args @ {pkgs, lib, config, inputs, nixos-flake, home-manager-flake, ...}: {
       nmap
       iperf
       bandwhich
-      unstable.bpftop
 
       # file management
       lz4
@@ -203,6 +202,7 @@ args @ {pkgs, lib, config, inputs, nixos-flake, home-manager-flake, ...}: {
         intel-gpu-tools
         undervolt # unmaintained python script
         intel-undervolt # intel only better maintained
+        unstable.bpftop # FTBFS on aarch64
 
         nixpkgs-update
         isd
