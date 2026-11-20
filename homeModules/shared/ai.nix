@@ -16,6 +16,11 @@ in {
       #llm-agents-cached.code # conflict with vscode
 
       unstable.nodejs
+
+      antigravity-hub
+      antigravity-cli
+      antigravity-ide-fhs
+      antigravity-acp
     ];
   };
 }
