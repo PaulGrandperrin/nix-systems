@@ -185,6 +185,11 @@
       };
     };
 
+    linux_7_3 = {
+      url = "github:gregkh/linux/linux-7.3.y";
+      flake = false;
+    };
+
     #lix = { # too long to build
     #  url = "git+https://git.lix.systems/lix-project/lix.git";
     #  inputs = {

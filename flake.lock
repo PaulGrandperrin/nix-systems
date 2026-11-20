@@ -803,6 +803,23 @@
         "type": "github"
       }
     },
+    "linux_7_3": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1794910461,
+        "narHash": "sha256-/XS8p4fXB4ZDtBwUA9Rm4rk5LdX2p8pWATQgejhQvlk=",
+        "owner": "gregkh",
+        "repo": "linux",
+        "rev": "988117cc1bb17338c586a4e21ade88b5397eac33",
+        "type": "github"
+      },
+      "original": {
+        "owner": "gregkh",
+        "ref": "linux-7.3.y",
+        "repo": "linux",
+        "type": "github"
+      }
+    },
     "llama-cpp": {
       "inputs": {
         "flake-parts": [
@@ -1961,6 +1978,7 @@
         "isd": "isd",
         "isd-unstable": "isd-unstable",
         "lanzaboote": "lanzaboote",
+        "linux_7_3": "linux_7_3",
         "llama-cpp": "llama-cpp",
         "llm-agents": "llm-agents",
         "nix": "nix_2",

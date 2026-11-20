@@ -1,20 +1,31 @@
 { config, pkgs, lib, inputs, ... }: let 
 
+  kernelMakefile = builtins.readFile "${inputs.linux_7_3}/Makefile";
+  kernelMakefileField = name: let
+    line = lib.findFirst
+      (l: lib.hasPrefix "${name} =" l)
+      (throw "kernel Makefile: could not find ${name}")
+      (lib.splitString "\n" kernelMakefile);
+  in lib.strings.trim (lib.removePrefix "${name} =" line);
+  kernelVersion = let
+    major = kernelMakefileField "VERSION";
+    patch = kernelMakefileField "PATCHLEVEL";
+    sub = kernelMakefileField "SUBLEVEL";
+    extra = kernelMakefileField "EXTRAVERSION";
+  in "${major}.${patch}.${sub}${extra}";
+
   baseKernel = pkgs.unstable.linux_7_3.override {
     argsOverride = rec {
-      version = "7.3.4";
-      modDirVersion = "7.3.4";
-      src = pkgs.fetchurl {
-            url = "mirror://kernel/linux/kernel/v${lib.versions.major version}.x/linux-${version}.tar.xz";
-            hash = "sha256-sRtt+Clejpkf8EC3GqpJlKi1XKojtrCSkH8ZW1hA/R8=";
-      };
+      version = kernelVersion;
+      modDirVersion = version;
+      src = inputs.linux_7_3;
     };
   };
   #baseKernel = pkgs.unstable.linux_7_0;
   #baseKernel = pkgs.unstable.linux_zen;
   myConfigFile = pkgs.stdenvNoCC.mkDerivation {
     name = "linux-localmod-config";
-    src = baseKernel.src;  # the kernel tarball
+    src = baseKernel.src;  # the kernel source tree
 
     nativeBuildInputs = with pkgs.buildPackages; [
       stdenv.cc bison flex perl
