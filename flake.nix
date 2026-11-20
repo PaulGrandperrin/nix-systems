@@ -217,6 +217,15 @@
       };
     };
 
+    mesa_26_3 = {
+      type = "gitlab";
+      host = "gitlab.freedesktop.org";
+      owner = "mesa";
+      repo = "mesa";
+      ref = "staging/26.3";
+      flake = false;
+    };
+
     #nar-alike-deduper = {
     #  #url = "github:PaulGrandperrin/nar-alike-deduper";
     #  url = "/home/paulg/Repos/nar-alike-deduper/";

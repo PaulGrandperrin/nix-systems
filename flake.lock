@@ -869,6 +869,25 @@
         "type": "github"
       }
     },
+    "mesa_26_3": {
+      "flake": false,
+      "locked": {
+        "host": "gitlab.freedesktop.org",
+        "lastModified": 1795191606,
+        "narHash": "sha256-P6QdnobOjnGyuYux/6Kw9DtX+UPySYRHS/eC7Iid4zA=",
+        "owner": "mesa",
+        "repo": "mesa",
+        "rev": "2938f6519ef714bac4541596e5419dd6a978c5b2",
+        "type": "gitlab"
+      },
+      "original": {
+        "host": "gitlab.freedesktop.org",
+        "owner": "mesa",
+        "ref": "staging/26.3",
+        "repo": "mesa",
+        "type": "gitlab"
+      }
+    },
     "mk-naked-shell": {
       "flake": false,
       "locked": {
@@ -1981,6 +2000,7 @@
         "linux_7_3": "linux_7_3",
         "llama-cpp": "llama-cpp",
         "llm-agents": "llm-agents",
+        "mesa_26_3": "mesa_26_3",
         "nix": "nix_2",
         "nix-alien": "nix-alien",
         "nix-amd-ai": "nix-amd-ai",

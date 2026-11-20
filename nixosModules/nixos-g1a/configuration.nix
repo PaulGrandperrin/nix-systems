@@ -82,17 +82,11 @@
     #  hash = "sha256-kOaTjBeo4IsfWEk/JBTNId5ikrnpoc9DEjIl7DUd2yE=";
     #};
   };
+  mesaVersion = lib.strings.trim (builtins.readFile "${inputs.mesa_26_3}/VERSION");
   mesa_override_fn = finalAttrs: previousAttrs: rec {
-    version = "26.3.0";
+    version = mesaVersion;
     #version = "git-patched";
-    src = pkgs.fetchFromGitLab {
-      domain = "gitlab.freedesktop.org";
-      owner = "mesa";
-      repo = "mesa";
-      rev = "mesa-${version}";
-      #rev = "1d4a5d7f91ba39eed9292a590b6bf403091fa5e2"; # includes my wayland IMMEDIATE fix
-      hash = "sha256-3zDo+E/NFjS5qgKiyoTdfSClhaI2TC9M2JEVHzxt+NY=";
-    };
+    src = inputs.mesa_26_3;
     patches = previousAttrs.patches or [] ++ [
     ];
     outputs = lib.remove "spirv2dxil" previousAttrs.outputs;
