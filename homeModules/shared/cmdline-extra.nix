@@ -180,6 +180,7 @@ args @ {pkgs, lib, config, inputs, nixos-flake, home-manager-flake, ...}: {
       mold
       bintools
       distrobox
+      bubblewrap
 
       s-tui
       (lib.lowPrio msr-tools) # conflicts on cpuid bimary
