@@ -17,8 +17,8 @@ in {
 
       unstable.nodejs
 
-      antigravity-hub
-      antigravity-cli
+      llm-agents.antigravity-hub
+      llm-agents.antigravity-cli
       antigravity-ide-fhs
       antigravity-acp
     ];
