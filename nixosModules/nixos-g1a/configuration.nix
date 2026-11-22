@@ -209,6 +209,8 @@ in {
 
   #boot.kernelPackages = pkgs.unstable.linuxPackagesFor pkgs.unstable.linux_7_2;
   boot.kernelPackages = pkgs.unstable.linuxPackagesFor myKernel;
+  # myConfigFile is only read via IFD at eval time, so pin it in the system closure to prevent GC from purging it
+  system.extraDependencies = [ myConfigFile ];
   boot.zfs.package = lib.mkForce pkgs.unstable.zfs_2_4;
   boot.zfs.modulePackage = config.boot.kernelPackages.zfs_2_4.overrideAttrs (old: {
     meta = old.meta // { broken = false; };
