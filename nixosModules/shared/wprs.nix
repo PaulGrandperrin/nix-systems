@@ -16,7 +16,8 @@
       };
       Service = {
         Type = "simple";
-        ExecStart = "${pkgs.wprs}/bin/wprsd";
+        # Disable XWayland (pure Wayland); enabling it requires pkgs.xwayland in PATH.
+        ExecStart = "${pkgs.wprs}/bin/wprsd --enable-xwayland=false";
         Environment = [
           "RUST_BACKTRACE=1"
         ];
