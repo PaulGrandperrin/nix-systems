@@ -16,6 +16,7 @@
     ../shared/hostapd.nix
     ../shared/yuzu.nix
     ../shared/foundationdb.nix
+    ../shared/wprs.nix
   ];
 
   home-manager.users = let 
@@ -23,12 +24,23 @@
       imports = [
         ../../homeModules/shared/core.nix
         ../../homeModules/shared/cmdline-extra.nix
+        ../../homeModules/shared/firefox.nix
+        #../../homeModules/shared/chromium.nix
       ];
     };
   in {
     root  = homeModule;
     paulg = homeModule;
   };
+
+  # Core i3-3225 (Ivy Bridge) lacks AVX2, whereas nixpkgs hardcodes +avx2 on wprs
+  nixpkgs.overlays = [
+    (final: prev: {
+      wprs = prev.wprs.overrideAttrs (_: {
+        env.RUSTFLAGS = "-C target-cpu=x86-64-v2";
+      });
+    })
+  ];
 
   fileSystems."/" = {
     device = "flash/nixos";

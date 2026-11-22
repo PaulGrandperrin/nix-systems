@@ -207,6 +207,7 @@ args @ {pkgs, lib, config, inputs, nixos-flake, home-manager-flake, ...}: {
 
         nixpkgs-update
         isd
+        wprs
       ] ++ lib.optionals (config.home.username == "root") [ # if root and linux
         i7z
         sbctl # secure boot key manager
