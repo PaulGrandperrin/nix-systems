@@ -18,6 +18,7 @@
     ../shared/foundationdb.nix
     ../shared/wprs.nix
     ../shared/wayvnc.nix
+    ../shared/weston-rdp.nix
   ];
 
   home-manager.users = let 
