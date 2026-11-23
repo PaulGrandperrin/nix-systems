@@ -225,7 +225,7 @@
     restartUnits = [ "nix-serve.service" ];
   };
   services.nix-serve = {
-    enable = true;
+    #enable = true; # TODO try nix-serve-ng or harmonia
     secretKeyFile = config.sops.secrets."cache-nas.grandperrin.fr-privkey.pem".path;
     openFirewall = false;
   };
