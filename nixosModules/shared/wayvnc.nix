@@ -72,13 +72,14 @@
       };
     };
 
-    systemd.user.services.labwc = {
+    systemd.user.services.labwc-headless = {
       Unit = {
         Description = "Headless labwc Wayland compositor";
         After = [ "dbus.service" ];
       };
       Service = {
         Type = "simple";
+        UnsetEnvironment = [ "WAYLAND_DISPLAY" "DISPLAY" ];
         Environment = [
           "WLR_BACKENDS=headless"
           "WLR_LIBINPUT_NO_DEVICES=1"
@@ -95,6 +96,8 @@
       # Allow retries at boot until wg0 has its IP assigned
       Unit.StartLimitIntervalSec = 0;
       Service = {
+        # Pin to labwc's socket so gnome-headless setting WAYLAND_DISPLAY=gnome-0 doesn't hijack wayvnc
+        Environment = [ "WAYLAND_DISPLAY=wayland-0" ];
         Restart = "on-failure";
         RestartSec = 2;
       };
