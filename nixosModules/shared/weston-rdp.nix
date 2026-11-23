@@ -9,8 +9,8 @@
   hardware.graphics.enable = true;
 
   home-manager.users.paulg = { pkgs, config, ... }: let
-    certScript = pkgs.writeShellScript "weston-rdp-cert" ''
-      dir="$HOME/.local/share/weston-rdp"
+    certScript = pkgs.writeShellScript "weston-headless-cert" ''
+      dir="$HOME/.local/share/weston-headless"
       mkdir -p "$dir"
       if [ ! -s "$dir/tls.key" ] || [ ! -s "$dir/tls.crt" ]; then
         ${pkgs.openssl}/bin/openssl req -x509 -nodes -newkey rsa:2048 -days 3650 \
@@ -21,7 +21,7 @@
       fi
     '';
   in {
-    xdg.configFile."weston-rdp.ini".text = ''
+    xdg.configFile."weston-headless.ini".text = ''
       [core]
       idle-time=0
 
@@ -40,15 +40,16 @@
       path=${pkgs.kitty}/bin/kitty
     '';
 
-    systemd.user.services.weston-rdp = {
+    systemd.user.services.weston-headless = {
       Unit = {
-        Description = "Headless Weston RDP Wayland compositor";
+        Description = "Headless Weston Wayland compositor (RDP)";
         After = [ "dbus.service" ];
         # Allow retries at boot until wg0 has 10.42.0.1 assigned
         StartLimitIntervalSec = 0;
       };
       Service = {
         Type = "simple";
+        UnsetEnvironment = [ "WAYLAND_DISPLAY" "DISPLAY" ];
         ExecStartPre = "${certScript}";
         ExecStart = lib.concatStringsSep " " [
           "${pkgs.weston}/bin/weston"
@@ -59,9 +60,9 @@
           "--width=1920"
           "--height=1080"
           "--idle-time=0"
-          "--config=%h/.config/weston-rdp.ini"
-          "--rdp-tls-cert=%h/.local/share/weston-rdp/tls.crt"
-          "--rdp-tls-key=%h/.local/share/weston-rdp/tls.key"
+          "--config=%h/.config/weston-headless.ini"
+          "--rdp-tls-cert=%h/.local/share/weston-headless/tls.crt"
+          "--rdp-tls-key=%h/.local/share/weston-headless/tls.key"
         ];
         Restart = "on-failure";
         RestartSec = 2;
