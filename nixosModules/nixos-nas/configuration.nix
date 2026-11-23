@@ -17,6 +17,7 @@
     ../shared/yuzu.nix
     ../shared/foundationdb.nix
     ../shared/wprs.nix
+    ../shared/wayvnc.nix
   ];
 
   home-manager.users = let 
@@ -308,7 +309,11 @@
     111 4100 4101 4102 20048 # nfs v3
   ];
 
-  hardware.graphics.enable = true; # for waypipe
+  hardware.graphics = {
+    enable = true;
+    extraPackages = [ pkgs.intel-vaapi-driver ]; # Ivy Bridge HD 4000 uses i965
+  };
+  environment.sessionVariables.LIBVA_DRIVER_NAME = "i965";
 
   sops.secrets."yuzu-multiplayer" = {
     restartUnits = [ "yuzu-multiplayer.service" ];
