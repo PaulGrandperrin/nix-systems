@@ -43,7 +43,7 @@
               label = "Firefox";
               action = {
                 name = "Execute";
-                command = "${config.programs.firefox.finalPackage}/bin/firefox";
+                command = "${config.programs.firefox.finalPackage}/bin/firefox-release";
               };
             }
             {

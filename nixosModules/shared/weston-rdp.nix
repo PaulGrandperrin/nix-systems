@@ -32,7 +32,7 @@
       [launcher]
       icon=${pkgs.weston}/share/weston/icon_window.png
       displayname=Firefox
-      path=${config.programs.firefox.finalPackage}/bin/firefox
+      path=${config.programs.firefox.finalPackage}/bin/firefox-release
 
       [launcher]
       icon=${pkgs.weston}/share/weston/icon_terminal.png
