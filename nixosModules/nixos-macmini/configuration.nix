@@ -7,7 +7,7 @@
     ../shared/net.nix
     ../shared/nspawns.nix
     ../shared/wireguard.nix
-    ../shared/wg-mounts.nix
+    #../shared/wg-mounts.nix
     ../shared/web.nix
     ../shared/auto-upgrade.nix
     ../shared/headless.nix

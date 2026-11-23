@@ -5,7 +5,7 @@
     ../shared/zfs.nix
     ../shared/net.nix
     ../shared/wireguard.nix
-    ../shared/wg-mounts.nix
+    #../shared/wg-mounts.nix
     ../shared/desktop.nix
     ../shared/desktop-i915.nix
   ];

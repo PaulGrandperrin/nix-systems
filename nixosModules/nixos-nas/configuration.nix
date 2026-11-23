@@ -9,7 +9,7 @@
     ../shared/web.nix
     ../shared/auto-upgrade.nix
     ../shared/wireguard.nix
-    ../shared/wg-mounts.nix
+    #../shared/wg-mounts.nix
     ../shared/headless.nix
     #../shared/observability.nix
     #../shared/mastodon.nix
@@ -232,7 +232,7 @@
 
   sops.secrets."deluge-auth" = {
     sopsFile = ../../secrets/nixos-nas.yaml;
-    owner = "nobody";
+    owner = "paulg";
     restartUnits = [ "deluged.service" "delugeweb.service" ];
   };
   services.deluge = {
@@ -253,8 +253,8 @@
       
     };
     openFirewall = true;
-    user = "nobody";
-    group = "nogroup";
+    user = "paulg";
+    group = "users";
     web = {
       enable = true;
       openFirewall = true;
@@ -262,13 +262,13 @@
     };
   };
 
-  environment.etc."systemd/dnssd/10-nfs.dnssd".text = ''
-    [Service]
-    Name=NFS share on %H
-    Type=_nfs._tcp
-    Port=2049
-    TxtText=path=/export/public
-  '';
+  #environment.etc."systemd/dnssd/10-nfs.dnssd".text = ''
+  #  [Service]
+  #  Name=NFS share on %H
+  #  Type=_nfs._tcp
+  #  Port=2049
+  #  TxtText=path=/export/public
+  #'';
 
   environment.etc."systemd/dnssd/10-smb.dnssd".text = ''
     [Service]
@@ -284,13 +284,14 @@
   services.nfs.server = {
     enable = true;
     exports = let
-      root_options      = "fsid=root,insecure,no_subtree_check,all_squash,ro";
-      public_options    = "insecure,no_subtree_check,all_squash,no_wdelay,rw";
-      encrypted_options = "insecure,no_subtree_check,all_squash,no_wdelay,rw,anonuid=${toString config.users.users.paulg.uid},anongid=${toString config.users.groups.${config.users.users.paulg.group}.gid}";
+      root_options = "fsid=root,insecure,no_subtree_check,all_squash,ro";
+      rw_options   = "insecure,no_subtree_check,all_squash,no_wdelay,rw,anonuid=${toString config.users.users.paulg.uid},anongid=${toString config.users.groups.${config.users.users.paulg.group}.gid}";
+      clients      = [ "10.42.0.4" "10.42.0.9" ]; # nixos-xps and nixos-g1a
+      exportTo     = opts: lib.concatMapStringsSep " " (ip: "${ip}(${opts})") clients;
     in ''
-      /export           10.42.0.0/24(${root_options})   192.168.1.0/24(${root_options})
-      /export/public    10.42.0.0/24(${public_options}) 192.168.1.0/24(${public_options})
-      /export/encrypted 10.42.0.4(${encrypted_options}) 10.42.0.5(${encrypted_options}) # nixos-nas and nixos-macbook
+      /export           ${exportTo root_options}
+      /export/public    ${exportTo rw_options}
+      /export/encrypted ${exportTo rw_options}
     '';
 
     # fixed rpc.statd port; for firewall
@@ -301,14 +302,14 @@
 
   networking.firewall.allowedTCPPorts = [ 
     5357 # wsdd 
-    2049 # nfs v3 and v4
-    111 4100 4101 4102 20048 # nfs v3
+    #2049 # nfs v3 and v4
+    #111 4100 4101 4102 20048 # nfs v3
     5201
   ];
   networking.firewall.allowedUDPPorts = [
     3702 # wsdd
-    2049 # nfs v3 and v4
-    111 4100 4101 4102 20048 # nfs v3
+    #2049 # nfs v3 and v4
+    #111 4100 4101 4102 20048 # nfs v3
   ];
 
   hardware.graphics = {
@@ -362,8 +363,8 @@
       public = {
         path = "/export/public";
         browseable = "yes";
-        #"read only" = "yes";
-        writable = "yes";
+        "read only" = "yes";
+        #"writable" = "yes";
         "guest ok" = "yes";
         public = "yes";
         "only guest" = "yes";
@@ -371,10 +372,10 @@
         #"directory mask" = "0755";
         #"force user" = "username";
         #"force group" = "groupname";
-        "vfs objects" = "recycle";
+        #"vfs objects" = "recycle";
         #"recycle:repository" = ".recycle";
-        "recycle:keeptree" = "yes";
-        "recycle:versions" = "yes";
+        #"recycle:keeptree" = "yes";
+        #"recycle:versions" = "yes";
       };
     };
   };

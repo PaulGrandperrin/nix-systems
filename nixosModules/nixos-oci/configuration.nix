@@ -8,7 +8,7 @@
     ../shared/net.nix
     ../shared/web.nix # for home-assistant forward proxy
     ../shared/wireguard.nix
-    ../shared/wg-mounts.nix
+    #../shared/wg-mounts.nix
     ../shared/auto-upgrade.nix
     ../shared/headless.nix
     ../shared/yuzu.nix
