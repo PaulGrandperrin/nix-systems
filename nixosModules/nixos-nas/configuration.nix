@@ -18,8 +18,8 @@
     ../shared/foundationdb.nix
     ../shared/wprs.nix
     ../shared/wayvnc.nix
-    ../shared/weston-rdp.nix
-    ../shared/gnome-rdp.nix
+    #../shared/weston-rdp.nix
+    #../shared/gnome-rdp.nix
   ];
 
   home-manager.users = let 
