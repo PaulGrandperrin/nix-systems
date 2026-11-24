@@ -72,11 +72,9 @@ args @ {pkgs, inputs, lib, config, is_nixos, ...}: lib.mkIf (config.home.usernam
           #"media.rdd-ffvpx.enabled" = false;
           #"media.rdd-process.enabled" = false;
 
-          "network.trr.mode" = 3;
-          "network.trr.uri" = "https://dns11.quad9.net/dns-query";
-          #"network.trr.uri" = "https://dns.quad9.net/dns-query";
-          #"network.trr.uri" = "https://dns10.quad9.net/dns-query";
-          #"network.trr.uri" = "https://mozilla.cloudflare-dns.com/dns-query";
+          "network.trr.mode" = 3; # Trusted Recursive Resolver Only ("Max Protection")
+          "network.trr.uri" = "https://mozilla.cloudflare-dns.com/dns-query";
+          "network.trr.bootstrapAddress" = "162.159.61.4"; # https://dns.google/query?name=mozilla.cloudflare-dns.com
           #"network.trr.uri" = "https://dns.google/dns-query ";
 
           "network.dns.echconfig.enabled" = true;
