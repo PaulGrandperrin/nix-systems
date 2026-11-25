@@ -84,6 +84,12 @@ args @ {pkgs, lib, config, inputs, nixos-flake, home-manager-flake, ...}: {
       exiftool
       waypipe
 
+      # dns
+      doggo # go replacement for the original dogdns which is unmaintained
+      dogedns # fork of dogdns, but uses bespoke DNS impl
+      # dogdns https://crates.io/crates/dogdns fork of dogdns but uses hickory
+      dnsi # rust replacement for dig and drill from NLnetLabs
+
       # dev
       gdb
       elfutils
