@@ -233,6 +233,13 @@
         proxyPass = "http://${config.networking.hostName}.wg:3000/";
       };
     };
+    "g1a.tunnel.grandperrin.fr" = {
+      enableACME = true;
+      forceSSL = true;
+      locations."/" = {
+        proxyPass = "http://nixos-g1a.wg:8080/";
+      };
+    };
   };
 
   #paulg.ollama.enable = true;
