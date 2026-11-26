@@ -173,14 +173,12 @@
     };
 
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.3"; # TODO update
+      url = "github:nix-community/lanzaboote/v1.2.0";
 
       inputs = {
         nixpkgs.follows = "nixos-stable"; # NOTE doesn't only use the lib
         rust-overlay.follows = "rust-overlay";
-        flake-compat.follows = "flake-compat";
-        flake-parts.follows = "flake-parts";
-        pre-commit-hooks-nix.follows = "git-hooks";
+        pre-commit.follows = "git-hooks";
         crane.follows = "crane";
       };
     };
