@@ -134,6 +134,7 @@ nfs
 nfs_acl
 nfs_localio
 nfsv3
+nfsv4
 nf_tables
 nft_compat
 nft_ct

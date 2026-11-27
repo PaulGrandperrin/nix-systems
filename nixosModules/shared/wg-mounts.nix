@@ -1,15 +1,12 @@
 {...}: {
   fileSystems."/mnt/nixos-nas/public" = {
-    device = "10.42.0.1:/export/public";
+    device = "10.42.0.1:/public";
     fsType = "nfs";
-    #options = [ "nfsvers=4.2" ];
     options = [
+      "nfsvers=4.2"
       "proto=tcp"
-      "mountproto=tcp" # NFSv3 only
-      "soft" # return errors to client when access is lost, instead of waiting indefinitely
-      "softreval" # use cache even when access is lost
-      "timeo=10" # deciseconds
-      "retrans=1" # 1s + 2*1s = 3s
+      "hard" # retry indefinitely on timeout; "soft" causes silent data corruption on rw mounts
+      "softreval" # fall back to cached attributes if server is unreachable (safe with hard)
       "retry=0"
       "noatime"
       "nodiratime"
@@ -22,16 +19,13 @@
     ];
   };
   fileSystems."/mnt/nixos-nas/encrypted" = {
-    device = "10.42.0.1:/export/encrypted";
+    device = "10.42.0.1:/encrypted";
     fsType = "nfs";
-    #options = [ "nfsvers=4.2" ];
     options = [
+      "nfsvers=4.2"
       "proto=tcp"
-      "mountproto=tcp" # NFSv3 only
-      "soft" # return errors to client when access is lost, instead of waiting indefinitely
-      "softreval" # use cache even when access is lost
-      "timeo=10" # deciseconds
-      "retrans=1" # 1s + 2*1s = 3s
+      "hard" # retry indefinitely on timeout; "soft" causes silent data corruption on rw mounts
+      "softreval" # fall back to cached attributes if server is unreachable (safe with hard)
       "retry=0"
       "noatime"
       "nodiratime"
