@@ -30,10 +30,8 @@
       id   = "nixpkgs";
     };
 
-    #nixos-stable.url           = "github:NixOS/nixpkgs/nixos-26.11";
-    #nixos-stable-lib.url       = "github:NixOS/nixpkgs/nixos-26.11?dir=lib"; # "github:nix-community/nixpkgs.lib" doesn't work
-    nixos-stable.url           = "github:NixOS/nixpkgs/nixos-unstable";
-    nixos-stable-lib.url       = "github:NixOS/nixpkgs/nixos-unstable?dir=lib"; # "github:nix-community/nixpkgs.lib" doesn't work
+    nixos-stable.url           = "github:NixOS/nixpkgs/nixos-26.11";
+    nixos-stable-lib.url       = "github:NixOS/nixpkgs/nixos-26.11?dir=lib"; # "github:nix-community/nixpkgs.lib" doesn't work
     #nixos-stable-small.url     = "github:NixOS/nixpkgs/nixos-26.11-small";
     #darwin-stable.url          = "github:NixOS/nixpkgs/nixpkgs-26.11-darwin";
     #darwin-unstable.url        = "github:NixOS/nixpkgs/nixpkgs-unstable"; # darwin-unstable for now (https://github.com/NixOS/nixpkgs/issues/107466)
